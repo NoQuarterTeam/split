@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-eslint-rules",
+    "tslint-config-prettier"
+  ],
+  "linterOptions": {
+    "exclude": ["node_modules", "dist", "cache", "build"]
+  },
+  "rules": {
+    "curly": false,
+    "interface-name": false,
+    "interface-over-type-literal": false,
+    "max-classes-per-file": false,
+    "member-access": false,
+    "no-console": false,
+    "no-namespace": false,
+    "no-shadowed-variable": [
+      true,
+      {
+        "interface": false,
+        "namespace": false
+      }
+    ],
+    "no-submodule-imports": false,
+    "no-unexpected-multiline": "error",
+    "object-literal-sort-keys": false,
+    "ordered-imports": false
+  }
+}

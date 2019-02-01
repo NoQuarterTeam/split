@@ -1,0 +1,49 @@
+{
+  "name": "@split/api",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsnd --respawn --no-notify src/index.ts",
+    "build": "rimraf dist && tsc --build",
+    "heroku-postbuild": "yarn build",
+    "lint": "tslint -p ."
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.3.3",
+    "bcryptjs": "^2.4.3",
+    "connect-redis": "^3.4.0",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "ioredis": "^4.5.1",
+    "jsonwebtoken": "^8.4.0",
+    "morgan": "^1.9.1",
+    "pg": "^7.8.0",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^0.16.0",
+    "typedi": "^0.8.0",
+    "typeorm": "^0.2.12"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/connect-redis": "^0.0.8",
+    "@types/express": "^4.16.1",
+    "@types/express-session": "^1.15.11",
+    "@types/faker": "^4.1.5",
+    "@types/ioredis": "^4.0.6",
+    "@types/jest": "^23.3.13",
+    "@types/jsonwebtoken": "^8.3.0",
+    "@types/morgan": "^1.7.35",
+    "@types/node": "^10.12.21",
+    "faker": "^4.1.0",
+    "jest": "^24.0.0",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^8.0.2",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.3.1"
+  }
+}

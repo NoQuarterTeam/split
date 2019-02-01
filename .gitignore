@@ -1,0 +1,9 @@
+node_modules
+build
+.cache
+dist
+.env
+.vscode
+tmp
+temp
+coverage

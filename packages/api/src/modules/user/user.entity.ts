@@ -6,9 +6,15 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  ManyToOne,
+  OneToMany,
 } from "typeorm"
 import { ObjectType, Field, ID } from "type-graphql"
 import bcrypt from "bcryptjs"
+
+import { House } from "../house/house.entity"
+import { Share } from "../share/share.entity"
+import { Cost } from "../cost/cost.entity"
 
 @ObjectType()
 @Entity()
@@ -32,9 +38,31 @@ export class User extends BaseEntity {
   @Column()
   lastName: string
 
+  @Field()
+  @Column({ nullable: true, default: 0 })
+  balance: number
+
+  @Field(() => House)
+  @ManyToOne(() => House, house => house.users)
+  house: House
+
+  @Field(() => [Share])
+  @OneToMany(() => Share, share => share.user)
+  shares: Share[]
+
+  @Field(() => [Cost])
+  @OneToMany(() => Cost, cost => cost.creator)
+  costsCreated: Cost[]
+
+  @Field(() => [Cost])
+  @OneToMany(() => Cost, cost => cost.payer)
+  costsPaid: Cost[]
+
+  @Field()
   @CreateDateColumn()
   createdAt: string
 
+  @Field()
   @UpdateDateColumn()
   updatedAt: string
 

@@ -8,6 +8,7 @@ import {
   BeforeInsert,
   ManyToOne,
   OneToMany,
+  PrimaryColumn,
 } from "typeorm"
 import { ObjectType, Field, ID } from "type-graphql"
 import bcrypt from "bcryptjs"
@@ -41,6 +42,9 @@ export class User extends BaseEntity {
   @Field()
   @Column({ nullable: true, default: 0 })
   balance: number
+
+  @Column()
+  houseId: string
 
   @Field(() => House)
   @ManyToOne(() => House, house => house.users)

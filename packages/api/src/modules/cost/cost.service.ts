@@ -1,6 +1,6 @@
 import { Service } from "typedi"
 
-import { CreateCostInput } from "./cost.input"
+import { CostInput, EditCostInput } from "./cost.input"
 import { Cost } from "./cost.entity"
 import { UserService } from "../user/user.service"
 import { ShareService } from "../share/share.service"
@@ -28,7 +28,7 @@ export class CostService {
     })
   }
 
-  find(costId: string): Promise<Cost> {
+  findById(costId: string): Promise<Cost> {
     return new Promise(async (resolve, reject) => {
       try {
         const cost = await Cost.findOne(costId)
@@ -40,12 +40,12 @@ export class CostService {
     })
   }
 
-  create(userId: string, data: CreateCostInput): Promise<Cost> {
+  create(userId: string, data: CostInput): Promise<Cost> {
     return new Promise(async (resolve, reject) => {
       try {
-        const creator = await this.userService.find(userId)
-        const house = await this.houseSevice.find(data.houseId)
-        const payer = await this.userService.find(data.payerId)
+        const creator = await this.userService.findById(userId)
+        const house = await this.houseSevice.findById(data.houseId)
+        const payer = await this.userService.findById(data.payerId)
         const cost = await Cost.create({
           ...data,
           house,
@@ -53,6 +53,48 @@ export class CostService {
           payer,
         }).save()
         await this.shareSevice.bulkCreate(cost, data.costShares, payer)
+        resolve(cost)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  destroy(costId: string): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const cost = await Cost.findOne(costId, { relations: ["payer"] })
+        if (!cost) throw new Error("cost not found")
+
+        // Clean up and remove old shares
+        await this.shareSevice.bulkRemove(cost, cost.payer)
+        await cost.remove()
+
+        resolve(true)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  update(costId: string, data: EditCostInput): Promise<Cost> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const cost = await Cost.findOne(costId, { relations: ["payer"] })
+        if (!cost) throw new Error("cost not found")
+
+        // Clean up and remove old shares
+        await this.shareSevice.bulkRemove(cost, cost.payer)
+
+        // Update Cost
+        const payer = await this.userService.findById(data.payerId)
+        cost.payer = payer
+        Object.assign(cost, data)
+        await cost.save()
+
+        // Apply new shares
+        await this.shareSevice.bulkCreate(cost, data.costShares, payer)
+
         resolve(cost)
       } catch (error) {
         reject(error)

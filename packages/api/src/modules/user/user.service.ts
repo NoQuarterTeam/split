@@ -6,16 +6,13 @@ import { Service } from "typedi"
 
 @Service()
 export class UserService {
-  async find(userId: string): Promise<User> {
-    const user = await User.findOne(userId, {
-      relations: ["costsPaid", "house", "shares"],
-    })
-
+  async findById(userId: string): Promise<User> {
+    const user = await User.findOne(userId)
     if (!user) throw new Error("user not found")
     return user
   }
 
-  login(data: LoginInput): Promise<User> {
+  findByEmail(data: LoginInput): Promise<User> {
     return new Promise(async (resolve, reject) => {
       try {
         const user = await User.findOne({ where: { email: data.email } })
@@ -46,7 +43,7 @@ export class UserService {
   async update(userId: string, data: UpdateInput): Promise<User> {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = await this.find(userId)
+        const user = await this.findById(userId)
         if (!user) throw new Error("user not found")
         Object.assign(user, data)
         await user.save()
@@ -60,7 +57,7 @@ export class UserService {
   async updateHouse(userId: string, house: House): Promise<User> {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = await this.find(userId)
+        const user = await this.findById(userId)
         if (!user) throw new Error("user not found")
         Object.assign(user, { house })
         await user.save()

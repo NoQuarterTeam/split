@@ -7,7 +7,7 @@ import { Service } from "typedi"
 export class HouseService {
   constructor(private readonly userService: UserService) {}
 
-  find(houseId: string): Promise<House> {
+  findById(houseId: string): Promise<House> {
     return new Promise(async (resolve, reject) => {
       try {
         const house = await House.findOne(houseId)

@@ -10,7 +10,7 @@ import {
 
 import { IResolverContext } from "../../lib/types"
 import { Cost } from "./cost.entity"
-import { CreateCostInput } from "./cost.input"
+import { CostInput, EditCostInput } from "./cost.input"
 import { CostService } from "./cost.service"
 import { Share } from "../share/share.entity"
 
@@ -27,16 +27,32 @@ export class CostResolver {
   // GET COST
   @Query(() => Cost)
   async getCost(@Arg("costId") costId: string): Promise<Cost | null> {
-    return await this.costService.find(costId)
+    return await this.costService.findById(costId)
   }
 
   // CREATE COST
   @Mutation(() => Cost)
   async createCost(
-    @Arg("data") data: CreateCostInput,
+    @Arg("data") data: CostInput,
     @Ctx() ctx: IResolverContext,
   ): Promise<Cost> {
     const cost = await this.costService.create(ctx.req.session!.userId, data)
+    return cost
+  }
+
+  // DESTROY COST
+  @Mutation(() => Boolean)
+  async destroyCost(@Arg("costId") costId: string): Promise<boolean> {
+    return this.costService.destroy(costId)
+  }
+
+  // EDIT COST
+  @Mutation(() => Cost)
+  async editCost(
+    @Arg("costId") costId: string,
+    @Arg("data") data: EditCostInput,
+  ): Promise<Cost> {
+    const cost = await this.costService.update(costId, data)
     return cost
   }
 

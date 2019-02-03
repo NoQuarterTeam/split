@@ -12,7 +12,7 @@ function Page({ children }: PageProps) {
 const StyledPage = styled.div`
   height: 100vh;
   width: 100vw;
-  background-color: ${p => p.theme.colorSecondary};
+  background-color: ${p => p.theme.colorBackground};
 
   ${p => p.theme.flexCenter};
 `

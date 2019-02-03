@@ -27,7 +27,7 @@ const body = css`
   }
 
   * {
-    font-family: "Avenir", sans-serif;
+    font-family: "Open sans", sans-serif;
     box-sizing: border-box;
   }
 `

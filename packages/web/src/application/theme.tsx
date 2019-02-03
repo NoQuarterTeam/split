@@ -4,17 +4,19 @@ import { ThemedStyledComponentsModule } from "styled-components"
 const theme: IThemeInterface = {
   borderRadius: "5px",
   colorBackground: "#fff",
-  colorPrimary: "papayawhip",
-  colorSecondary: "lightsalmon",
+  colorHeader: "#1b2d41",
+  colorPrimary: "#11a9ff",
+  colorHighlight: "#fce0f6",
+  colorSecondary: "#ed60d3",
   fontBlack: 900,
-  fontBold: 700,
-  fontNormal: 400,
+  fontBold: 400,
+  fontNormal: 200,
   paddingL: "20px",
   paddingM: "10px",
   paddingS: "5px",
   paddingXL: "40px",
   paddingXS: "3px",
-  textL: "1.5rem",
+  textL: "2rem",
   textM: "1.125rem",
   textS: "0.875rem",
   textXL: "2.25rem",
@@ -24,12 +26,19 @@ const theme: IThemeInterface = {
     align-items: center;
     justify-content: center;
   `,
+  flexBetween: `
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `,
 }
 
 interface IThemeInterface {
   borderRadius: string
   colorBackground: string
   colorPrimary: string
+  colorHeader: string
+  colorHighlight: string
   colorSecondary: string
   fontBlack: number
   fontBold: number
@@ -45,6 +54,7 @@ interface IThemeInterface {
   textXL: string
   textXS: string
   flexCenter: string
+  flexBetween: string
 }
 
 const {

@@ -29,7 +29,7 @@ const StyledContainer = styled.div<{ loading: boolean }>`
   transition: opacity 0.4s, visibility -0.3s linear 0.5s;
 
   ${p => p.theme.flexCenter};
-  background-color: ${p => p.theme.colorPrimary};
+  background-color: ${p => p.theme.colorBackground};
   visibility: ${p => (p.loading ? "visible" : "hidden")};
   opacity: ${p => (p.loading ? 1 : 0)};
 `

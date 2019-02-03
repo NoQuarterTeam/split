@@ -32,15 +32,13 @@ export default memo(Button)
 
 const StyledButton = styled.button<IButtonProps>`
   outline: 0;
-  text-transform: uppercase;
   border: 0;
   letter-spacing: 1px;
-  font-weight: ${p => p.theme.fontBlack};
+  color: white;
   cursor: ${p => (p.disabled ? "default" : "pointer")};
   width: ${p => (!p.full ? "auto" : "100%")};
   border-radius: ${p => p.theme.borderRadius};
   font-size: ${p => p.theme.textM};
   background-color: ${p => p.theme.colorPrimary};
   padding: ${p => p.theme.paddingM};
-  color: ${p => p.theme.colorSecondary};
 `

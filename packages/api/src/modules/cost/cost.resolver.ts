@@ -18,15 +18,9 @@ import { Share } from "../share/share.entity"
 export class CostResolver {
   constructor(private readonly costService: CostService) {}
 
-  // GET ALL COSTS
-  @Query(() => [Cost])
-  async getAllCosts(@Arg("houseId") houseId: string): Promise<Cost[]> {
-    return await this.costService.findAll(houseId)
-  }
-
   // GET COST
   @Query(() => Cost)
-  async getCost(@Arg("costId") costId: string): Promise<Cost | null> {
+  async cost(@Arg("costId") costId: string): Promise<Cost | null> {
     return await this.costService.findById(costId)
   }
 
@@ -55,6 +49,8 @@ export class CostResolver {
     const cost = await this.costService.update(costId, data)
     return cost
   }
+
+  // FIELD RESOLVERS
 
   @FieldResolver(() => [Share])
   async shares(@Root() cost: Cost) {

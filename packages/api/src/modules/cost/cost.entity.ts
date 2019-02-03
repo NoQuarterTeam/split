@@ -25,9 +25,9 @@ export class Cost extends BaseEntity {
   @Column()
   name: string
 
-  @Field()
-  @Column()
-  type: string
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  recurring: string
 
   @Field()
   @Column()

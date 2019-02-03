@@ -1,4 +1,4 @@
-import React, { memo } from "react"
+import React, { memo, Suspense } from "react"
 import { Router } from "@reach/router"
 import { useQuery } from "react-apollo-hooks"
 
@@ -9,22 +9,29 @@ import { ME } from "../graphql/user/queries"
 import Loading from "../components/Loading"
 import Auth from "../components/Auth"
 
-import Home from "../pages/Home"
+import Dashboard from "../pages/Dashboard"
 import NotFound from "../pages/NotFound"
+import CheckHouse from "../components/CheckHouse"
+import NewCost from "../pages/NewCost"
 
 function Application() {
-  const { data, loading, error } = useQuery<Me.Query>(ME, {
+  const { data, loading } = useQuery<Me.Query>(ME, {
     suspend: false,
   })
-  const user = data && data.me ? data.me : null
+  const user = (data && data.me) || null
   return (
-    <AppContext.Provider value={{ user, data }}>
+    <AppContext.Provider value={{ user }}>
       <Loading loading={loading}>
         <Auth>
-          <Router>
-            <Home path="/" />
-            <NotFound default={true} />
-          </Router>
+          <CheckHouse>
+            <Suspense fallback={<Loading loading={true} />}>
+              <Router>
+                <Dashboard path="/" />
+                <NewCost path="/new-cost" />
+                <NotFound default={true} />
+              </Router>
+            </Suspense>
+          </CheckHouse>
         </Auth>
       </Loading>
     </AppContext.Provider>

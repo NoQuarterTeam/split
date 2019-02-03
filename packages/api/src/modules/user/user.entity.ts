@@ -43,10 +43,10 @@ export class User extends BaseEntity {
   @Column({ nullable: true, default: 0 })
   balance: number
 
-  @Column()
+  @Column({ nullable: true })
   houseId: string
 
-  @Field(() => House)
+  @Field(() => House, { nullable: true })
   @ManyToOne(() => House, house => house.users)
   house: House
 

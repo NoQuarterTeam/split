@@ -1,21 +1,59 @@
-import { Resolver, Ctx, Mutation, Arg, Query } from "type-graphql"
+import {
+  Resolver,
+  Ctx,
+  Mutation,
+  Arg,
+  FieldResolver,
+  Root,
+  Query,
+} from "type-graphql"
 
 import { IResolverContext } from "../../lib/types"
 import { House } from "./house.entity"
-import { CreateHouseInput } from "./house.input"
+import { HouseInput } from "./house.input"
 import { HouseService } from "./house.service"
+import { CostService } from "../cost/cost.service"
+import { Cost } from "../cost/cost.entity"
+import { UserService } from "../user/user.service"
+import { User } from "../user/user.entity"
 
 @Resolver(() => House)
 export class HouseResolver {
-  constructor(private readonly houseService: HouseService) {}
+  constructor(
+    private readonly houseService: HouseService,
+    private readonly userService: UserService,
+    private readonly costService: CostService,
+  ) {}
+
+  // GET HOUSE
+  @Query(() => House)
+  async house(@Ctx() ctx: IResolverContext): Promise<House> {
+    const user = await this.userService.findById(ctx.req.session!.userId)
+    const house = await this.houseService.findById(user.houseId)
+    return house
+  }
 
   // CREATE HOUSE
   @Mutation(() => House)
   async createHouse(
-    @Arg("data") data: CreateHouseInput,
+    @Arg("data") data: HouseInput,
     @Ctx() ctx: IResolverContext,
   ): Promise<House> {
     const house = await this.houseService.create(ctx.req.session!.userId, data)
     return house
+  }
+
+  // FIELD RESOLVERS
+
+  // @FieldResolver(() => [Cost])
+  // async costs(@Root() house: House): Promise<Cost[]> {
+  //   const costs = await this.costService.findAll(house.id)
+  //   return costs
+  // }
+
+  @FieldResolver(() => [Cost])
+  async users(@Root() house: House): Promise<User[]> {
+    const users = await this.userService.findAll(house)
+    return users
   }
 }

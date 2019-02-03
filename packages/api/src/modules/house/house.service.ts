@@ -1,4 +1,4 @@
-import { CreateHouseInput } from "./house.input"
+import { HouseInput } from "./house.input"
 import { House } from "./house.entity"
 import { UserService } from "../user/user.service"
 import { Service } from "typedi"
@@ -19,7 +19,7 @@ export class HouseService {
     })
   }
 
-  create(userId: string, data: CreateHouseInput): Promise<House> {
+  create(userId: string, data: HouseInput): Promise<House> {
     return new Promise(async (resolve, reject) => {
       try {
         const house = await House.create(data).save()

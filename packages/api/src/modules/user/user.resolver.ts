@@ -78,7 +78,14 @@ export class UserResolver {
   // FIELD RESOLVERS
 
   @FieldResolver(() => House)
-  async house(@Root() user: User): Promise<House> {
-    return this.houseService.findById(user.houseId)
+  house(@Root() user: User): Promise<House | null> {
+    return new Promise(async resolve => {
+      try {
+        const house = await this.houseService.findById(user.houseId)
+        resolve(house)
+      } catch (error) {
+        resolve(null)
+      }
+    })
   }
 }

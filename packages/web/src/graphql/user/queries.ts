@@ -1,40 +1,56 @@
 import { gql } from "apollo-boost"
-import { UserInfo } from "./fragments"
+import { User } from "./fragments"
 
 export const ME = gql`
   query Me {
     me {
-      ...UserInfo
+      ...User
+      house {
+        id
+        name
+      }
     }
   }
-  ${UserInfo}
+  ${User}
 `
 
 export const LOGIN = gql`
   mutation Login($data: LoginInput!) {
     login(data: $data) {
-      ...UserInfo
+      ...User
+      house {
+        id
+        name
+      }
     }
   }
-  ${UserInfo}
+  ${User}
 `
 
 export const REGISTER = gql`
   mutation Register($data: RegisterInput!) {
     register(data: $data) {
-      ...UserInfo
+      ...User
+      house {
+        id
+        name
+      }
     }
   }
-  ${UserInfo}
+  ${User}
 `
 
 export const UPDATE_USER = gql`
   mutation UpdateUser($data: UpdateInput!) {
     updateUser(data: $data) {
-      ...UserInfo
+      ...User
+      house {
+        id
+        name
+      }
     }
   }
-  ${UserInfo}
+  ${User}
 `
 
 export const LOGOUT = gql`

@@ -20,7 +20,10 @@ export class CostService {
       try {
         const house = await House.findOne(houseId)
         if (!house) throw new Error("no house found")
-        const costs = await Cost.find({ where: { house } })
+        const costs = await Cost.find({
+          where: { house },
+          relations: ["payer"],
+        })
         resolve(costs)
       } catch (error) {
         reject(error)

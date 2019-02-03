@@ -4,7 +4,7 @@ import useDebounce from "../hooks/useDebounce"
 
 interface ILoadingProps {
   loading: boolean
-  children: ReactNode
+  children?: ReactNode
 }
 
 function Loading({ loading, children }: ILoadingProps) {

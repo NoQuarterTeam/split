@@ -6,6 +6,11 @@ import { Service } from "typedi"
 
 @Service()
 export class UserService {
+  async findAll(house: House): Promise<User[]> {
+    const users = await User.find({ where: { house } })
+    return users
+  }
+
   async findById(userId: string): Promise<User> {
     const user = await User.findOne(userId)
     if (!user) throw new Error("user not found")

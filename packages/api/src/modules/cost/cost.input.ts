@@ -10,8 +10,8 @@ export class CostInput implements Partial<Cost> {
   @Field()
   amount: number
 
-  @Field()
-  type: string
+  @Field({ nullable: true })
+  recurring?: string
 
   @Field()
   category: string
@@ -38,7 +38,7 @@ export class EditCostInput implements Partial<Cost> {
   amount?: number
 
   @Field({ nullable: true })
-  type?: string
+  recurring?: string
 
   @Field({ nullable: true })
   category?: string

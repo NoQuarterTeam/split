@@ -3,6 +3,7 @@ import { User, ShareInput } from "../../graphql/types"
 import styled from "../../application/theme"
 import Input from "../../components/Input"
 import Radio from "../../components/Radio"
+import Avatar from "../../components/Avatar"
 
 type ParticipantProps = {
   user: User.Fragment
@@ -62,10 +63,7 @@ function Participant({
       }}
     >
       <Column>
-        <StyledAvatar onClick={() => toggleParticipant(user.id)}>
-          {user.firstName.split("")[0]}
-          {user.lastName.split("")[0]}
-        </StyledAvatar>
+        <Avatar user={user} onClick={() => toggleParticipant(user.id)} />
       </Column>
       <Column>
         <Input
@@ -104,15 +102,4 @@ const StyledParticipant = styled.div`
 
 const Column = styled.div`
   width: 33%;
-`
-const StyledAvatar = styled.div`
-  height: 80px;
-  width: 80px;
-  border-radius: 40px;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
-
-  ${p => p.theme.flexCenter};
-  background-color: ${p => p.theme.colorSecondary};
 `

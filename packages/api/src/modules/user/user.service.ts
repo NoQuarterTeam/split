@@ -7,7 +7,10 @@ import { Service } from "typedi"
 @Service()
 export class UserService {
   async findAll(house: House): Promise<User[]> {
-    const users = await User.find({ where: { house } })
+    const users = await User.find({
+      where: { house },
+      order: { firstName: "DESC" },
+    })
     return users
   }
 

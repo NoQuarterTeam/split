@@ -7,7 +7,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn,
 } from "typeorm"
 import { ObjectType, Field, ID } from "type-graphql"
 import { Share } from "../share/share.entity"
@@ -25,8 +24,8 @@ export class Cost extends BaseEntity {
   @Column()
   name: string
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
+  @Field()
+  @Column()
   recurring: string
 
   @Field()

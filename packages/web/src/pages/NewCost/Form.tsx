@@ -3,16 +3,17 @@ import { navigate } from "@reach/router"
 import dayjs from "dayjs"
 import { useMutation, useQuery } from "react-apollo-hooks"
 
+import styled from "../../application/theme"
 import { AppContext } from "../../application/context"
 import { CreateCost, GetHouse, CostInput } from "../../graphql/types"
 import { CREATE_COST } from "../../graphql/costs/queries"
+import { GET_HOUSE } from "../../graphql/house/queries"
 
 import Button from "../../components/Button"
-import { GET_HOUSE } from "../../graphql/house/queries"
 import useFormState from "../../hooks/useFormState"
 import Inputs from "./Inputs"
 import Participants from "./Participants"
-import styled from "../../application/theme"
+import { round } from "../../lib/helpers"
 
 function Form() {
   const context = useContext(AppContext)
@@ -20,9 +21,9 @@ function Form() {
   const { formState, setFormState } = useFormState<CostInput>({
     name: "",
     amount: 0,
-    category: "food",
+    category: "",
     date: dayjs().format("YYYY-MM-DD"),
-    recurring: null,
+    recurring: "one-off",
     houseId: context.user!.house.id,
     payerId: context.user.id,
     costShares: data!.house.users.map(u => ({ userId: u.id, amount: 0 })),
@@ -51,7 +52,10 @@ function Form() {
     if (!equalSplit) {
       setEqualSplit(true)
     }
-    const amountPerUser = formState.amount / formState.costShares.length
+    const amountPerUser = round(
+      formState.amount / formState.costShares.length,
+      2,
+    )
     const costShares = formState.costShares.map(({ userId }) => ({
       userId,
       amount: amountPerUser,
@@ -66,19 +70,26 @@ function Form() {
       await createCost({
         refetchQueries: [{ query: GET_HOUSE }],
         variables: {
-          data: formState,
+          data: {
+            ...formState,
+            amount: formState.amount * 100,
+            costShares: formState.costShares.map(s => ({
+              userId: s.userId,
+              amount: round(s.amount * 100, 2),
+            })),
+          },
         },
       })
       navigate("/")
     } catch (err) {
       setLoading(false)
-      setError("error creating house")
+      setError("Error creating cost")
     }
   }
 
   return (
     <StyledForm onSubmit={handleCreateHouseSubmit}>
-      <div style={{ display: "flex" }}>
+      <StyleFieldsWrapper>
         <Inputs formState={formState} setFormState={setFormState} />
         <Participants
           users={data!.house.users}
@@ -88,9 +99,9 @@ function Form() {
           setEqualSplit={setEqualSplit}
           applyEqualSplit={applyEqualSplit}
         />
-      </div>
+      </StyleFieldsWrapper>
 
-      <Button loading={loading}>submit</Button>
+      <Button loading={loading}>Submit</Button>
       {error && <p>{error}</p>}
     </StyledForm>
   )
@@ -99,5 +110,15 @@ function Form() {
 export default memo(Form)
 
 const StyledForm = styled.form`
-  padding: ${p => p.theme.paddingXL};
+  flex-wrap: wrap;
+  padding: 0px 120px;
+
+  ${p => p.theme.flexBetween};
+`
+
+const StyleFieldsWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
 `

@@ -11,9 +11,7 @@ function Loading({ loading, children }: ILoadingProps) {
   const isLoading = useDebounce(loading, 500)
   return (
     <React.Fragment>
-      <StyledContainer loading={isLoading}>
-        <p>loading</p>
-      </StyledContainer>
+      <StyledContainer loading={isLoading} />
       {!isLoading && children}
     </React.Fragment>
   )

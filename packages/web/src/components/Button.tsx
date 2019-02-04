@@ -35,10 +35,16 @@ const StyledButton = styled.button<IButtonProps>`
   border: 0;
   letter-spacing: 1px;
   color: white;
+  text-align: center;
   cursor: ${p => (p.disabled ? "default" : "pointer")};
   width: ${p => (!p.full ? "auto" : "100%")};
-  border-radius: ${p => p.theme.borderRadius};
+  border-radius: 100px;
   font-size: ${p => p.theme.textM};
+  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
   background-color: ${p => p.theme.colorPrimary};
-  padding: ${p => p.theme.paddingM};
+
+  &:focus,
+  &:hover {
+    opacity: 0.7;
+  }
 `

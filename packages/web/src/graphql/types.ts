@@ -254,7 +254,7 @@ export namespace Cost {
 
     date: string
 
-    recurring: Maybe<string>
+    recurring: string
 
     category: string
 
@@ -305,7 +305,7 @@ export interface Cost {
 
   name: string
 
-  recurring?: Maybe<string>
+  recurring: string
 
   category: string
 

@@ -1,6 +1,8 @@
 import React, { memo } from "react"
 import { User, ShareInput } from "../../graphql/types"
 import styled from "../../application/theme"
+import Input from "../../components/Input"
+import Radio from "../../components/Radio"
 
 type ParticipantProps = {
   user: User.Fragment
@@ -17,19 +19,21 @@ function Participant({
   setFormState,
   setEqualSplit,
 }: ParticipantProps) {
-  const share = shares.find(s => s.userId === user.id)
+  const userShare = shares.find(s => s.userId === user.id)
 
   const toggleParticipant = (userId: string) => {
-    if (share) {
+    if (userShare) {
+      // Remove user from split if more than 3 house mates
       if (shares.length === 2) return
       const newCostShares = shares.filter(s => s.userId !== userId)
       setFormState({
         costShares: newCostShares,
       })
     } else {
+      // Add user back to split
       const newCostShare = {
         userId,
-        amount: 0,
+        amount: "",
       }
       const newShares = [...shares, newCostShare]
       setFormState({
@@ -52,44 +56,62 @@ function Participant({
   }
 
   return (
-    <div
+    <StyledParticipant
       style={{
-        opacity: share ? 1 : 0.4,
+        opacity: userShare ? 1 : 0.4,
       }}
     >
-      <StyledAvatar onClick={() => toggleParticipant(user.id)}>
-        {user.firstName.split("")[0]}
-      </StyledAvatar>
-      <input
-        type="number"
-        disabled={!!!share}
-        onChange={e => handleCostShareUpdate(user.id, +e.target.value)}
-        value={share ? share.amount : 0}
-      />
-      {share && (
-        <React.Fragment>
-          <input
-            type="radio"
+      <Column>
+        <StyledAvatar onClick={() => toggleParticipant(user.id)}>
+          {user.firstName.split("")[0]}
+          {user.lastName.split("")[0]}
+        </StyledAvatar>
+      </Column>
+      <Column>
+        <Input
+          type="number"
+          prefix="€"
+          placeholder="0.00"
+          disabled={!!!userShare}
+          onChange={e => handleCostShareUpdate(user.id, +e.target.value)}
+          value={!userShare || userShare.amount === 0 ? "" : userShare.amount}
+          style={{ border: 0 }}
+        />
+      </Column>
+      <Column>
+        {userShare && (
+          <Radio
             id={user.id}
             value={user.id}
             checked={isPayer}
             name="payerId"
             onChange={e => setFormState({ payerId: e.target.value })}
           />
-          <label htmlFor={user.id}>{user.firstName}</label>
-        </React.Fragment>
-      )}
-    </div>
+        )}
+      </Column>
+    </StyledParticipant>
   )
 }
 
 export default memo(Participant)
 
+const StyledParticipant = styled.div`
+  width: 100%;
+
+  margin-bottom: ${p => p.theme.paddingXL};
+  ${p => p.theme.flexBetween};
+`
+
+const Column = styled.div`
+  width: 33%;
+`
 const StyledAvatar = styled.div`
-  height: 40px;
-  width: 40px;
+  height: 80px;
+  width: 80px;
   border-radius: 40px;
   color: white;
+  cursor: pointer;
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
 
   ${p => p.theme.flexCenter};
   background-color: ${p => p.theme.colorSecondary};

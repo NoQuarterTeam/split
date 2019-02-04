@@ -3,6 +3,8 @@ import dayjs from "dayjs"
 import styled from "../../application/theme"
 
 import { CostInput } from "../../graphql/types"
+import Input from "../../components/Input"
+import Select from "../../components/Select"
 
 type InputsProps = {
   formState: CostInput
@@ -12,38 +14,60 @@ type InputsProps = {
 function Inputs({ formState, setFormState }: InputsProps) {
   return (
     <StyledInputs>
-      <StyledInput
-        type="text"
-        value={formState.name}
-        onChange={e => setFormState({ name: e.target.value })}
-      />
-      <StyledInput
-        type="number"
-        value={formState.amount}
-        onChange={e => setFormState({ amount: +e.target.value })}
-      />
-      <StyledInput
-        type="text"
-        value={formState.category}
-        onChange={e => setFormState({ category: e.target.value })}
-      />
-      <select
-        value={formState.recurring || "default"}
-        onChange={e => setFormState({ recurring: e.target.value })}
-      >
-        <option value="default" disabled={true}>
-          No
-        </option>
-        <option value="monthly">Montly</option>
-        <option value="weekly">Weekly</option>
-      </select>
-      <input
-        type="date"
-        value={formState.date}
-        onChange={e =>
-          setFormState({ date: dayjs(e.target.value).format("YYYY-MM-DD") })
-        }
-      />
+      <StyledInputWrapper>
+        <Input
+          label="name"
+          placeholder="Beers"
+          required={true}
+          type="text"
+          value={formState.name}
+          onChange={e => setFormState({ name: e.target.value })}
+        />
+      </StyledInputWrapper>
+      <StyledInputWrapper>
+        <Input
+          prefix="€"
+          label="amount"
+          required={true}
+          placeholder="53.4"
+          type="number"
+          value={formState.amount === 0 ? "" : formState.amount}
+          onChange={e => setFormState({ amount: +e.target.value })}
+        />
+      </StyledInputWrapper>
+      <StyledInputWrapper>
+        <Input
+          label="category"
+          required={true}
+          placeholder="Drinks"
+          type="text"
+          value={formState.category}
+          onChange={e => setFormState({ category: e.target.value })}
+        />
+      </StyledInputWrapper>
+      <StyledInputWrapper>
+        <Input
+          label="date"
+          required={true}
+          type="date"
+          value={formState.date}
+          onChange={e =>
+            setFormState({ date: dayjs(e.target.value).format("YYYY-MM-DD") })
+          }
+        />
+      </StyledInputWrapper>
+      <StyledInputWrapper>
+        <Select
+          label="recurring"
+          value={formState.recurring}
+          onChange={e => setFormState({ recurring: e.target.value })}
+          options={[
+            { value: "one-off", label: "One off" },
+            { value: "monthly", label: "Monthly" },
+            { value: "weekly", label: "Weekly" },
+          ]}
+        />
+      </StyledInputWrapper>
     </StyledInputs>
   )
 }
@@ -56,12 +80,11 @@ const StyledInputs = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding-right: ${p => p.theme.paddingXL};
 `
 
-const StyledInput = styled.input`
-  border: 0;
+const StyledInputWrapper = styled.div`
   width: 50%;
-  background-color: ${p => p.theme.colorBackground};
-  padding: ${p => p.theme.paddingS};
-  border-bottom: 2px solid ${p => p.theme.colorHighlight};
+  margin: ${p => p.theme.paddingL} 0;
+  padding-right: ${p => p.theme.paddingL};
 `

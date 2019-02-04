@@ -17,8 +17,11 @@ function NewCost(_: RouteComponentProps) {
     <div>
       <StyledTopbar>
         <StyledHeader>New cost</StyledHeader>
-        <Link to="/">
-          <StyledIcon src={IconClose} alt="close" />
+        <Link to="/" tabIndex={-1}>
+          <StyledClose>
+            <StyledIcon src={IconClose} alt="close" />
+            Esc
+          </StyledClose>
         </Link>
       </StyledTopbar>
       <Form />
@@ -37,6 +40,12 @@ const StyledHeader = styled.h2`
   color: ${p => p.theme.colorHeader};
   font-size: ${p => p.theme.textXL};
   font-weight: ${p => p.theme.fontNormal};
+`
+
+const StyledClose = styled.div`
+  color: lightgrey;
+  flex-direction: column;
+  ${p => p.theme.flexCenter};
 `
 
 const StyledIcon = styled.img`

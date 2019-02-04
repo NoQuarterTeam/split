@@ -3,6 +3,7 @@ import Participant from "./Participant"
 import Button from "../../components/Button"
 import { User, CostInput } from "../../graphql/types"
 import styled from "../../application/theme"
+import Alert from "../../components/Alert"
 
 type ParticipantsProps = {
   users: User.Fragment[]
@@ -20,8 +21,27 @@ function Participants({
   setEqualSplit,
   applyEqualSplit,
 }: ParticipantsProps) {
+  const difference =
+    formState.amount !==
+    formState.costShares.reduce((acc, s) => acc + s.amount, 0)
   return (
     <StyledParticipants>
+      <StyledHeader>
+        <Column>
+          <StyledLabel>Participants</StyledLabel>
+        </Column>
+        <Column>
+          <StyledLabel>
+            {!equalSplit && difference && (
+              <Alert text="Split must equal amount" />
+            )}
+            Split
+          </StyledLabel>
+        </Column>
+        <Column>
+          <StyledLabel>Payer</StyledLabel>
+        </Column>
+      </StyledHeader>
       {users.map(user => {
         return (
           <Participant
@@ -34,14 +54,9 @@ function Participants({
           />
         )
       })}
-      {!equalSplit &&
-        formState.amount !==
-          formState.costShares.reduce((acc, s) => acc + s.amount, 0) && (
-          <p>splits dont equal amount</p>
-        )}
 
       {!equalSplit && (
-        <Button onClick={applyEqualSplit}>set equal split</Button>
+        <StyledButton onClick={applyEqualSplit}>Split equally</StyledButton>
       )}
     </StyledParticipants>
   )
@@ -50,5 +65,35 @@ function Participants({
 export default memo(Participants)
 
 const StyledParticipants = styled.div`
-  width: 40%;
+  width: 50%;
+  position: relative;
+  padding: ${p => p.theme.paddingL};
+`
+
+const Column = styled.div`
+  width: 33%;
+`
+
+const StyledHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 ${p => p.theme.paddingS};
+  margin-bottom: ${p => p.theme.paddingL};
+`
+
+const StyledLabel = styled.div`
+  color: grey;
+  position: relative;
+  font-size: ${p => p.theme.textS};
+`
+
+const StyledButton = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: grey;
+  text-align: center;
+  text-decoration: underline;
 `

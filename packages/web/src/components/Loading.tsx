@@ -8,7 +8,7 @@ interface ILoadingProps {
 }
 
 function Loading({ loading, children }: ILoadingProps) {
-  const isLoading = useDebounce(loading, 500)
+  const isLoading = useDebounce(loading, 100)
   return (
     <React.Fragment>
       <StyledContainer loading={isLoading} />

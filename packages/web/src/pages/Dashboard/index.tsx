@@ -5,18 +5,28 @@ import { useQuery } from "react-apollo-hooks"
 import styled from "../../application/theme"
 import { AppContext } from "../../application/context"
 
-import Page from "../../components/Page"
 import { GetHouse } from "../../graphql/types"
 import { GET_HOUSE } from "../../graphql/house/queries"
-import HouseBalance from "../../components/HouseBalance"
+
 import Sidebar from "../../components/Sidebar"
+import Page from "../../components/Page"
+
+import HouseBalance from "./HouseBalance"
 
 function Dashboard(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
-
   const { data, error } = useQuery<GetHouse.Query>(GET_HOUSE)
+
+  const getBalanceHeader = () => {
+    if (user.balance > 0) {
+      return `You are owed €${user.balance * 0.01}`
+    } else {
+      return `You owe €${user.balance * 0.01}`
+    }
+  }
   return (
     <Page>
+      <StyledHeader>{getBalanceHeader()}</StyledHeader>
       <Sidebar />
       <HouseBalance users={data!.house.users} />
     </Page>
@@ -26,5 +36,7 @@ function Dashboard(_: RouteComponentProps) {
 export default memo(Dashboard)
 
 const StyledHeader = styled.h2`
-  margin: ${p => p.theme.paddingXL} auto;
+  position: absolute;
+  top: 100px;
+  right: 100px;
 `

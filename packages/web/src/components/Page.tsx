@@ -12,6 +12,7 @@ function Page({ children }: PageProps) {
 const StyledPage = styled.div`
   height: 100vh;
   width: 100vw;
+  position: relative;
   display: flex;
   align-items: center;
   background-color: ${p => p.theme.colorBackground};

@@ -1,5 +1,7 @@
 import React, { memo } from "react"
 import { Link } from "@reach/router"
+import IconPlus from "../assets/images/icon-plus.svg"
+
 import styled from "../application/theme"
 import { LOGOUT, ME } from "../graphql/user/queries"
 import { useMutation } from "react-apollo-hooks"
@@ -16,7 +18,9 @@ function Sidebar() {
         <StyledLink active={true}>Dashboard</StyledLink>
       </Link>
       <Link to="/new-cost">
-        <StyledLink>New cost</StyledLink>
+        <StyledLink>
+          New cost <StyledIcon src={IconPlus} />
+        </StyledLink>
       </Link>
       <Link to="/costs">
         <StyledLink>Costs</StyledLink>
@@ -56,4 +60,9 @@ const StyledLink = styled.div<{ active?: boolean }>`
         ? `2px solid ${p.theme.colorSecondary}`
         : `2px solid ${p.theme.colorHighlight}`};
   }
+`
+
+const StyledIcon = styled.img`
+  vertical-align: middle;
+  padding-left: ${p => p.theme.paddingM};
 `

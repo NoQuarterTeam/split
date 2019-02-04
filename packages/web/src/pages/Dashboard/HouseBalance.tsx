@@ -21,9 +21,7 @@ function HouseBalance({ users }: IHouseBalance) {
               percentage={round(Math.abs(user.balance) / total, 2) * 100}
             />
             <Avatar user={user} />
-            <StyledUserBalance>
-              € {round(user.balance * 0.01, 2)}
-            </StyledUserBalance>
+            <StyledUserBalance>€ {user.balance * 0.01}</StyledUserBalance>
           </StyledUserGraph>
         )
       })}

@@ -81,6 +81,7 @@ export class UserResolver {
   house(@Root() user: User): Promise<House | null> {
     return new Promise(async resolve => {
       try {
+        if (!user.houseId) resolve(null)
         const house = await this.houseService.findById(user.houseId)
         resolve(house)
       } catch (error) {

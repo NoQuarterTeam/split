@@ -1,45 +1,56 @@
 import React, { memo } from "react"
-import { RouteComponentProps, Link, navigate } from "@reach/router"
-import { useMutation } from "react-apollo-hooks"
+import { RouteComponentProps, Link, navigate, Redirect } from "@reach/router"
+import { useQuery, useMutation } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
 import IconClose from "../../assets/images/icon-close.svg"
 import useEventListener from "../../hooks/useEventListener"
 
-import { CREATE_COST, GET_ALL_COSTS } from "../../graphql/costs/queries"
-import { CreateCost, CostInput } from "../../graphql/types"
-import { GET_HOUSE } from "../../graphql/house/queries"
+import { GetCost, CostInput, EditCost } from "../../graphql/types"
+import { GET_COST, EDIT_COST, GET_ALL_COSTS } from "../../graphql/costs/queries"
 
 import CostForm from "../../components/CostForm"
+import { GET_HOUSE } from "../../graphql/house/queries"
 
-function NewCost(_: RouteComponentProps) {
+interface EditCostProps extends RouteComponentProps {
+  id?: string
+}
+
+function EditCostPage(props: EditCostProps) {
+  const { id } = props
+  const { data, error } = useQuery<GetCost.Query, GetCost.Variables>(GET_COST, {
+    variables: { costId: id! },
+  })
+  if (!data || !data.cost || error) return <Redirect to="/" noThrow />
+  const cost = data.cost
   const handleCloseForm = (e: any) => {
-    if (e.key === "Escape") navigate("/")
+    if (e.key === "Escape") navigate("/costs")
   }
   useEventListener("keydown", handleCloseForm)
 
-  const createCost = useMutation<CreateCost.Mutation, CreateCost.Variables>(
-    CREATE_COST,
+  const editCost = useMutation<EditCost.Mutation, EditCost.Variables>(
+    EDIT_COST,
     {
       refetchQueries: [{ query: GET_HOUSE }],
       awaitRefetchQueries: true,
     },
   )
 
-  const handleCreateCost = (costData: CostInput) => {
-    return createCost({
+  const handleEditCost = (costData: CostInput) => {
+    return editCost({
       variables: {
+        costId: cost.id,
         data: costData,
       },
     }).then(() => {
-      navigate("/")
+      navigate("/costs")
     })
   }
 
   return (
     <div>
       <StyledTopbar>
-        <StyledHeader>New cost</StyledHeader>
+        <StyledHeader>Edit cost</StyledHeader>
         <Link to="/" tabIndex={-1}>
           <StyledClose>
             <StyledIcon src={IconClose} alt="close" />
@@ -47,12 +58,12 @@ function NewCost(_: RouteComponentProps) {
           </StyledClose>
         </Link>
       </StyledTopbar>
-      <CostForm onFormSubmit={handleCreateCost} />
+      <CostForm cost={data.cost} onFormSubmit={handleEditCost} />
     </div>
   )
 }
 
-export default memo(NewCost)
+export default memo(EditCostPage)
 
 const StyledTopbar = styled.div`
   padding: ${p => p.theme.paddingXL};

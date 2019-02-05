@@ -1,17 +1,17 @@
 import React, { memo } from "react"
 import dayjs from "dayjs"
-import styled from "../../application/theme"
+import styled from "../application/theme"
 
-import { CostInput } from "../../graphql/types"
-import Input from "../../components/Input"
-import Select from "../../components/Select"
+import { CostInput } from "../graphql/types"
+import Input from "./Input"
+import Select from "./Select"
 
-type InputsProps = {
+type CostInputsProps = {
   formState: CostInput
   setFormState: (val: { [key: string]: any }) => void
 }
 
-function Inputs({ formState, setFormState }: InputsProps) {
+function CostInputs({ formState, setFormState }: CostInputsProps) {
   return (
     <StyledInputs>
       <StyledInputWrapper>
@@ -30,9 +30,13 @@ function Inputs({ formState, setFormState }: InputsProps) {
           label="amount"
           required={true}
           placeholder="53.4"
+          min="0"
           type="number"
           value={formState.amount === 0 ? "" : formState.amount}
-          onChange={e => setFormState({ amount: +e.target.value })}
+          onChange={e => {
+            if (+e.target.value < 0) return
+            setFormState({ amount: +e.target.value })
+          }}
         />
       </StyledInputWrapper>
       <StyledInputWrapper>
@@ -72,7 +76,7 @@ function Inputs({ formState, setFormState }: InputsProps) {
   )
 }
 
-export default memo(Inputs)
+export default memo(CostInputs)
 
 const StyledInputs = styled.div`
   width: 60%;

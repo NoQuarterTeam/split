@@ -27,7 +27,7 @@ function Dashboard(_: RouteComponentProps) {
   }
   return (
     <Page>
-      <Sidebar />
+      <Sidebar active="dashboard" />
       <HouseBalance users={data!.house.users} />
       <StyledSummary>{getBalanceHeader()}</StyledSummary>
     </Page>

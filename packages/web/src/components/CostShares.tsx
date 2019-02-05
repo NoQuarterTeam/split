@@ -1,31 +1,30 @@
 import React, { memo } from "react"
 import Participant from "./Participant"
-import Button from "../../components/Button"
-import { User, CostInput } from "../../graphql/types"
-import styled from "../../application/theme"
-import Alert from "../../components/Alert"
+import Button from "./Button"
+import { User, CostInput } from "../graphql/types"
+import styled from "../application/theme"
+import Alert from "./Alert"
 
-type ParticipantsProps = {
+type CostSharesProps = {
   users: User.Fragment[]
   equalSplit: boolean
+  difference: boolean
   formState: CostInput
   setFormState: (val: { [key: string]: any }) => void
   setEqualSplit: (val: boolean) => void
   applyEqualSplit: () => void
 }
-function Participants({
+function CostShares({
   users,
   equalSplit,
   formState,
+  difference,
   setFormState,
   setEqualSplit,
   applyEqualSplit,
-}: ParticipantsProps) {
-  const difference =
-    formState.amount !==
-    formState.costShares.reduce((acc, s) => acc + s.amount, 0)
+}: CostSharesProps) {
   return (
-    <StyledParticipants>
+    <StyledCostShares>
       <StyledHeader>
         <Column>
           <StyledLabel>Participants</StyledLabel>
@@ -56,15 +55,19 @@ function Participants({
       })}
 
       {!equalSplit && (
-        <StyledButton onClick={applyEqualSplit}>Split equally</StyledButton>
+        <StyledButtonWrapper>
+          <Button variant="secondary" onClick={applyEqualSplit}>
+            Split equally
+          </Button>
+        </StyledButtonWrapper>
       )}
-    </StyledParticipants>
+    </StyledCostShares>
   )
 }
 
-export default memo(Participants)
+export default memo(CostShares)
 
-const StyledParticipants = styled.div`
+const StyledCostShares = styled.div`
   width: 50%;
   position: relative;
   padding: ${p => p.theme.paddingL};
@@ -88,12 +91,6 @@ const StyledLabel = styled.div`
   font-size: ${p => p.theme.textS};
 `
 
-const StyledButton = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  color: grey;
-  text-align: center;
-  text-decoration: underline;
+const StyledButtonWrapper = styled.div`
+  ${p => p.theme.flexCenter};
 `

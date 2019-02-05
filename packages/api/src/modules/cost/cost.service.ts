@@ -1,6 +1,6 @@
 import { Service } from "typedi"
 
-import { CostInput, EditCostInput } from "./cost.input"
+import { CostInput } from "./cost.input"
 import { Cost } from "./cost.entity"
 import { UserService } from "../user/user.service"
 import { ShareService } from "../share/share.service"
@@ -23,6 +23,7 @@ export class CostService {
         const costs = await Cost.find({
           where: { house },
           relations: ["payer"],
+          order: { createdAt: "DESC" },
         })
         resolve(costs)
       } catch (error) {
@@ -34,7 +35,7 @@ export class CostService {
   findById(costId: string): Promise<Cost> {
     return new Promise(async (resolve, reject) => {
       try {
-        const cost = await Cost.findOne(costId)
+        const cost = await Cost.findOne(costId, { relations: ["payer"] })
         if (!cost) throw new Error("not found")
         resolve(cost)
       } catch (error) {
@@ -80,7 +81,7 @@ export class CostService {
     })
   }
 
-  update(costId: string, data: EditCostInput): Promise<Cost> {
+  update(costId: string, data: CostInput): Promise<Cost> {
     return new Promise(async (resolve, reject) => {
       try {
         const cost = await Cost.findOne(costId, { relations: ["payer"] })

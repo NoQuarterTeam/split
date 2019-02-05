@@ -34,6 +34,10 @@ const StyledRadio = styled.div`
   border-radius: 50%;
   border: 2px solid ${p => p.theme.colorHighlight};
 
+  &:hover {
+    border: 2px solid ${p => p.theme.colorSecondary};
+  }
+
   &::after {
     content: "";
     transition: all 200ms;

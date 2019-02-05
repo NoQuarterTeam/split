@@ -6,7 +6,7 @@ import styled from "../application/theme"
 import { LOGOUT, ME } from "../graphql/user/queries"
 import { useMutation } from "react-apollo-hooks"
 
-function Sidebar() {
+function Sidebar({ active }: { active: string }) {
   const logout = useMutation(LOGOUT, {
     update: cache => {
       cache.writeQuery({ query: ME, data: { me: null } })
@@ -17,7 +17,7 @@ function Sidebar() {
       <h2>Split</h2>
       <div>
         <Link to="/">
-          <StyledLink active={true}>Dashboard</StyledLink>
+          <StyledLink active={active === "dashboard"}>Dashboard</StyledLink>
         </Link>
         <Link to="/new-cost">
           <StyledLink>
@@ -25,15 +25,16 @@ function Sidebar() {
           </StyledLink>
         </Link>
         <Link to="/costs">
-          <StyledLink>Costs</StyledLink>
+          <StyledLink active={active === "costs"}>Costs</StyledLink>
         </Link>
-        <Link to="/" onClick={() => logout()}>
+        <div tabIndex={0} onClick={() => logout()}>
           <StyledLink>Logout</StyledLink>
-        </Link>
+        </div>
       </div>
       <h6>
         Built by{" "}
         <StyledAnchor
+          tabIndex={-1}
           target="_black"
           rel="no-follow"
           href="https://www.noquarter.co"

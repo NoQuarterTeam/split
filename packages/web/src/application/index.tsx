@@ -13,6 +13,8 @@ import Dashboard from "../pages/Dashboard"
 import NotFound from "../pages/NotFound"
 import CheckHouse from "../components/CheckHouse"
 import NewCost from "../pages/NewCost"
+import EditCost from "../pages/EditCost"
+import Costs from "../pages/Costs"
 
 function Application() {
   const { data, loading } = useQuery<Me.Query>(ME, {
@@ -28,6 +30,8 @@ function Application() {
               <Router>
                 <Dashboard path="/" />
                 <NewCost path="/new-cost" />
+                <EditCost path="/costs/:id" />
+                <Costs path="/costs" />
                 <NotFound default={true} />
               </Router>
             </Suspense>

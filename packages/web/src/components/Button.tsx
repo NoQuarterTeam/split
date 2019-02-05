@@ -1,7 +1,7 @@
 import React, { memo, ButtonHTMLAttributes } from "react"
 import styled, { css } from "../application/theme"
 
-export type Variant = "primary" | "submit" | "icon"
+export type Variant = "primary" | "secondary"
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant
@@ -36,15 +36,39 @@ const StyledButton = styled.button<IButtonProps>`
   letter-spacing: 1px;
   color: white;
   text-align: center;
+  border-radius: 100px;
   cursor: ${p => (p.disabled ? "default" : "pointer")};
   width: ${p => (!p.full ? "auto" : "100%")};
-  border-radius: 100px;
-  font-size: ${p => p.theme.textM};
-  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
-  background-color: ${p => p.theme.colorPrimary};
 
   &:focus,
   &:hover {
     opacity: 0.7;
   }
+
+  ${p => getVariantStyles(p.variant!)}
+`
+
+const getVariantStyles = (variant: string) => {
+  switch (variant) {
+    case "primary":
+      return primaryStyles
+    case "secondary":
+      return secondaryStyles
+    default:
+      return primaryStyles
+  }
+}
+
+const primaryStyles = css`
+  background-color: ${p => p.theme.colorPrimary};
+  font-size: ${p => p.theme.textM};
+  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
+`
+
+const secondaryStyles = css`
+  text-transform: uppercase;
+  font-weight: ${p => p.theme.fontBlack};
+  background-color: ${p => p.theme.colorSecondary};
+  font-size: ${p => p.theme.textS};
+  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingL}`};
 `

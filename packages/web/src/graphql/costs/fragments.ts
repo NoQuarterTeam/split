@@ -9,6 +9,13 @@ export const Cost = gql`
     recurring
     category
     createdAt
+    houseId
+    shares {
+      user {
+        id
+      }
+      amount
+    }
     payer {
       id
       firstName

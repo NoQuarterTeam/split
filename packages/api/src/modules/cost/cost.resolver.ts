@@ -10,13 +10,19 @@ import {
 
 import { IResolverContext } from "../../lib/types"
 import { Cost } from "./cost.entity"
-import { CostInput, EditCostInput } from "./cost.input"
+import { CostInput } from "./cost.input"
 import { CostService } from "./cost.service"
 import { Share } from "../share/share.entity"
 
 @Resolver(() => Cost)
 export class CostResolver {
   constructor(private readonly costService: CostService) {}
+
+  // ALL COSTS
+  @Query(() => [Cost])
+  async allCosts(@Arg("houseId") houseId: string): Promise<Cost[]> {
+    return await this.costService.findAll(houseId)
+  }
 
   // GET COST
   @Query(() => Cost)
@@ -44,7 +50,7 @@ export class CostResolver {
   @Mutation(() => Cost)
   async editCost(
     @Arg("costId") costId: string,
-    @Arg("data") data: EditCostInput,
+    @Arg("data") data: CostInput,
   ): Promise<Cost> {
     const cost = await this.costService.update(costId, data)
     return cost

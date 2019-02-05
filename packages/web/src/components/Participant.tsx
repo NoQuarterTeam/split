@@ -1,9 +1,9 @@
 import React, { memo } from "react"
-import { User, ShareInput } from "../../graphql/types"
-import styled from "../../application/theme"
-import Input from "../../components/Input"
-import Radio from "../../components/Radio"
-import Avatar from "../../components/Avatar"
+import { User, ShareInput } from "../graphql/types"
+import styled from "../application/theme"
+import Input from "./Input"
+import Radio from "./Radio"
+import Avatar from "./Avatar"
 
 type ParticipantProps = {
   user: User.Fragment
@@ -44,6 +44,7 @@ function Participant({
   }
 
   const handleCostShareUpdate = (userId: string, amount: number) => {
+    if (amount < 0) return
     setEqualSplit(false)
     setFormState({
       costShares: shares.map(s => {
@@ -57,15 +58,19 @@ function Participant({
   }
 
   return (
-    <StyledParticipant
-      style={{
-        opacity: userShare ? 1 : 0.4,
-      }}
-    >
-      <Column>
+    <StyledParticipant>
+      <Column
+        style={{
+          opacity: userShare ? 1 : 0.4,
+        }}
+      >
         <Avatar user={user} onClick={() => toggleParticipant(user.id)} />
       </Column>
-      <Column>
+      <Column
+        style={{
+          opacity: userShare ? 1 : 0.4,
+        }}
+      >
         <Input
           type="number"
           prefix="€"
@@ -77,15 +82,13 @@ function Participant({
         />
       </Column>
       <Column>
-        {userShare && (
-          <Radio
-            id={user.id}
-            value={user.id}
-            checked={isPayer}
-            name="payerId"
-            onChange={e => setFormState({ payerId: e.target.value })}
-          />
-        )}
+        <Radio
+          id={user.id}
+          value={user.id}
+          checked={isPayer}
+          name="payerId"
+          onChange={e => setFormState({ payerId: e.target.value })}
+        />
       </Column>
     </StyledParticipant>
   )

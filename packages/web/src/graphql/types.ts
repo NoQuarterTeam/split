@@ -5,7 +5,7 @@ export interface CostInput {
 
   amount: number
 
-  recurring?: Maybe<string>
+  recurring: string
 
   category: string
 
@@ -22,22 +22,6 @@ export interface ShareInput {
   userId: string
 
   amount: number
-}
-
-export interface EditCostInput {
-  name?: Maybe<string>
-
-  amount?: Maybe<number>
-
-  recurring?: Maybe<string>
-
-  category?: Maybe<string>
-
-  date?: Maybe<string>
-
-  payerId: string
-
-  costShares: ShareInput[]
 }
 
 export interface HouseInput {
@@ -76,6 +60,52 @@ export interface UpdateInput {
 // Documents
 // ====================================================
 
+export namespace AllCosts {
+  export type Variables = {
+    houseId: string
+  }
+
+  export type Query = {
+    __typename?: "Query"
+
+    allCosts: AllCosts[]
+  }
+
+  export type AllCosts = {
+    __typename?: "Cost"
+
+    id: string
+
+    name: string
+
+    amount: number
+
+    date: string
+
+    payer: Payer
+  }
+
+  export type Payer = {
+    __typename?: "User"
+
+    firstName: string
+  }
+}
+
+export namespace GetCost {
+  export type Variables = {
+    costId: string
+  }
+
+  export type Query = {
+    __typename?: "Query"
+
+    cost: Cost
+  }
+
+  export type Cost = Cost.Fragment
+}
+
 export namespace CreateCost {
   export type Variables = {
     data: CostInput
@@ -87,7 +117,30 @@ export namespace CreateCost {
     createCost: CreateCost
   }
 
-  export type CreateCost = Cost.Fragment
+  export type CreateCost = {
+    __typename?: "Cost"
+
+    id: string
+  }
+}
+
+export namespace EditCost {
+  export type Variables = {
+    costId: string
+    data: CostInput
+  }
+
+  export type Mutation = {
+    __typename?: "Mutation"
+
+    editCost: EditCost
+  }
+
+  export type EditCost = {
+    __typename?: "Cost"
+
+    id: string
+  }
 }
 
 export namespace GetHouse {
@@ -260,7 +313,25 @@ export namespace Cost {
 
     createdAt: string
 
+    houseId: string
+
+    shares: Shares[]
+
     payer: Payer
+  }
+
+  export type Shares = {
+    __typename?: "Share"
+
+    user: User
+
+    amount: number
+  }
+
+  export type User = {
+    __typename?: "User"
+
+    id: string
   }
 
   export type Payer = {
@@ -293,6 +364,8 @@ export namespace User {
 // ====================================================
 
 export interface Query {
+  allCosts: Cost[]
+
   cost: Cost
 
   house: House
@@ -312,6 +385,8 @@ export interface Cost {
   amount: number
 
   date: string
+
+  houseId: string
 
   house: House
 
@@ -396,6 +471,9 @@ export interface Mutation {
 // Arguments
 // ====================================================
 
+export interface AllCostsQueryArgs {
+  houseId: string
+}
 export interface CostQueryArgs {
   costId: string
 }
@@ -406,7 +484,7 @@ export interface DestroyCostMutationArgs {
   costId: string
 }
 export interface EditCostMutationArgs {
-  data: EditCostInput
+  data: CostInput
 
   costId: string
 }

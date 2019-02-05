@@ -10,8 +10,8 @@ export class CostInput implements Partial<Cost> {
   @Field()
   amount: number
 
-  @Field({ nullable: true })
-  recurring?: string
+  @Field()
+  recurring: string
 
   @Field()
   category: string
@@ -21,30 +21,6 @@ export class CostInput implements Partial<Cost> {
 
   @Field()
   houseId: string
-
-  @Field()
-  payerId: string
-
-  @Field(() => [ShareInput])
-  costShares: ShareInput[]
-}
-
-@InputType()
-export class EditCostInput implements Partial<Cost> {
-  @Field({ nullable: true })
-  name?: string
-
-  @Field({ nullable: true })
-  amount?: number
-
-  @Field({ nullable: true })
-  recurring?: string
-
-  @Field({ nullable: true })
-  category?: string
-
-  @Field({ nullable: true })
-  date?: string
 
   @Field()
   payerId: string

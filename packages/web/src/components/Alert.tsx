@@ -12,6 +12,7 @@ const StyledAlert = styled.div`
   position: absolute;
   top: -50px;
   left: -50px;
+  width: max-content;
   border-radius: 7px;
   text-align: center;
   padding: 8px ${p => p.theme.paddingL};

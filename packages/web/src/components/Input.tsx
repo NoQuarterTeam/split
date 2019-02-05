@@ -42,6 +42,7 @@ const StyledInput = styled.input`
   font-size: ${p => p.theme.textM};
   background-color: ${p => p.theme.colorBackground};
   padding: ${p => p.theme.paddingM} 0;
+  ${p => p.type === "date" && "padding-bottom: 7px"};
   border-bottom: 2px solid ${p => p.theme.colorHighlight};
   -webkit-appearance: none;
 

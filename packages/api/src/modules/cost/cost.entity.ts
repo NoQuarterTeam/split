@@ -40,6 +40,10 @@ export class Cost extends BaseEntity {
   @Column()
   date: string
 
+  @Field()
+  @Column()
+  houseId: string
+
   @OneToMany(() => Share, share => share.cost)
   shares: Share[]
 

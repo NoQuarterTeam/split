@@ -6,11 +6,7 @@ interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {}
 function Radio(props: RadioProps) {
   return (
     <StyledLabel htmlFor={props.id}>
-      <input
-        type="radio"
-        {...props}
-        style={{ opacity: 0, visibility: "hidden" }}
-      />
+      <input type="radio" {...props} style={{ opacity: 0 }} />
       <StyledRadio />
     </StyledLabel>
   )
@@ -25,6 +21,10 @@ const StyledLabel = styled.label`
 
   input:checked ~ div:after {
     opacity: 1;
+  }
+
+  input:focus ~ div {
+    border: 2px solid ${p => p.theme.colorSecondary};
   }
 `
 

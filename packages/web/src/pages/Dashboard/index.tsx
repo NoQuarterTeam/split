@@ -12,6 +12,7 @@ import Sidebar from "../../components/Sidebar"
 import Page from "../../components/Page"
 
 import HouseBalance from "./HouseBalance"
+import { round } from "../../lib/helpers"
 
 function Dashboard(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
@@ -19,24 +20,26 @@ function Dashboard(_: RouteComponentProps) {
 
   const getBalanceHeader = () => {
     if (user.balance > 0) {
-      return `You are owed €${user.balance * 0.01}`
+      return `You are owed €${round(user.balance * 0.01, 2)}`
     } else {
-      return `You owe €${user.balance * 0.01}`
+      return `You owe €${round(Math.abs(user.balance * 0.01), 2)}`
     }
   }
   return (
     <Page>
-      <StyledHeader>{getBalanceHeader()}</StyledHeader>
       <Sidebar />
       <HouseBalance users={data!.house.users} />
+      <StyledSummary>{getBalanceHeader()}</StyledSummary>
     </Page>
   )
 }
 
 export default memo(Dashboard)
 
-const StyledHeader = styled.h2`
-  position: absolute;
-  top: 100px;
-  right: 100px;
+const StyledSummary = styled.h2`
+  height: 100%;
+  width: 300px;
+  text-align: center;
+  padding: ${p => p.theme.paddingL};
+  padding-top: ${p => p.theme.paddingXL};
 `

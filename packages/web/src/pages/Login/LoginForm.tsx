@@ -34,13 +34,14 @@ function LoginForm() {
 
   return (
     <StyledForm onSubmit={handleLogin}>
+      <StyledHeader>Split</StyledHeader>
       <Input
         label="Email"
         value={email}
         onChange={e => setEmail(e.target.value)}
         type="email"
         required={true}
-        placeholder="Email"
+        placeholder="jim@gmail.com"
       />
       <br />
       <Input
@@ -49,7 +50,7 @@ function LoginForm() {
         onChange={e => setPassword(e.target.value)}
         type="password"
         required={true}
-        placeholder="Password"
+        placeholder="********"
       />
       <br />
       <Button loading={loading} full={true}>
@@ -64,32 +65,23 @@ const StyledForm = styled.form`
   max-width: 500px;
   width: 40%;
   margin: 0 auto;
+  position: relative;
   border-radius: ${p => p.theme.borderRadius};
   padding: ${p => p.theme.paddingM};
 `
 
-const StyledInput = styled.input`
-  width: 100%;
-  border: 0;
-  outline: 0;
-
-  font-weight: ${p => p.theme.fontBold};
-  font-size: ${p => p.theme.textM};
-  border-radius: ${p => p.theme.borderRadius};
-  padding: ${p => p.theme.paddingM};
-  margin-bottom: ${p => p.theme.paddingM};
-
-  &::placeholder {
-    font-weight: ${p => p.theme.fontNormal};
-    font-size: ${p => p.theme.textM};
-  }
+const StyledHeader = styled.h1`
+  margin-bottom: ${p => p.theme.paddingXL};
 `
 const StyledError = styled.div`
-  opacity: 0.3;
-  text-transform: uppercase;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  opacity: 0.4;
+  width: 100%;
+  text-align: right;
   padding: ${p => p.theme.paddingM};
   font-size: ${p => p.theme.textS};
-  font-weight: ${p => p.theme.fontBlack};
 `
 
 export default memo(LoginForm)

@@ -34,6 +34,10 @@ function Form() {
 
   const createCost = useMutation<CreateCost.Mutation, CreateCost.Variables>(
     CREATE_COST,
+    {
+      refetchQueries: [{ query: GET_HOUSE }],
+      awaitRefetchQueries: true,
+    },
   )
 
   useEffect(() => {
@@ -68,7 +72,6 @@ function Form() {
     setLoading(true)
     try {
       await createCost({
-        refetchQueries: [{ query: GET_HOUSE }],
         variables: {
           data: {
             ...formState,

@@ -14,20 +14,33 @@ function Sidebar() {
   })
   return (
     <StyledSidebar>
-      <Link to="/">
-        <StyledLink active={true}>Dashboard</StyledLink>
-      </Link>
-      <Link to="/new-cost">
-        <StyledLink>
-          New cost <StyledIcon src={IconPlus} />
-        </StyledLink>
-      </Link>
-      <Link to="/costs">
-        <StyledLink>Costs</StyledLink>
-      </Link>
-      <Link to="/" onClick={() => logout()}>
-        <StyledLink>Logout</StyledLink>
-      </Link>
+      <h2>Split</h2>
+      <div>
+        <Link to="/">
+          <StyledLink active={true}>Dashboard</StyledLink>
+        </Link>
+        <Link to="/new-cost">
+          <StyledLink>
+            New cost <StyledIcon src={IconPlus} />
+          </StyledLink>
+        </Link>
+        <Link to="/costs">
+          <StyledLink>Costs</StyledLink>
+        </Link>
+        <Link to="/" onClick={() => logout()}>
+          <StyledLink>Logout</StyledLink>
+        </Link>
+      </div>
+      <h6>
+        Built by{" "}
+        <StyledAnchor
+          target="_black"
+          rel="no-follow"
+          href="https://www.noquarter.co"
+        >
+          No Quarter
+        </StyledAnchor>
+      </h6>
     </StyledSidebar>
   )
 }
@@ -36,14 +49,15 @@ export default memo(Sidebar)
 
 const StyledSidebar = styled.div`
   height: 100%;
-  width: 200px;
+  width: 300px;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   align-items: flex-start;
 
-  padding: 0 ${p => p.theme.paddingXL};
+  padding: ${p => p.theme.paddingXL} 0;
+  padding-left: ${p => p.theme.paddingXL};
 `
 
 const StyledLink = styled.div<{ active?: boolean }>`
@@ -63,6 +77,17 @@ const StyledLink = styled.div<{ active?: boolean }>`
 `
 
 const StyledIcon = styled.img`
+  height: 22px;
   vertical-align: middle;
-  padding-left: ${p => p.theme.paddingM};
+  border-radius: 50%;
+  box-shadow: 0 0 10px 0 ${p => p.theme.colorHighlight};
+  margin-left: ${p => p.theme.paddingM};
+`
+
+const StyledAnchor = styled.a`
+  color: black;
+
+  &:hover {
+    color: ${p => p.theme.colorSecondary};
+  }
 `

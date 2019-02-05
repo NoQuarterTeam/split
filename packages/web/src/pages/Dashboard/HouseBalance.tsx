@@ -1,6 +1,6 @@
 import React, { memo } from "react"
 import { User } from "../../graphql/types"
-import { round } from "../../lib/helpers"
+import { round, media } from "../../lib/helpers"
 import styled from "../../application/theme"
 import Avatar from "../../components/Avatar"
 
@@ -20,8 +20,11 @@ function HouseBalance({ users }: IHouseBalance) {
               negative={user.balance < 0}
               percentage={round(Math.abs(user.balance) / total, 2) * 100}
             />
+            <StyledSpacer />
             <Avatar user={user} />
-            <StyledUserBalance>€ {user.balance * 0.01}</StyledUserBalance>
+            <StyledUserBalance>
+              € {round(user.balance * 0.01, 2)}
+            </StyledUserBalance>
           </StyledUserGraph>
         )
       })}
@@ -32,8 +35,8 @@ function HouseBalance({ users }: IHouseBalance) {
 export default memo(HouseBalance)
 
 const StyledHouseBalance = styled.div`
-  width: 40%;
-  height: 350px;
+  width: 400px;
+  height: 400px;
   margin: 0 auto;
 
   ${p => p.theme.flexBetween};
@@ -45,10 +48,11 @@ const StyledUserGraph = styled.div`
 
   flex-direction: column;
 `
-
-const StyledUserBalance = styled.p`
+const StyledSpacer = styled.p`
   padding: ${p => p.theme.paddingM} 0;
 `
+
+const StyledUserBalance = styled(StyledSpacer)``
 
 const StyledFlame = styled.div<{ percentage: number; negative: boolean }>`
   position: absolute;
@@ -56,5 +60,5 @@ const StyledFlame = styled.div<{ percentage: number; negative: boolean }>`
   border-radius: 8px;
   background-color: ${p => p.theme.colorPrimary};
   height: ${p => p.percentage * 2}px;
-  ${p => (p.negative ? "top: 130px;" : "bottom: 130px;")};
+  ${p => (p.negative ? "top: 100%;" : "bottom: 100%;")};
 `

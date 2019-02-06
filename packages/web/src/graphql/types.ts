@@ -71,25 +71,7 @@ export namespace AllCosts {
     allCosts: AllCosts[]
   }
 
-  export type AllCosts = {
-    __typename?: "Cost"
-
-    id: string
-
-    name: string
-
-    amount: number
-
-    date: string
-
-    payer: Payer
-  }
-
-  export type Payer = {
-    __typename?: "User"
-
-    firstName: string
-  }
+  export type AllCosts = Cost.Fragment
 }
 
 export namespace GetCost {
@@ -100,10 +82,10 @@ export namespace GetCost {
   export type Query = {
     __typename?: "Query"
 
-    cost: Cost
+    getCost: GetCost
   }
 
-  export type Cost = Cost.Fragment
+  export type GetCost = Cost.Fragment & Shares.Fragment
 }
 
 export namespace CreateCost {
@@ -140,6 +122,18 @@ export namespace EditCost {
     __typename?: "Cost"
 
     id: string
+  }
+}
+
+export namespace DestroyCost {
+  export type Variables = {
+    costId: string
+  }
+
+  export type Mutation = {
+    __typename?: "Mutation"
+
+    destroyCost: boolean
   }
 }
 
@@ -315,9 +309,23 @@ export namespace Cost {
 
     houseId: string
 
-    shares: Shares[]
-
     payer: Payer
+  }
+
+  export type Payer = {
+    __typename?: "User"
+
+    id: string
+
+    firstName: string
+  }
+}
+
+export namespace Shares {
+  export type Fragment = {
+    __typename?: "Cost"
+
+    shares: Shares[]
   }
 
   export type Shares = {
@@ -332,14 +340,6 @@ export namespace Cost {
     __typename?: "User"
 
     id: string
-  }
-
-  export type Payer = {
-    __typename?: "User"
-
-    id: string
-
-    firstName: string
   }
 }
 
@@ -356,6 +356,18 @@ export namespace User {
     email: string
 
     balance: number
+
+    avatar: Maybe<string>
+
+    house: Maybe<House>
+  }
+
+  export type House = {
+    __typename?: "House"
+
+    id: string
+
+    name: string
   }
 }
 
@@ -366,7 +378,7 @@ export namespace User {
 export interface Query {
   allCosts: Cost[]
 
-  cost: Cost
+  getCost: Cost
 
   house: House
 
@@ -419,6 +431,8 @@ export interface User {
   firstName: string
 
   lastName: string
+
+  avatar?: Maybe<string>
 
   balance: number
 
@@ -474,7 +488,7 @@ export interface Mutation {
 export interface AllCostsQueryArgs {
   houseId: string
 }
-export interface CostQueryArgs {
+export interface GetCostQueryArgs {
   costId: string
 }
 export interface CreateCostMutationArgs {

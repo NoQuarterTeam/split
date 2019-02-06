@@ -1,11 +1,11 @@
 import React, { memo, useState } from "react"
 import { useMutation } from "react-apollo-hooks"
-import styled from "../../application/theme"
+import styled from "../application/theme"
 
-import { LOGIN, ME } from "../../graphql/user/queries"
-import { Login } from "../../graphql/types"
-import Button from "../../components/Button"
-import Input from "../../components/Input"
+import { LOGIN, ME } from "../graphql/user/queries"
+import { Login } from "../graphql/types"
+import Button from "./Button"
+import Input from "./Input"
 
 function LoginForm() {
   const [email, setEmail] = useState<string>("")
@@ -64,10 +64,15 @@ function LoginForm() {
 const StyledForm = styled.form`
   max-width: 500px;
   width: 40%;
+  height: 100%;
   margin: 0 auto;
   position: relative;
   border-radius: ${p => p.theme.borderRadius};
   padding: ${p => p.theme.paddingM};
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
 `
 
 const StyledHeader = styled.h1`

@@ -1,6 +1,6 @@
 import React, { memo } from "react"
-import { AllCosts } from "../../graphql/types"
-import styled from "../../application/theme"
+import { AllCosts } from "../graphql/types"
+import styled from "../application/theme"
 import dayjs from "dayjs"
 import { navigate } from "@reach/router"
 
@@ -11,10 +11,12 @@ type CostProps = {
 function CostItem({ cost }: CostProps) {
   return (
     <StyledCost onClick={() => navigate(`/costs/${cost.id}`)} tabIndex={0}>
-      <StyledCostItem>{cost.name}</StyledCostItem>
-      <StyledCostItem>€ {cost.amount * 0.01}</StyledCostItem>
-      <StyledCostItem>{cost.payer.firstName}</StyledCostItem>
-      <StyledCostItem>{dayjs(cost.date).format("DD MMM 'YY")}</StyledCostItem>
+      <StyledCostItem align="left">{cost.name}</StyledCostItem>
+      <StyledCostItem align="center">€ {cost.amount * 0.01}</StyledCostItem>
+      <StyledCostItem align="center">{cost.payer.firstName}</StyledCostItem>
+      <StyledCostItem align="right">
+        {dayjs(cost.date).format("DD MMM 'YY")}
+      </StyledCostItem>
     </StyledCost>
   )
 }
@@ -33,6 +35,7 @@ const StyledCost = styled.div`
   }
 `
 
-const StyledCostItem = styled.div`
+const StyledCostItem = styled.div<{ align: string }>`
   flex: 1;
+  text-align: ${p => p.align};
 `

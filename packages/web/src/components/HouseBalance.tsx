@@ -1,8 +1,8 @@
 import React, { memo } from "react"
-import { User } from "../../graphql/types"
-import { round, media } from "../../lib/helpers"
-import styled from "../../application/theme"
-import Avatar from "../../components/Avatar"
+import { User } from "../graphql/types"
+import { round } from "../lib/helpers"
+import styled from "../application/theme"
+import Avatar from "./Avatar"
 
 type IHouseBalance = {
   users: User.Fragment[]

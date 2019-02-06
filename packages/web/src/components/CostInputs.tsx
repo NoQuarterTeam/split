@@ -29,8 +29,7 @@ function CostInputs({ formState, setFormState }: CostInputsProps) {
           prefix="€"
           label="amount"
           required={true}
-          placeholder="53.4"
-          min="0"
+          placeholder="0.00"
           type="number"
           value={formState.amount === 0 ? "" : formState.amount}
           onChange={e => {

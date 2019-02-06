@@ -1,4 +1,4 @@
-import React, { memo, useContext } from "react"
+import React, { useContext } from "react"
 import { RouteComponentProps } from "@reach/router"
 import { useQuery } from "react-apollo-hooks"
 
@@ -7,22 +7,22 @@ import { AppContext } from "../../application/context"
 
 import { GetHouse } from "../../graphql/types"
 import { GET_HOUSE } from "../../graphql/house/queries"
+import { round } from "../../lib/helpers"
 
 import Sidebar from "../../components/Sidebar"
 import Page from "../../components/Page"
 
-import HouseBalance from "./HouseBalance"
-import { round } from "../../lib/helpers"
+import HouseBalance from "../../components/HouseBalance"
 
 function Dashboard(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
   const { data, error } = useQuery<GetHouse.Query>(GET_HOUSE)
 
   const getBalanceHeader = () => {
-    if (user.balance > 0) {
-      return `You are owed €${round(user.balance * 0.01, 2)}`
+    if (user!.balance > 0) {
+      return `You are owed €${round(user!.balance * 0.01, 2)}`
     } else {
-      return `You owe €${round(Math.abs(user.balance * 0.01), 2)}`
+      return `You owe €${round(Math.abs(user!.balance * 0.01), 2)}`
     }
   }
   return (
@@ -34,7 +34,7 @@ function Dashboard(_: RouteComponentProps) {
   )
 }
 
-export default memo(Dashboard)
+export default Dashboard
 
 const StyledSummary = styled.h2`
   height: 100%;

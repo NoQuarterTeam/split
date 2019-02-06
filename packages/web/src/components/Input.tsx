@@ -26,6 +26,7 @@ function Input({ label, prefix, ...inputProps }: InputProps) {
 export default memo(Input)
 
 const StyledContainer = styled.div`
+  width: 100%;
   padding: ${p => p.theme.paddingS};
 `
 

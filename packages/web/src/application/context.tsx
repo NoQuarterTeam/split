@@ -1,7 +1,7 @@
 import React from "react"
-import { Maybe, UserInfo } from "../graphql/types"
+import { Maybe, User } from "../graphql/types"
 
 export interface IContext {
-  user: Maybe<UserInfo.Fragment>
+  user: Maybe<User.Fragment>
 }
 export const AppContext = React.createContext<IContext>({ user: null })

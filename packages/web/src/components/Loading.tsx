@@ -8,7 +8,7 @@ interface ILoadingProps {
 }
 
 function Loading({ loading, children }: ILoadingProps) {
-  const isLoading = useDebounce(loading, 100)
+  const isLoading = useDebounce(loading, 200)
   return (
     <React.Fragment>
       <StyledContainer loading={isLoading} />
@@ -24,7 +24,7 @@ const StyledContainer = styled.div<{ loading: boolean }>`
   left: 0;
   height: 100vh;
   width: 100vw;
-  transition: opacity 0.4s, visibility -0.3s linear 0.5s;
+  transition: opacity 1s, visibility -0.3s linear 1s;
 
   ${p => p.theme.flexCenter};
   background-color: ${p => p.theme.colorBackground};

@@ -37,6 +37,7 @@ const StyledButton = styled.button<IButtonProps>`
   color: white;
   text-align: center;
   border-radius: 100px;
+  margin: ${p => p.theme.paddingS};
   cursor: ${p => (p.disabled ? "default" : "pointer")};
   width: ${p => (!p.full ? "auto" : "100%")};
 
@@ -66,9 +67,7 @@ const primaryStyles = css`
 `
 
 const secondaryStyles = css`
-  text-transform: uppercase;
-  font-weight: ${p => p.theme.fontBlack};
   background-color: ${p => p.theme.colorSecondary};
-  font-size: ${p => p.theme.textS};
-  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingL}`};
+  font-size: ${p => p.theme.textM};
+  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
 `

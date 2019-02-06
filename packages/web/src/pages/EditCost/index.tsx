@@ -1,4 +1,4 @@
-import React, { memo } from "react"
+import React from "react"
 import { RouteComponentProps, Link, navigate, Redirect } from "@reach/router"
 import { useQuery, useMutation } from "react-apollo-hooks"
 
@@ -6,8 +6,13 @@ import styled from "../../application/theme"
 import IconClose from "../../assets/images/icon-close.svg"
 import useEventListener from "../../hooks/useEventListener"
 
-import { GetCost, CostInput, EditCost } from "../../graphql/types"
-import { GET_COST, EDIT_COST, GET_ALL_COSTS } from "../../graphql/costs/queries"
+import { GetCost, CostInput, EditCost, DestroyCost } from "../../graphql/types"
+import {
+  GET_COST,
+  EDIT_COST,
+  GET_ALL_COSTS,
+  DESTROY_COST,
+} from "../../graphql/costs/queries"
 
 import CostForm from "../../components/CostForm"
 import { GET_HOUSE } from "../../graphql/house/queries"
@@ -21,17 +26,33 @@ function EditCostPage(props: EditCostProps) {
   const { data, error } = useQuery<GetCost.Query, GetCost.Variables>(GET_COST, {
     variables: { costId: id! },
   })
-  if (!data || !data.cost || error) return <Redirect to="/" noThrow />
-  const cost = data.cost
+
   const handleCloseForm = (e: any) => {
     if (e.key === "Escape") navigate("/costs")
   }
   useEventListener("keydown", handleCloseForm)
 
+  if (error) return <Redirect to="/costs" noThrow />
+
   const editCost = useMutation<EditCost.Mutation, EditCost.Variables>(
     EDIT_COST,
     {
-      refetchQueries: [{ query: GET_HOUSE }],
+      refetchQueries: [
+        { query: GET_HOUSE },
+        { query: GET_ALL_COSTS, variables: { houseId: data!.getCost.houseId } },
+        { query: GET_COST, variables: { costId: data!.getCost.id } },
+      ],
+      awaitRefetchQueries: true,
+    },
+  )
+
+  const destroyCost = useMutation<DestroyCost.Mutation, DestroyCost.Variables>(
+    DESTROY_COST,
+    {
+      refetchQueries: [
+        { query: GET_HOUSE },
+        { query: GET_ALL_COSTS, variables: { houseId: data!.getCost.houseId } },
+      ],
       awaitRefetchQueries: true,
     },
   )
@@ -39,8 +60,18 @@ function EditCostPage(props: EditCostProps) {
   const handleEditCost = (costData: CostInput) => {
     return editCost({
       variables: {
-        costId: cost.id,
+        costId: data!.getCost.id,
         data: costData,
+      },
+    }).then(() => {
+      navigate("/costs")
+    })
+  }
+
+  const handleDeleteCost = () => {
+    return destroyCost({
+      variables: {
+        costId: data!.getCost.id,
       },
     }).then(() => {
       navigate("/costs")
@@ -51,19 +82,23 @@ function EditCostPage(props: EditCostProps) {
     <div>
       <StyledTopbar>
         <StyledHeader>Edit cost</StyledHeader>
-        <Link to="/" tabIndex={-1}>
+        <Link to="/costs" tabIndex={-1}>
           <StyledClose>
             <StyledIcon src={IconClose} alt="close" />
             Esc
           </StyledClose>
         </Link>
       </StyledTopbar>
-      <CostForm cost={data.cost} onFormSubmit={handleEditCost} />
+      <CostForm
+        cost={data!.getCost}
+        onFormSubmit={handleEditCost}
+        onCostDelete={handleDeleteCost}
+      />
     </div>
   )
 }
 
-export default memo(EditCostPage)
+export default EditCostPage
 
 const StyledTopbar = styled.div`
   padding: ${p => p.theme.paddingXL};

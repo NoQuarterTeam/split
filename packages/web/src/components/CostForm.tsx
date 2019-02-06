@@ -1,10 +1,10 @@
-import React, { memo, useState, useContext, useEffect } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import dayjs from "dayjs"
 import { useQuery } from "react-apollo-hooks"
 
 import styled from "../application/theme"
 import { AppContext } from "../application/context"
-import { GetHouse, CostInput, Cost } from "../graphql/types"
+import { GetHouse, CostInput, Cost, GetCost } from "../graphql/types"
 import { GET_HOUSE } from "../graphql/house/queries"
 
 import Button from "./Button"
@@ -14,11 +14,12 @@ import CostShares from "./CostShares"
 import { round } from "../lib/helpers"
 
 type CostFormProps = {
-  cost?: Cost.Fragment
+  cost?: GetCost.GetCost
   onFormSubmit: (data: CostInput) => Promise<any>
+  onCostDelete?: () => void
 }
 
-function CostForm({ cost, onFormSubmit }: CostFormProps) {
+function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   const context = useContext(AppContext)
   const { data } = useQuery<GetHouse.Query>(GET_HOUSE)
 
@@ -30,8 +31,8 @@ function CostForm({ cost, onFormSubmit }: CostFormProps) {
       ? dayjs(cost.date).format("YYYY-MM-DD")
       : dayjs().format("YYYY-MM-DD"),
     recurring: cost ? cost.recurring : "one-off",
-    houseId: cost ? cost.houseId : context.user!.house.id,
-    payerId: cost ? cost.payer.id : context.user.id,
+    houseId: cost ? cost.houseId : context.user!.house!.id,
+    payerId: cost ? cost.payer.id : context.user!.id,
     costShares: cost
       ? cost.shares.map(s => ({ userId: s.user.id, amount: s.amount * 0.01 }))
       : data!.house.users.map(u => ({ userId: u.id, amount: 0 })),
@@ -53,10 +54,8 @@ function CostForm({ cost, onFormSubmit }: CostFormProps) {
     if (!equalSplit) {
       setEqualSplit(true)
     }
-    const amountPerUser = round(
-      formState.amount / formState.costShares.length,
-      2,
-    )
+    const amountPerUser = formState.amount / formState.costShares.length
+
     const costShares = formState.costShares.map(({ userId }) => ({
       userId,
       amount: amountPerUser,
@@ -100,13 +99,20 @@ function CostForm({ cost, onFormSubmit }: CostFormProps) {
         />
       </StyleFieldsWrapper>
 
-      <Button loading={loading}>Submit</Button>
+      <div>
+        <Button loading={loading}>Submit</Button>
+        {onCostDelete && (
+          <Button type="button" variant="secondary" onClick={onCostDelete}>
+            Delete cost
+          </Button>
+        )}
+      </div>
       {error && <p>{error}</p>}
     </StyledForm>
   )
 }
 
-export default memo(CostForm)
+export default CostForm
 
 const StyledForm = styled.form`
   flex-wrap: wrap;

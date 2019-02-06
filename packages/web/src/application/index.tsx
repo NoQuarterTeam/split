@@ -7,7 +7,7 @@ import { Me } from "../graphql/types"
 import { ME } from "../graphql/user/queries"
 
 import Loading from "../components/Loading"
-import Auth from "../components/Auth"
+import CheckAuth from "../components/CheckAuth"
 
 import Dashboard from "../pages/Dashboard"
 import NotFound from "../pages/NotFound"
@@ -24,7 +24,7 @@ function Application() {
   return (
     <AppContext.Provider value={{ user }}>
       <Loading loading={loading}>
-        <Auth>
+        <CheckAuth>
           <CheckHouse>
             <Suspense fallback={<Loading loading={true} />}>
               <Router>
@@ -36,7 +36,7 @@ function Application() {
               </Router>
             </Suspense>
           </CheckHouse>
-        </Auth>
+        </CheckAuth>
       </Loading>
     </AppContext.Provider>
   )

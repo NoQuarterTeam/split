@@ -27,7 +27,11 @@ function Sidebar({ active }: { active: string }) {
         <Link to="/costs">
           <StyledLink active={active === "costs"}>Costs</StyledLink>
         </Link>
-        <div tabIndex={0} onClick={() => logout()}>
+        <div
+          tabIndex={0}
+          onClick={() => logout()}
+          style={{ cursor: "pointer" }}
+        >
           <StyledLink>Logout</StyledLink>
         </div>
       </div>

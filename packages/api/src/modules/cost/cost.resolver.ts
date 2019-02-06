@@ -26,7 +26,7 @@ export class CostResolver {
 
   // GET COST
   @Query(() => Cost)
-  async cost(@Arg("costId") costId: string): Promise<Cost | null> {
+  async getCost(@Arg("costId") costId: string): Promise<Cost> {
     return await this.costService.findById(costId)
   }
 

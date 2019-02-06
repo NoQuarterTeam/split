@@ -1,6 +1,8 @@
 import React, { memo } from "react"
 import { User, ShareInput } from "../graphql/types"
 import styled from "../application/theme"
+import { round } from "../lib/helpers"
+
 import Input from "./Input"
 import Radio from "./Radio"
 import Avatar from "./Avatar"
@@ -77,7 +79,11 @@ function Participant({
           placeholder="0.00"
           disabled={!!!userShare}
           onChange={e => handleCostShareUpdate(user.id, +e.target.value)}
-          value={!userShare || userShare.amount === 0 ? "" : userShare.amount}
+          value={
+            !userShare || userShare.amount === 0
+              ? ""
+              : round(userShare.amount, 2)
+          }
           style={{ border: 0 }}
         />
       </Column>

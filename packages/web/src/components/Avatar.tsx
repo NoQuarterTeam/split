@@ -1,22 +1,24 @@
 import React, { memo } from "react"
 import styled from "../application/theme"
-import { User } from "../graphql/types"
+import { Me } from "../graphql/types"
 
 type AvatarProps = {
-  user: User.Fragment
+  user: Me.Me
   onClick?: () => void
 }
 
-const userAvatar =
-  "https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-1/p320x320/20374225_10155750882820116_4896098332150846690_n.jpg?_nc_cat=108&_nc_ht=scontent-amt2-1.xx&oh=b62b01c498d417c3b508c16d872ac76d&oe=5CEB1BB4"
 function Avatar({ user, onClick }: AvatarProps) {
   return (
     <StyledAvatar
       onClick={onClick}
-      style={{ backgroundImage: `url(${userAvatar})` }}
+      style={{ backgroundImage: `url(${user.avatar})` }}
     >
-      {user.firstName.split("")[0]}
-      {user.lastName.split("")[0]}
+      {!user.avatar && (
+        <React.Fragment>
+          {user.firstName.split("")[0]}
+          {user.lastName.split("")[0]}
+        </React.Fragment>
+      )}
     </StyledAvatar>
   )
 }

@@ -39,6 +39,10 @@ export class User extends BaseEntity {
   @Column()
   lastName: string
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  avatar: string
+
   @Field()
   @Column({ nullable: true, default: 0 })
   balance: number

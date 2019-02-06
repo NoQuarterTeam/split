@@ -1,7 +1,7 @@
 import React, { useContext, memo } from "react"
 
 import { AppContext } from "../application/context"
-import NewHouse from "../pages/NewHouse"
+import NewHouse from "./NewHouseForm"
 
 const CheckHouse: React.FC = ({ children }) => {
   const { user } = useContext(AppContext)

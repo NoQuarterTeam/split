@@ -1,9 +1,10 @@
 import React, { memo, useState } from "react"
 import { useMutation } from "react-apollo-hooks"
-import { CreateHouse } from "../../graphql/types"
-import { CREATE_HOUSE } from "../../graphql/house/queries"
-import { ME } from "../../graphql/user/queries"
-import Button from "../../components/Button"
+import { CreateHouse } from "../graphql/types"
+import { CREATE_HOUSE } from "../graphql/house/queries"
+
+import { ME } from "../graphql/user/queries"
+import Button from "./Button"
 
 function NewHouse() {
   const [name, setName] = useState<string>("")

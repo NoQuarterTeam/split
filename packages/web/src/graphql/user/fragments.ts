@@ -7,5 +7,10 @@ export const User = gql`
     lastName
     email
     balance
+    avatar
+    house {
+      id
+      name
+    }
   }
 `

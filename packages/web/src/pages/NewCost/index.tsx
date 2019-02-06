@@ -21,7 +21,6 @@ function NewCost(_: RouteComponentProps) {
   const createCost = useMutation<CreateCost.Mutation, CreateCost.Variables>(
     CREATE_COST,
     {
-      refetchQueries: [{ query: GET_HOUSE }],
       awaitRefetchQueries: true,
     },
   )
@@ -31,6 +30,10 @@ function NewCost(_: RouteComponentProps) {
       variables: {
         data: costData,
       },
+      refetchQueries: [
+        { query: GET_HOUSE },
+        { query: GET_ALL_COSTS, variables: { houseId: costData.houseId } },
+      ],
     }).then(() => {
       navigate("/")
     })
@@ -52,7 +55,7 @@ function NewCost(_: RouteComponentProps) {
   )
 }
 
-export default memo(NewCost)
+export default NewCost
 
 const StyledTopbar = styled.div`
   padding: ${p => p.theme.paddingXL};

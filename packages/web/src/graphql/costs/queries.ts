@@ -1,27 +1,24 @@
 import { gql } from "apollo-boost"
-import { Cost } from "./fragments"
+import { Cost, Shares } from "./fragments"
 
 export const GET_ALL_COSTS = gql`
   query AllCosts($houseId: String!) {
     allCosts(houseId: $houseId) {
-      id
-      name
-      amount
-      date
-      payer {
-        firstName
-      }
-    }
-  }
-`
-
-export const GET_COST = gql`
-  query GetCost($costId: String!) {
-    cost(costId: $costId) {
       ...Cost
     }
   }
   ${Cost}
+`
+
+export const GET_COST = gql`
+  query GetCost($costId: String!) {
+    getCost(costId: $costId) {
+      ...Cost
+      ...Shares
+    }
+  }
+  ${Cost}
+  ${Shares}
 `
 
 export const CREATE_COST = gql`
@@ -37,5 +34,11 @@ export const EDIT_COST = gql`
     editCost(costId: $costId, data: $data) {
       id
     }
+  }
+`
+
+export const DESTROY_COST = gql`
+  mutation DestroyCost($costId: String!) {
+    destroyCost(costId: $costId)
   }
 `

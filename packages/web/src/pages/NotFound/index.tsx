@@ -1,4 +1,4 @@
-import React from "react"
+import React, { memo } from "react"
 import { RouteComponentProps } from "@reach/router"
 import Page from "../../components/Page"
 
@@ -10,4 +10,4 @@ function NotFound(_: RouteComponentProps) {
   )
 }
 
-export default NotFound
+export default memo(NotFound)

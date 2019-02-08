@@ -1,7 +1,7 @@
 import React, { memo, ButtonHTMLAttributes } from "react"
 import styled, { css } from "../application/theme"
 
-export type Variant = "primary" | "secondary"
+export type Variant = "primary" | "secondary" | "alternative"
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant
@@ -55,6 +55,8 @@ const getVariantStyles = (variant: string) => {
       return primaryStyles
     case "secondary":
       return secondaryStyles
+    case "alternative":
+      return alternativeStyles
     default:
       return primaryStyles
   }
@@ -69,5 +71,12 @@ const primaryStyles = css`
 const secondaryStyles = css`
   background-color: ${p => p.theme.colorSecondary};
   font-size: ${p => p.theme.textM};
+  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
+`
+
+const alternativeStyles = css`
+  border: 2px solid ${p => p.theme.colorPrimary};
+  font-size: ${p => p.theme.textS};
+  color: ${p => p.theme.colorPrimary};
   padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
 `

@@ -2,6 +2,7 @@ import React, { memo } from "react"
 import dayjs from "dayjs"
 import styled from "../application/theme"
 
+import { round } from "../lib/helpers"
 import { CostInput } from "../graphql/types"
 import Input from "./Input"
 import Select from "./Select"
@@ -31,7 +32,7 @@ function CostInputs({ formState, setFormState }: CostInputsProps) {
           required={true}
           placeholder="0.00"
           type="number"
-          value={formState.amount === 0 ? "" : formState.amount}
+          value={formState.amount === 0 ? "" : round(formState.amount, 2)}
           onChange={e => {
             if (+e.target.value < 0) return
             setFormState({ amount: +e.target.value })

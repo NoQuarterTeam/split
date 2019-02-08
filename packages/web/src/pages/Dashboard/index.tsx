@@ -9,7 +9,6 @@ import { GetHouse } from "../../graphql/types"
 import { GET_HOUSE } from "../../graphql/house/queries"
 import { round } from "../../lib/helpers"
 
-import Sidebar from "../../components/Sidebar"
 import Page from "../../components/Page"
 
 import HouseBalance from "../../components/HouseBalance"
@@ -26,9 +25,10 @@ function Dashboard(_: RouteComponentProps) {
     }
   }
   return (
-    <Page>
-      <Sidebar active="dashboard" />
-      <HouseBalance users={data!.house.users} />
+    <Page activePage="dashboard">
+      <StyledContent>
+        <HouseBalance users={data!.house.users} />
+      </StyledContent>
       <StyledSummary>{getBalanceHeader()}</StyledSummary>
     </Page>
   )
@@ -36,6 +36,11 @@ function Dashboard(_: RouteComponentProps) {
 
 export default Dashboard
 
+const StyledContent = styled.div`
+  height: 100%;
+  margin: 0 auto;
+  ${p => p.theme.flexCenter};
+`
 const StyledSummary = styled.h2`
   height: 100%;
   width: 300px;

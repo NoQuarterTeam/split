@@ -1,21 +1,31 @@
 import React, { memo, ReactNode } from "react"
 import styled from "../application/theme"
+import Sidebar from "./Sidebar"
 
 interface PageProps {
   children: ReactNode
+  activePage: string
 }
 
-function Page({ children }: PageProps) {
-  return <StyledPage>{children}</StyledPage>
+function Page({ children, activePage }: PageProps) {
+  return (
+    <StyledPage>
+      <Sidebar active={activePage} />
+      <StyledPageContent>{children}</StyledPageContent>
+    </StyledPage>
+  )
 }
+
+export default memo(Page)
 
 const StyledPage = styled.div`
   height: 100vh;
   width: 100vw;
   position: relative;
   display: flex;
-  align-items: center;
-  background-color: ${p => p.theme.colorBackground};
 `
 
-export default memo(Page)
+const StyledPageContent = styled.div`
+  width: calc(100% - 220px);
+  ${p => p.theme.flexCenter};
+`

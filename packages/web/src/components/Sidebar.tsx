@@ -27,6 +27,9 @@ function Sidebar({ active }: { active: string }) {
         <Link to="/costs">
           <StyledLink active={active === "costs"}>Costs</StyledLink>
         </Link>
+        <Link to="/profile">
+          <StyledLink active={active === "profile"}>Profile</StyledLink>
+        </Link>
         <div
           tabIndex={0}
           onClick={() => logout()}
@@ -54,15 +57,13 @@ export default memo(Sidebar)
 
 const StyledSidebar = styled.div`
   height: 100%;
-  width: 300px;
-
+  width: 220px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: flex-start;
 
-  padding: ${p => p.theme.paddingXL} 0;
-  padding-left: ${p => p.theme.paddingXL};
+  padding: ${p => p.theme.paddingXL};
 `
 
 const StyledLink = styled.div<{ active?: boolean }>`

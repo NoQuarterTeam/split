@@ -6,6 +6,7 @@ import { round } from "../lib/helpers"
 import Input from "./Input"
 import Radio from "./Radio"
 import Avatar from "./Avatar"
+import Column from "./Column"
 
 type ParticipantProps = {
   user: User.Fragment
@@ -61,18 +62,12 @@ function Participant({
 
   return (
     <StyledParticipant>
-      <Column
-        style={{
-          opacity: userShare ? 1 : 0.4,
-        }}
-      >
-        <Avatar user={user} onClick={() => toggleParticipant(user.id)} />
+      <Column flex={2}>
+        <div style={{ opacity: userShare ? 1 : 0.4 }}>
+          <Avatar user={user} onClick={() => toggleParticipant(user.id)} />
+        </div>
       </Column>
-      <Column
-        style={{
-          opacity: userShare ? 1 : 0.4,
-        }}
-      >
+      <Column flex={2}>
         <Input
           type="number"
           prefix="€"
@@ -84,10 +79,10 @@ function Participant({
               ? ""
               : round(userShare.amount, 2)
           }
-          style={{ border: 0 }}
+          style={{ border: 0, opacity: userShare ? 1 : 0.4 }}
         />
       </Column>
-      <Column>
+      <Column flex={1}>
         <Radio
           id={user.id}
           value={user.id}
@@ -107,8 +102,4 @@ const StyledParticipant = styled.div`
 
   margin-bottom: ${p => p.theme.paddingXL};
   ${p => p.theme.flexBetween};
-`
-
-const Column = styled.div`
-  width: 33%;
 `

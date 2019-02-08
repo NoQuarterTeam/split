@@ -13,6 +13,8 @@ export const Cost = gql`
     payer {
       id
       firstName
+      lastName
+      avatar
     }
   }
 `

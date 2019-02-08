@@ -58,7 +58,8 @@ const StyledFlame = styled.div<{ percentage: number; negative: boolean }>`
   position: absolute;
   width: 8px;
   border-radius: 8px;
-  background-color: ${p => p.theme.colorPrimary};
+  background-color: ${p =>
+    p.negative ? p.theme.colorSecondary : p.theme.colorPrimary};
   height: ${p => p.percentage * 2}px;
   ${p => (p.negative ? "top: 100%;" : "bottom: 100%;")};
 `

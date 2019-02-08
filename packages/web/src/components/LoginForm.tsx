@@ -10,7 +10,7 @@ import Input from "./Input"
 function LoginForm() {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  const [error, setError] = useState<null | string>(null)
+  const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
   const login = useMutation<Login.Mutation, Login.Variables>(LOGIN, {
@@ -27,6 +27,7 @@ function LoginForm() {
     e.preventDefault()
     setLoading(true)
     login().catch(loginError => {
+      console.log("shoot", loginError.message)
       setLoading(false)
       setError(loginError.message.split(":")[1])
     })
@@ -67,7 +68,6 @@ const StyledForm = styled.form`
   height: 100%;
   margin: 0 auto;
   position: relative;
-  border-radius: ${p => p.theme.borderRadius};
   padding: ${p => p.theme.paddingM};
   display: flex;
   align-items: flex-start;
@@ -79,9 +79,6 @@ const StyledHeader = styled.h1`
   margin-bottom: ${p => p.theme.paddingXL};
 `
 const StyledError = styled.div`
-  position: absolute;
-  top: 100%;
-  left: 0;
   opacity: 0.4;
   width: 100%;
   text-align: right;

@@ -9,6 +9,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryColumn,
+  BeforeUpdate,
 } from "typeorm"
 import { ObjectType, Field, ID } from "type-graphql"
 import bcrypt from "bcryptjs"
@@ -75,7 +76,16 @@ export class User extends BaseEntity {
   updatedAt: string
 
   @BeforeInsert()
-  async hashPassword() {
-    this.password = await bcrypt.hash(this.password, 10)
+  async beforeInsert() {
+    this.password = await this.hashPassword(this.password)
+  }
+
+  @BeforeUpdate()
+  async beforeUpdate() {
+    this.password = await this.hashPassword(this.password)
+  }
+
+  private async hashPassword(password: string) {
+    return await bcrypt.hash(password, 10)
   }
 }

@@ -4,6 +4,7 @@ import Button from "./Button"
 import { User, CostInput } from "../graphql/types"
 import styled from "../application/theme"
 import Alert from "./Alert"
+import Column from "./Column"
 
 type CostSharesProps = {
   users: User.Fragment[]
@@ -25,19 +26,19 @@ function CostShares({
 }: CostSharesProps) {
   return (
     <StyledCostShares>
+      {!equalSplit && difference && (
+        <StyledAlertWrapper>
+          <Alert text="Split must equal amount" />
+        </StyledAlertWrapper>
+      )}
       <StyledHeader>
-        <Column>
+        <Column flex={2}>
           <StyledLabel>Participants</StyledLabel>
         </Column>
-        <Column>
-          <StyledLabel>
-            {!equalSplit && difference && (
-              <Alert text="Split must equal amount" />
-            )}
-            Split
-          </StyledLabel>
+        <Column flex={2}>
+          <StyledLabel>Split</StyledLabel>
         </Column>
-        <Column>
+        <Column flex={1}>
           <StyledLabel>Payer</StyledLabel>
         </Column>
       </StyledHeader>
@@ -73,10 +74,6 @@ const StyledCostShares = styled.div`
   padding: ${p => p.theme.paddingL};
 `
 
-const Column = styled.div`
-  width: 33%;
-`
-
 const StyledHeader = styled.div`
   display: flex;
   align-items: center;
@@ -91,6 +88,18 @@ const StyledLabel = styled.div`
   font-size: ${p => p.theme.textS};
 `
 
+const StyledAlertWrapper = styled.div`
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: -${p => p.theme.paddingXL};
+  ${p => p.theme.flexCenter};
+`
+
 const StyledButtonWrapper = styled.div`
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: -${p => p.theme.paddingM};
   ${p => p.theme.flexCenter};
 `

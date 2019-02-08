@@ -1,14 +1,17 @@
 import React, { useContext } from "react"
-import { AppContext } from "../../application/context"
-import Avatar from "../../components/Avatar"
+import { RouteComponentProps } from "@reach/router"
 
-function Profile() {
+import { AppContext } from "../../application/context"
+import Page from "../../components/Page"
+import ProfileForm from "../../components/ProfileForm"
+
+function Profile(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
 
   return (
-    <div>
-      <Avatar user={user!} />
-    </div>
+    <Page activePage="profile">
+      <ProfileForm user={user!} />
+    </Page>
   )
 }
 

@@ -3,20 +3,20 @@ import { User } from "./user.entity"
 
 @InputType()
 export class UpdateInput implements Partial<User> {
-  @Field()
+  @Field({ nullable: true })
   firstName?: string
 
-  @Field()
+  @Field({ nullable: true })
   lastName?: string
 
-  @Field()
+  @Field({ nullable: true })
   email?: string
 
-  @Field()
+  @Field({ nullable: true })
   password?: string
 
-  @Field()
-  houseId?: string
+  @Field({ nullable: true })
+  avatar?: string
 }
 
 @InputType()

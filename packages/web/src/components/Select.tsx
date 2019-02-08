@@ -47,8 +47,8 @@ const StyledSelect = styled.select`
   outline: 0;
   border-radius: 0;
   cursor: pointer;
+  background-color: transparent;
   font-size: ${p => p.theme.textM};
-  background-color: ${p => p.theme.colorBackground};
   padding: ${p => p.theme.paddingM} 0;
   border-bottom: 2px solid ${p => p.theme.colorHighlight};
   -webkit-appearance: none;

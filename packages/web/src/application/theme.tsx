@@ -4,8 +4,10 @@ import { ThemedStyledComponentsModule } from "styled-components"
 const theme: IThemeInterface = {
   borderRadius: "5px",
   colorBackground: "#fff",
+  colorLightGrey: "#f5f5f5",
   colorHeader: "#1b2d41",
   colorPrimary: "#11a9ff",
+  colorPrimaryOverlay: "#0D75AF",
   colorHighlight: "#fce0f6",
   colorSecondary: "#ed60d3",
   fontBlack: 900,
@@ -36,7 +38,9 @@ const theme: IThemeInterface = {
 interface IThemeInterface {
   borderRadius: string
   colorBackground: string
+  colorLightGrey: string
   colorPrimary: string
+  colorPrimaryOverlay: string
   colorHeader: string
   colorHighlight: string
   colorSecondary: string

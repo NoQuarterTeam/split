@@ -15,6 +15,7 @@ import CheckHouse from "../components/CheckHouse"
 import NewCost from "../pages/NewCost"
 import EditCost from "../pages/EditCost"
 import Costs from "../pages/Costs"
+import Profile from "../pages/Profile"
 
 function Application() {
   const { data, loading } = useQuery<Me.Query>(ME, {
@@ -32,6 +33,7 @@ function Application() {
                 <NewCost path="/new-cost" />
                 <EditCost path="/costs/:id" />
                 <Costs path="/costs" />
+                <Profile path="/profile" />
                 <NotFound default={true} />
               </Router>
             </Suspense>

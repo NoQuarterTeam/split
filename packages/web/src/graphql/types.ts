@@ -45,15 +45,15 @@ export interface LoginInput {
 }
 
 export interface UpdateInput {
-  firstName: string
+  firstName?: Maybe<string>
 
-  lastName: string
+  lastName?: Maybe<string>
 
-  email: string
+  email?: Maybe<string>
 
-  password: string
+  password?: Maybe<string>
 
-  houseId: string
+  avatar?: Maybe<string>
 }
 
 // ====================================================
@@ -318,6 +318,10 @@ export namespace Cost {
     id: string
 
     firstName: string
+
+    lastName: string
+
+    avatar: Maybe<string>
   }
 }
 

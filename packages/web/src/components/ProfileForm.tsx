@@ -98,6 +98,8 @@ const StyledProfileForm = styled.form`
   margin: 0 auto;
   width: 40%;
   max-width: 500px;
+  flex-direction: column;
+  ${p => p.theme.flexCenter};
 `
 
 const StyledFormAvatar = styled.div`

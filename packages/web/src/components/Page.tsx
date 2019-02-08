@@ -27,5 +27,6 @@ const StyledPage = styled.div`
 
 const StyledPageContent = styled.div`
   width: calc(100% - 220px);
+  position: relative;
   ${p => p.theme.flexCenter};
 `

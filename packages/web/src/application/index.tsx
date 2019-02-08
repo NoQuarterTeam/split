@@ -9,13 +9,13 @@ import { ME } from "../graphql/user/queries"
 import Loading from "../components/Loading"
 import CheckAuth from "../components/CheckAuth"
 
-import Dashboard from "../pages/Dashboard"
+import Balance from "../pages/Balance"
 import NotFound from "../pages/NotFound"
 import CheckHouse from "../components/CheckHouse"
 import NewCost from "../pages/NewCost"
 import EditCost from "../pages/EditCost"
 import Costs from "../pages/Costs"
-import Profile from "../pages/Profile"
+import Settings from "../pages/Settings"
 
 function Application() {
   const { data, loading } = useQuery<Me.Query>(ME, {
@@ -29,11 +29,11 @@ function Application() {
           <CheckHouse>
             <Suspense fallback={<Loading loading={true} />}>
               <Router>
-                <Dashboard path="/" />
+                <Balance path="/" />
                 <NewCost path="/new-cost" />
                 <EditCost path="/costs/:id" />
                 <Costs path="/costs" />
-                <Profile path="/profile" />
+                <Settings path="/profile" />
                 <NotFound default={true} />
               </Router>
             </Suspense>

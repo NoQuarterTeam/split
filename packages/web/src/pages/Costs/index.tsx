@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { RouteComponentProps } from "@reach/router"
+import { RouteComponentProps, Link } from "@reach/router"
 import { useQuery } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
@@ -7,7 +7,7 @@ import { AppContext } from "../../application/context"
 
 import { AllCosts } from "../../graphql/types"
 import { GET_ALL_COSTS } from "../../graphql/costs/queries"
-
+import IconPlus from "../../assets/images/icon-plus.svg"
 import Page from "../../components/Page"
 import CostItem from "../../components/CostItem"
 import Column from "../../components/Column"
@@ -23,19 +23,24 @@ function Costs(_: RouteComponentProps) {
   return (
     <Page activePage="costs">
       <StyledCostList>
-        <StyledHouseName>{user!.house!.name} costs</StyledHouseName>
+        <StyledHeader>
+          <StyledHouseName>Costs</StyledHouseName>
+          <Link to="/new-cost">
+            <img src={IconPlus} alt="add" height={40} />
+          </Link>
+        </StyledHeader>
         <StyledTableHeader>
           <Column flex={5}>
-            <StyledHeader>Name</StyledHeader>
+            <StyledLabel>Name</StyledLabel>
           </Column>
           <Column flex={5}>
-            <StyledHeader>Amount</StyledHeader>
+            <StyledLabel>Amount</StyledLabel>
           </Column>
           <Column flex={5}>
-            <StyledHeader>Payer</StyledHeader>
+            <StyledLabel>Payer</StyledLabel>
           </Column>
           <Column flex={5}>
-            <StyledHeader>Date</StyledHeader>
+            <StyledLabel>Date</StyledLabel>
           </Column>
           <Column flex={1} />
         </StyledTableHeader>
@@ -53,7 +58,7 @@ export default Costs
 
 const StyledCostList = styled.div`
   height: 100vh;
-  width: 75%;
+  width: 80%;
   overflow-y: scroll;
 
   padding: ${p => p.theme.paddingXL};
@@ -63,8 +68,13 @@ const StyledCostList = styled.div`
   }
 `
 
-const StyledHouseName = styled.h2`
+const StyledHeader = styled.div`
+  width: 100%;
   margin-bottom: ${p => p.theme.paddingXL};
+  ${p => p.theme.flexBetween};
+`
+
+const StyledHouseName = styled.h2`
   color: ${p => p.theme.colorHeader};
 `
 
@@ -78,7 +88,7 @@ const StyledTableHeader = styled.div`
   ${p => p.theme.flexCenter};
 `
 
-const StyledHeader = styled.div`
+const StyledLabel = styled.div`
   text-transform: uppercase;
   letter-spacing: 1px;
   color: grey;

@@ -1,5 +1,5 @@
 import React from "react"
-import { RouteComponentProps, Link, navigate, Redirect } from "@reach/router"
+import { RouteComponentProps, Link, Redirect } from "@reach/router"
 import { useQuery, useMutation } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
@@ -28,7 +28,7 @@ function EditCostPage(props: EditCostProps) {
   })
 
   const handleCloseForm = (e: any) => {
-    if (e.key === "Escape") navigate("/costs")
+    if (e.key === "Escape") handleGoBack()
   }
   useEventListener("keydown", handleCloseForm)
 
@@ -64,7 +64,7 @@ function EditCostPage(props: EditCostProps) {
         data: costData,
       },
     }).then(() => {
-      navigate("/costs")
+      props.navigate!("/costs")
     })
   }
 
@@ -74,20 +74,22 @@ function EditCostPage(props: EditCostProps) {
         costId: data!.getCost.id,
       },
     }).then(() => {
-      navigate("/costs")
+      props.navigate!("/costs")
     })
+  }
+
+  const handleGoBack = () => {
+    window.history.back()
   }
 
   return (
     <div>
       <StyledTopbar>
         <StyledHeader>Edit cost</StyledHeader>
-        <Link to="/costs" tabIndex={-1}>
-          <StyledClose>
-            <StyledIcon src={IconClose} alt="close" />
-            Esc
-          </StyledClose>
-        </Link>
+        <StyledClose onClick={handleGoBack}>
+          <img width={60} src={IconClose} alt="close" />
+          Esc
+        </StyledClose>
       </StyledTopbar>
       <CostForm
         cost={data!.getCost}
@@ -115,11 +117,4 @@ const StyledClose = styled.div`
   color: lightgrey;
   flex-direction: column;
   ${p => p.theme.flexCenter};
-`
-
-const StyledIcon = styled.img`
-  width: 60px;
-  &:hover {
-    opacity: 0.9;
-  }
 `

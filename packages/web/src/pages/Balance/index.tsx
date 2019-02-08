@@ -13,7 +13,7 @@ import Page from "../../components/Page"
 
 import HouseBalance from "../../components/HouseBalance"
 
-function Dashboard(_: RouteComponentProps) {
+function Balance(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
   const { data, error } = useQuery<GetHouse.Query>(GET_HOUSE)
 
@@ -25,26 +25,26 @@ function Dashboard(_: RouteComponentProps) {
     }
   }
   return (
-    <Page activePage="dashboard">
-      <StyledContent>
-        <HouseBalance users={data!.house.users} />
-      </StyledContent>
+    <Page activePage="balance">
+      <StyledHeader>{user!.house!.name}</StyledHeader>
+      <HouseBalance users={data!.house.users} />
       <StyledSummary>{getBalanceHeader()}</StyledSummary>
     </Page>
   )
 }
 
-export default Dashboard
+export default Balance
 
-const StyledContent = styled.div`
-  height: 100%;
-  margin: 0 auto;
-  ${p => p.theme.flexCenter};
+const StyledHeader = styled.h2`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: ${p => p.theme.paddingXL};
 `
+
 const StyledSummary = styled.h2`
-  height: 100%;
-  width: 300px;
-  text-align: center;
-  padding: ${p => p.theme.paddingL};
-  padding-top: ${p => p.theme.paddingXL};
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: ${p => p.theme.paddingXL};
 `

@@ -5,14 +5,14 @@ import { AppContext } from "../../application/context"
 import Page from "../../components/Page"
 import ProfileForm from "../../components/ProfileForm"
 
-function Profile(_: RouteComponentProps) {
+function Settings(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
 
   return (
-    <Page activePage="profile">
+    <Page activePage="settings">
       <ProfileForm user={user!} />
     </Page>
   )
 }
 
-export default Profile
+export default Settings

@@ -1,5 +1,5 @@
-import React, { memo } from "react"
-import { RouteComponentProps, Link, navigate } from "@reach/router"
+import React from "react"
+import { RouteComponentProps, Link } from "@reach/router"
 import { useMutation } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
@@ -12,9 +12,9 @@ import { GET_HOUSE } from "../../graphql/house/queries"
 
 import CostForm from "../../components/CostForm"
 
-function NewCost(_: RouteComponentProps) {
+function NewCost(props: RouteComponentProps) {
   const handleCloseForm = (e: any) => {
-    if (e.key === "Escape") navigate("/")
+    if (e.key === "Escape") handleGoBack()
   }
   useEventListener("keydown", handleCloseForm)
 
@@ -35,20 +35,22 @@ function NewCost(_: RouteComponentProps) {
         { query: GET_ALL_COSTS, variables: { houseId: costData.houseId } },
       ],
     }).then(() => {
-      navigate("/")
+      props.navigate!("/")
     })
+  }
+
+  const handleGoBack = () => {
+    window.history.back()
   }
 
   return (
     <div>
       <StyledTopbar>
         <StyledHeader>New cost</StyledHeader>
-        <Link to="/" tabIndex={-1}>
-          <StyledClose>
-            <StyledIcon src={IconClose} alt="close" />
-            Esc
-          </StyledClose>
-        </Link>
+        <StyledClose onClick={handleGoBack}>
+          <img width={60} src={IconClose} alt="close" />
+          Esc
+        </StyledClose>
       </StyledTopbar>
       <CostForm onFormSubmit={handleCreateCost} />
     </div>
@@ -71,11 +73,8 @@ const StyledHeader = styled.h2`
 const StyledClose = styled.div`
   color: lightgrey;
   flex-direction: column;
+  cursor: pointer;
   ${p => p.theme.flexCenter};
-`
-
-const StyledIcon = styled.img`
-  width: 60px;
   &:hover {
     opacity: 0.9;
   }

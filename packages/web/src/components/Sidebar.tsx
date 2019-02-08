@@ -21,7 +21,7 @@ function Sidebar({ active }: { active: string }) {
       </h2>
       <div>
         <Link to="/">
-          <StyledLink active={active === "dashboard"}>Dashboard</StyledLink>
+          <StyledLink active={active === "balance"}>Balance</StyledLink>
         </Link>
         <Link to="/new-cost">
           <StyledLink>
@@ -32,7 +32,7 @@ function Sidebar({ active }: { active: string }) {
           <StyledLink active={active === "costs"}>Costs</StyledLink>
         </Link>
         <Link to="/profile">
-          <StyledLink active={active === "profile"}>Profile</StyledLink>
+          <StyledLink active={active === "settings"}>Settings</StyledLink>
         </Link>
         <div
           tabIndex={0}
@@ -66,6 +66,7 @@ const StyledSidebar = styled.div`
   justify-content: space-between;
   flex-direction: column;
   align-items: flex-start;
+  background-color: ${p => p.theme.colorLightGrey};
 
   padding: ${p => p.theme.paddingXL};
 `

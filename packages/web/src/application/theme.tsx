@@ -4,7 +4,7 @@ import { ThemedStyledComponentsModule } from "styled-components"
 const theme: IThemeInterface = {
   borderRadius: "5px",
   colorBackground: "#fff",
-  colorLightGrey: "#f5f5f5",
+  colorLightGrey: "#f8f9fd",
   colorHeader: "#1b2d41",
   colorPrimary: "#11a9ff",
   colorPrimaryOverlay: "#0D75AF",

@@ -32,10 +32,10 @@ function CostShares({
         </StyledAlertWrapper>
       )}
       <StyledHeader>
-        <Column flex={2}>
+        <Column flex={3}>
           <StyledLabel>Participants</StyledLabel>
         </Column>
-        <Column flex={2}>
+        <Column flex={3}>
           <StyledLabel>Split</StyledLabel>
         </Column>
         <Column flex={1}>
@@ -69,7 +69,7 @@ function CostShares({
 export default memo(CostShares)
 
 const StyledCostShares = styled.div`
-  width: 50%;
+  width: 40%;
   position: relative;
   padding: ${p => p.theme.paddingL};
 `

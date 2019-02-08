@@ -62,12 +62,12 @@ function Participant({
 
   return (
     <StyledParticipant>
-      <Column flex={2}>
+      <Column flex={3}>
         <div style={{ opacity: userShare ? 1 : 0.4 }}>
           <Avatar user={user} onClick={() => toggleParticipant(user.id)} />
         </div>
       </Column>
-      <Column flex={2}>
+      <Column flex={3}>
         <Input
           type="number"
           prefix="€"

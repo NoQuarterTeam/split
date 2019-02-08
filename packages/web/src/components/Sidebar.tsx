@@ -1,6 +1,7 @@
 import React, { memo } from "react"
 import { Link } from "@reach/router"
 import IconPlus from "../assets/images/icon-plus.svg"
+import IconLogo from "../assets/images/icon-logo.svg"
 
 import styled from "../application/theme"
 import { LOGOUT, ME } from "../graphql/user/queries"
@@ -14,7 +15,10 @@ function Sidebar({ active }: { active: string }) {
   })
   return (
     <StyledSidebar>
-      <h2>Split</h2>
+      <h2>
+        <img src={IconLogo} width={30} />
+        Split
+      </h2>
       <div>
         <Link to="/">
           <StyledLink active={active === "dashboard"}>Dashboard</StyledLink>

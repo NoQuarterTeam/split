@@ -39,11 +39,12 @@ const StyledCost = styled.div`
   padding: ${p => p.theme.paddingL};
   padding-right: 0;
   border-radius: ${p => p.theme.borderRadius};
+  border: 2px solid transparent;
   ${p => p.theme.flexCenter};
 
   &:hover {
     cursor: pointer;
-    box-shadow: 0 0 20px 5px rgba(150, 150, 150, 0.1);
+    box-shadow: 0 0 10px 5px rgba(200, 200, 200, 0.1);
 
     ${StyledIcon} {
       transition: 200ms all;

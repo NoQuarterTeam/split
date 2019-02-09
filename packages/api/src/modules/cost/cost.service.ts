@@ -48,8 +48,8 @@ export class CostService {
     return new Promise(async (resolve, reject) => {
       try {
         const creator = await this.userService.findById(userId)
-        const house = await this.houseSevice.findById(data.houseId)
         const payer = await this.userService.findById(data.payerId)
+        const house = await this.houseSevice.findById(data.houseId)
         const cost = await Cost.create({
           ...data,
           house,

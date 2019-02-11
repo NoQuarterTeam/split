@@ -19,7 +19,7 @@ export class CostJob {
             relations: ["shares"],
           })
 
-          if (!cost) return // Fail silently, sentry..
+          if (!cost) throw new Error("cost not found") // Fail silently, sentry..
 
           // Apply the balance based of the costs shares
           await this.shareService.applyBalance(cost)
@@ -54,6 +54,7 @@ export class CostJob {
           delay,
           removeOnComplete: true,
         })
+        resolve()
       } catch (err) {
         console.log(err)
         // Sentry
@@ -66,9 +67,9 @@ export class CostJob {
     return new Promise(async resolve => {
       try {
         // Find job by cost id and remove it
-        const jobs = await costWorker.getDelayed()
+        const jobs = await costWorker.getDelayed(dayjs(cost.date).millisecond())
         const costJob = jobs.find(job => job.data.id === cost.id)
-        if (!costJob) return // Fail silently, sentry ...
+        if (!costJob) throw new Error("cost job not found") // Fail silently, sentry ...
         await costJob.remove()
         resolve()
       } catch (err) {

@@ -42,7 +42,7 @@ function Costs(_: RouteComponentProps) {
           <Column flex={5}>
             <StyledLabel>Date</StyledLabel>
           </Column>
-          <Column flex={1} />
+          <Column flex={3} />
         </StyledTableHeader>
         {data &&
           data.allCosts &&

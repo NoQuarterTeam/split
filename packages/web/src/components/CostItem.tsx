@@ -7,6 +7,8 @@ import styled from "../application/theme"
 import { round } from "../lib/helpers"
 
 import IconOpen from "../assets/images/icon-open.svg"
+import IconRepeat from "../assets/images/icon-repeat.svg"
+
 import Column from "./Column"
 import Avatar from "./Avatar"
 
@@ -23,8 +25,20 @@ function CostItem({ cost }: CostProps) {
         <Avatar user={cost.payer} size={40} />
       </Column>
       <Column flex={5}>{dayjs(cost.date).format("DD MMM 'YY")}</Column>
-      <Column flex={1}>
-        <StyledIcon src={IconOpen} width={10} />
+      <Column flex={3}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {dayjs(cost.date).isAfter(dayjs().startOf("day")) && <div>fut</div>}
+          {cost.recurring !== "one-off" && (
+            <StyledIcon src={IconRepeat} width={30} />
+          )}
+          <StyledIcon src={IconOpen} width={10} />
+        </div>
       </Column>
     </StyledCost>
   )

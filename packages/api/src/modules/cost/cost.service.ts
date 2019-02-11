@@ -64,7 +64,7 @@ export class CostService {
                 .format(),
               creatorId: userId,
             }).save()
-            await this.shareService.bulkCreate(cost, data.costShares)
+            await this.shareService.bulkCreate(futureCost, data.costShares)
             await this.costJob.createJob(futureCost)
           }
         } else {
@@ -85,17 +85,26 @@ export class CostService {
         const cost = await this.findById(costId)
         if (!cost) throw new Error("cost not found")
 
-        // Undo balance then remove shares
+        // Only undo if alredy paid
         await this.shareService.undoBalance(cost)
+
+        // Remove shares
         await this.shareService.bulkRemove(cost)
 
         // Update Cost
         Object.assign(cost, data)
         await cost.save()
 
-        // Create new shares then apply balance
+        // Create new shares
         await this.shareService.bulkCreate(cost, data.costShares)
+
+        // Only apply if alredy paid
         await this.shareService.applyBalance(cost)
+
+        // TODO handle:
+        // - changing over date to another date in the future
+        // - changing recurring period
+        // - changing from recurring to non-recurring, and vice versa
 
         resolve(cost)
       } catch (error) {
@@ -110,14 +119,18 @@ export class CostService {
         const cost = await this.findById(costId)
         if (!cost) throw new Error("cost not found")
 
-        // Undo balance then remove shares
-        await this.shareService.undoBalance(cost)
-        await this.shareService.bulkRemove(cost)
-
-        // Remove job
-        if (cost.recurring !== "one-off") {
+        if (dayjs(cost.date).isBefore(dayjs())) {
+          // Undo balance if already paid
+          await this.shareService.undoBalance(cost)
+        } else {
+          // Remove job if cost in future
           await this.costJob.destroyJob(cost)
         }
+
+        // Remove shares
+        await this.shareService.bulkRemove(cost)
+
+        // Remove cost
         await cost.remove()
 
         resolve(true)

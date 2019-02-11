@@ -1,5 +1,4 @@
 import React, { memo } from "react"
-import dayjs from "dayjs"
 import styled from "../application/theme"
 
 import { round } from "../lib/helpers"

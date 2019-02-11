@@ -1,13 +1,15 @@
 import { gql } from "apollo-boost"
-import { Cost, Shares } from "./fragments"
+import { Cost, Shares, Payer } from "./fragments"
 
 export const GET_ALL_COSTS = gql`
   query AllCosts($houseId: String!) {
     allCosts(houseId: $houseId) {
       ...Cost
+      ...Payer
     }
   }
   ${Cost}
+  ${Payer}
 `
 
 export const GET_COST = gql`

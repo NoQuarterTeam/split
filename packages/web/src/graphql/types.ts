@@ -71,7 +71,7 @@ export namespace AllCosts {
     allCosts: AllCosts[]
   }
 
-  export type AllCosts = Cost.Fragment
+  export type AllCosts = Cost.Fragment & Payer.Fragment
 }
 
 export namespace GetCost {
@@ -309,19 +309,7 @@ export namespace Cost {
 
     houseId: string
 
-    payer: Payer
-  }
-
-  export type Payer = {
-    __typename?: "User"
-
-    id: string
-
-    firstName: string
-
-    lastName: string
-
-    avatar: Maybe<string>
+    payerId: string
   }
 }
 
@@ -344,6 +332,26 @@ export namespace Shares {
     __typename?: "User"
 
     id: string
+  }
+}
+
+export namespace Payer {
+  export type Fragment = {
+    __typename?: "Cost"
+
+    payer: Payer
+  }
+
+  export type Payer = {
+    __typename?: "User"
+
+    id: string
+
+    firstName: string
+
+    lastName: string
+
+    avatar: Maybe<string>
   }
 }
 
@@ -403,6 +411,10 @@ export interface Cost {
   date: string
 
   houseId: string
+
+  payerId: string
+
+  creatorId: string
 
   house: House
 

@@ -13,7 +13,7 @@ import { Container } from "typedi"
 
 import createDbConnection from "./db"
 import { authChecker } from "./lib/authChecker"
-import { sessionOptions, cors, port } from "./config"
+import { sessionOptions, cors, port, arena } from "./config"
 
 useContainer(Container)
 
@@ -25,6 +25,7 @@ async function main() {
       .enable("trust proxy")
       .use(morgan("dev"))
       .use(session(sessionOptions))
+      .use("/", arena)
 
     const schema = await buildSchema({
       authChecker,

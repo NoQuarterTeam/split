@@ -1,5 +1,6 @@
 import connectRedis from "connect-redis"
 import session from "express-session"
+import Arena from "bull-arena"
 import { redis } from "./redis"
 
 // ENV
@@ -32,3 +33,15 @@ export const sessionOptions = {
   secret: process.env.APP_SECRET || "AppSecret",
   store: new RedisStore({ client: redis as any }),
 }
+
+// WORKERS UI
+
+export const arena = Arena(
+  {
+    queues: [{ name: "recurringCost", hostId: "split" }],
+  },
+  {
+    basePath: "/arena",
+    disableListen: true,
+  },
+)

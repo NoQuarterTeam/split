@@ -10,12 +10,7 @@ export const Cost = gql`
     category
     createdAt
     houseId
-    payer {
-      id
-      firstName
-      lastName
-      avatar
-    }
+    payerId
   }
 `
 
@@ -26,6 +21,17 @@ export const Shares = gql`
         id
       }
       amount
+    }
+  }
+`
+
+export const Payer = gql`
+  fragment Payer on Cost {
+    payer {
+      id
+      firstName
+      lastName
+      avatar
     }
   }
 `

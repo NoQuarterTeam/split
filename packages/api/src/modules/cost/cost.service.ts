@@ -1,16 +1,15 @@
 import { Service } from "typedi"
-
+import moment from "moment"
 import { CostInput } from "./cost.input"
 import { Cost } from "./cost.entity"
-import { UserService } from "../user/user.service"
 import { ShareService } from "../share/share.service"
-import { House } from "../house/house.entity"
+import { CostJob } from "./cost.job"
 import { HouseService } from "../house/house.service"
 
 @Service()
 export class CostService {
   constructor(
-    private readonly userService: UserService,
+    private readonly costJob: CostJob,
     private readonly shareSevice: ShareService,
     private readonly houseSevice: HouseService,
   ) {}
@@ -18,8 +17,7 @@ export class CostService {
   async findAll(houseId: string): Promise<Cost[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const house = await House.findOne(houseId)
-        if (!house) throw new Error("no house found")
+        const house = await this.houseSevice.findById(houseId)
         const costs = await Cost.find({
           where: { house },
           relations: ["payer"],
@@ -35,7 +33,7 @@ export class CostService {
   findById(costId: string): Promise<Cost> {
     return new Promise(async (resolve, reject) => {
       try {
-        const cost = await Cost.findOne(costId, { relations: ["payer"] })
+        const cost = await Cost.findOne(costId)
         if (!cost) throw new Error("not found")
         resolve(cost)
       } catch (error) {
@@ -47,16 +45,60 @@ export class CostService {
   create(userId: string, data: CostInput): Promise<Cost> {
     return new Promise(async (resolve, reject) => {
       try {
-        const creator = await this.userService.findById(userId)
-        const payer = await this.userService.findById(data.payerId)
-        const house = await this.houseSevice.findById(data.houseId)
-        const cost = await Cost.create({
-          ...data,
-          house,
-          creator,
-          payer,
-        }).save()
-        await this.shareSevice.bulkCreate(cost, data.costShares, payer)
+        // Create cost and shares
+        let cost = await Cost.create({ ...data, creatorId: userId }).save()
+        await this.shareSevice.bulkCreate(cost, data.costShares)
+
+        if (
+          moment(cost.date)
+            .startOf("day")
+            .isBefore(moment())
+        ) {
+          // Apply balance if cost is in the past
+          await this.shareSevice.applyBalance(cost)
+        } else {
+          // If cost is recurring create the future cost and shares to use as
+          // reference
+          if (cost.recurring !== "one-off") {
+            cost = await Cost.create({
+              ...data,
+              date: moment(data.date)
+                .add(1, "month")
+                .format("DD-MM-YYYY"),
+              creatorId: userId,
+            }).save()
+            await this.shareSevice.bulkCreate(cost, data.costShares)
+          }
+
+          // Create a job that will apply the balance at the costs future date
+          await this.costJob.createJob(cost)
+        }
+
+        resolve(cost)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  update(costId: string, data: CostInput): Promise<Cost> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const cost = await this.findById(costId)
+        if (!cost) throw new Error("cost not found")
+
+        // Undo balance then remove shares
+        await this.shareSevice.undoBalance(cost)
+        await this.shareSevice.bulkRemove(cost)
+
+        // Update Cost
+        Object.assign(cost, data)
+        await cost.save()
+
+        // Create new shares then apply balance
+        await this.shareSevice.bulkCreate(cost, data.costShares)
+        await this.shareSevice.applyBalance(cost)
+
         resolve(cost)
       } catch (error) {
         reject(error)
@@ -67,39 +109,20 @@ export class CostService {
   destroy(costId: string): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       try {
-        const cost = await Cost.findOne(costId, { relations: ["payer"] })
+        const cost = await this.findById(costId)
         if (!cost) throw new Error("cost not found")
 
-        // Clean up and remove old shares
-        await this.shareSevice.bulkRemove(cost, cost.payer)
+        // Undo balance then remove shares
+        await this.shareSevice.undoBalance(cost)
+        await this.shareSevice.bulkRemove(cost)
+
+        // Remove job
+        if (cost.recurring !== "one-off") {
+          this.costJob.destroyJob(cost)
+        }
         await cost.remove()
 
         resolve(true)
-      } catch (error) {
-        reject(error)
-      }
-    })
-  }
-
-  update(costId: string, data: CostInput): Promise<Cost> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const cost = await Cost.findOne(costId, { relations: ["payer"] })
-        if (!cost) throw new Error("cost not found")
-
-        // Clean up and remove old shares
-        await this.shareSevice.bulkRemove(cost, cost.payer)
-
-        // Update Cost
-        const payer = await this.userService.findById(data.payerId)
-        cost.payer = payer
-        Object.assign(cost, data)
-        await cost.save()
-
-        // Apply new shares
-        await this.shareSevice.bulkCreate(cost, data.costShares, payer)
-
-        resolve(cost)
       } catch (error) {
         reject(error)
       }

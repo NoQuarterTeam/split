@@ -26,7 +26,7 @@ export class Cost extends BaseEntity {
 
   @Field()
   @Column()
-  recurring: string
+  recurring: "monthly" | "weekly" | "one-off"
 
   @Field()
   @Column()
@@ -43,6 +43,14 @@ export class Cost extends BaseEntity {
   @Field()
   @Column()
   houseId: string
+
+  @Field()
+  @Column()
+  payerId: string
+
+  @Field()
+  @Column()
+  creatorId: string
 
   @OneToMany(() => Share, share => share.cost)
   shares: Share[]

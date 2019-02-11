@@ -20,7 +20,6 @@ function ProfileForm({ user }: ProfileFormProps) {
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
-    password: "",
   })
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
@@ -35,7 +34,6 @@ function ProfileForm({ user }: ProfileFormProps) {
     if (formState.email) data.email = formState.email
     if (formState.firstName) data.firstName = formState.firstName
     if (formState.lastName) data.lastName = formState.lastName
-    if (formState.password) data.password = formState.password
 
     setLoading(true)
     updateUser({ variables: { data } })
@@ -74,14 +72,6 @@ function ProfileForm({ user }: ProfileFormProps) {
         placeholder="sebe"
         required={true}
         label="Last name"
-      />
-      <br />
-      <Input
-        value={formState.password!}
-        type="password"
-        onChange={e => setFormState({ password: e.target.value })}
-        placeholder="********"
-        label="New password"
       />
       <br />
       <Button loading={loading} variant="secondary">

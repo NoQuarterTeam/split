@@ -32,7 +32,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
       : dayjs().format("YYYY-MM-DD"),
     recurring: cost ? cost.recurring : "one-off",
     houseId: cost ? cost.houseId : context.user!.house!.id,
-    payerId: cost ? cost.payer.id : context.user!.id,
+    payerId: cost ? cost.payerId : context.user!.id,
     costShares: cost
       ? cost.shares.map(s => ({ userId: s.user.id, amount: s.amount * 0.01 }))
       : data!.house.users.map(u => ({ userId: u.id, amount: 0 })),

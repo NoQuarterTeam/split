@@ -36,8 +36,7 @@ export class CostResolver {
     @Arg("data") data: CostInput,
     @Ctx() ctx: IResolverContext,
   ): Promise<Cost> {
-    const cost = await this.costService.create(ctx.req.session!.userId, data)
-    return cost
+    return await this.costService.create(ctx.req.session!.userId, data)
   }
 
   // DESTROY COST
@@ -52,17 +51,20 @@ export class CostResolver {
     @Arg("costId") costId: string,
     @Arg("data") data: CostInput,
   ): Promise<Cost> {
-    const cost = await this.costService.update(costId, data)
-    return cost
+    return await this.costService.update(costId, data)
   }
 
   // FIELD RESOLVERS
 
   @FieldResolver(() => [Share])
-  async shares(@Root() cost: Cost) {
-    const costShares = await Share.find({
+  async shares(@Root() cost: Cost): Promise<Share[]> {
+    return await Share.find({
       where: { cost },
     })
-    return costShares
   }
+
+  // @FieldResolver(() => User)
+  // async payer(@Root() cost: Cost): Promise<User> {
+  //   return await this.userService.findById(cost.payerId)
+  // }
 }

@@ -9,7 +9,14 @@ export class ShareService {
     return new Promise(async (resolve, reject) => {
       try {
         await Promise.all(
-          data.map(async s => await Share.create({ ...s, cost }).save()),
+          data.map(
+            async s =>
+              await Share.create({
+                amount: s.amount,
+                userId: s.userId,
+                cost,
+              }).save(),
+          ),
         )
         resolve(true)
       } catch (error) {

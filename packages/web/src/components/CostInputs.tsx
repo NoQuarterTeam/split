@@ -55,9 +55,7 @@ function CostInputs({ formState, setFormState }: CostInputsProps) {
           required={true}
           type="date"
           value={formState.date}
-          onChange={e =>
-            setFormState({ date: dayjs(e.target.value).format("YYYY-MM-DD") })
-          }
+          onChange={e => setFormState({ date: e.target.value })}
         />
       </StyledInputWrapper>
       <StyledInputWrapper>
@@ -67,8 +65,8 @@ function CostInputs({ formState, setFormState }: CostInputsProps) {
           onChange={e => setFormState({ recurring: e.target.value })}
           options={[
             { value: "one-off", label: "One off" },
-            { value: "monthly", label: "Monthly" },
-            { value: "weekly", label: "Weekly" },
+            { value: "month", label: "Monthly" },
+            { value: "week", label: "Weekly" },
           ]}
         />
       </StyledInputWrapper>

@@ -1,14 +1,14 @@
 import "reflect-metadata"
-import Container, { Service, Inject } from "typedi"
+import Container, { Service } from "typedi"
 import { CostJob } from "./modules/cost/cost.job"
+import { createDbConnection } from "./db"
 
 @Service()
 class Workers {
-  @Inject()
-  costJob: CostJob
-
+  constructor(private readonly costJob: CostJob) {}
   async work() {
-    this.costJob.work()
+    await createDbConnection()
+    await this.costJob.work()
   }
 }
 

@@ -26,7 +26,7 @@ export class Cost extends BaseEntity {
 
   @Field()
   @Column()
-  recurring: "monthly" | "weekly" | "one-off"
+  recurring: "month" | "week" | "one-off"
 
   @Field()
   @Column()

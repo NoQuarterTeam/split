@@ -11,7 +11,7 @@ import {
 } from "type-graphql"
 import { Container } from "typedi"
 
-import createDbConnection from "./db"
+import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
 import { sessionOptions, cors, port, arena } from "./config"
 

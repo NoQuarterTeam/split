@@ -72,6 +72,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
 
     const data = {
       ...formState,
+      date: dayjs(formState.date).format(),
       amount: round(formState.amount * 100, 0),
       costShares: formState.costShares.map(s => ({
         userId: s.userId,

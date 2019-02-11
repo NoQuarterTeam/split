@@ -1,6 +1,6 @@
 import { getConnectionOptions, createConnection } from "typeorm"
 
-export default async () => {
+export const createDbConnection = async () => {
   // Create DB connection
   const options = await getConnectionOptions(process.env.NODE_ENV)
 

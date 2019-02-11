@@ -1,5 +1,5 @@
 import { Service } from "typedi"
-import moment from "moment"
+import dayjs from "dayjs"
 import { CostInput } from "./cost.input"
 import { Cost } from "./cost.entity"
 import { ShareService } from "../share/share.service"
@@ -10,14 +10,16 @@ import { HouseService } from "../house/house.service"
 export class CostService {
   constructor(
     private readonly costJob: CostJob,
-    private readonly shareSevice: ShareService,
-    private readonly houseSevice: HouseService,
+    private readonly shareService: ShareService,
+    private readonly houseService: HouseService,
   ) {}
 
   async findAll(houseId: string): Promise<Cost[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        const house = await this.houseSevice.findById(houseId)
+        const house = await this.houseService.findById(houseId)
+        // TODO: remove relation here, add field resolver but solve n + 1
+        // with dataloader etc
         const costs = await Cost.find({
           where: { house },
           relations: ["payer"],
@@ -46,30 +48,26 @@ export class CostService {
     return new Promise(async (resolve, reject) => {
       try {
         // Create cost and shares
-        let cost = await Cost.create({ ...data, creatorId: userId }).save()
-        await this.shareSevice.bulkCreate(cost, data.costShares)
+        const cost = await Cost.create({ ...data, creatorId: userId }).save()
+        await this.shareService.bulkCreate(cost, data.costShares)
 
-        if (
-          moment(cost.date)
-            .startOf("day")
-            .isBefore(moment())
-        ) {
+        if (dayjs(cost.date).isBefore(dayjs())) {
           // Apply balance if cost is in the past
-          await this.shareSevice.applyBalance(cost)
-        } else {
-          // If cost is recurring create the future cost and shares to use as
-          // reference
-          if (cost.recurring !== "one-off") {
-            cost = await Cost.create({
+          await this.shareService.applyBalance(cost)
+
+          // If cost is recurring create the future cost and shares
+          if (data.recurring !== "one-off") {
+            const futureCost = await Cost.create({
               ...data,
-              date: moment(data.date)
-                .add(1, "month")
-                .format("DD-MM-YYYY"),
+              date: dayjs(cost.date)
+                .add(1, data.recurring)
+                .format(),
               creatorId: userId,
             }).save()
-            await this.shareSevice.bulkCreate(cost, data.costShares)
+            await this.shareService.bulkCreate(cost, data.costShares)
+            await this.costJob.createJob(futureCost)
           }
-
+        } else {
           // Create a job that will apply the balance at the costs future date
           await this.costJob.createJob(cost)
         }
@@ -88,16 +86,16 @@ export class CostService {
         if (!cost) throw new Error("cost not found")
 
         // Undo balance then remove shares
-        await this.shareSevice.undoBalance(cost)
-        await this.shareSevice.bulkRemove(cost)
+        await this.shareService.undoBalance(cost)
+        await this.shareService.bulkRemove(cost)
 
         // Update Cost
         Object.assign(cost, data)
         await cost.save()
 
         // Create new shares then apply balance
-        await this.shareSevice.bulkCreate(cost, data.costShares)
-        await this.shareSevice.applyBalance(cost)
+        await this.shareService.bulkCreate(cost, data.costShares)
+        await this.shareService.applyBalance(cost)
 
         resolve(cost)
       } catch (error) {
@@ -113,12 +111,12 @@ export class CostService {
         if (!cost) throw new Error("cost not found")
 
         // Undo balance then remove shares
-        await this.shareSevice.undoBalance(cost)
-        await this.shareSevice.bulkRemove(cost)
+        await this.shareService.undoBalance(cost)
+        await this.shareService.bulkRemove(cost)
 
         // Remove job
         if (cost.recurring !== "one-off") {
-          this.costJob.destroyJob(cost)
+          await this.costJob.destroyJob(cost)
         }
         await cost.remove()
 

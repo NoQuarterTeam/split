@@ -38,7 +38,7 @@ export const sessionOptions = {
 
 export const arena = Arena(
   {
-    queues: [{ name: "recurringCost", hostId: "split" }],
+    queues: [{ name: "costWorker", hostId: "split" }],
   },
   {
     basePath: "/arena",

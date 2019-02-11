@@ -3123,10 +3123,10 @@ dateformat@~1.0.4-1.2.3:
     get-stdin "^4.0.1"
     meow "^3.3.0"
 
-dayjs@^1.8.2:
-  version "1.8.4"
-  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.4.tgz#e5a8fe080a7955e210045e6c26c5d1d4c88cf602"
-  integrity sha512-Gd2W9A8f40Dwr17/O1W12cC61PSq8aUGKBWRVMs7n4XQNwPPIM9m7YzZPHMlW465Sia6t5KlKK52rYd5oT2T6A==
+dayjs@^1.8.5:
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.8.5.tgz#0b066770f89a20022218544989f3d23e5e8db29a"
+  integrity sha512-jo5sEFdsT43RqXxoqQVEuD7XL6iSIRxcjTgheJdlV0EHKObKP3pb9JcJEv/KStVMy25ABNQrFnplKcCit05vOA==
 
 deasync@^0.1.14:
   version "0.1.14"
@@ -6749,7 +6749,7 @@ moment-timezone@^0.5.23:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.17.1, moment@^2.24.0:
+"moment@>= 2.9.0", moment@^2.17.1:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==

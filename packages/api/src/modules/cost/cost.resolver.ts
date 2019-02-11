@@ -62,9 +62,4 @@ export class CostResolver {
       where: { cost },
     })
   }
-
-  // @FieldResolver(() => User)
-  // async payer(@Root() cost: Cost): Promise<User> {
-  //   return await this.userService.findById(cost.payerId)
-  // }
 }

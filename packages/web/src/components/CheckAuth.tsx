@@ -1,12 +1,8 @@
-import React, { ReactNode, useContext } from "react"
+import React, { useContext, FC } from "react"
 import LoginForm from "./LoginForm"
 import { AppContext } from "../application/context"
 
-interface CheckAuthProps {
-  children: ReactNode
-}
-
-function CheckAuth({ children }: CheckAuthProps) {
+const CheckAuth: FC = ({ children }) => {
   const { user } = useContext(AppContext)
   return user ? <React.Fragment>{children}</React.Fragment> : <LoginForm />
 }

@@ -6,7 +6,7 @@ import { round } from "../lib/helpers"
 import Input from "./Input"
 import Radio from "./Radio"
 import Avatar from "./Avatar"
-import Column from "./Column"
+import Column from "./styled/Column"
 
 type ParticipantProps = {
   user: User.Fragment
@@ -83,13 +83,15 @@ function Participant({
         />
       </Column>
       <Column flex={1}>
-        <Radio
-          id={user.id}
-          value={user.id}
-          checked={isPayer}
-          name="payerId"
-          onChange={e => setFormState({ payerId: e.target.value })}
-        />
+        <div>
+          <Radio
+            id={user.id}
+            value={user.id}
+            checked={isPayer}
+            name="payerId"
+            onChange={e => setFormState({ payerId: e.target.value })}
+          />
+        </div>
       </Column>
     </StyledParticipant>
   )

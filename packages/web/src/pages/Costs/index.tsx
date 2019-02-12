@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, Fragment } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { useQuery } from "react-apollo-hooks"
 
@@ -10,7 +10,7 @@ import { GET_ALL_COSTS } from "../../graphql/costs/queries"
 import IconPlus from "../../assets/images/icon-plus.svg"
 import Page from "../../components/Page"
 import CostItem from "../../components/CostItem"
-import Column from "../../components/Column"
+import Column from "../../components/styled/Column"
 
 function Costs(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
@@ -22,34 +22,36 @@ function Costs(_: RouteComponentProps) {
   )
   return (
     <Page activePage="costs">
-      <StyledCostList>
-        <StyledHeader>
-          <StyledHouseName>Costs</StyledHouseName>
-          <Link to="/new-cost">
-            <img src={IconPlus} alt="add" height={40} />
-          </Link>
-        </StyledHeader>
-        <StyledTableHeader>
-          <Column flex={5}>
-            <StyledLabel>Name</StyledLabel>
-          </Column>
-          <Column flex={5}>
-            <StyledLabel>Amount</StyledLabel>
-          </Column>
-          <Column flex={5}>
-            <StyledLabel>Payer</StyledLabel>
-          </Column>
-          <Column flex={5}>
-            <StyledLabel>Date</StyledLabel>
-          </Column>
-          <Column flex={3} />
-        </StyledTableHeader>
-        {data &&
-          data.allCosts &&
-          data.allCosts.map(cost => {
-            return <CostItem key={cost.id} cost={cost} />
-          })}
-      </StyledCostList>
+      <Fragment>
+        <StyledCostList>
+          <StyledHeader>
+            <StyledHouseName>Costs</StyledHouseName>
+            <Link to="/new-cost">
+              <img src={IconPlus} alt="add" height={40} />
+            </Link>
+          </StyledHeader>
+          <StyledTableHeader>
+            <Column flex={5}>
+              <StyledLabel>Name</StyledLabel>
+            </Column>
+            <Column flex={5}>
+              <StyledLabel>Amount</StyledLabel>
+            </Column>
+            <Column flex={5}>
+              <StyledLabel>Payer</StyledLabel>
+            </Column>
+            <Column flex={5}>
+              <StyledLabel>Date</StyledLabel>
+            </Column>
+            <Column flex={3} />
+          </StyledTableHeader>
+          {data &&
+            data.allCosts &&
+            data.allCosts.map(cost => {
+              return <CostItem key={cost.id} cost={cost} />
+            })}
+        </StyledCostList>
+      </Fragment>
     </Page>
   )
 }

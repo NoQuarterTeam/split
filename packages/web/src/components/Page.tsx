@@ -1,13 +1,12 @@
-import React, { memo, ReactNode } from "react"
+import React, { memo, FC } from "react"
 import styled from "../application/theme"
 import Sidebar from "./Sidebar"
 
 interface PageProps {
-  children: ReactNode
   activePage: string
 }
 
-function Page({ children, activePage }: PageProps) {
+const Page: FC<PageProps> = ({ children, activePage }) => {
   return (
     <StyledPage>
       <Sidebar active={activePage} />
@@ -16,7 +15,7 @@ function Page({ children, activePage }: PageProps) {
   )
 }
 
-export default memo(Page)
+export default Page
 
 const StyledPage = styled.div`
   height: 100vh;

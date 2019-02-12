@@ -2,18 +2,15 @@ import React, { memo } from "react"
 import styled from "../application/theme"
 import { Maybe } from "../graphql/types"
 
-type User = {
+type UserDetails = {
   id: string
-
   firstName: string
-
   lastName: string
-
   avatar: Maybe<string>
 }
 
 type AvatarProps = {
-  user: User
+  user: UserDetails
   size?: number
   onClick?: () => void
 }

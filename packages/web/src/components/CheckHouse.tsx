@@ -1,15 +1,11 @@
-import React, { useContext, memo } from "react"
+import React, { useContext, FC, Fragment } from "react"
 
 import { AppContext } from "../application/context"
 import NewHouse from "./NewHouseForm"
 
-const CheckHouse: React.FC = ({ children }) => {
+const CheckHouse: FC = ({ children }) => {
   const { user } = useContext(AppContext)
-  return user!.house ? (
-    <React.Fragment>{children}</React.Fragment>
-  ) : (
-    <NewHouse />
-  )
+  return user!.house ? <Fragment>{children}</Fragment> : <NewHouse />
 }
 
 export default CheckHouse

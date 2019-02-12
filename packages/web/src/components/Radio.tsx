@@ -1,12 +1,10 @@
 import React, { memo, InputHTMLAttributes } from "react"
 import styled from "../application/theme"
 
-interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {}
-
-function Radio(props: RadioProps) {
+function Radio(props: InputHTMLAttributes<HTMLInputElement>) {
   return (
     <StyledLabel htmlFor={props.id}>
-      <input type="radio" {...props} style={{ opacity: 0 }} />
+      <HiddenInput type="radio" {...props} />
       <StyledRadio />
     </StyledLabel>
   )
@@ -14,17 +12,29 @@ function Radio(props: RadioProps) {
 
 export default memo(Radio)
 
+const HiddenInput = styled.input`
+  opacity: 0;
+  border: 0;
+  height: 0;
+  width: 0;
+  margin: 0;
+`
+
 const StyledLabel = styled.label`
   user-select: none;
   cursor: pointer;
   position: relative;
 
-  input:checked ~ div:after {
-    opacity: 1;
+  ${HiddenInput} {
+    &:checked ~ div:after {
+      opacity: 1;
+    }
   }
 
-  input:focus ~ div {
-    border: 2px solid ${p => p.theme.colorSecondary};
+  ${HiddenInput} {
+    &:focus ~ div {
+      border: 2px solid ${p => p.theme.colorSecondary};
+    }
   }
 `
 

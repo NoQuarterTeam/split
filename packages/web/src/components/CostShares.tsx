@@ -4,7 +4,7 @@ import Button from "./Button"
 import { User, CostInput } from "../graphql/types"
 import styled from "../application/theme"
 import Alert from "./Alert"
-import Column from "./Column"
+import Column from "./styled/Column"
 
 type CostSharesProps = {
   users: User.Fragment[]

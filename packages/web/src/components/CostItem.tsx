@@ -2,15 +2,17 @@ import React, { memo } from "react"
 import dayjs from "dayjs"
 import { navigate } from "@reach/router"
 
-import { AllCosts } from "../graphql/types"
 import styled from "../application/theme"
+import { AllCosts } from "../graphql/types"
 import { round } from "../lib/helpers"
 
 import IconOpen from "../assets/images/icon-open.svg"
 import IconRepeat from "../assets/images/icon-repeat.svg"
+import IconClock from "../assets/images/icon-clock.svg"
 
-import Column from "./Column"
+import Column from "./styled/Column"
 import Avatar from "./Avatar"
+import Center from "./styled/Center"
 
 type CostProps = {
   cost: AllCosts.AllCosts
@@ -19,26 +21,26 @@ type CostProps = {
 function CostItem({ cost }: CostProps) {
   return (
     <StyledCost onClick={() => navigate(`/costs/${cost.id}`)} tabIndex={0}>
-      <Column flex={5}>{cost.name}</Column>
+      <Column flex={5}>
+        <StyledName>
+          {cost.name}
+          {cost.recurring !== "one-off" && (
+            <StyledInfoIcon src={IconRepeat} width={30} />
+          )}
+          {dayjs(cost.date).isAfter(dayjs().startOf("day")) && (
+            <StyledInfoIcon src={IconClock} width={25} />
+          )}
+        </StyledName>
+      </Column>
       <Column flex={5}>€ {round(cost.amount * 0.01, 2)}</Column>
       <Column flex={5}>
         <Avatar user={cost.payer} size={40} />
       </Column>
       <Column flex={5}>{dayjs(cost.date).format("DD MMM 'YY")}</Column>
       <Column flex={3}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {dayjs(cost.date).isAfter(dayjs().startOf("day")) && <div>fut</div>}
-          {cost.recurring !== "one-off" && (
-            <StyledIcon src={IconRepeat} width={30} />
-          )}
+        <Center>
           <StyledIcon src={IconOpen} width={10} />
-        </div>
+        </Center>
       </Column>
     </StyledCost>
   )
@@ -46,14 +48,23 @@ function CostItem({ cost }: CostProps) {
 
 export default memo(CostItem)
 
+const StyledName = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+`
 const StyledIcon = styled.img``
+
+const StyledInfoIcon = styled.img`
+  padding-left: ${p => p.theme.paddingS};
+`
 
 const StyledCost = styled.div`
   width: 100%;
-  padding: ${p => p.theme.paddingL};
   padding-right: 0;
-  border-radius: ${p => p.theme.borderRadius};
   border: 2px solid transparent;
+  padding: ${p => p.theme.paddingL};
+  border-radius: ${p => p.theme.borderRadius};
   ${p => p.theme.flexCenter};
 
   &:hover {

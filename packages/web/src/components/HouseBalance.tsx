@@ -45,9 +45,9 @@ const StyledHouseBalance = styled.div`
 const StyledUserGraph = styled.div`
   ${p => p.theme.flexCenter};
   position: relative;
-
   flex-direction: column;
 `
+
 const StyledSpacer = styled.p`
   padding: ${p => p.theme.paddingM} 0;
 `

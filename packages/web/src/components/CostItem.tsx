@@ -13,6 +13,7 @@ import IconClock from "../assets/images/icon-clock.svg"
 import Column from "./styled/Column"
 import Avatar from "./Avatar"
 import Center from "./styled/Center"
+import ToolTip from "./ToolTip"
 
 type CostProps = {
   cost: AllCosts.AllCosts
@@ -25,10 +26,14 @@ function CostItem({ cost }: CostProps) {
         <StyledName>
           {cost.name}
           {cost.recurring !== "one-off" && (
-            <StyledInfoIcon src={IconRepeat} width={30} />
+            <ToolTip message="Recurring cost">
+              <StyledInfoIcon src={IconRepeat} width={30} />
+            </ToolTip>
           )}
           {dayjs(cost.date).isAfter(dayjs().startOf("day")) && (
-            <StyledInfoIcon src={IconClock} width={25} />
+            <ToolTip message="Future cost">
+              <StyledInfoIcon src={IconClock} width={25} />
+            </ToolTip>
           )}
         </StyledName>
       </Column>
@@ -53,9 +58,12 @@ const StyledName = styled.div`
   align-items: center;
   justify-content: flex-start;
 `
-const StyledIcon = styled.img``
+const StyledIcon = styled.img`
+  transition: 200ms all;
+`
 
 const StyledInfoIcon = styled.img`
+  cursor: pointer;
   padding-left: ${p => p.theme.paddingS};
 `
 
@@ -72,7 +80,6 @@ const StyledCost = styled.div`
     box-shadow: 0 0 10px 5px rgba(200, 200, 200, 0.1);
 
     ${StyledIcon} {
-      transition: 200ms all;
       transform: translateX(5px);
     }
   }

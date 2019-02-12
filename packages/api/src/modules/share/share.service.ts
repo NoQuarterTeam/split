@@ -14,7 +14,7 @@ export class ShareService {
               await Share.create({
                 amount: s.amount,
                 userId: s.userId,
-                cost,
+                costId: cost.id,
               }).save(),
           ),
         )

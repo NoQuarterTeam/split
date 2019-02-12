@@ -88,7 +88,11 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   return (
     <StyledForm onSubmit={handleCreateHouseSubmit}>
       <StyleFieldsWrapper>
-        <CostInputs formState={formState} setFormState={setFormState} />
+        <CostInputs
+          formState={formState}
+          setFormState={setFormState}
+          isEditing={!!cost && dayjs(cost.date).isBefore(dayjs())}
+        />
         <CostShares
           users={data!.house.users}
           equalSplit={equalSplit}

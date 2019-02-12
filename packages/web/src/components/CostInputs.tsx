@@ -8,10 +8,11 @@ import Select from "./Select"
 
 type CostInputsProps = {
   formState: CostInput
+  isEditing: boolean
   setFormState: (val: { [key: string]: any }) => void
 }
 
-function CostInputs({ formState, setFormState }: CostInputsProps) {
+function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
   return (
     <StyledInputs>
       <StyledInputWrapper>
@@ -60,6 +61,7 @@ function CostInputs({ formState, setFormState }: CostInputsProps) {
       <StyledInputWrapper>
         <Select
           label="recurring"
+          disabled={isEditing}
           value={formState.recurring}
           onChange={e => setFormState({ recurring: e.target.value })}
           options={[

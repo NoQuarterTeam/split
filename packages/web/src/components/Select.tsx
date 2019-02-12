@@ -7,6 +7,7 @@ type SelectOption = {
 }
 type SelectProps = {
   label: string
+  disabled: boolean
   options: SelectOption[]
   value: any
   onChange: (e: any) => void
@@ -16,7 +17,11 @@ function Select(props: SelectProps) {
   return (
     <StyledContainer>
       <StyledLabel>{props.label}</StyledLabel>
-      <StyledSelect value={props.value} onChange={props.onChange}>
+      <StyledSelect
+        disabled={props.disabled}
+        value={props.value}
+        onChange={props.onChange}
+      >
         {props.options.map(option => {
           return (
             <option key={option.value} value={option.value}>
@@ -46,7 +51,7 @@ const StyledSelect = styled.select`
   width: 100%;
   outline: 0;
   border-radius: 0;
-  cursor: pointer;
+  cursor: ${p => (p.disabled ? "not-allowed" : "pointer")};
   background-color: transparent;
   font-size: ${p => p.theme.textM};
   padding: ${p => p.theme.paddingM} 0;

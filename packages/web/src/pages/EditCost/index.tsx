@@ -40,7 +40,6 @@ function EditCostPage(props: EditCostProps) {
       refetchQueries: [
         { query: GET_HOUSE },
         { query: GET_ALL_COSTS, variables: { houseId: data!.getCost.houseId } },
-        { query: GET_COST, variables: { costId: data!.getCost.id } },
       ],
       awaitRefetchQueries: true,
     },

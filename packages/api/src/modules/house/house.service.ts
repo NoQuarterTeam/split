@@ -30,4 +30,17 @@ export class HouseService {
       }
     })
   }
+
+  update(houseId: string, data: HouseInput): Promise<House> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const house = await this.findById(houseId)
+        Object.assign(house, data)
+        await house.save()
+        resolve(house)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
 }

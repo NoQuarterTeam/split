@@ -35,7 +35,8 @@ function HouseBalance({ users }: IHouseBalance) {
 export default memo(HouseBalance)
 
 const StyledHouseBalance = styled.div`
-  width: 400px;
+  max-width: 500px;
+  width: 100%;
   height: 400px;
   margin: 0 auto;
 

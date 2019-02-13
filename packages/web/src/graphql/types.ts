@@ -177,6 +177,27 @@ export namespace CreateHouse {
   export type Users = User.Fragment
 }
 
+export namespace EditHouse {
+  export type Variables = {
+    houseId: string
+    data: HouseInput
+  }
+
+  export type Mutation = {
+    __typename?: "Mutation"
+
+    editHouse: EditHouse
+  }
+
+  export type EditHouse = {
+    __typename?: "House"
+
+    users: Users[]
+  } & House.Fragment
+
+  export type Users = User.Fragment
+}
+
 export namespace Me {
   export type Variables = {}
 
@@ -458,6 +479,8 @@ export interface Mutation {
 
   createHouse: House
 
+  editHouse: House
+
   register: User
 
   login: User
@@ -490,6 +513,11 @@ export interface EditCostMutationArgs {
 }
 export interface CreateHouseMutationArgs {
   data: HouseInput
+}
+export interface EditHouseMutationArgs {
+  data: HouseInput
+
+  houseId: string
 }
 export interface RegisterMutationArgs {
   data: RegisterInput

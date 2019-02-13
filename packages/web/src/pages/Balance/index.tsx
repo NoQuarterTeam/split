@@ -12,11 +12,12 @@ import Page from "../../components/Page"
 
 import HouseBalance from "../../components/HouseBalance"
 import HouseForm from "../../components/HouseForm"
+import HouseName from "../../components/HouseName"
 
 function Balance(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
   const { data } = useQuery<GetHouse.Query>(GET_HOUSE)
-  const house = data!.house
+  const house = data!.house!
 
   const getBalanceHeader = () => {
     if (user!.balance > 0) {
@@ -32,9 +33,11 @@ function Balance(_: RouteComponentProps) {
         <HouseForm />
       ) : (
         <Fragment>
-          <StyledHeader>{house!.name}</StyledHeader>
-          <HouseBalance users={house!.users} />
-          <StyledSummary>{getBalanceHeader()}</StyledSummary>
+          <StyledHeader>
+            <HouseName house={house} />
+            <p>{getBalanceHeader()}</p>
+          </StyledHeader>
+          <HouseBalance users={house.users} />
         </Fragment>
       )}
     </Page>
@@ -43,16 +46,15 @@ function Balance(_: RouteComponentProps) {
 
 export default Balance
 
-const StyledHeader = styled.h2`
+const StyledHeader = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
+  flex-direction: column;
   padding: ${p => p.theme.paddingXL};
-`
 
-const StyledSummary = styled.h2`
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: ${p => p.theme.paddingXL};
+  p {
+    padding-left: ${p => p.theme.paddingS};
+  }
 `

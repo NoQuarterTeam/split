@@ -27,3 +27,16 @@ export const CREATE_HOUSE = gql`
   ${House}
   ${User}
 `
+
+export const EDIT_HOUSE = gql`
+  mutation EditHouse($houseId: String!, $data: HouseInput!) {
+    editHouse(houseId: $houseId, data: $data) {
+      ...House
+      users {
+        ...User
+      }
+    }
+  }
+  ${House}
+  ${User}
+`

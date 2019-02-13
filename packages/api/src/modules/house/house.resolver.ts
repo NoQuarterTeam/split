@@ -43,6 +43,16 @@ export class HouseResolver {
     return house
   }
 
+  // EDIT HOUSE
+  @Mutation(() => House)
+  async editHouse(
+    @Arg("houseId") houseId: string,
+    @Arg("data") data: HouseInput,
+  ): Promise<House> {
+    const house = await this.houseService.update(houseId, data)
+    return house
+  }
+
   // FIELD RESOLVERS
 
   @FieldResolver(() => [Cost])

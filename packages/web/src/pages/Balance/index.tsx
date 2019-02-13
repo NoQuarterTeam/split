@@ -13,6 +13,7 @@ import Page from "../../components/Page"
 import HouseBalance from "../../components/HouseBalance"
 import HouseForm from "../../components/HouseForm"
 import HouseName from "../../components/HouseName"
+import HouseInvite from "../../components/HouseInvite"
 
 function Balance(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
@@ -38,6 +39,9 @@ function Balance(_: RouteComponentProps) {
             <p>{getBalanceHeader()}</p>
           </StyledHeader>
           <HouseBalance users={house.users} />
+          <StyledInviteWrapper>
+            <HouseInvite house={house} />
+          </StyledInviteWrapper>
         </Fragment>
       )}
     </Page>
@@ -57,4 +61,11 @@ const StyledHeader = styled.div`
   p {
     padding-left: ${p => p.theme.paddingS};
   }
+`
+
+const StyledInviteWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: ${p => p.theme.paddingXL};
 `

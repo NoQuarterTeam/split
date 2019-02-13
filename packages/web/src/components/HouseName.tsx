@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, memo } from "react"
 import styled from "../application/theme"
 import { useMutation } from "react-apollo-hooks"
 import { EDIT_HOUSE, GET_HOUSE } from "../graphql/house/queries"
@@ -56,7 +56,7 @@ function HouseName({ house }: HouseNameProps) {
   )
 }
 
-export default HouseName
+export default memo(HouseName)
 
 const StyledInput = styled.input`
   outline: 0;

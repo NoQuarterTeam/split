@@ -23,7 +23,7 @@ export class HouseService {
     return new Promise(async (resolve, reject) => {
       try {
         const house = await House.create(data).save()
-        await this.userService.updateHouse(userId, house)
+        await this.userService.update(userId, { houseId: house.id })
         resolve(house)
       } catch (error) {
         reject(error)

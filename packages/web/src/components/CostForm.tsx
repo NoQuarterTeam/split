@@ -4,7 +4,7 @@ import { useQuery } from "react-apollo-hooks"
 
 import styled from "../application/theme"
 import { AppContext } from "../application/context"
-import { GetHouse, CostInput, Cost, GetCost } from "../graphql/types"
+import { GetHouse, CostInput, GetCost } from "../graphql/types"
 import { GET_HOUSE } from "../graphql/house/queries"
 
 import Button from "./Button"
@@ -20,8 +20,9 @@ type CostFormProps = {
 }
 
 function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
-  const context = useContext(AppContext)
+  const { user } = useContext(AppContext)
   const { data } = useQuery<GetHouse.Query>(GET_HOUSE)
+  const house = data!.house!
 
   const { formState, setFormState } = useFormState<CostInput>({
     name: cost ? cost.name : "",
@@ -31,11 +32,11 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
       ? dayjs(cost.date).format("YYYY-MM-DD")
       : dayjs().format("YYYY-MM-DD"),
     recurring: cost ? cost.recurring : "one-off",
-    houseId: cost ? cost.houseId : context.user!.house!.id,
-    payerId: cost ? cost.payerId : context.user!.id,
+    houseId: house.id,
+    payerId: cost ? cost.payerId : user!.id,
     costShares: cost
       ? cost.shares.map(s => ({ userId: s.user.id, amount: s.amount * 0.01 }))
-      : data!.house.users.map(u => ({ userId: u.id, amount: 0 })),
+      : house.users.map(u => ({ userId: u.id, amount: 0 })),
   })
   const [equalSplit, setEqualSplit] = useState<boolean>(true)
   const [loading, setLoading] = useState<boolean>(false)
@@ -63,14 +64,14 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     setFormState({ costShares })
   }
 
-  const handleCreateHouseSubmit = async (e: any) => {
+  const handleCostCreate = async (e: any) => {
     e.preventDefault()
     if (difference) {
       return setError("Split not equal to amount")
     }
     setLoading(true)
 
-    const data = {
+    const costData = {
       ...formState,
       date: dayjs(formState.date).format(),
       amount: round(formState.amount * 100, 0),
@@ -79,14 +80,14 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
         amount: round(s.amount * 100, 0),
       })),
     }
-    onFormSubmit(data).catch(e => {
-      setError(e.message)
+    onFormSubmit(costData).catch(houseError => {
+      setError(houseError.message)
       setLoading(false)
     })
   }
 
   return (
-    <StyledForm onSubmit={handleCreateHouseSubmit}>
+    <StyledForm onSubmit={handleCostCreate}>
       <StyleFieldsWrapper>
         <CostInputs
           formState={formState}
@@ -94,7 +95,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
           isEditing={!!cost && dayjs(cost.date).isBefore(dayjs())}
         />
         <CostShares
-          users={data!.house.users}
+          users={house.users}
           equalSplit={equalSplit}
           formState={formState}
           difference={difference}

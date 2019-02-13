@@ -1,12 +1,12 @@
 import React, { memo } from "react"
 import { RouteComponentProps } from "@reach/router"
-import Page from "../../components/Page"
+import Center from "../../components/styled/Center"
 
 function NotFound(_: RouteComponentProps) {
   return (
-    <Page>
+    <Center style={{ height: "100vh" }}>
       <h3 style={{ width: "100%", textAlign: "center" }}>Not found 😲</h3>
-    </Page>
+    </Center>
   )
 }
 

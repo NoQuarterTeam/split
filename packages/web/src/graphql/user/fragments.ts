@@ -8,9 +8,5 @@ export const User = gql`
     email
     balance
     avatar
-    house {
-      id
-      name
-    }
   }
 `

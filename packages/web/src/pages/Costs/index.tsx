@@ -1,23 +1,30 @@
 import React, { useContext, Fragment } from "react"
-import { RouteComponentProps, Link } from "@reach/router"
+import { RouteComponentProps, Link, Redirect } from "@reach/router"
 import { useQuery } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
 import { AppContext } from "../../application/context"
 
-import { AllCosts } from "../../graphql/types"
+import { AllCosts, GetHouse } from "../../graphql/types"
 import { GET_ALL_COSTS } from "../../graphql/costs/queries"
 import IconPlus from "../../assets/images/icon-plus.svg"
 import Page from "../../components/Page"
 import CostItem from "../../components/CostItem"
 import Column from "../../components/styled/Column"
+import { GET_HOUSE } from "../../graphql/house/queries"
 
 function Costs(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
-  const { data, error } = useQuery<AllCosts.Query, AllCosts.Variables>(
+  if (!user!.houseId) return <Redirect to="/" noThrow={true} />
+
+  const { data } = useQuery<GetHouse.Query>(GET_HOUSE)
+  const house = data!.house!
+
+  const { data: costData } = useQuery<AllCosts.Query, AllCosts.Variables>(
     GET_ALL_COSTS,
     {
-      variables: { houseId: user!.house!.id },
+      variables: { houseId: house.id },
+      suspend: false,
     },
   )
   return (
@@ -45,9 +52,9 @@ function Costs(_: RouteComponentProps) {
             </Column>
             <Column flex={3} />
           </StyledTableHeader>
-          {data &&
-            data.allCosts &&
-            data.allCosts.map(cost => {
+          {costData &&
+            costData.allCosts &&
+            costData.allCosts.map(cost => {
               return <CostItem key={cost.id} cost={cost} />
             })}
         </StyledCostList>

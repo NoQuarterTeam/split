@@ -39,7 +39,7 @@ const StyledHouseBalance = styled.div`
   height: 400px;
   margin: 0 auto;
 
-  ${p => p.theme.flexBetween};
+  ${p => p.theme.flexAround};
 `
 
 const StyledUserGraph = styled.div`

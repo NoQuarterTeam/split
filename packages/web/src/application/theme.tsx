@@ -33,6 +33,11 @@ const theme: IThemeInterface = {
     align-items: center;
     justify-content: space-between;
   `,
+  flexAround: `
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  `,
 }
 
 interface IThemeInterface {
@@ -59,6 +64,7 @@ interface IThemeInterface {
   textXS: string
   flexCenter: string
   flexBetween: string
+  flexAround: string
 }
 
 const {

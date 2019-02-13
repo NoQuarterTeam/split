@@ -74,19 +74,4 @@ export class UserResolver {
     ctx.res.clearCookie(cookieName)
     return true
   }
-
-  // FIELD RESOLVERS
-
-  @FieldResolver(() => House)
-  house(@Root() user: User): Promise<House | null> {
-    return new Promise(async resolve => {
-      try {
-        if (!user.houseId) resolve(null)
-        const house = await this.houseService.findById(user.houseId)
-        resolve(house)
-      } catch (error) {
-        resolve(null)
-      }
-    })
-  }
 }

@@ -1,18 +1,26 @@
-import React, { memo } from "react"
+import React, { memo, Fragment, useContext } from "react"
 import { Link } from "@reach/router"
+import { useMutation, useApolloClient } from "react-apollo-hooks"
+
 import IconPlus from "../assets/images/icon-plus.svg"
 import IconLogo from "../assets/images/icon-logo.svg"
 
 import styled from "../application/theme"
-import { LOGOUT, ME } from "../graphql/user/queries"
-import { useMutation } from "react-apollo-hooks"
+import { LOGOUT } from "../graphql/user/queries"
+import { AppContext } from "../application/context"
 
 function Sidebar({ active }: { active: string }) {
-  const logout = useMutation(LOGOUT, {
-    update: cache => {
-      cache.writeQuery({ query: ME, data: { me: null } })
-    },
-  })
+  const { user } = useContext(AppContext)
+  const house = user!.houseId
+
+  const client = useApolloClient()
+
+  const logout = useMutation(LOGOUT)
+
+  const handleLogout = async () => {
+    await logout()
+    await client.resetStore()
+  }
   return (
     <StyledSidebar>
       <h2>
@@ -23,22 +31,22 @@ function Sidebar({ active }: { active: string }) {
         <Link to="/">
           <StyledLink active={active === "balance"}>Balance</StyledLink>
         </Link>
-        <Link to="/new-cost">
-          <StyledLink>
-            New cost <StyledIcon src={IconPlus} />
-          </StyledLink>
-        </Link>
-        <Link to="/costs">
-          <StyledLink active={active === "costs"}>Costs</StyledLink>
-        </Link>
+        {house && (
+          <Fragment>
+            <Link to="/new-cost">
+              <StyledLink>
+                New cost <StyledIcon src={IconPlus} />
+              </StyledLink>
+            </Link>
+            <Link to="/costs">
+              <StyledLink active={active === "costs"}>Costs</StyledLink>
+            </Link>
+          </Fragment>
+        )}
         <Link to="/profile">
           <StyledLink active={active === "settings"}>Settings</StyledLink>
         </Link>
-        <div
-          tabIndex={0}
-          onClick={() => logout()}
-          style={{ cursor: "pointer" }}
-        >
+        <div tabIndex={0} onClick={handleLogout} style={{ cursor: "pointer" }}>
           <StyledLink>Logout</StyledLink>
         </div>
       </div>

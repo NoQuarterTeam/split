@@ -1,4 +1,4 @@
-import React, { memo, FC } from "react"
+import React, { FC } from "react"
 import styled from "../application/theme"
 import Sidebar from "./Sidebar"
 

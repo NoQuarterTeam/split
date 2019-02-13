@@ -61,18 +61,4 @@ export class UserService {
       }
     })
   }
-
-  async updateHouse(userId: string, house: House): Promise<User> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const user = await this.findById(userId)
-        if (!user) throw new Error("user not found")
-        Object.assign(user, { house })
-        await user.save()
-        resolve(user)
-      } catch (error) {
-        reject(error)
-      }
-    })
-  }
 }

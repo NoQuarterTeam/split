@@ -11,7 +11,6 @@ import CheckAuth from "../components/CheckAuth"
 
 import Balance from "../pages/Balance"
 import NotFound from "../pages/NotFound"
-import CheckHouse from "../components/CheckHouse"
 import NewCost from "../pages/NewCost"
 import EditCost from "../pages/EditCost"
 import Costs from "../pages/Costs"
@@ -21,23 +20,22 @@ function Application() {
   const { data, loading } = useQuery<Me.Query>(ME, {
     suspend: false,
   })
+
   const user = (data && data.me) || null
   return (
     <AppContext.Provider value={{ user }}>
       <Loading loading={loading}>
         <CheckAuth>
-          <CheckHouse>
-            <Suspense fallback={<Loading loading={true} />}>
-              <Router>
-                <Balance path="/" />
-                <NewCost path="/new-cost" />
-                <EditCost path="/costs/:id" />
-                <Costs path="/costs" />
-                <Settings path="/profile" />
-                <NotFound default={true} />
-              </Router>
-            </Suspense>
-          </CheckHouse>
+          <Suspense fallback={<Loading loading={true} />}>
+            <Router>
+              <Balance path="/" />
+              <NewCost path="/new-cost" />
+              <EditCost path="/costs/:id" />
+              <Costs path="/costs" />
+              <Settings path="/profile" />
+              <NotFound default={true} />
+            </Router>
+          </Suspense>
         </CheckAuth>
       </Loading>
     </AppContext.Provider>

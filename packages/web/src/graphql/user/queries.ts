@@ -5,10 +5,7 @@ export const ME = gql`
   query Me {
     me {
       ...User
-      house {
-        id
-        name
-      }
+      houseId
     }
   }
   ${User}
@@ -18,10 +15,7 @@ export const LOGIN = gql`
   mutation Login($data: LoginInput!) {
     login(data: $data) {
       ...User
-      house {
-        id
-        name
-      }
+      houseId
     }
   }
   ${User}
@@ -31,10 +25,7 @@ export const REGISTER = gql`
   mutation Register($data: RegisterInput!) {
     register(data: $data) {
       ...User
-      house {
-        id
-        name
-      }
+      houseId
     }
   }
   ${User}
@@ -44,10 +35,7 @@ export const UPDATE_USER = gql`
   mutation UpdateUser($data: UpdateInput!) {
     updateUser(data: $data) {
       ...User
-      house {
-        id
-        name
-      }
+      houseId
     }
   }
   ${User}

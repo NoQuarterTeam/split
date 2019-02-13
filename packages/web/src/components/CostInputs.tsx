@@ -40,13 +40,19 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
         />
       </StyledInputWrapper>
       <StyledInputWrapper>
-        <Input
+        <Select
           label="category"
-          required={true}
-          placeholder="Drinks"
-          type="text"
           value={formState.category}
           onChange={e => setFormState({ category: e.target.value })}
+          options={[
+            { value: "food", label: "Food" },
+            { value: "drinks", label: "Drinks" },
+            { value: "home", label: "Home Supplies" },
+            { value: "work", label: "Work Supplies" },
+            { value: "rent", label: "Rent" },
+            { value: "utilities", label: "Utilities" },
+            { value: "other", label: "Other" },
+          ]}
         />
       </StyledInputWrapper>
       <StyledInputWrapper>

@@ -30,7 +30,7 @@ function ProfileForm({ user }: ProfileFormProps) {
 
   const handleUpdateUser = (e: any) => {
     e.preventDefault()
-    let data: { [key: string]: string } = {}
+    const data: { [key: string]: string } = {}
     if (formState.email) data.email = formState.email
     if (formState.firstName) data.firstName = formState.firstName
     if (formState.lastName) data.lastName = formState.lastName

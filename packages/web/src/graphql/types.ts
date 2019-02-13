@@ -54,6 +54,8 @@ export interface UpdateInput {
   password?: Maybe<string>
 
   avatar?: Maybe<string>
+
+  houseId?: Maybe<string>
 }
 
 // ====================================================
@@ -143,18 +145,14 @@ export namespace GetHouse {
   export type Query = {
     __typename?: "Query"
 
-    house: House
+    house: Maybe<House>
   }
 
   export type House = {
     __typename?: "House"
 
-    id: string
-
-    name: string
-
     users: Users[]
-  }
+  } & House.Fragment
 
   export type Users = User.Fragment
 }
@@ -173,8 +171,10 @@ export namespace CreateHouse {
   export type CreateHouse = {
     __typename?: "House"
 
-    name: string
-  }
+    users: Users[]
+  } & House.Fragment
+
+  export type Users = User.Fragment
 }
 
 export namespace Me {
@@ -189,16 +189,8 @@ export namespace Me {
   export type Me = {
     __typename?: "User"
 
-    house: Maybe<House>
+    houseId: Maybe<string>
   } & User.Fragment
-
-  export type House = {
-    __typename?: "House"
-
-    id: string
-
-    name: string
-  }
 }
 
 export namespace Login {
@@ -215,16 +207,8 @@ export namespace Login {
   export type Login = {
     __typename?: "User"
 
-    house: Maybe<House>
+    houseId: Maybe<string>
   } & User.Fragment
-
-  export type House = {
-    __typename?: "House"
-
-    id: string
-
-    name: string
-  }
 }
 
 export namespace Register {
@@ -241,16 +225,8 @@ export namespace Register {
   export type Register = {
     __typename?: "User"
 
-    house: Maybe<House>
+    houseId: Maybe<string>
   } & User.Fragment
-
-  export type House = {
-    __typename?: "House"
-
-    id: string
-
-    name: string
-  }
 }
 
 export namespace UpdateUser {
@@ -267,16 +243,8 @@ export namespace UpdateUser {
   export type UpdateUser = {
     __typename?: "User"
 
-    house: Maybe<House>
+    houseId: Maybe<string>
   } & User.Fragment
-
-  export type House = {
-    __typename?: "House"
-
-    id: string
-
-    name: string
-  }
 }
 
 export namespace Logout {
@@ -355,6 +323,16 @@ export namespace Payer {
   }
 }
 
+export namespace House {
+  export type Fragment = {
+    __typename?: "House"
+
+    id: string
+
+    name: string
+  }
+}
+
 export namespace User {
   export type Fragment = {
     __typename?: "User"
@@ -370,16 +348,6 @@ export namespace User {
     balance: number
 
     avatar: Maybe<string>
-
-    house: Maybe<House>
-  }
-
-  export type House = {
-    __typename?: "House"
-
-    id: string
-
-    name: string
   }
 }
 
@@ -392,7 +360,7 @@ export interface Query {
 
   getCost: Cost
 
-  house: House
+  house?: Maybe<House>
 
   me?: Maybe<User>
 }
@@ -451,6 +419,8 @@ export interface User {
   avatar?: Maybe<string>
 
   balance: number
+
+  houseId?: Maybe<string>
 
   house?: Maybe<House>
 

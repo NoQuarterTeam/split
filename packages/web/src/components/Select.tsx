@@ -7,7 +7,7 @@ type SelectOption = {
 }
 type SelectProps = {
   label: string
-  disabled: boolean
+  disabled?: boolean
   options: SelectOption[]
   value: any
   onChange: (e: any) => void

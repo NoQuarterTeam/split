@@ -1,8 +1,12 @@
 import React, { FC } from "react"
 import styled from "../../application/theme"
 
-const Center: FC = ({ children }) => {
-  return <StyledCenter>{children}</StyledCenter>
+type CenterProps = {
+  style?: any
+}
+
+const Center: FC<CenterProps> = ({ children, style }) => {
+  return <StyledCenter style={style}>{children}</StyledCenter>
 }
 
 export default Center

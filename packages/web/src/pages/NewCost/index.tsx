@@ -1,5 +1,5 @@
-import React from "react"
-import { RouteComponentProps, Link } from "@reach/router"
+import React, { Fragment, useContext } from "react"
+import { RouteComponentProps, Redirect } from "@reach/router"
 import { useMutation } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
@@ -11,8 +11,12 @@ import { CreateCost, CostInput } from "../../graphql/types"
 import { GET_HOUSE } from "../../graphql/house/queries"
 
 import CostForm from "../../components/CostForm"
+import { AppContext } from "../../application/context"
 
 function NewCost(props: RouteComponentProps) {
+  const { user } = useContext(AppContext)
+  if (!user!.houseId) return <Redirect to="/" noThrow={true} />
+
   const handleCloseForm = (e: any) => {
     if (e.key === "Escape") handleGoBack()
   }
@@ -32,7 +36,7 @@ function NewCost(props: RouteComponentProps) {
       },
       refetchQueries: [
         { query: GET_HOUSE },
-        { query: GET_ALL_COSTS, variables: { houseId: costData.houseId } },
+        { query: GET_ALL_COSTS, variables: { houseId: user!.houseId } },
       ],
     }).then(() => {
       props.navigate!("/")
@@ -44,7 +48,7 @@ function NewCost(props: RouteComponentProps) {
   }
 
   return (
-    <div>
+    <Fragment>
       <StyledTopbar>
         <StyledHeader>New cost</StyledHeader>
         <StyledClose onClick={handleGoBack}>
@@ -53,7 +57,7 @@ function NewCost(props: RouteComponentProps) {
         </StyledClose>
       </StyledTopbar>
       <CostForm onFormSubmit={handleCreateCost} />
-    </div>
+    </Fragment>
   )
 }
 

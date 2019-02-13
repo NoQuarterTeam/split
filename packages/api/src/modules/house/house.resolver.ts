@@ -22,12 +22,12 @@ export class HouseResolver {
   constructor(
     private readonly houseService: HouseService,
     private readonly userService: UserService,
-    private readonly costService: CostService,
   ) {}
 
   // GET HOUSE
-  @Query(() => House)
-  async house(@Ctx() ctx: IResolverContext): Promise<House> {
+  @Query(() => House, { nullable: true })
+  async house(@Ctx() ctx: IResolverContext): Promise<House | null> {
+    if (!ctx.req.session!.userId) return null
     const user = await this.userService.findById(ctx.req.session!.userId)
     const house = await this.houseService.findById(user.houseId)
     return house
@@ -44,12 +44,6 @@ export class HouseResolver {
   }
 
   // FIELD RESOLVERS
-
-  // @FieldResolver(() => [Cost])
-  // async costs(@Root() house: House): Promise<Cost[]> {
-  //   const costs = await this.costService.findAll(house.id)
-  //   return costs
-  // }
 
   @FieldResolver(() => [Cost])
   async users(@Root() house: House): Promise<User[]> {

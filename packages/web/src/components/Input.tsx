@@ -29,7 +29,6 @@ const StyledContainer = styled.div`
 `
 
 const StyledLabel = styled.label`
-  text-transform: capitalize;
   color: grey;
   font-size: ${p => p.theme.textS};
 `

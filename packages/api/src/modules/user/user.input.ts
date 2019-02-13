@@ -17,6 +17,9 @@ export class UpdateInput implements Partial<User> {
 
   @Field({ nullable: true })
   avatar?: string
+
+  @Field({ nullable: true })
+  houseId?: string
 }
 
 @InputType()

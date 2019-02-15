@@ -7,7 +7,5 @@ export const createDbConnection = async () => {
   await createConnection({
     ...options,
     name: "default",
-    // @ts-ignore
-    url: process.env.DATABASE_URL,
   })
 }

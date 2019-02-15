@@ -64,8 +64,8 @@ const emailOptions: any = {
     port: 465,
     secure: true,
     auth: {
-      user: "apikey",
-      pass: process.env.SENDGRID_API_KEY,
+      user: process.env.SENDGRID_USERNAME,
+      pass: process.env.SENDGRID_PASSWORD,
     },
   },
   development: {

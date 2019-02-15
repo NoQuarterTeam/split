@@ -1,4 +1,5 @@
 import connectRedis from "connect-redis"
+import nodemailer from "nodemailer"
 import session from "express-session"
 import Arena from "bull-arena"
 import { redis } from "./redis"
@@ -6,10 +7,12 @@ import { redis } from "./redis"
 // ENV
 export const env = process.env.NODE_ENV || "development"
 
+export const webUrl =
+  env === "production" ? "https://splitme.co" : "http://localhost:3000"
 // CORS
 export const cors = {
   credentials: true,
-  origin: env === "production" ? "https://split.com" : "http://localhost:3000",
+  origin: [webUrl],
 }
 
 // PORT
@@ -45,3 +48,26 @@ export const arena = Arena(
     disableListen: true,
   },
 )
+
+// EMAIL
+
+const emailOptions: any = {
+  production: {
+    host: "smtp.sendgrid.net",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "apikey",
+      pass: process.env.SENDGRID_API_KEY,
+    },
+  },
+  development: {
+    host: "localhost",
+    port: 1025,
+    secure: false,
+    debug: true,
+    ignoreTLS: true,
+  },
+}
+
+export const mail = nodemailer.createTransport(emailOptions[env])

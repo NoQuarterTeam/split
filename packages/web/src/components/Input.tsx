@@ -1,4 +1,4 @@
-import React, { memo, InputHTMLAttributes } from "react"
+import React, { InputHTMLAttributes, forwardRef, Ref, memo } from "react"
 import styled from "../application/theme"
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -7,21 +7,22 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   prefix?: string
 }
 
-function Input({ label, prefix = "", ...inputProps }: InputProps) {
+function Input(
+  { label, prefix = "", ...inputProps }: InputProps,
+  ref: Ref<HTMLInputElement>,
+) {
   return (
     <StyledContainer>
       {label && <StyledLabel>{label}</StyledLabel>}
       <div style={{ position: "relative" }}>
-        <span style={{ position: "absolute", left: 0, top: 11, color: "grey" }}>
-          {prefix}
-        </span>
-        <StyledInput {...inputProps} hasPrefix={!!prefix} />
+        <StyledPrefix>{prefix}</StyledPrefix>
+        <StyledInput {...inputProps} ref={ref} hasPrefix={!!prefix} />
       </div>
     </StyledContainer>
   )
 }
 
-export default memo(Input)
+export default memo(forwardRef(Input))
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -52,4 +53,11 @@ const StyledInput = styled.input<{ hasPrefix?: boolean }>`
   &:focus {
     border-bottom: 2px solid ${p => p.theme.colorSecondary};
   }
+`
+
+const StyledPrefix = styled.span`
+  position: absolute;
+  left: 0;
+  top: 11;
+  color: grey;
 `

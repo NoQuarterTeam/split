@@ -1,7 +1,7 @@
 import React, { memo, ButtonHTMLAttributes } from "react"
 import styled, { css } from "../application/theme"
 
-export type Variant = "primary" | "secondary" | "alternative"
+export type Variant = "primary" | "secondary" | "alternative" | "highlight"
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant
@@ -38,12 +38,13 @@ const StyledButton = styled.button<IButtonProps>`
   text-align: center;
   border-radius: 100px;
   margin: ${p => p.theme.paddingS};
-  cursor: ${p => (p.disabled ? "default" : "pointer")};
+  cursor: ${p => (p.disabled ? "not-allowed" : "pointer")};
   width: ${p => (!p.full ? "auto" : "100%")};
+  opacity: ${p => (p.disabled ? 0.5 : 1)};
 
   &:focus,
   &:hover {
-    opacity: 0.7;
+    opacity: ${p => (p.disabled ? 0.5 : 0.7)};
   }
 
   ${p => getVariantStyles(p.variant!)}
@@ -57,6 +58,8 @@ const getVariantStyles = (variant: string) => {
       return secondaryStyles
     case "alternative":
       return alternativeStyles
+    case "highlight":
+      return highlightStyles
     default:
       return primaryStyles
   }
@@ -76,7 +79,14 @@ const secondaryStyles = css`
 
 const alternativeStyles = css`
   border: 2px solid ${p => p.theme.colorPrimary};
-  font-size: ${p => p.theme.textS};
+  font-size: ${p => p.theme.textM};
   color: ${p => p.theme.colorPrimary};
-  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
+  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingL}`};
+`
+
+const highlightStyles = css`
+  border: 2px solid ${p => p.theme.colorHighlight};
+  font-size: ${p => p.theme.textM};
+  color: ${p => p.theme.colorSecondary};
+  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingL}`};
 `

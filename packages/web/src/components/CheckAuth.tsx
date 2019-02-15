@@ -1,7 +1,9 @@
 import React, { useContext, FC, Fragment } from "react"
-import LoginForm from "./LoginForm"
 import { AppContext } from "../application/context"
 import { Redirect, Router, RouteComponentProps } from "@reach/router"
+import LoginForm from "./LoginForm"
+import Home from "./Home"
+import RegisterForm from "./RegisterForm"
 
 const CheckAuth: FC = ({ children }) => {
   const { user } = useContext(AppContext)
@@ -9,7 +11,9 @@ const CheckAuth: FC = ({ children }) => {
     <Fragment>{children}</Fragment>
   ) : (
     <Router>
-      <LoginForm path="/" />
+      <Home path="/" />
+      <LoginForm path="/login" />
+      <RegisterForm path="/register" />
       <NotFound default={true} />
     </Router>
   )

@@ -12,7 +12,6 @@ import { IResolverContext } from "../../lib/types"
 import { House } from "./house.entity"
 import { HouseInput } from "./house.input"
 import { HouseService } from "./house.service"
-import { CostService } from "../cost/cost.service"
 import { Cost } from "../cost/cost.entity"
 import { UserService } from "../user/user.service"
 import { User } from "../user/user.entity"
@@ -23,6 +22,14 @@ export class HouseResolver {
     private readonly houseService: HouseService,
     private readonly userService: UserService,
   ) {}
+
+  // GET HOUSE
+  @Query(() => House, { nullable: true })
+  async checkHouse(@Arg("houseId") houseId: string): Promise<House | null> {
+    if (!houseId) return null
+    const house = await this.houseService.findById(houseId)
+    return house
+  }
 
   // GET HOUSE
   @Query(() => House, { nullable: true })

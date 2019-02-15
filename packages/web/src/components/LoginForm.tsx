@@ -1,23 +1,20 @@
-import React, { memo, useState, Fragment } from "react"
-import { RouteComponentProps } from "@reach/router"
+import React, { memo, useState } from "react"
+import { RouteComponentProps, Link, navigate } from "@reach/router"
 import { useMutation } from "react-apollo-hooks"
 import styled from "../application/theme"
 
 import IconLogo from "../assets/images/icon-logo.svg"
-import { LOGIN, ME, REGISTER } from "../graphql/user/queries"
-import { Login, Register } from "../graphql/types"
+import { LOGIN, ME } from "../graphql/user/queries"
+import { Login } from "../graphql/types"
 import Button from "./Button"
 import Input from "./Input"
 
-function LoginForm(_: RouteComponentProps) {
+function LoginForm(props: RouteComponentProps) {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  const [firstName, setFirstName] = useState<string>("")
-  const [lastName, setLastName] = useState<string>("")
 
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
-  const [isSignUp, setIsSignUp] = useState<boolean>(false)
 
   const login = useMutation<Login.Mutation, Login.Variables>(LOGIN, {
     variables: { data: { email, password } },
@@ -29,33 +26,15 @@ function LoginForm(_: RouteComponentProps) {
     },
   })
 
-  const register = useMutation<Register.Mutation, Register.Variables>(
-    REGISTER,
-    {
-      variables: { data: { email, password, firstName, lastName } },
-      update: (cache, res) => {
-        if (res.data) {
-          const me = res.data.register
-          cache.writeQuery({ query: ME, data: { me } })
-        }
-      },
-    },
-  )
-
   const handleSubmit = (e: any) => {
     e.preventDefault()
     setLoading(true)
-    if (isSignUp) {
-      register().catch(registerError => {
-        setLoading(false)
-        setError(registerError.message.split(":")[1])
-      })
-    } else {
-      login().catch(loginError => {
+    login()
+      .then(() => props.navigate!("/"))
+      .catch(loginError => {
         setLoading(false)
         setError(loginError.message.split(":")[1])
       })
-    }
   }
 
   return (
@@ -81,39 +60,19 @@ function LoginForm(_: RouteComponentProps) {
         required={true}
         placeholder="********"
       />
-      {isSignUp && (
-        <Fragment>
-          <Input
-            label="First name"
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-            type="text"
-            required={true}
-            placeholder="Jim"
-          />
-          <br />
-
-          <Input
-            label="Last name"
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-            type="text"
-            required={true}
-            placeholder="Sebe"
-          />
-        </Fragment>
-      )}
       <br />
       <Button loading={loading} full={true}>
-        {isSignUp ? "Sign up" : "Login"}
+        Login
       </Button>
       {error && <StyledError>{error}</StyledError>}
-      <StyledLink tabIndex={0} onClick={() => setIsSignUp(!isSignUp)}>
-        {!isSignUp ? "Sign up" : "Login"}
-      </StyledLink>
+      <Link to="/register">
+        <StyledLink>Sign up</StyledLink>
+      </Link>
     </StyledForm>
   )
 }
+
+export default memo(LoginForm)
 
 const StyledForm = styled.form`
   height: 100%;
@@ -132,7 +91,7 @@ const StyledHeader = styled.h1`
   margin-bottom: ${p => p.theme.paddingXL};
 `
 
-const StyledLink = styled.a`
+const StyledLink = styled.div`
   text-align: right;
   width: 100%;
   text-decoration: none;
@@ -156,5 +115,3 @@ const StyledError = styled.div`
   padding: ${p => p.theme.paddingM};
   font-size: ${p => p.theme.textS};
 `
-
-export default memo(LoginForm)

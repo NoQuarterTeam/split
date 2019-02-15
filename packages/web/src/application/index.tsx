@@ -24,9 +24,9 @@ function Application() {
   const user = (data && data.me) || null
   return (
     <AppContext.Provider value={{ user }}>
-      <Loading loading={loading}>
-        <CheckAuth>
-          <Suspense fallback={<Loading loading={true} />}>
+      <Suspense fallback={<Loading loading={true} />}>
+        <Loading loading={loading}>
+          <CheckAuth>
             <Router>
               <Balance path="/" />
               <NewCost path="/new-cost" />
@@ -35,9 +35,9 @@ function Application() {
               <Settings path="/profile" />
               <NotFound default={true} />
             </Router>
-          </Suspense>
-        </CheckAuth>
-      </Loading>
+          </CheckAuth>
+        </Loading>
+      </Suspense>
     </AppContext.Provider>
   )
 }

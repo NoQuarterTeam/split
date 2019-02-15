@@ -35,6 +35,9 @@ export class RegisterInput implements Partial<User> {
 
   @Field()
   password: string
+
+  @Field()
+  inviteHouseId: string
 }
 
 @InputType()
@@ -44,4 +47,13 @@ export class LoginInput implements Partial<User> {
 
   @Field()
   password: string
+}
+
+@InputType()
+export class InviteUserInput implements Partial<User> {
+  @Field()
+  email: string
+
+  @Field()
+  houseId: string
 }

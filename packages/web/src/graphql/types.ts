@@ -36,6 +36,8 @@ export interface RegisterInput {
   email: string
 
   password: string
+
+  inviteHouseId: string
 }
 
 export interface LoginInput {
@@ -56,6 +58,12 @@ export interface UpdateInput {
   avatar?: Maybe<string>
 
   houseId?: Maybe<string>
+}
+
+export interface InviteUserInput {
+  email: string
+
+  houseId: string
 }
 
 // ====================================================
@@ -137,6 +145,20 @@ export namespace DestroyCost {
 
     destroyCost: boolean
   }
+}
+
+export namespace CheckHouse {
+  export type Variables = {
+    houseId: string
+  }
+
+  export type Query = {
+    __typename?: "Query"
+
+    checkHouse: Maybe<CheckHouse>
+  }
+
+  export type CheckHouse = House.Fragment
 }
 
 export namespace GetHouse {
@@ -278,6 +300,18 @@ export namespace Logout {
   }
 }
 
+export namespace InviteUser {
+  export type Variables = {
+    data: InviteUserInput
+  }
+
+  export type Mutation = {
+    __typename?: "Mutation"
+
+    inviteUser: boolean
+  }
+}
+
 export namespace Cost {
   export type Fragment = {
     __typename?: "Cost"
@@ -380,6 +414,8 @@ export interface Query {
   allCosts: Cost[]
 
   getCost: Cost
+
+  checkHouse?: Maybe<House>
 
   house?: Maybe<House>
 
@@ -488,6 +524,8 @@ export interface Mutation {
   updateUser: User
 
   logout: boolean
+
+  inviteUser: boolean
 }
 
 // ====================================================
@@ -499,6 +537,9 @@ export interface AllCostsQueryArgs {
 }
 export interface GetCostQueryArgs {
   costId: string
+}
+export interface CheckHouseQueryArgs {
+  houseId: string
 }
 export interface CreateCostMutationArgs {
   data: CostInput
@@ -527,4 +568,7 @@ export interface LoginMutationArgs {
 }
 export interface UpdateUserMutationArgs {
   data: UpdateInput
+}
+export interface InviteUserMutationArgs {
+  data: InviteUserInput
 }

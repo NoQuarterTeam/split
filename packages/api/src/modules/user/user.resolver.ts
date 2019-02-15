@@ -1,29 +1,23 @@
-import {
-  Resolver,
-  Query,
-  Ctx,
-  Mutation,
-  Arg,
-  Authorized,
-  FieldResolver,
-  Root,
-} from "type-graphql"
+import { Resolver, Query, Ctx, Mutation, Arg, Authorized } from "type-graphql"
 
 import { User } from "./user.entity"
 import { UserService } from "./user.service"
 import { IResolverContext } from "../../lib/types"
-import { LoginInput, RegisterInput, UpdateInput } from "./user.input"
+import {
+  LoginInput,
+  RegisterInput,
+  UpdateInput,
+  InviteUserInput,
+} from "./user.input"
 import { cookieName } from "../../config"
-import { House } from "../house/house.entity"
 import { HouseService } from "../house/house.service"
-import { Cost } from "../cost/cost.entity"
-import { CostService } from "../cost/cost.service"
+import { UserMailer } from "./user.mailer"
 
 @Resolver(() => User)
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
-    private readonly costService: CostService,
+    private readonly userMailer: UserMailer,
     private readonly houseService: HouseService,
   ) {}
 
@@ -51,7 +45,7 @@ export class UserResolver {
     @Arg("data") data: LoginInput,
     @Ctx() ctx: IResolverContext,
   ): Promise<User> {
-    const user = await this.userService.findByEmail(data)
+    const user = await this.userService.login(data)
     ctx.req.session!.userId = user.id
     return user
   }
@@ -72,6 +66,15 @@ export class UserResolver {
   async logout(@Ctx() ctx: IResolverContext): Promise<boolean> {
     await new Promise(res => ctx.req.session!.destroy(() => res()))
     ctx.res.clearCookie(cookieName)
+    return true
+  }
+
+  // INVITE USER
+  @Authorized()
+  @Mutation(() => Boolean)
+  async inviteUser(@Arg("data") data: InviteUserInput): Promise<boolean> {
+    const house = await this.houseService.findById(data.houseId)
+    this.userMailer.sendInvitationLink(data.email, house)
     return true
   }
 }

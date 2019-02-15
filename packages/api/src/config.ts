@@ -9,6 +9,7 @@ export const env = process.env.NODE_ENV || "development"
 
 export const webUrl =
   env === "production" ? "https://splitme.co" : "http://localhost:3000"
+
 // CORS
 export const cors = {
   credentials: true,

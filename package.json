@@ -8,7 +8,16 @@
       "packages/*"
     ]
   },
+  "scripts": {
+    "build:api": "cd packages/api && yarn build",
+    "build:web": "cd packages/web && yarn build",
+    "publish": "lerna run publish",
+    "heroku-postbuild": "yarn build:api"
+  },
   "resolutions": {
     "graphql": "14.1.1"
+  },
+  "devDependencies": {
+    "lerna": "^3.13.0"
   }
 }

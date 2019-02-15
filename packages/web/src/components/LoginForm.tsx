@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react"
-import { RouteComponentProps, Link, navigate } from "@reach/router"
+import { RouteComponentProps, Link } from "@reach/router"
 import { useMutation } from "react-apollo-hooks"
 import styled from "../application/theme"
 

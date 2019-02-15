@@ -22,6 +22,12 @@ export const port = process.env.PORT || 5000
 // GRAPHQL PATH
 export const path = "/graphql"
 
+// RESOLVER PATHS
+export const resolverPaths =
+  env === "production"
+    ? "/modules/**/*.resolver.js"
+    : "/modules/**/*.resolver.ts"
+
 // SESSION
 const RedisStore = connectRedis(session)
 export const cookieName = "split.web.cookie"

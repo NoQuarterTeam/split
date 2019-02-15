@@ -13,7 +13,7 @@ import { Container } from "typedi"
 
 import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
-import { sessionOptions, cors, port, arena } from "./config"
+import { sessionOptions, cors, port, arena, resolverPaths } from "./config"
 
 useContainer(Container)
 
@@ -29,7 +29,7 @@ async function main() {
 
     const schema = await buildSchema({
       authChecker,
-      resolvers: [__dirname + "/modules/**/*.resolver.ts"],
+      resolvers: [__dirname + resolverPaths],
       validate: false,
     })
 

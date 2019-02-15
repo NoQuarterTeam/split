@@ -14,8 +14,6 @@
     "type": "postgres",
     "synchronize": true,
     "entities": ["dist/modules/**/*.entity.js"],
-    "host": "db",
-    "port": 5432,
     "logging": false
   }
 ]

@@ -8,7 +8,7 @@ import { redis } from "./redis"
 export const env = process.env.NODE_ENV || "development"
 
 export const webUrl =
-  env === "production" ? "https://splitme.co" : "http://localhost:3000"
+  env === "production" ? "https://www.splitme.co" : "http://localhost:3000"
 
 // CORS
 export const cors = {

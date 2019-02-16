@@ -2,6 +2,7 @@ import "reflect-metadata"
 import "dotenv/config"
 import { ApolloServer } from "apollo-server-express"
 import express, { Request, Response } from "express"
+import cors from "cors"
 import session from "express-session"
 import morgan from "morgan"
 import {
@@ -13,7 +14,14 @@ import { Container } from "typedi"
 
 import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
-import { sessionOptions, cors, port, arena, resolverPaths } from "./config"
+import {
+  sessionOptions,
+  corsOptions,
+  port,
+  arena,
+  resolverPaths,
+  webUrl,
+} from "./config"
 
 useContainer(Container)
 
@@ -22,9 +30,15 @@ async function main() {
     await createDbConnection()
 
     const app = express()
+      .use(
+        cors({
+          credentials: true,
+          origin: [webUrl],
+        }),
+      )
       .enable("trust proxy")
-      .use(morgan("dev"))
       .use(session(sessionOptions))
+      .use(morgan("dev"))
       .use("/", arena)
 
     const schema = await buildSchema({
@@ -46,7 +60,7 @@ async function main() {
 
     apolloServer.applyMiddleware({
       app,
-      cors,
+      cors: corsOptions,
     })
 
     app.listen(port, () =>

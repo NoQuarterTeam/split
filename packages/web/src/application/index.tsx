@@ -1,6 +1,7 @@
 import React, { memo, Suspense } from "react"
 import { Router } from "@reach/router"
 import { useQuery } from "react-apollo-hooks"
+import ErrorBoundary from "react-error-boundary"
 
 import { AppContext } from "./context"
 import { Me } from "../graphql/types"
@@ -20,24 +21,29 @@ function Application() {
   const { data, loading } = useQuery<Me.Query>(ME, {
     suspend: false,
   })
+  const errorHandler = (e: Error, componentStack: string) => {
+    console.log(e)
+  }
 
   const user = (data && data.me) || null
   return (
     <AppContext.Provider value={{ user }}>
-      <Loading loading={loading}>
-        <Suspense fallback={<Loading loading={true} />}>
-          <CheckAuth>
-            <Router>
-              <Balance path="/" />
-              <NewCost path="/new-cost" />
-              <EditCost path="/costs/:id" />
-              <Costs path="/costs" />
-              <Settings path="/profile" />
-              <NotFound default={true} />
-            </Router>
-          </CheckAuth>
-        </Suspense>
-      </Loading>
+      <ErrorBoundary onError={errorHandler}>
+        <Loading loading={loading}>
+          <Suspense fallback={<Loading loading={true} />}>
+            <CheckAuth>
+              <Router>
+                <Balance path="/" />
+                <NewCost path="/new-cost" />
+                <EditCost path="/costs/:id" />
+                <Costs path="/costs" />
+                <Settings path="/profile" />
+                <NotFound default={true} />
+              </Router>
+            </CheckAuth>
+          </Suspense>
+        </Loading>
+      </ErrorBoundary>
     </AppContext.Provider>
   )
 }

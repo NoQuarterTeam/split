@@ -19,6 +19,7 @@ function Balance(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
   const { data } = useQuery<GetHouse.Query>(GET_HOUSE)
   const house = data!.house!
+  console.log(house)
 
   const getBalanceHeader = () => {
     if (user!.balance > 0) {

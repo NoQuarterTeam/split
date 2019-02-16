@@ -36,6 +36,7 @@ export class UserResolver {
   ): Promise<User> {
     const user = await this.userService.create(data)
     ctx.req.session!.userId = user.id
+    await new Promise(res => ctx.req.session!.save(() => res()))
     return user
   }
 
@@ -47,6 +48,7 @@ export class UserResolver {
   ): Promise<User> {
     const user = await this.userService.login(data)
     ctx.req.session!.userId = user.id
+    await new Promise(res => ctx.req.session!.save(() => res()))
     return user
   }
 

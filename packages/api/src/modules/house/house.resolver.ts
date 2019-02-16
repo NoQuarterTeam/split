@@ -37,6 +37,7 @@ export class HouseResolver {
     if (!ctx.req.session!.userId) return null
     const user = await this.userService.findById(ctx.req.session!.userId)
     const house = await this.houseService.findById(user.houseId)
+    console.log(house.users)
     return house
   }
 

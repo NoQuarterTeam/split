@@ -36,6 +36,7 @@ async function main() {
           origin: [webUrl],
         }),
       )
+      .set("trust proxy", 1)
       .enable("trust proxy")
       .use(session(sessionOptions))
       .use(morgan("dev"))

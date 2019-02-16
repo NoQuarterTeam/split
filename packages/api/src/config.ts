@@ -35,7 +35,7 @@ export const sessionOptions = {
   cookie: {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 14, // 14 days
-    secure: env === "production",
+    secure: false,
   },
   name: cookieName,
   resave: false,

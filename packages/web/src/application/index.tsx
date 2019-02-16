@@ -1,5 +1,6 @@
 import React, { memo, Suspense } from "react"
 import { Router } from "@reach/router"
+import LogRocket from "logrocket"
 import { useQuery } from "react-apollo-hooks"
 import ErrorBoundary from "react-error-boundary"
 
@@ -26,6 +27,13 @@ function Application() {
   }
 
   const user = (data && data.me) || null
+  if (user) {
+    LogRocket.identify(user.id, {
+      name: user.firstName + " " + user.lastName,
+      email: user.email,
+    })
+  }
+
   return (
     <AppContext.Provider value={{ user }}>
       <ErrorBoundary onError={errorHandler}>

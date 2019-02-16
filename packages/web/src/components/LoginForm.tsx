@@ -1,6 +1,5 @@
 import React, { memo, useState } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
-import LogRocket from "logrocket"
 import { useMutation } from "react-apollo-hooks"
 import styled from "../application/theme"
 
@@ -21,10 +20,6 @@ function LoginForm(props: RouteComponentProps) {
     variables: { data: { email, password } },
     update: (cache, res) => {
       if (res.data) {
-        LogRocket.identify(res.data.login.id, {
-          name: res.data.login.firstName + " " + res.data.login.lastName,
-          email: res.data.login.email,
-        })
         const me = res.data.login
         cache.writeQuery({ query: ME, data: { me } })
       }

@@ -29,18 +29,7 @@ async function main() {
   try {
     await createDbConnection()
 
-    const app = express()
-      .use(
-        cors({
-          credentials: true,
-          origin: [webUrl],
-        }),
-      )
-      .set("trust proxy", 1)
-      .enable("trust proxy")
-      .use(session(sessionOptions))
-      .use(morgan("dev"))
-      .use("/", arena)
+    const app = express().use(morgan("dev"))
 
     const schema = await buildSchema({
       authChecker,
@@ -59,9 +48,30 @@ async function main() {
       schema,
     })
 
+    app.set("trust proxy", 1).use(
+      cors({
+        credentials: true,
+        origin: [webUrl],
+      }),
+    )
+
+    app.use((req, _, next) => {
+      const authorization = req.headers.authorization
+
+      if (authorization) {
+        try {
+          const qid = authorization.split(" ")[1]
+          req.headers.cookie = `qid=${qid}`
+        } catch {}
+      }
+      return next()
+    })
+
+    app.use(session(sessionOptions)).use("/", arena)
+
     apolloServer.applyMiddleware({
       app,
-      cors: corsOptions,
+      cors: false,
     })
 
     app.listen(port, () =>

@@ -30,8 +30,9 @@ export const resolverPaths =
 
 // SESSION
 const RedisStore = connectRedis(session)
-export const cookieName = "split.web.cookie"
+export const cookieName = "qid"
 export const sessionOptions = {
+  store: new RedisStore({ client: redis as any }),
   cookie: {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 14, // 14 days
@@ -41,7 +42,6 @@ export const sessionOptions = {
   resave: false,
   saveUninitialized: false,
   secret: process.env.APP_SECRET || "AppSecret",
-  store: new RedisStore({ client: redis as any }),
 }
 
 // WORKERS UI

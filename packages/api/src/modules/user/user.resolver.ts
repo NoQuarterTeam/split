@@ -24,6 +24,7 @@ export class UserResolver {
   // ME
   @Query(() => User, { nullable: true })
   async me(@Ctx() { req }: IResolverContext): Promise<User | null> {
+    console.log("SESSION!!!!!!!!!!!!!!!!!!!", req.session)
     if (!req.session!.userId) return null
     return await this.userService.findById(req.session!.userId)
   }
@@ -37,6 +38,7 @@ export class UserResolver {
     const user = await this.userService.create(data)
     ctx.req.session!.userId = user.id
     await new Promise(res => ctx.req.session!.save(() => res()))
+    console.log("SESSION!!!!!!!!!!!!!!!!!!!", ctx.req.session)
     return user
   }
 
@@ -49,6 +51,7 @@ export class UserResolver {
     const user = await this.userService.login(data)
     ctx.req.session!.userId = user.id
     await new Promise(res => ctx.req.session!.save(() => res()))
+    console.log("SESSION!!!!!!!!!!!!!!!!!!!", ctx.req.session)
     return user
   }
 

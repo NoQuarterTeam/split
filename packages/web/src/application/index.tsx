@@ -17,6 +17,7 @@ import NewCost from "../pages/NewCost"
 import EditCost from "../pages/EditCost"
 import Costs from "../pages/Costs"
 import Settings from "../pages/Settings"
+import ErrorFallback from "../components/ErrorFallback"
 
 function Application() {
   const { data, loading } = useQuery<Me.Query>(ME, {
@@ -36,7 +37,7 @@ function Application() {
 
   return (
     <AppContext.Provider value={{ user }}>
-      <ErrorBoundary onError={errorHandler}>
+      <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
         <Loading loading={loading}>
           <Suspense fallback={<Loading loading={true} />}>
             <CheckAuth>

@@ -33,7 +33,7 @@ const RedisStore = connectRedis(session)
 export const cookieName = "split.web.cookie"
 export const sessionOptions = {
   cookie: {
-    httpOnly: true,
+    httpOnly: false,
     maxAge: 1000 * 60 * 60 * 24 * 14, // 14 days
     secure: false,
   },

@@ -14,6 +14,7 @@
     "apollo-boost": "^0.1.27",
     "dayjs": "^1.8.5",
     "graphql": "^14.1.1",
+    "logrocket": "^0.6.19",
     "query-string": "^6.2.0",
     "react": "^16.8.2",
     "react-apollo-hooks": "^0.3.1",

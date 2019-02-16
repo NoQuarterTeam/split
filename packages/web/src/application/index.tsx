@@ -24,8 +24,8 @@ function Application() {
   const user = (data && data.me) || null
   return (
     <AppContext.Provider value={{ user }}>
-      <Suspense fallback={<Loading loading={true} />}>
-        <Loading loading={loading}>
+      <Loading loading={loading}>
+        <Suspense fallback={<Loading loading={true} />}>
           <CheckAuth>
             <Router>
               <Balance path="/" />
@@ -36,8 +36,8 @@ function Application() {
               <NotFound default={true} />
             </Router>
           </CheckAuth>
-        </Loading>
-      </Suspense>
+        </Suspense>
+      </Loading>
     </AppContext.Provider>
   )
 }

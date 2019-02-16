@@ -4,13 +4,7 @@ import { useQuery, useMutation } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
 import IconClose from "../../assets/images/icon-close.svg"
-import {
-  GetCost,
-  CostInput,
-  EditCost,
-  DestroyCost,
-  GetHouse,
-} from "../../graphql/types"
+import { GetCost, CostInput, EditCost, DestroyCost } from "../../graphql/types"
 import {
   GET_COST,
   EDIT_COST,

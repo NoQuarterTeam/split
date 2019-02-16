@@ -13,7 +13,7 @@
     "name": "production",
     "type": "postgres",
     "synchronize": true,
-    "entities": ["dist/modules/**/*.entity.js"],
-    "logging": false
+    "entities": ["packages/api/dist/modules/**/*.entity.js"],
+    "logging": true
   }
 ]

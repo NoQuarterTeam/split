@@ -3,6 +3,7 @@ import ReactDOM from "react-dom"
 import ApolloClient from "apollo-boost"
 import { ApolloProvider } from "react-apollo-hooks"
 import LogRocket from "logrocket"
+import setupLogRocketReact from "logrocket-react"
 
 import * as serviceWorker from "./serviceWorker"
 
@@ -13,6 +14,7 @@ import GlobalStyles from "./globalStyles"
 
 if (env === "production") {
   LogRocket.init("yluxch/split")
+  setupLogRocketReact(LogRocket)
 }
 
 const client = new ApolloClient({

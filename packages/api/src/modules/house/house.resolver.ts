@@ -34,10 +34,12 @@ export class HouseResolver {
   // GET HOUSE
   @Query(() => House, { nullable: true })
   async house(@Ctx() ctx: IResolverContext): Promise<House | null> {
+    console.log("USER SESSION", ctx.req.session!.userId)
+
     if (!ctx.req.session!.userId) return null
     const user = await this.userService.findById(ctx.req.session!.userId)
     const house = await this.houseService.findById(user.houseId)
-    console.log(house.users)
+    console.log("HOUSE", house)
     return house
   }
 

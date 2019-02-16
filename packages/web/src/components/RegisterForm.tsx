@@ -1,6 +1,7 @@
 import React, { memo, useState } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { useMutation, useQuery } from "react-apollo-hooks"
+import LogRocket from "logrocket"
 import queryString from "query-string"
 
 import styled from "../application/theme"
@@ -40,6 +41,11 @@ function RegisterForm(props: RouteComponentProps) {
       },
       update: (cache, res) => {
         if (res.data) {
+          LogRocket.identify(res.data.register.id, {
+            name:
+              res.data.register.firstName + " " + res.data.register.lastName,
+            email: res.data.register.email,
+          })
           const me = res.data.register
           cache.writeQuery({ query: ME, data: { me } })
         }

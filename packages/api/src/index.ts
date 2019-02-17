@@ -2,7 +2,6 @@ import "reflect-metadata"
 import "dotenv/config"
 import { ApolloServer } from "apollo-server-express"
 import express, { Request, Response } from "express"
-import cors from "cors"
 import session from "express-session"
 import morgan from "morgan"
 import {
@@ -14,14 +13,8 @@ import { Container } from "typedi"
 
 import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
-import {
-  sessionOptions,
-  corsOptions,
-  port,
-  arena,
-  resolverPaths,
-  webUrl,
-} from "./config"
+
+import { sessionOptions, cors, port, arena, resolverPaths } from "./config"
 
 useContainer(Container)
 
@@ -29,7 +22,11 @@ async function main() {
   try {
     await createDbConnection()
 
-    const app = express().use(morgan("dev"))
+    const app = express()
+      .use(morgan("dev"))
+      .set("trust proxy", 1)
+      .use(session(sessionOptions))
+      .use("/", arena)
 
     const schema = await buildSchema({
       authChecker,
@@ -48,30 +45,9 @@ async function main() {
       schema,
     })
 
-    app.set("trust proxy", 1).use(
-      cors({
-        credentials: true,
-        origin: [webUrl],
-      }),
-    )
-
-    app.use((req, _, next) => {
-      const authorization = req.headers.authorization
-
-      if (authorization) {
-        try {
-          const qid = authorization.split(" ")[1]
-          req.headers.cookie = `qid=${qid}`
-        } catch {}
-      }
-      return next()
-    })
-
-    app.use(session(sessionOptions)).use("/", arena)
-
     apolloServer.applyMiddleware({
       app,
-      cors: false,
+      cors,
     })
 
     app.listen(port, () =>

@@ -11,7 +11,7 @@ export const webUrl =
   env === "production" ? "https://www.splitme.co" : "http://localhost:3000"
 
 // CORS
-export const corsOptions = {
+export const cors = {
   credentials: true,
   origin: [webUrl],
 }
@@ -30,13 +30,14 @@ export const resolverPaths =
 
 // SESSION
 const RedisStore = connectRedis(session)
-export const cookieName = "qid"
+export const cookieName = "split.cookie"
 export const sessionOptions = {
   store: new RedisStore({ client: redis as any }),
   cookie: {
     httpOnly: true,
     maxAge: 1000 * 60 * 60 * 24 * 14, // 14 days
-    secure: true,
+    secure: env === "production",
+    domain: env === "production" ? "splitme.co" : "localhost",
   },
   name: cookieName,
   resave: false,

@@ -38,10 +38,11 @@ function RegisterForm(props: RouteComponentProps) {
       variables: {
         data: { email, password, firstName, lastName, inviteHouseId },
       },
-      update: (cache, res) => {
+      refetchQueries: [{ query: ME }],
+      awaitRefetchQueries: true,
+      update: (_, res) => {
         if (res.data) {
-          const me = res.data.register
-          cache.writeQuery({ query: ME, data: { me } })
+          localStorage.setItem("token", res.data.register.token)
         }
       },
     },

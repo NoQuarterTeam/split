@@ -248,6 +248,14 @@ export namespace Login {
   }
 
   export type Login = {
+    __typename?: "UserAuth"
+
+    user: User
+
+    token: string
+  }
+
+  export type User = {
     __typename?: "User"
 
     houseId: Maybe<string>
@@ -266,6 +274,14 @@ export namespace Register {
   }
 
   export type Register = {
+    __typename?: "UserAuth"
+
+    user: User
+
+    token: string
+  }
+
+  export type User = {
     __typename?: "User"
 
     houseId: Maybe<string>
@@ -517,15 +533,21 @@ export interface Mutation {
 
   editHouse: House
 
-  register: User
+  register: UserAuth
 
-  login: User
+  login: UserAuth
 
   updateUser: User
 
   logout: boolean
 
   inviteUser: boolean
+}
+
+export interface UserAuth {
+  user: User
+
+  token: string
 }
 
 // ====================================================

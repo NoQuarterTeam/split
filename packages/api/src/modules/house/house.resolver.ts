@@ -6,6 +6,7 @@ import {
   FieldResolver,
   Root,
   Query,
+  Authorized,
 } from "type-graphql"
 
 import { IResolverContext } from "../../lib/types"
@@ -32,28 +33,27 @@ export class HouseResolver {
   }
 
   // GET HOUSE
+  @Authorized()
   @Query(() => House, { nullable: true })
-  async house(@Ctx() ctx: IResolverContext): Promise<House | null> {
-    console.log("USER SESSION", ctx.req.session!.userId)
-
-    if (!ctx.req.session!.userId) return null
-    const user = await this.userService.findById(ctx.req.session!.userId)
+  async house(@Ctx() { req }: IResolverContext): Promise<House | null> {
+    const user = await this.userService.findById(req.user!.id)
     const house = await this.houseService.findById(user.houseId)
-    console.log("HOUSE", house)
     return house
   }
 
   // CREATE HOUSE
+  @Authorized()
   @Mutation(() => House)
   async createHouse(
     @Arg("data") data: HouseInput,
-    @Ctx() ctx: IResolverContext,
+    @Ctx() { req }: IResolverContext,
   ): Promise<House> {
-    const house = await this.houseService.create(ctx.req.session!.userId, data)
+    const house = await this.houseService.create(req.user!.id, data)
     return house
   }
 
   // EDIT HOUSE
+  @Authorized()
   @Mutation(() => House)
   async editHouse(
     @Arg("houseId") houseId: string,

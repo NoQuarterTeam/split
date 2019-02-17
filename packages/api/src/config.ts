@@ -1,8 +1,5 @@
-import connectRedis from "connect-redis"
 import nodemailer from "nodemailer"
-import session from "express-session"
 import Arena from "bull-arena"
-import { redis } from "./redis"
 
 // ENV
 export const env = process.env.NODE_ENV || "development"
@@ -27,23 +24,6 @@ export const resolverPaths =
   env === "production"
     ? "/modules/**/*.resolver.js"
     : "/modules/**/*.resolver.ts"
-
-// SESSION
-const RedisStore = connectRedis(session)
-export const cookieName = "split.cookie"
-export const sessionOptions = {
-  store: new RedisStore({ client: redis as any }),
-  cookie: {
-    httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 * 14, // 14 days
-    secure: env === "production",
-    domain: env === "production" ? "splitme.co" : "localhost",
-  },
-  name: cookieName,
-  resave: false,
-  saveUninitialized: false,
-  secret: process.env.APP_SECRET || "AppSecret",
-}
 
 // WORKERS UI
 

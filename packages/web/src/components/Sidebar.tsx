@@ -6,7 +6,7 @@ import IconPlus from "../assets/images/icon-plus.svg"
 import IconLogo from "../assets/images/icon-logo.svg"
 
 import styled from "../application/theme"
-import { LOGOUT } from "../graphql/user/queries"
+import { LOGOUT, ME } from "../graphql/user/queries"
 import { AppContext } from "../application/context"
 
 function Sidebar({ active }: { active: string }) {
@@ -18,7 +18,10 @@ function Sidebar({ active }: { active: string }) {
   const logout = useMutation(LOGOUT)
 
   const handleLogout = async () => {
-    await logout()
+    localStorage.removeItem("token")
+    await logout({
+      update: cache => cache.writeQuery({ query: ME, data: { me: null } }),
+    })
     await client.resetStore()
   }
   return (

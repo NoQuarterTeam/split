@@ -6,6 +6,7 @@ import {
   Query,
   FieldResolver,
   Root,
+  Authorized,
 } from "type-graphql"
 
 import { IResolverContext } from "../../lib/types"
@@ -19,33 +20,38 @@ export class CostResolver {
   constructor(private readonly costService: CostService) {}
 
   // ALL COSTS
+  @Authorized()
   @Query(() => [Cost])
   async allCosts(@Arg("houseId") houseId: string): Promise<Cost[]> {
     return await this.costService.findAll(houseId)
   }
 
   // GET COST
+  @Authorized()
   @Query(() => Cost)
   async getCost(@Arg("costId") costId: string): Promise<Cost> {
     return await this.costService.findById(costId)
   }
 
   // CREATE COST
+  @Authorized()
   @Mutation(() => Cost)
   async createCost(
     @Arg("data") data: CostInput,
-    @Ctx() ctx: IResolverContext,
+    @Ctx() { req }: IResolverContext,
   ): Promise<Cost> {
-    return await this.costService.create(ctx.req.session!.userId, data)
+    return await this.costService.create(req.user!.id, data)
   }
 
   // DESTROY COST
+  @Authorized()
   @Mutation(() => Boolean)
   async destroyCost(@Arg("costId") costId: string): Promise<boolean> {
     return this.costService.destroy(costId)
   }
 
   // EDIT COST
+  @Authorized()
   @Mutation(() => Cost)
   async editCost(
     @Arg("costId") costId: string,

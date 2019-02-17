@@ -9,9 +9,10 @@ import {
   UpdateInput,
   InviteUserInput,
 } from "./user.input"
-import { cookieName } from "../../config"
 import { HouseService } from "../house/house.service"
 import { UserMailer } from "./user.mailer"
+import { createToken } from "../../lib/jwt"
+import { UserAuth } from "./user.return"
 
 @Resolver(() => User)
 export class UserResolver {
@@ -24,51 +25,45 @@ export class UserResolver {
   // ME
   @Query(() => User, { nullable: true })
   async me(@Ctx() { req }: IResolverContext): Promise<User | null> {
-    if (!req.session!.userId) return null
-    return await this.userService.findById(req.session!.userId)
+    if (!req.user || !req.user.id) return null
+    return await this.userService.findById(req.user.id)
   }
 
   // REGISTER
-  @Mutation(() => User)
-  async register(
-    @Arg("data") data: RegisterInput,
-    @Ctx() ctx: IResolverContext,
-  ): Promise<User> {
+  @Mutation(() => UserAuth)
+  async register(@Arg("data") data: RegisterInput): Promise<UserAuth> {
     const user = await this.userService.create(data)
-    ctx.req.session!.userId = user.id
-    return user
+    const token = await createToken(user.id)
+    return { user, token }
   }
 
   // LOGIN
-  @Mutation(() => User)
-  async login(
-    @Arg("data") data: LoginInput,
-    @Ctx() ctx: IResolverContext,
-  ): Promise<User> {
+  @Mutation(() => UserAuth)
+  async login(@Arg("data") data: LoginInput): Promise<UserAuth> {
     const user = await this.userService.login(data)
-    ctx.req.session!.userId = user.id
-    return user
+    const token = await createToken(user.id)
+    return { user, token }
   }
 
   // UPDATE USER
+  @Authorized()
   @Mutation(() => User)
   async updateUser(
     @Arg("data") data: UpdateInput,
-    @Ctx() ctx: IResolverContext,
+    @Ctx() { req }: IResolverContext,
   ): Promise<User> {
-    const user = await this.userService.update(ctx.req.session!.userId, data)
+    const user = await this.userService.update(req.user!.id, data)
     return user
   }
 
   // LOGOUT
   @Mutation(() => Boolean)
   async logout(@Ctx() ctx: IResolverContext): Promise<boolean> {
-    await new Promise(res => ctx.req.session!.destroy(() => res()))
-    ctx.res.clearCookie(cookieName)
     return true
   }
 
   // INVITE USER
+  @Authorized()
   @Mutation(() => Boolean)
   async inviteUser(@Arg("data") data: InviteUserInput): Promise<boolean> {
     const house = await this.houseService.findById(data.houseId)

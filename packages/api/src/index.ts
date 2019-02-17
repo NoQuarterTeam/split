@@ -2,7 +2,7 @@ import "reflect-metadata"
 import "dotenv/config"
 import { ApolloServer } from "apollo-server-express"
 import express, { Request, Response } from "express"
-import session from "express-session"
+import jwt from "express-jwt"
 import morgan from "morgan"
 import {
   useContainer,
@@ -14,7 +14,7 @@ import { Container } from "typedi"
 import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
 
-import { sessionOptions, cors, port, arena, resolverPaths } from "./config"
+import { cors, port, arena, resolverPaths } from "./config"
 
 useContainer(Container)
 
@@ -24,8 +24,12 @@ async function main() {
 
     const app = express()
       .use(morgan("dev"))
-      .set("trust proxy", 1)
-      .use(session(sessionOptions))
+      .use(
+        jwt({
+          secret: process.env.APP_SECRET || "supersecret",
+          credentialsRequired: false,
+        }),
+      )
       .use("/", arena)
 
     const schema = await buildSchema({

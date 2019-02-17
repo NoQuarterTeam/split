@@ -20,6 +20,14 @@ if (env === "production") {
 const client = new ApolloClient({
   credentials: "include",
   uri: apiUrl,
+  request: async operation => {
+    const token = await localStorage.getItem("token")
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : "",
+      },
+    })
+  },
 })
 
 const UI = () => (

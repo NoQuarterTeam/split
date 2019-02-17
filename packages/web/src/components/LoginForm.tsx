@@ -18,10 +18,11 @@ function LoginForm(props: RouteComponentProps) {
 
   const login = useMutation<Login.Mutation, Login.Variables>(LOGIN, {
     variables: { data: { email, password } },
-    update: (cache, res) => {
+    refetchQueries: [{ query: ME }],
+    awaitRefetchQueries: true,
+    update: (_, res) => {
       if (res.data) {
-        const me = res.data.login
-        cache.writeQuery({ query: ME, data: { me } })
+        localStorage.setItem("token", res.data.login.token)
       }
     },
   })

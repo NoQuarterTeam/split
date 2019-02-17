@@ -7,5 +7,5 @@ export interface IResolverContext {
 }
 
 interface IRequest extends Request {
-  user: User
+  user?: { id: string }
 }

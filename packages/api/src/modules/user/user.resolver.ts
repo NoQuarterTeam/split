@@ -13,6 +13,12 @@ import { cookieName } from "../../config"
 import { HouseService } from "../house/house.service"
 import { UserMailer } from "./user.mailer"
 
+export const sleep = (delay: number) => {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(), delay)
+  })
+}
+
 @Resolver(() => User)
 export class UserResolver {
   constructor(
@@ -52,6 +58,7 @@ export class UserResolver {
     ctx.req.session!.userId = user.id
     await new Promise(res => ctx.req.session!.save(() => res()))
     console.log("SESSION!!!!!!!!!!!!!!!!!!!", ctx.req.session)
+    await sleep(4000)
     return user
   }
 

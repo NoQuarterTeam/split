@@ -4,8 +4,8 @@ import styled from "../application/theme"
 import Input from "./Input"
 import Button from "./Button"
 import { sleep } from "../lib/helpers"
-import { GetHouse, InviteUser } from "../graphql/types"
-import { INVITE_USER } from "../graphql/user/queries"
+import { GetHouse, InviteUser } from "../lib/graphql/types"
+import { INVITE_USER } from "../lib/graphql/user/queries"
 
 type HouseInviteProps = {
   house: GetHouse.House

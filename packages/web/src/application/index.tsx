@@ -5,8 +5,8 @@ import { useQuery } from "react-apollo-hooks"
 import ErrorBoundary from "react-error-boundary"
 
 import { AppContext } from "./context"
-import { Me } from "../graphql/types"
-import { ME } from "../graphql/user/queries"
+import { Me } from "../lib/graphql/types"
+import { ME } from "../lib/graphql/user/queries"
 
 import Loading from "../components/Loading"
 import CheckAuth from "../components/CheckAuth"
@@ -20,9 +20,7 @@ import Settings from "../pages/Settings"
 import ErrorFallback from "../components/ErrorFallback"
 
 function Application() {
-  const { data, loading } = useQuery<Me.Query>(ME, {
-    suspend: false,
-  })
+  const { data, loading } = useQuery<Me.Query>(ME, { suspend: false })
   const errorHandler = (e: Error, componentStack: string) => {
     console.log(e)
   }
@@ -38,7 +36,7 @@ function Application() {
     <AppContext.Provider value={{ user }}>
       <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
         <Loading loading={loading}>
-          <Suspense fallback={<Loading loading={true} />}>
+          <Suspense fallback={null}>
             <CheckAuth>
               <Router>
                 <Balance path="/" />

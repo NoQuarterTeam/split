@@ -3,7 +3,7 @@ import dayjs from "dayjs"
 import { navigate } from "@reach/router"
 
 import styled from "../application/theme"
-import { AllCosts } from "../graphql/types"
+import { AllCosts } from "../lib/graphql/types"
 import { round } from "../lib/helpers"
 
 import IconOpen from "../assets/images/icon-open.svg"

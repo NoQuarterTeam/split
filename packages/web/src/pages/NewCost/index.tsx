@@ -4,11 +4,11 @@ import { useMutation } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
 import IconClose from "../../assets/images/icon-close.svg"
-import useEventListener from "../../hooks/useEventListener"
+import useEventListener from "../../lib/hooks/useEventListener"
 
-import { CREATE_COST, GET_ALL_COSTS } from "../../graphql/costs/queries"
-import { CreateCost, CostInput } from "../../graphql/types"
-import { GET_HOUSE } from "../../graphql/house/queries"
+import { CREATE_COST, GET_ALL_COSTS } from "../../lib/graphql/costs/queries"
+import { CreateCost, CostInput } from "../../lib/graphql/types"
+import { GET_HOUSE } from "../../lib/graphql/house/queries"
 
 import CostForm from "../../components/CostForm"
 import { AppContext } from "../../application/context"

@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "../application/theme"
+import { createGlobalStyle } from "../../application/theme"
 import body from "./body"
 import overides from "./overides"
 

@@ -3,9 +3,9 @@ import { useMutation } from "react-apollo-hooks"
 
 import styled from "../application/theme"
 
-import { Me, UpdateInput, UpdateUser } from "../graphql/types"
-import { UPDATE_USER } from "../graphql/user/queries"
-import useFormState from "../hooks/useFormState"
+import { Me, UpdateInput, UpdateUser } from "../lib/graphql/types"
+import { UPDATE_USER } from "../lib/graphql/user/queries"
+import useFormState from "../lib/hooks/useFormState"
 
 import Input from "./Input"
 import Avatar from "./Avatar"

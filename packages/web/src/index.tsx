@@ -9,8 +9,8 @@ import * as serviceWorker from "./serviceWorker"
 
 import Application from "./application"
 import { ThemeProvider, theme } from "./application/theme"
-import { apiUrl, env } from "./config"
-import GlobalStyles from "./globalStyles"
+import { apiUrl, env } from "./lib/config"
+import GlobalStyles from "./lib/globalStyles"
 
 if (env === "production") {
   LogRocket.init("yluxch/split")
@@ -35,6 +35,7 @@ const UI = () => (
     <ThemeProvider theme={theme}>
       <React.Fragment>
         <GlobalStyles />
+
         <Application />
       </React.Fragment>
     </ThemeProvider>

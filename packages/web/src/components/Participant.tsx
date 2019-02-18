@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import { User, ShareInput } from "../graphql/types"
+import { User, ShareInput } from "../lib/graphql/types"
 import styled from "../application/theme"
 import { round } from "../lib/helpers"
 

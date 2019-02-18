@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 
 function useEventListener(key: string, cb: (e: any) => void) {
   useEffect(() => {

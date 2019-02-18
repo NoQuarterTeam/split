@@ -1,7 +1,7 @@
 import React, { memo } from "react"
 import Participant from "./Participant"
 import Button from "./Button"
-import { User, CostInput } from "../graphql/types"
+import { User, CostInput } from "../lib/graphql/types"
 import styled from "../application/theme"
 import Alert from "./Alert"
 import Column from "./styled/Column"

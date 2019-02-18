@@ -1,6 +1,6 @@
 import React, { memo } from "react"
 import styled from "../application/theme"
-import { Maybe } from "../graphql/types"
+import { Maybe } from "../lib/graphql/types"
 
 type UserDetails = {
   id: string

@@ -4,8 +4,8 @@ import { useMutation } from "react-apollo-hooks"
 import styled from "../application/theme"
 
 import IconLogo from "../assets/images/icon-logo.svg"
-import { LOGIN, ME } from "../graphql/user/queries"
-import { Login } from "../graphql/types"
+import { LOGIN, ME } from "../lib/graphql/user/queries"
+import { Login } from "../lib/graphql/types"
 import Button from "./Button"
 import Input from "./Input"
 

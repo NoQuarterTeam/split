@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import { User } from "../graphql/types"
+import { User } from "../lib/graphql/types"
 import { round } from "../lib/helpers"
 import styled from "../application/theme"
 import Avatar from "./Avatar"

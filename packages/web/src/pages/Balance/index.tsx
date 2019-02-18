@@ -5,8 +5,8 @@ import { useQuery } from "react-apollo-hooks"
 import styled from "../../application/theme"
 import { AppContext } from "../../application/context"
 
-import { GetHouse } from "../../graphql/types"
-import { GET_HOUSE } from "../../graphql/house/queries"
+import { GetHouse } from "../../lib/graphql/types"
+import { GET_HOUSE } from "../../lib/graphql/house/queries"
 import { round } from "../../lib/helpers"
 import Page from "../../components/Page"
 
@@ -14,11 +14,14 @@ import HouseBalance from "../../components/HouseBalance"
 import HouseForm from "../../components/HouseForm"
 import HouseName from "../../components/HouseName"
 import HouseInvite from "../../components/HouseInvite"
+import { useHouseQuery } from "../../lib/graphql/house/hooks"
+import Error from "../../components/Error"
 
 function Balance(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
-  const { data } = useQuery<GetHouse.Query>(GET_HOUSE)
-  const house = data!.house!
+  const { house, error } = useHouseQuery()
+  if (error) return <Error error={error} />
+
   const getBalanceHeader = () => {
     if (user!.balance > 0) {
       return `You are owed €${round(user!.balance * 0.01, 2)}`

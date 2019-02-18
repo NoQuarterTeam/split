@@ -6,11 +6,11 @@ import queryString from "query-string"
 import styled from "../application/theme"
 
 import IconLogo from "../assets/images/icon-logo.svg"
-import { ME, REGISTER } from "../graphql/user/queries"
-import { Register, CheckHouse } from "../graphql/types"
+import { ME, REGISTER } from "../lib/graphql/user/queries"
+import { Register, CheckHouse } from "../lib/graphql/types"
 import Button from "./Button"
 import Input from "./Input"
-import { CHECK_HOUSE } from "../graphql/house/queries"
+import { CHECK_HOUSE } from "../lib/graphql/house/queries"
 
 function RegisterForm(props: RouteComponentProps) {
   let inviteHouseId: string = ""

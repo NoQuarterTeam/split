@@ -2,7 +2,7 @@ import React, { memo } from "react"
 import styled from "../application/theme"
 
 import { round } from "../lib/helpers"
-import { CostInput } from "../graphql/types"
+import { CostInput } from "../lib/graphql/types"
 import Input from "./Input"
 import Select from "./Select"
 

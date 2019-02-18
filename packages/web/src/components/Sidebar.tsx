@@ -6,7 +6,7 @@ import IconPlus from "../assets/images/icon-plus.svg"
 import IconLogo from "../assets/images/icon-logo.svg"
 
 import styled from "../application/theme"
-import { LOGOUT, ME } from "../graphql/user/queries"
+import { LOGOUT, ME } from "../lib/graphql/user/queries"
 import { AppContext } from "../application/context"
 
 function Sidebar({ active }: { active: string }) {

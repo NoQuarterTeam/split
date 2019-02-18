@@ -4,15 +4,20 @@ import { useQuery, useMutation } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
 import IconClose from "../../assets/images/icon-close.svg"
-import { GetCost, CostInput, EditCost, DestroyCost } from "../../graphql/types"
+import {
+  GetCost,
+  CostInput,
+  EditCost,
+  DestroyCost,
+} from "../../lib/graphql/types"
 import {
   GET_COST,
   EDIT_COST,
   GET_ALL_COSTS,
   DESTROY_COST,
-} from "../../graphql/costs/queries"
-import { GET_HOUSE } from "../../graphql/house/queries"
-import useEventListener from "../../hooks/useEventListener"
+} from "../../lib/graphql/costs/queries"
+import { GET_HOUSE } from "../../lib/graphql/house/queries"
+import useEventListener from "../../lib/hooks/useEventListener"
 
 import CostForm from "../../components/CostForm"
 import { AppContext } from "../../application/context"

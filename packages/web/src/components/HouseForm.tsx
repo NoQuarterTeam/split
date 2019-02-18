@@ -3,12 +3,12 @@ import { useMutation } from "react-apollo-hooks"
 
 import styled from "../application/theme"
 
-import { CreateHouse, GetHouse } from "../graphql/types"
-import { ME } from "../graphql/user/queries"
+import { CreateHouse, GetHouse } from "../lib/graphql/types"
+import { ME } from "../lib/graphql/user/queries"
 
 import Input from "./Input"
 import Button from "./Button"
-import { CREATE_HOUSE, GET_HOUSE } from "../graphql/house/queries"
+import { CREATE_HOUSE, GET_HOUSE } from "../lib/graphql/house/queries"
 
 type HouseFormProps = {
   house?: GetHouse.House

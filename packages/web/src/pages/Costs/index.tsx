@@ -5,28 +5,32 @@ import { useQuery } from "react-apollo-hooks"
 import styled from "../../application/theme"
 import { AppContext } from "../../application/context"
 
-import { AllCosts, GetHouse } from "../../graphql/types"
-import { GET_ALL_COSTS } from "../../graphql/costs/queries"
+import { AllCosts, GetHouse } from "../../lib/graphql/types"
+import { GET_ALL_COSTS } from "../../lib/graphql/costs/queries"
 import IconPlus from "../../assets/images/icon-plus.svg"
 import Page from "../../components/Page"
 import CostItem from "../../components/CostItem"
 import Column from "../../components/styled/Column"
-import { GET_HOUSE } from "../../graphql/house/queries"
+import { GET_HOUSE } from "../../lib/graphql/house/queries"
+import Error from "../../components/Error"
 
 function Costs(_: RouteComponentProps) {
   const { user } = useContext(AppContext)
   if (!user!.houseId) return <Redirect to="/" noThrow={true} />
 
-  const { data } = useQuery<GetHouse.Query>(GET_HOUSE)
+  const { data, error: houseError } = useQuery<GetHouse.Query>(GET_HOUSE)
+  if (houseError) return <Error error={houseError} />
   const house = data!.house!
 
-  const { data: costData } = useQuery<AllCosts.Query, AllCosts.Variables>(
-    GET_ALL_COSTS,
-    {
-      variables: { houseId: house.id },
-      suspend: false,
-    },
-  )
+  const { data: costData, error: costsError } = useQuery<
+    AllCosts.Query,
+    AllCosts.Variables
+  >(GET_ALL_COSTS, {
+    variables: { houseId: house.id },
+    suspend: false,
+  })
+  if (costsError) return <Error error={costsError} />
+
   return (
     <Page activePage="costs">
       <Fragment>

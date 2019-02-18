@@ -1,8 +1,8 @@
 import React, { useState, useRef, memo } from "react"
 import styled from "../application/theme"
 import { useMutation } from "react-apollo-hooks"
-import { EDIT_HOUSE, GET_HOUSE } from "../graphql/house/queries"
-import { GetHouse, EditHouse } from "../graphql/types"
+import { EDIT_HOUSE, GET_HOUSE } from "../lib/graphql/house/queries"
+import { GetHouse, EditHouse } from "../lib/graphql/types"
 
 type HouseNameProps = {
   house: GetHouse.House

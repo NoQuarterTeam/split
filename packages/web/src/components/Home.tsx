@@ -23,7 +23,10 @@ function Home(props: RouteComponentProps) {
 
 export default Home
 
-const StyledHome = styled.div``
+const StyledHome = styled.div`
+  height: 100vh;
+  width: 100%;
+`
 
 const StyledHeader = styled.h1`
   margin-bottom: ${p => p.theme.paddingXL};

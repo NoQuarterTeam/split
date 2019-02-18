@@ -13,7 +13,7 @@ import Input from "./Input"
 import { CHECK_HOUSE } from "../lib/graphql/house/queries"
 
 function RegisterForm(props: RouteComponentProps) {
-  let inviteHouseId: string = ""
+  let inviteHouseId
   const queries = queryString.parse(location.search)
   if (queries.invite) {
     inviteHouseId = queries.invite as string
@@ -50,7 +50,6 @@ function RegisterForm(props: RouteComponentProps) {
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    if (!house) return
     setLoading(true)
     register()
       .then(() => props.navigate!("/"))
@@ -61,73 +60,75 @@ function RegisterForm(props: RouteComponentProps) {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <StyledHeader>
-        <img src={IconLogo} width={30} />
-        Split
-      </StyledHeader>
-      {house ? (
-        <StyledInviteHeader>
-          You are being invited to join {house.name}
-        </StyledInviteHeader>
-      ) : checkHouseError ? (
-        <StyledInviteHeader>Invalid invite code</StyledInviteHeader>
-      ) : (
-        !inviteHouseId && (
+    <StyledRegister>
+      <StyledForm onSubmit={handleSubmit}>
+        <StyledHeader>
+          <img src={IconLogo} width={30} />
+          Split
+        </StyledHeader>
+        {house ? (
           <StyledInviteHeader>
-            You must be invited to join Split
+            You are being invited to join {house.name}
           </StyledInviteHeader>
-        )
-      )}
-      <Input
-        label="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        type="email"
-        required={true}
-        placeholder="jim@gmail.com"
-      />
-      <br />
-      <Input
-        label="Password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        type="password"
-        required={true}
-        placeholder="********"
-      />
-      <Input
-        label="First name"
-        value={firstName}
-        onChange={e => setFirstName(e.target.value)}
-        type="text"
-        required={true}
-        placeholder="Jim"
-      />
-      <br />
+        ) : (
+          checkHouseError && (
+            <StyledInviteHeader>Invalid invite code</StyledInviteHeader>
+          )
+        )}
+        <Input
+          label="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          type="email"
+          required={true}
+          placeholder="jim@gmail.com"
+        />
+        <br />
+        <Input
+          label="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          type="password"
+          required={true}
+          placeholder="********"
+        />
+        <Input
+          label="First name"
+          value={firstName}
+          onChange={e => setFirstName(e.target.value)}
+          type="text"
+          required={true}
+          placeholder="Jim"
+        />
+        <br />
 
-      <Input
-        label="Last name"
-        value={lastName}
-        onChange={e => setLastName(e.target.value)}
-        type="text"
-        required={true}
-        placeholder="Sebe"
-      />
-      <br />
-      <Button disabled={!!!house || loading} loading={loading} full={true}>
-        Sign up
-      </Button>
-      {error && <StyledError>{error}</StyledError>}
-      <Link to="/login">
-        <StyledLink>Login</StyledLink>
-      </Link>
-    </StyledForm>
+        <Input
+          label="Last name"
+          value={lastName}
+          onChange={e => setLastName(e.target.value)}
+          type="text"
+          required={true}
+          placeholder="Sebe"
+        />
+        <br />
+        <Button disabled={loading} loading={loading} full={true}>
+          Sign up
+        </Button>
+        {error && <StyledError>{error}</StyledError>}
+        <Link to="/login">
+          <StyledLink>Login</StyledLink>
+        </Link>
+      </StyledForm>
+    </StyledRegister>
   )
 }
 
 export default memo(RegisterForm)
 
+const StyledRegister = styled.div`
+  height: 100vh;
+  width: 100%;
+`
 const StyledForm = styled.form`
   height: 100%;
   max-width: 450px;

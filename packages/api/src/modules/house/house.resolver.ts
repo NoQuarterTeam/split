@@ -24,9 +24,11 @@ export class HouseResolver {
     private readonly userService: UserService,
   ) {}
 
-  // GET HOUSE
+  // Check HOUSE
   @Query(() => House, { nullable: true })
-  async checkHouse(@Arg("houseId") houseId: string): Promise<House | null> {
+  async checkHouse(
+    @Arg("houseId", { nullable: true }) houseId?: string,
+  ): Promise<House | null> {
     if (!houseId) return null
     const house = await this.houseService.findById(houseId)
     return house

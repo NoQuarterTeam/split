@@ -3,7 +3,7 @@ import { User } from "../user/fragments"
 import { House } from "./fragments"
 
 export const CHECK_HOUSE = gql`
-  query CheckHouse($houseId: String!) {
+  query CheckHouse($houseId: String) {
     checkHouse(houseId: $houseId) {
       ...House
     }

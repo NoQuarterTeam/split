@@ -36,8 +36,8 @@ export class RegisterInput implements Partial<User> {
   @Field()
   password: string
 
-  @Field()
-  inviteHouseId: string
+  @Field({ nullable: true })
+  inviteHouseId?: string
 }
 
 @InputType()

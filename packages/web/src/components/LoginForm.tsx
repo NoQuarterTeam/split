@@ -39,41 +39,49 @@ function LoginForm(props: RouteComponentProps) {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <StyledHeader>
-        <img src={IconLogo} width={30} />
-        Split
-      </StyledHeader>
-      <Input
-        label="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        type="email"
-        required={true}
-        placeholder="jim@gmail.com"
-      />
-      <br />
-      <Input
-        label="Password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        type="password"
-        required={true}
-        placeholder="********"
-      />
-      <br />
-      <Button loading={loading} full={true}>
-        Login
-      </Button>
-      {error && <StyledError>{error}</StyledError>}
-      <Link to="/register">
-        <StyledLink>Sign up</StyledLink>
-      </Link>
-    </StyledForm>
+    <StyledLogin>
+      <StyledForm onSubmit={handleSubmit}>
+        <StyledHeader>
+          <img src={IconLogo} width={30} />
+          Split
+        </StyledHeader>
+        <Input
+          label="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          type="email"
+          required={true}
+          placeholder="jim@gmail.com"
+        />
+        <br />
+        <Input
+          label="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          type="password"
+          required={true}
+          placeholder="********"
+        />
+        <br />
+        <Button loading={loading} full={true}>
+          Login
+        </Button>
+        {error && <StyledError>{error}</StyledError>}
+        <Link to="/register">
+          <StyledLink>Sign up</StyledLink>
+        </Link>
+      </StyledForm>
+    </StyledLogin>
   )
 }
 
 export default memo(LoginForm)
+
+const StyledLogin = styled.div`
+  height: 100vh;
+  width: 100vw;
+  ${p => p.theme.flexCenter};
+`
 
 const StyledForm = styled.form`
   height: 100%;

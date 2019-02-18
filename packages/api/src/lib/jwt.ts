@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken"
-import { User } from "../modules/user/user.entity"
 
 export const createToken = (userId: string): Promise<string> => {
   return new Promise(resolve => {

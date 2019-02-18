@@ -37,7 +37,7 @@ export interface RegisterInput {
 
   password: string
 
-  inviteHouseId: string
+  inviteHouseId?: Maybe<string>
 }
 
 export interface LoginInput {
@@ -149,7 +149,7 @@ export namespace DestroyCost {
 
 export namespace CheckHouse {
   export type Variables = {
-    houseId: string
+    houseId?: Maybe<string>
   }
 
   export type Query = {
@@ -561,7 +561,7 @@ export interface GetCostQueryArgs {
   costId: string
 }
 export interface CheckHouseQueryArgs {
-  houseId: string
+  houseId?: Maybe<string>
 }
 export interface CreateCostMutationArgs {
   data: CostInput

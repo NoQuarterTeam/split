@@ -1,12 +1,9 @@
 import React, { useContext, Fragment } from "react"
 import { RouteComponentProps } from "@reach/router"
-import { useQuery } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
 import { AppContext } from "../../application/context"
 
-import { GetHouse } from "../../lib/graphql/types"
-import { GET_HOUSE } from "../../lib/graphql/house/queries"
 import { round } from "../../lib/helpers"
 import Page from "../../components/Page"
 

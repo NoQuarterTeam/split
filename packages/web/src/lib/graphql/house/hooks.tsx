@@ -3,7 +3,7 @@ import { GET_HOUSE, CREATE_HOUSE, EDIT_HOUSE, CHECK_HOUSE } from "./queries"
 import { GetHouse, CreateHouse, EditHouse, CheckHouse } from "../types"
 import { ME } from "../user/queries"
 
-export function useHouseQuery() {
+export function useGetHouseQuery() {
   const { data, error } = useQuery<GetHouse.Query>(GET_HOUSE)
   const house = data!.house!
   return { house, getHouseError: error }

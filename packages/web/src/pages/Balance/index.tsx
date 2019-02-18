@@ -1,23 +1,22 @@
-import React, { useContext, Fragment } from "react"
+import React, { Fragment } from "react"
 import { RouteComponentProps } from "@reach/router"
 
 import styled from "../../application/theme"
-import { AppContext } from "../../application/context"
 
 import { round } from "../../lib/helpers"
+import { useGetHouseQuery } from "../../lib/graphql/house/hooks"
+import useUserContext from "../../lib/hooks/useUserContext"
+
 import Page from "../../components/Page"
 
 import HouseBalance from "../../components/HouseBalance"
 import HouseForm from "../../components/HouseForm"
 import HouseName from "../../components/HouseName"
 import HouseInvite from "../../components/HouseInvite"
-import { useHouseQuery } from "../../lib/graphql/house/hooks"
-import useUserContext from "../../lib/hooks/useUserContext"
 
 function Balance(_: RouteComponentProps) {
   const user = useUserContext()
-  const { house } = useHouseQuery()
-
+  const { house } = useGetHouseQuery()
   const getBalanceHeader = () => {
     if (user.balance > 0) {
       return `You are owed €${round(user.balance * 0.01, 2)}`

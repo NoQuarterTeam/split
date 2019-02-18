@@ -11,7 +11,6 @@
     "lint": "tslint -p ."
   },
   "dependencies": {
-    "@types/express-jwt": "^0.0.41",
     "apollo-server-express": "^2.3.3",
     "bcryptjs": "^2.4.3",
     "bull": "^3.6.0",
@@ -21,7 +20,6 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
-    "express-session": "^1.15.6",
     "ioredis": "^4.5.1",
     "jsonwebtoken": "^8.4.0",
     "morgan": "^1.9.1",
@@ -37,7 +35,7 @@
     "@types/bull": "^3.5.6",
     "@types/connect-redis": "^0.0.8",
     "@types/express": "^4.16.1",
-    "@types/express-session": "^1.15.11",
+    "@types/express-jwt": "^0.0.41",
     "@types/faker": "^4.1.5",
     "@types/ioredis": "^4.0.6",
     "@types/jest": "^23.3.13",

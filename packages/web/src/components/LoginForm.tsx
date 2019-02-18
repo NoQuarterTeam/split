@@ -1,13 +1,11 @@
 import React, { memo, useState } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
-import { useMutation } from "react-apollo-hooks"
 import styled from "../application/theme"
 
 import IconLogo from "../assets/images/icon-logo.svg"
-import { LOGIN, ME } from "../lib/graphql/user/queries"
-import { Login } from "../lib/graphql/types"
 import Button from "./Button"
 import Input from "./Input"
+import { useLoginMutation } from "../lib/graphql/user/hooks"
 
 function LoginForm(props: RouteComponentProps) {
   const [email, setEmail] = useState<string>("")
@@ -16,21 +14,14 @@ function LoginForm(props: RouteComponentProps) {
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
-  const login = useMutation<Login.Mutation, Login.Variables>(LOGIN, {
-    variables: { data: { email, password } },
-    refetchQueries: [{ query: ME }],
-    awaitRefetchQueries: true,
-    update: (_, res) => {
-      if (res.data) {
-        localStorage.setItem("token", res.data.login.token)
-      }
-    },
-  })
+  const login = useLoginMutation()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
     setLoading(true)
-    login()
+    login({
+      variables: { data: { email, password } },
+    })
       .then(() => props.navigate!("/"))
       .catch(loginError => {
         setLoading(false)

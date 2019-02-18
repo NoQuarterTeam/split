@@ -1,9 +1,9 @@
-import React, { useContext, FC, Fragment } from "react"
+import React, { FC, Fragment } from "react"
 import LoginForm from "./LoginForm"
-import { AppContext } from "../application/context"
+import useUserContext from "../lib/hooks/useUserContext"
 
 const CheckHouse: FC = ({ children }) => {
-  const { user } = useContext(AppContext)
+  const user = useUserContext()
   return user ? <Fragment>{children}</Fragment> : <LoginForm />
 }
 

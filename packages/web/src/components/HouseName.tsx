@@ -1,8 +1,7 @@
 import React, { useState, useRef, memo } from "react"
 import styled from "../application/theme"
-import { useMutation } from "react-apollo-hooks"
-import { EDIT_HOUSE, GET_HOUSE } from "../lib/graphql/house/queries"
-import { GetHouse, EditHouse } from "../lib/graphql/types"
+import { GetHouse } from "../lib/graphql/types"
+import { useEditHouseMutation } from "../lib/graphql/house/hooks"
 
 type HouseNameProps = {
   house: GetHouse.House
@@ -11,9 +10,7 @@ type HouseNameProps = {
 function HouseName({ house }: HouseNameProps) {
   const [houseName, setHouseName] = useState<string>(house.name)
   const inputRef = useRef<HTMLInputElement>(null)
-  const updateHouse = useMutation<EditHouse.Mutation, EditHouse.Variables>(
-    EDIT_HOUSE,
-  )
+  const updateHouse = useEditHouseMutation()
 
   const handleHouseUpdate = (e: any) => {
     if (e.key === "Enter") {
@@ -32,12 +29,6 @@ function HouseName({ house }: HouseNameProps) {
             name: houseName,
             __typename: "House",
           },
-        },
-        update: (cache, { data }) => {
-          if (data) {
-            const res = data.editHouse
-            cache.writeQuery({ query: GET_HOUSE, data: { house: res } })
-          }
         },
       })
       if (inputRef.current) {

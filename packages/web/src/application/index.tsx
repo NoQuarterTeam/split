@@ -21,6 +21,7 @@ import ErrorFallback from "../components/ErrorFallback"
 
 function Application() {
   const { data, loading } = useQuery<Me.Query>(ME, { suspend: false })
+
   const errorHandler = (e: Error, componentStack: string) => {
     console.log(e)
   }

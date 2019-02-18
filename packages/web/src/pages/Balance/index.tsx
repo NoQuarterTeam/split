@@ -12,24 +12,23 @@ import HouseForm from "../../components/HouseForm"
 import HouseName from "../../components/HouseName"
 import HouseInvite from "../../components/HouseInvite"
 import { useHouseQuery } from "../../lib/graphql/house/hooks"
-import Error from "../../components/Error"
+import useUserContext from "../../lib/hooks/useUserContext"
 
 function Balance(_: RouteComponentProps) {
-  const { user } = useContext(AppContext)
-  const { house, error } = useHouseQuery()
-  if (error) return <Error error={error} />
+  const user = useUserContext()
+  const { house } = useHouseQuery()
 
   const getBalanceHeader = () => {
-    if (user!.balance > 0) {
-      return `You are owed €${round(user!.balance * 0.01, 2)}`
+    if (user.balance > 0) {
+      return `You are owed €${round(user.balance * 0.01, 2)}`
     } else {
-      return `You owe €${round(Math.abs(user!.balance * 0.01), 2)}`
+      return `You owe €${round(Math.abs(user.balance * 0.01), 2)}`
     }
   }
 
   return (
     <Page activePage="balance">
-      {!user!.houseId ? (
+      {!user.houseId ? (
         <HouseForm />
       ) : (
         <Fragment>

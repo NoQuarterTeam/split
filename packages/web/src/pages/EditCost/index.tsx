@@ -1,66 +1,44 @@
-import React, { useContext } from "react"
+import React from "react"
 import { RouteComponentProps, Redirect } from "@reach/router"
-import { useQuery, useMutation } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
 import IconClose from "../../assets/images/icon-close.svg"
-import {
-  GetCost,
-  CostInput,
-  EditCost,
-  DestroyCost,
-} from "../../lib/graphql/types"
-import {
-  GET_COST,
-  EDIT_COST,
-  GET_ALL_COSTS,
-  DESTROY_COST,
-} from "../../lib/graphql/costs/queries"
-import { GET_HOUSE } from "../../lib/graphql/house/queries"
+import { CostInput } from "../../lib/graphql/types"
 import useEventListener from "../../lib/hooks/useEventListener"
 
 import CostForm from "../../components/CostForm"
-import { AppContext } from "../../application/context"
+import useUserContext from "../../lib/hooks/useUserContext"
+import {
+  useGetCostQuery,
+  useEditCostMutation,
+  useDestroyCostMutation,
+} from "../../lib/graphql/costs/hooks"
 
 interface EditCostProps extends RouteComponentProps {
   id?: string
 }
 
 function EditCostPage(props: EditCostProps) {
-  const { user } = useContext(AppContext)
-  const house = user!.houseId
-  if (!house) return <Redirect to="/" noThrow={true} />
+  const user = useUserContext()
+  if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
-  const { data: cost, error } = useQuery<GetCost.Query, GetCost.Variables>(
-    GET_COST,
-    {
-      variables: { costId: props.id! },
-    },
-  )
-  if (error) return <Redirect to="/costs" noThrow={true} />
+  const { cost } = useGetCostQuery(props.id!)
+
+  const editCost = useEditCostMutation(cost.houseId)
+
+  const destroyCost = useDestroyCostMutation(cost.houseId)
 
   const handleCloseForm = (e: any) => {
     if (e.key === "Escape") handleGoBack()
   }
   useEventListener("keydown", handleCloseForm)
 
-  const editCost = useMutation<EditCost.Mutation, EditCost.Variables>(EDIT_COST)
-
-  const destroyCost = useMutation<DestroyCost.Mutation, DestroyCost.Variables>(
-    DESTROY_COST,
-  )
-
   const handleEditCost = (costData: CostInput) => {
     return editCost({
       variables: {
-        costId: cost!.getCost.id,
+        costId: cost.id,
         data: costData,
       },
-      refetchQueries: [
-        { query: GET_HOUSE },
-        { query: GET_ALL_COSTS, variables: { houseId: cost!.getCost.houseId } },
-      ],
-      awaitRefetchQueries: true,
     }).then(() => {
       props.navigate!("/costs")
     })
@@ -69,13 +47,8 @@ function EditCostPage(props: EditCostProps) {
   const handleDeleteCost = () => {
     return destroyCost({
       variables: {
-        costId: cost!.getCost.id,
+        costId: cost.id,
       },
-      refetchQueries: [
-        { query: GET_HOUSE },
-        { query: GET_ALL_COSTS, variables: { houseId: cost!.getCost.houseId } },
-      ],
-      awaitRefetchQueries: true,
     }).then(() => {
       props.navigate!("/costs")
     })
@@ -94,7 +67,7 @@ function EditCostPage(props: EditCostProps) {
         </StyledClose>
       </StyledTopbar>
       <CostForm
-        cost={cost!.getCost}
+        cost={cost}
         onFormSubmit={handleEditCost}
         onCostDelete={handleDeleteCost}
       />

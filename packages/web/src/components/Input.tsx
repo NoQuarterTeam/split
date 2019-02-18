@@ -58,6 +58,6 @@ const StyledInput = styled.input<{ hasPrefix?: boolean }>`
 const StyledPrefix = styled.span`
   position: absolute;
   left: 0;
-  top: 11;
+  top: 11px;
   color: grey;
 `

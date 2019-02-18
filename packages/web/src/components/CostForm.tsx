@@ -12,6 +12,8 @@ import useFormState from "../lib/hooks/useFormState"
 import CostInputs from "./CostInputs"
 import CostShares from "./CostShares"
 import { round } from "../lib/helpers"
+import useUserContext from "../lib/hooks/useUserContext"
+import { useHouseQuery } from "../lib/graphql/house/hooks"
 
 type CostFormProps = {
   cost?: GetCost.GetCost
@@ -20,9 +22,8 @@ type CostFormProps = {
 }
 
 function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
-  const { user } = useContext(AppContext)
-  const { data } = useQuery<GetHouse.Query>(GET_HOUSE)
-  const house = data!.house!
+  const user = useUserContext()
+  const { house } = useHouseQuery()
 
   const { formState, setFormState } = useFormState<CostInput>({
     name: cost ? cost.name : "",
@@ -33,7 +34,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
       : dayjs().format("YYYY-MM-DD"),
     recurring: cost ? cost.recurring : "one-off",
     houseId: house.id,
-    payerId: cost ? cost.payerId : user!.id,
+    payerId: cost ? cost.payerId : user.id,
     costShares: cost
       ? cost.shares.map(s => ({ userId: s.user.id, amount: s.amount * 0.01 }))
       : house.users.map(u => ({ userId: u.id, amount: 0 })),
@@ -46,17 +47,12 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     formState.costShares.reduce((acc, s) => acc + s.amount, 0)
 
   useEffect(() => {
-    if (equalSplit) {
-      applyEqualSplit()
-    }
+    if (equalSplit) applyEqualSplit()
   }, [formState.amount, formState.costShares.length])
 
   const applyEqualSplit = () => {
-    if (!equalSplit) {
-      setEqualSplit(true)
-    }
+    if (!equalSplit) setEqualSplit(true)
     const amountPerUser = formState.amount / formState.costShares.length
-
     const costShares = formState.costShares.map(({ userId }) => ({
       userId,
       amount: amountPerUser,
@@ -66,11 +62,8 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
 
   const handleCostCreate = async (e: any) => {
     e.preventDefault()
-    if (difference) {
-      return setError("Split not equal to amount")
-    }
+    if (difference) return setError("Split not equal to amount")
     setLoading(true)
-
     const costData = {
       ...formState,
       date: dayjs(formState.date).format(),
@@ -104,7 +97,6 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
           applyEqualSplit={applyEqualSplit}
         />
       </StyleFieldsWrapper>
-
       <div>
         <Button loading={loading}>Submit</Button>
         {onCostDelete && (

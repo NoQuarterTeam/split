@@ -1,15 +1,14 @@
 import React, { memo, useState } from "react"
-import { useMutation } from "react-apollo-hooks"
 
 import styled from "../application/theme"
 
-import { Me, UpdateInput, UpdateUser } from "../lib/graphql/types"
-import { UPDATE_USER } from "../lib/graphql/user/queries"
+import { Me, UpdateInput } from "../lib/graphql/types"
 import useFormState from "../lib/hooks/useFormState"
 
 import Input from "./Input"
 import Avatar from "./Avatar"
 import Button from "./Button"
+import { useUpdateUserMutation } from "../lib/graphql/user/hooks"
 
 type ProfileFormProps = {
   user: Me.Me
@@ -24,9 +23,7 @@ function ProfileForm({ user }: ProfileFormProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 
-  const updateUser = useMutation<UpdateUser.Mutation, UpdateUser.Variables>(
-    UPDATE_USER,
-  )
+  const updateUser = useUpdateUserMutation()
 
   const handleUpdateUser = (e: any) => {
     e.preventDefault()

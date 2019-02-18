@@ -1,19 +1,17 @@
 import React, { memo, useState } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
-import { useMutation, useQuery } from "react-apollo-hooks"
 import queryString from "query-string"
 
 import styled from "../application/theme"
 
 import IconLogo from "../assets/images/icon-logo.svg"
-import { ME, REGISTER } from "../lib/graphql/user/queries"
-import { Register, CheckHouse } from "../lib/graphql/types"
 import Button from "./Button"
 import Input from "./Input"
-import { CHECK_HOUSE } from "../lib/graphql/house/queries"
+import { useRegisterMutation } from "../lib/graphql/user/hooks"
+import { useCheckHouseQuery } from "../lib/graphql/house/hooks"
 
 function RegisterForm(props: RouteComponentProps) {
-  let inviteHouseId
+  let inviteHouseId: string | null = null
   const queries = queryString.parse(location.search)
   if (queries.invite) {
     inviteHouseId = queries.invite as string
@@ -26,32 +24,17 @@ function RegisterForm(props: RouteComponentProps) {
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
-  const { data: checkHouseData, error: checkHouseError } = useQuery<
-    CheckHouse.Query,
-    CheckHouse.Variables
-  >(CHECK_HOUSE, { variables: { houseId: inviteHouseId } })
-  const house = checkHouseData && checkHouseData.checkHouse
-
-  const register = useMutation<Register.Mutation, Register.Variables>(
-    REGISTER,
-    {
-      variables: {
-        data: { email, password, firstName, lastName, inviteHouseId },
-      },
-      refetchQueries: [{ query: ME }],
-      awaitRefetchQueries: true,
-      update: (_, res) => {
-        if (res.data) {
-          localStorage.setItem("token", res.data.register.token)
-        }
-      },
-    },
-  )
+  const { house, checkHouseError } = useCheckHouseQuery(inviteHouseId)
+  const register = useRegisterMutation()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
     setLoading(true)
-    register()
+    register({
+      variables: {
+        data: { email, password, firstName, lastName, inviteHouseId },
+      },
+    })
       .then(() => props.navigate!("/"))
       .catch(registerError => {
         setLoading(false)

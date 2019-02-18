@@ -1,12 +1,12 @@
-import React, { useContext, FC, Fragment } from "react"
-import { AppContext } from "../application/context"
+import React, { FC, Fragment } from "react"
 import { Redirect, Router, RouteComponentProps } from "@reach/router"
 import LoginForm from "./LoginForm"
 import Home from "./Home"
 import RegisterForm from "./RegisterForm"
+import useUserContext from "../lib/hooks/useUserContext"
 
 const CheckAuth: FC = ({ children }) => {
-  const { user } = useContext(AppContext)
+  const user = useUserContext()
   return user ? (
     <Fragment>{children}</Fragment>
   ) : (

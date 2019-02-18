@@ -1,11 +1,10 @@
 import React, { memo, useState, useRef } from "react"
-import { useMutation } from "react-apollo-hooks"
 import styled from "../application/theme"
 import Input from "./Input"
 import Button from "./Button"
 import { sleep } from "../lib/helpers"
-import { GetHouse, InviteUser } from "../lib/graphql/types"
-import { INVITE_USER } from "../lib/graphql/user/queries"
+import { GetHouse } from "../lib/graphql/types"
+import { useInviteUserMutation } from "../lib/graphql/user/hooks"
 
 type HouseInviteProps = {
   house: GetHouse.House
@@ -24,9 +23,7 @@ function HouseInvite({ house }: HouseInviteProps) {
     }
   }
 
-  const inviteUser = useMutation<InviteUser.Mutation, InviteUser.Variables>(
-    INVITE_USER,
-  )
+  const inviteUser = useInviteUserMutation()
 
   const handleInviteSend = (e: any) => {
     e.preventDefault()

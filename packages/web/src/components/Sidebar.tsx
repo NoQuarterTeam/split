@@ -1,29 +1,21 @@
-import React, { memo, Fragment, useContext } from "react"
+import React, { memo, Fragment } from "react"
 import { Link } from "@reach/router"
-import { useMutation, useApolloClient } from "react-apollo-hooks"
 
 import IconPlus from "../assets/images/icon-plus.svg"
 import IconLogo from "../assets/images/icon-logo.svg"
 
 import styled from "../application/theme"
-import { LOGOUT, ME } from "../lib/graphql/user/queries"
-import { AppContext } from "../application/context"
+import useUserContext from "../lib/hooks/useUserContext"
+import { useLogoutMutation } from "../lib/graphql/user/hooks"
 
 function Sidebar({ active }: { active: string }) {
-  const { user } = useContext(AppContext)
+  const user = useUserContext()
   const house = user!.houseId
-
-  const client = useApolloClient()
-
-  const logout = useMutation(LOGOUT)
-
-  const handleLogout = async () => {
-    localStorage.removeItem("token")
-    await logout({
-      update: cache => cache.writeQuery({ query: ME, data: { me: null } }),
-    })
-    await client.resetStore()
+  const logout = useLogoutMutation()
+  const handleLogout = () => {
+    logout()
   }
+
   return (
     <StyledSidebar>
       <h2>

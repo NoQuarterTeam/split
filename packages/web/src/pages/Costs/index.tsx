@@ -1,35 +1,21 @@
-import React, { useContext, Fragment } from "react"
+import React, { Fragment } from "react"
 import { RouteComponentProps, Link, Redirect } from "@reach/router"
-import { useQuery } from "react-apollo-hooks"
 
 import styled from "../../application/theme"
-import { AppContext } from "../../application/context"
-
-import { AllCosts, GetHouse } from "../../lib/graphql/types"
-import { GET_ALL_COSTS } from "../../lib/graphql/costs/queries"
 import IconPlus from "../../assets/images/icon-plus.svg"
 import Page from "../../components/Page"
 import CostItem from "../../components/CostItem"
 import Column from "../../components/styled/Column"
-import { GET_HOUSE } from "../../lib/graphql/house/queries"
-import Error from "../../components/Error"
+import { useHouseQuery } from "../../lib/graphql/house/hooks"
+import useUserContext from "../../lib/hooks/useUserContext"
+import { useAllCostsQuery } from "../../lib/graphql/costs/hooks"
 
 function Costs(_: RouteComponentProps) {
-  const { user } = useContext(AppContext)
-  if (!user!.houseId) return <Redirect to="/" noThrow={true} />
+  const user = useUserContext()
+  if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
-  const { data, error: houseError } = useQuery<GetHouse.Query>(GET_HOUSE)
-  if (houseError) return <Error error={houseError} />
-  const house = data!.house!
-
-  const { data: costData, error: costsError } = useQuery<
-    AllCosts.Query,
-    AllCosts.Variables
-  >(GET_ALL_COSTS, {
-    variables: { houseId: house.id },
-    suspend: false,
-  })
-  if (costsError) return <Error error={costsError} />
+  const { house } = useHouseQuery()
+  const { costs } = useAllCostsQuery(house.id)
 
   return (
     <Page activePage="costs">
@@ -56,11 +42,9 @@ function Costs(_: RouteComponentProps) {
             </Column>
             <Column flex={3} />
           </StyledTableHeader>
-          {costData &&
-            costData.allCosts &&
-            costData.allCosts.map(cost => {
-              return <CostItem key={cost.id} cost={cost} />
-            })}
+          {costs.map(cost => {
+            return <CostItem key={cost.id} cost={cost} />
+          })}
         </StyledCostList>
       </Fragment>
     </Page>

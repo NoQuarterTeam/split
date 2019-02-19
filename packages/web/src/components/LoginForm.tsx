@@ -80,11 +80,11 @@ const StyledForm = styled.form`
   width: 100%;
   margin: 0 auto;
   position: relative;
-  padding: ${p => p.theme.paddingM};
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
+  padding: ${p => p.theme.paddingL};
 `
 
 const StyledHeader = styled.h1`

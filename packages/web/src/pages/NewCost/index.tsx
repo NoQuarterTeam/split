@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
 import { RouteComponentProps, Redirect } from "@reach/router"
 
-import styled from "../../application/theme"
+import styled, { media } from "../../application/theme"
 import IconClose from "../../assets/images/icon-close.svg"
 import useEventListener from "../../lib/hooks/useEventListener"
 
@@ -54,8 +54,12 @@ function NewCost(props: RouteComponentProps) {
 export default NewCost
 
 const StyledTopbar = styled.div`
-  padding: ${p => p.theme.paddingXL};
+  padding: ${p => p.theme.paddingL};
   ${p => p.theme.flexBetween};
+
+  ${p => media.greaterThan("sm")`
+    padding: ${p.theme.paddingXL};
+  `}
 `
 
 const StyledHeader = styled.h2`

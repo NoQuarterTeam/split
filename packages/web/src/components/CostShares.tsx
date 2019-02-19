@@ -2,7 +2,7 @@ import React, { memo } from "react"
 import Participant from "./Participant"
 import Button from "./Button"
 import { User, CostInput } from "../lib/graphql/types"
-import styled from "../application/theme"
+import styled, { media } from "../application/theme"
 import Alert from "./Alert"
 import Column from "./styled/Column"
 
@@ -69,9 +69,15 @@ function CostShares({
 export default memo(CostShares)
 
 const StyledCostShares = styled.div`
-  width: 40%;
+  width: 100%;
   position: relative;
   padding: ${p => p.theme.paddingL};
+  margin-top: ${p => p.theme.paddingL};
+
+  ${media.greaterThan("sm")`
+    width: 40%;
+    margin-top: 0;
+  `}
 `
 
 const StyledHeader = styled.div`
@@ -92,14 +98,22 @@ const StyledAlertWrapper = styled.div`
   position: absolute;
   width: 100%;
   left: 0;
-  top: -${p => p.theme.paddingXL};
+  top: -${p => p.theme.paddingL};
   ${p => p.theme.flexCenter};
+
+  ${p => media.greaterThan("sm")`
+    top: -${p.theme.paddingXL};
+  `}
 `
 
 const StyledButtonWrapper = styled.div`
   position: absolute;
   left: 0;
   width: 100%;
-  bottom: -${p => p.theme.paddingM};
   ${p => p.theme.flexCenter};
+  bottom: ${p => p.theme.paddingS};
+
+  ${p => media.greaterThan("sm")`
+    bottom: -${p.theme.paddingM};
+  `}
 `

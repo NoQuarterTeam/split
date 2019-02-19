@@ -51,9 +51,9 @@ export default memo(HouseName)
 
 const StyledInput = styled.input`
   outline: 0;
+  width: 100%;
   border: 0;
   border: 2px solid transparent;
-  width: max-content;
   border-radius: ${p => p.theme.borderRadius};
   font-size: ${p => p.theme.textL};
   font-weight: ${p => p.theme.fontBlack};

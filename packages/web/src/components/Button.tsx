@@ -37,7 +37,7 @@ const StyledButton = styled.button<IButtonProps>`
   color: white;
   text-align: center;
   border-radius: 100px;
-  margin: ${p => p.theme.paddingS};
+  margin: ${p => (p.full ? 0 : p.theme.paddingS)};
   cursor: ${p => (p.disabled ? "not-allowed" : "pointer")};
   width: ${p => (!p.full ? "auto" : "100%")};
   opacity: ${p => (p.disabled ? 0.5 : 1)};
@@ -78,6 +78,7 @@ const secondaryStyles = css`
 `
 
 const alternativeStyles = css`
+  background-color: transparent;
   border: 2px solid ${p => p.theme.colorPrimary};
   font-size: ${p => p.theme.textM};
   color: ${p => p.theme.colorPrimary};
@@ -85,6 +86,7 @@ const alternativeStyles = css`
 `
 
 const highlightStyles = css`
+  background-color: transparent;
   border: 2px solid ${p => p.theme.colorHighlight};
   font-size: ${p => p.theme.textM};
   color: ${p => p.theme.colorSecondary};

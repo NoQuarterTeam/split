@@ -18,6 +18,7 @@ const HiddenInput = styled.input`
   height: 0;
   width: 0;
   margin: 0;
+  position: absolute;
 `
 
 const StyledLabel = styled.label`
@@ -41,6 +42,7 @@ const StyledLabel = styled.label`
 const StyledRadio = styled.div`
   height: 26px;
   width: 26px;
+  position: relative;
   border-radius: 50%;
   border: 2px solid ${p => p.theme.colorHighlight};
 
@@ -53,8 +55,8 @@ const StyledRadio = styled.div`
     transition: all 200ms;
     position: absolute;
     opacity: 0;
-    top: 6px;
-    left: 6px;
+    top: 4px;
+    left: 4px;
     width: 14px;
     height: 14px;
     border-radius: 50%;

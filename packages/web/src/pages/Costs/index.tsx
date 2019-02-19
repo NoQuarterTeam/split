@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React from "react"
 import { RouteComponentProps, Link, Redirect } from "@reach/router"
 
 import styled, { media } from "../../application/theme"
@@ -19,34 +19,32 @@ function Costs(_: RouteComponentProps) {
 
   return (
     <Page activePage="costs">
-      <Fragment>
-        <StyledCostList>
-          <StyledHeader>
-            <StyledHouseName>Costs</StyledHouseName>
-            <Link to="/new-cost">
-              <img src={IconPlus} alt="add" height={40} />
-            </Link>
-          </StyledHeader>
-          <StyledTableHeader>
-            <Column flex={5}>
-              <StyledLabel>Name</StyledLabel>
-            </Column>
-            <Column flex={5}>
-              <StyledLabel>Amount</StyledLabel>
-            </Column>
-            <Column flex={5}>
-              <StyledLabel>Payer</StyledLabel>
-            </Column>
-            <Column flex={5}>
-              <StyledLabel>Date</StyledLabel>
-            </Column>
-            <Column flex={3} />
-          </StyledTableHeader>
-          {costs.map(cost => {
-            return <CostItem key={cost.id} cost={cost} />
-          })}
-        </StyledCostList>
-      </Fragment>
+      <StyledCostList>
+        <StyledHeader>
+          <StyledHouseName>Costs</StyledHouseName>
+          <Link to="/new-cost">
+            <img src={IconPlus} alt="add" height={40} />
+          </Link>
+        </StyledHeader>
+        <StyledTableHeader>
+          <Column flex={5}>
+            <StyledLabel>Name</StyledLabel>
+          </Column>
+          <Column flex={5}>
+            <StyledLabel>Amount</StyledLabel>
+          </Column>
+          <Column flex={5}>
+            <StyledLabel>Payer</StyledLabel>
+          </Column>
+          <Column flex={5}>
+            <StyledLabel>Date</StyledLabel>
+          </Column>
+          <Column flex={3} />
+        </StyledTableHeader>
+        {costs.map(cost => {
+          return <CostItem key={cost.id} cost={cost} />
+        })}
+      </StyledCostList>
     </Page>
   )
 }
@@ -56,18 +54,15 @@ export default Costs
 const StyledCostList = styled.div`
   height: 100vh;
   max-width: 900px;
+  margin: 0 auto;
   width: 100%;
   overflow-y: scroll;
-
-  padding: ${p => p.theme.paddingS};
+  padding: ${p => p.theme.paddingL};
+  padding-top: ${p => p.theme.paddingXL};
 
   &::-webkit-scrollbar {
     display: none;
   }
-
-  ${p => media.greaterThan("large")`
-    padding: ${p.theme.paddingXL};
-  `}
 `
 
 const StyledHeader = styled.div`
@@ -83,11 +78,15 @@ const StyledHouseName = styled.h2`
 const StyledTableHeader = styled.div`
   width: 100%;
   margin-bottom: ${p => p.theme.paddingL};
-  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingL}`};
+  padding: ${p => p.theme.paddingM};
   padding-right: 0;
   border-radius: ${p => p.theme.borderRadius};
   background-color: ${p => p.theme.colorLightGrey};
   ${p => p.theme.flexCenter};
+
+  ${p => media.greaterThan("sm")`
+    padding: ${`${p.theme.paddingM} ${p.theme.paddingL}`};
+  `}
 `
 
 const StyledLabel = styled.div`

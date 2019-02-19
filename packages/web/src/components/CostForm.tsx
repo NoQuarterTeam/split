@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import dayjs from "dayjs"
 
-import styled from "../application/theme"
+import styled, { media } from "../application/theme"
 import { CostInput, GetCost } from "../lib/graphql/types"
 
 import Button from "./Button"
@@ -111,14 +111,19 @@ export default CostForm
 
 const StyledForm = styled.form`
   flex-wrap: wrap;
-  padding: 0px 120px;
+  padding: ${p => p.theme.paddingL};
 
   ${p => p.theme.flexBetween};
+
+  ${p => media.greaterThan("sm")`
+    padding: 0px 120px;
+  `}
 `
 
 const StyleFieldsWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  flex-wrap: wrap;
   width: 100%;
 `

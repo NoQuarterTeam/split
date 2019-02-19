@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import styled from "../application/theme"
+import styled, { media } from "../application/theme"
 
 import { round } from "../lib/helpers"
 import { CostInput } from "../lib/graphql/types"
@@ -84,12 +84,17 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
 export default memo(CostInputs)
 
 const StyledInputs = styled.div`
-  width: 60%;
+  width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding-right: ${p => p.theme.paddingXL};
+  padding-right: 0;
+
+  ${p => media.greaterThan("sm")`
+    width: 60%;
+    padding-right: ${p.theme.paddingXL};
+  `}
 `
 
 const StyledInputWrapper = styled.div`

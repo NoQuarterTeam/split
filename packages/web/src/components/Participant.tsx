@@ -1,6 +1,6 @@
 import React, { memo } from "react"
 import { User, ShareInput } from "../lib/graphql/types"
-import styled from "../application/theme"
+import styled, { media } from "../application/theme"
 import { round } from "../lib/helpers"
 
 import Input from "./Input"
@@ -102,6 +102,10 @@ export default memo(Participant)
 const StyledParticipant = styled.div`
   width: 100%;
 
-  margin-bottom: ${p => p.theme.paddingXL};
+  margin-bottom: ${p => p.theme.paddingL};
   ${p => p.theme.flexBetween};
+
+  ${p => media.greaterThan("sm")`
+    margin-bottom: ${p.theme.paddingXL};
+  `}
 `

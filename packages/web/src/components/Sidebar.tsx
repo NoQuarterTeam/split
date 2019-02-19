@@ -4,11 +4,11 @@ import { Link } from "@reach/router"
 import IconPlus from "../assets/images/icon-plus.svg"
 import IconLogo from "../assets/images/icon-logo.svg"
 
-import styled from "../application/theme"
+import styled, { media } from "../application/theme"
 import useUserContext from "../lib/hooks/useUserContext"
 import { useLogoutMutation } from "../lib/graphql/user/hooks"
 
-function Sidebar({ active }: { active: string }) {
+function Sidebar({ activePage, open }: { activePage: string; open: boolean }) {
   const user = useUserContext()
   const house = user!.houseId
   const logout = useLogoutMutation()
@@ -17,14 +17,14 @@ function Sidebar({ active }: { active: string }) {
   }
 
   return (
-    <StyledSidebar>
+    <StyledSidebar open={open}>
       <h2>
         <img src={IconLogo} width={30} />
         Split
       </h2>
       <div>
         <Link to="/">
-          <StyledLink active={active === "balance"}>Balance</StyledLink>
+          <StyledLink active={activePage === "balance"}>Balance</StyledLink>
         </Link>
         {house && (
           <Fragment>
@@ -34,12 +34,12 @@ function Sidebar({ active }: { active: string }) {
               </StyledLink>
             </Link>
             <Link to="/costs">
-              <StyledLink active={active === "costs"}>Costs</StyledLink>
+              <StyledLink active={activePage === "costs"}>Costs</StyledLink>
             </Link>
           </Fragment>
         )}
         <Link to="/profile">
-          <StyledLink active={active === "settings"}>Settings</StyledLink>
+          <StyledLink active={activePage === "settings"}>Settings</StyledLink>
         </Link>
         <div tabIndex={0} onClick={handleLogout} style={{ cursor: "pointer" }}>
           <StyledLink>Logout</StyledLink>
@@ -62,16 +62,23 @@ function Sidebar({ active }: { active: string }) {
 
 export default memo(Sidebar)
 
-const StyledSidebar = styled.div`
+const StyledSidebar = styled.div<{ open: boolean }>`
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
   height: 100%;
   width: 220px;
-  display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: flex-start;
   background-color: ${p => p.theme.colorLightGrey};
-
   padding: ${p => p.theme.paddingXL};
+  display: ${p => (p.open ? "flex" : "none")};
+
+  ${media.greaterThan("sm")`
+    display: flex;
+  `}
 `
 
 const StyledLink = styled.div<{ active?: boolean }>`

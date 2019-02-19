@@ -2,7 +2,7 @@ import React, { memo } from "react"
 import dayjs from "dayjs"
 import { navigate } from "@reach/router"
 
-import styled from "../application/theme"
+import styled, { media } from "../application/theme"
 import { AllCosts } from "../lib/graphql/types"
 import { round } from "../lib/helpers"
 
@@ -23,7 +23,7 @@ function CostItem({ cost }: CostProps) {
   return (
     <StyledCost onClick={() => navigate(`/costs/${cost.id}`)} tabIndex={0}>
       <Column flex={5}>
-        <StyledName>
+        <StyledValue>
           {cost.name}
           {cost.recurring !== "one-off" && (
             <ToolTip message="Recurring cost">
@@ -35,13 +35,17 @@ function CostItem({ cost }: CostProps) {
               <StyledInfoIcon src={IconClock} width={25} />
             </ToolTip>
           )}
-        </StyledName>
+        </StyledValue>
       </Column>
-      <Column flex={5}>€ {round(cost.amount * 0.01, 2)}</Column>
+      <Column flex={5}>
+        <StyledValue>€ {round(cost.amount * 0.01, 2)}</StyledValue>
+      </Column>
       <Column flex={5}>
         <Avatar user={cost.payer} size={40} />
       </Column>
-      <Column flex={5}>{dayjs(cost.date).format("DD MMM 'YY")}</Column>
+      <Column flex={5}>
+        <StyledValue>{dayjs(cost.date).format("DD MMM 'YY")}</StyledValue>
+      </Column>
       <Column flex={3}>
         <Center>
           <StyledIcon src={IconOpen} width={10} />
@@ -53,25 +57,14 @@ function CostItem({ cost }: CostProps) {
 
 export default memo(CostItem)
 
-const StyledName = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-`
 const StyledIcon = styled.img`
   transition: 200ms all;
 `
-
-const StyledInfoIcon = styled.img`
-  cursor: pointer;
-  padding-left: ${p => p.theme.paddingS};
-`
-
 const StyledCost = styled.div`
   width: 100%;
   padding-right: 0;
   border: 2px solid transparent;
-  padding: ${p => p.theme.paddingL};
+  padding: ${p => p.theme.paddingM};
   border-radius: ${p => p.theme.borderRadius};
   ${p => p.theme.flexCenter};
 
@@ -83,4 +76,23 @@ const StyledCost = styled.div`
       transform: translateX(5px);
     }
   }
+
+  ${p => media.greaterThan("sm")`
+    padding: ${p.theme.paddingL};
+  `}
+`
+const StyledValue = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: ${p => p.theme.textS};
+
+  ${p => media.greaterThan("sm")`
+    padding: ${p.theme.textM};
+  `}
+`
+
+const StyledInfoIcon = styled.img`
+  cursor: pointer;
+  padding-left: ${p => p.theme.paddingS};
 `

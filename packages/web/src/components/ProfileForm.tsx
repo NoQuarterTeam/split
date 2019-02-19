@@ -83,10 +83,11 @@ export default memo(ProfileForm)
 
 const StyledProfileForm = styled.form`
   margin: 0 auto;
-  width: 40%;
+  width: 100%;
   max-width: 500px;
   flex-direction: column;
   ${p => p.theme.flexCenter};
+  padding: ${p => p.theme.paddingL};
 `
 
 const StyledFormAvatar = styled.div`

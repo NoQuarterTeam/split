@@ -109,7 +109,7 @@ function RegisterForm(props: RouteComponentProps) {
 export default memo(RegisterForm)
 
 const StyledRegister = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
 `
 const StyledForm = styled.form`
@@ -118,19 +118,17 @@ const StyledForm = styled.form`
   width: 100%;
   margin: 0 auto;
   position: relative;
-  padding: ${p => p.theme.paddingM};
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
+  padding: ${p => p.theme.paddingL};
 `
 
 const StyledInviteHeader = styled.h2`
-  position: fixed;
-  top: 30px;
-  left: 0;
   width: 100%;
   text-align: center;
+  margin-bottom: ${p => p.theme.paddingXL};
 `
 
 const StyledHeader = styled.h1`

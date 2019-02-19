@@ -1,7 +1,7 @@
-import React, { Fragment } from "react"
+import React from "react"
 import { RouteComponentProps } from "@reach/router"
 
-import styled from "../../application/theme"
+import styled, { media } from "../../application/theme"
 
 import { round } from "../../lib/helpers"
 import { useGetHouseQuery } from "../../lib/graphql/house/hooks"
@@ -30,7 +30,7 @@ function Balance(_: RouteComponentProps) {
       {!user.houseId ? (
         <HouseForm />
       ) : (
-        <Fragment>
+        <StyledWrapper>
           <StyledHeader>
             <HouseName house={house} />
             <p>{getBalanceHeader()}</p>
@@ -39,7 +39,7 @@ function Balance(_: RouteComponentProps) {
           <StyledInviteWrapper>
             <HouseInvite house={house} />
           </StyledInviteWrapper>
-        </Fragment>
+        </StyledWrapper>
       )}
     </Page>
   )
@@ -47,22 +47,35 @@ function Balance(_: RouteComponentProps) {
 
 export default Balance
 
+const StyledWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+
+  padding: ${p => p.theme.paddingL};
+
+  ${media.greaterThan("sm")`
+    padding: 0;
+  `}
+`
 const StyledHeader = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  padding: ${p => p.theme.paddingXL};
+  padding: ${p => p.theme.paddingS};
 
   p {
     padding-left: ${p => p.theme.paddingS};
   }
+
+  ${p => media.greaterThan("sm")`
+    padding: ${p.theme.paddingXL};
+  `}
 `
 
 const StyledInviteWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: ${p => p.theme.paddingXL};
+  padding: 0 ${p => p.theme.flexCenter};
+
+  ${p => media.greaterThan("sm")`
+    padding: ${p.theme.paddingXL};
+  `}
 `

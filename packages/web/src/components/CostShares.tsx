@@ -9,7 +9,7 @@ import Column from "./styled/Column"
 type CostSharesProps = {
   users: User.Fragment[]
   equalSplit: boolean
-  difference: boolean
+  isDifferent: boolean
   formState: CostInput
   setFormState: (val: { [key: string]: any }) => void
   setEqualSplit: (val: boolean) => void
@@ -19,14 +19,14 @@ function CostShares({
   users,
   equalSplit,
   formState,
-  difference,
+  isDifferent,
   setFormState,
   setEqualSplit,
   applyEqualSplit,
 }: CostSharesProps) {
   return (
     <StyledCostShares>
-      {!equalSplit && difference && (
+      {!equalSplit && isDifferent && (
         <StyledAlertWrapper>
           <Alert text="Split must equal amount" />
         </StyledAlertWrapper>

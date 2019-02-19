@@ -29,6 +29,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
         <Input
           prefix="€"
           label="Amount"
+          pattern="\d*"
           required={true}
           placeholder="0.00"
           type="number"

@@ -39,9 +39,10 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   const [equalSplit, setEqualSplit] = useState<boolean>(true)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
-  const difference =
-    formState.amount !==
-    formState.costShares.reduce((acc, s) => acc + s.amount, 0)
+
+  const isDifferent =
+    round(formState.amount, 2) !==
+    round(formState.costShares.reduce((acc, s) => acc + s.amount, 0), 2)
 
   useEffect(() => {
     if (equalSplit) applyEqualSplit()
@@ -59,7 +60,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
 
   const handleCostCreate = async (e: any) => {
     e.preventDefault()
-    if (difference) return setError("Split not equal to amount")
+    if (isDifferent) return setError("Split not equal to amount")
     setLoading(true)
     const costData = {
       ...formState,
@@ -88,7 +89,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
           users={house.users}
           equalSplit={equalSplit}
           formState={formState}
-          difference={difference}
+          isDifferent={isDifferent}
           setFormState={setFormState}
           setEqualSplit={setEqualSplit}
           applyEqualSplit={applyEqualSplit}

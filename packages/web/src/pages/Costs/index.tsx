@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
 import { RouteComponentProps, Link, Redirect } from "@reach/router"
 
-import styled from "../../application/theme"
+import styled, { media } from "../../application/theme"
 import IconPlus from "../../assets/images/icon-plus.svg"
 import Page from "../../components/Page"
 import CostItem from "../../components/CostItem"
@@ -55,14 +55,19 @@ export default Costs
 
 const StyledCostList = styled.div`
   height: 100vh;
-  width: 80%;
+  max-width: 900px;
+  width: 100%;
   overflow-y: scroll;
 
-  padding: ${p => p.theme.paddingXL};
+  padding: ${p => p.theme.paddingS};
 
   &::-webkit-scrollbar {
     display: none;
   }
+
+  ${p => media.greaterThan("large")`
+    padding: ${p.theme.paddingXL};
+  `}
 `
 
 const StyledHeader = styled.div`

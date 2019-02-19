@@ -4,6 +4,7 @@ import ApolloClient from "apollo-boost"
 import { ApolloProvider } from "react-apollo-hooks"
 import LogRocket from "logrocket"
 import setupLogRocketReact from "logrocket-react"
+import Media from "react-media"
 
 import * as serviceWorker from "./serviceWorker"
 
@@ -32,13 +33,16 @@ const client = new ApolloClient({
 
 const UI = () => (
   <ApolloProvider client={client}>
-    <ThemeProvider theme={theme}>
-      <React.Fragment>
-        <GlobalStyles />
-
-        <Application />
-      </React.Fragment>
-    </ThemeProvider>
+    <Media query="(max-width: 450px)">
+      {small => (
+        <ThemeProvider theme={theme(small)}>
+          <React.Fragment>
+            <GlobalStyles />
+            <Application />
+          </React.Fragment>
+        </ThemeProvider>
+      )}
+    </Media>
   </ApolloProvider>
 )
 

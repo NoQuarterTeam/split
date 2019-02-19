@@ -25,6 +25,7 @@ function Application() {
   const errorHandler = (e: Error, componentStack: string) => {
     console.log(e)
   }
+
   const user = (data && data.me) || null
   if (user) {
     LogRocket.identify(user.id, {

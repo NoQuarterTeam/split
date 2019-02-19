@@ -1,11 +1,8 @@
-import React, { useState, useContext, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import dayjs from "dayjs"
-import { useQuery } from "react-apollo-hooks"
 
 import styled from "../application/theme"
-import { AppContext } from "../application/context"
-import { GetHouse, CostInput, GetCost } from "../lib/graphql/types"
-import { GET_HOUSE } from "../lib/graphql/house/queries"
+import { CostInput, GetCost } from "../lib/graphql/types"
 
 import Button from "./Button"
 import useFormState from "../lib/hooks/useFormState"

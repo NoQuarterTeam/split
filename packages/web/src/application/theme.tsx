@@ -1,7 +1,15 @@
 import * as styledComponents from "styled-components"
 import { ThemedStyledComponentsModule } from "styled-components"
+import { generateMedia } from "styled-media-query"
 
-const theme: IThemeInterface = {
+const media = generateMedia({
+  xl: "1440px",
+  lg: "1170px",
+  md: "768px",
+  sm: "450px",
+})
+
+const theme: (small: boolean) => IThemeInterface = small => ({
   borderRadius: "5px",
   colorBackground: "#fff",
   colorLightGrey: "#f8f9fd",
@@ -18,10 +26,10 @@ const theme: IThemeInterface = {
   paddingS: "5px",
   paddingXL: "40px",
   paddingXS: "3px",
-  textL: "2rem",
-  textM: "1.125rem",
-  textS: "0.875rem",
-  textXL: "2.25rem",
+  textL: small ? "1.75rem" : "2rem",
+  textM: small ? "1rem" : "1.125rem",
+  textS: small ? "0.75rem" : "0.875rem",
+  textXL: small ? "2rem" : "2.25rem",
   textXS: "0.625rem",
   flexCenter: `
     display: flex;
@@ -38,7 +46,7 @@ const theme: IThemeInterface = {
     align-items: center;
     justify-content: space-around;
   `,
-}
+})
 
 interface IThemeInterface {
   borderRadius: string
@@ -75,5 +83,5 @@ const {
   ThemeProvider,
 } = styledComponents as ThemedStyledComponentsModule<IThemeInterface>
 
-export { theme, css, createGlobalStyle, keyframes, ThemeProvider }
+export { theme, css, createGlobalStyle, keyframes, ThemeProvider, media }
 export default styled

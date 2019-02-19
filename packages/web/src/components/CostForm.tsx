@@ -13,7 +13,7 @@ import CostInputs from "./CostInputs"
 import CostShares from "./CostShares"
 import { round } from "../lib/helpers"
 import useUserContext from "../lib/hooks/useUserContext"
-import { useHouseQuery } from "../lib/graphql/house/hooks"
+import { useGetHouseQuery } from "../lib/graphql/house/hooks"
 
 type CostFormProps = {
   cost?: GetCost.GetCost
@@ -23,7 +23,7 @@ type CostFormProps = {
 
 function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   const user = useUserContext()
-  const { house } = useHouseQuery()
+  const { house } = useGetHouseQuery()
 
   const { formState, setFormState } = useFormState<CostInput>({
     name: cost ? cost.name : "",

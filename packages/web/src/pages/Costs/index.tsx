@@ -6,7 +6,7 @@ import IconPlus from "../../assets/images/icon-plus.svg"
 import Page from "../../components/Page"
 import CostItem from "../../components/CostItem"
 import Column from "../../components/styled/Column"
-import { useHouseQuery } from "../../lib/graphql/house/hooks"
+import { useGetHouseQuery } from "../../lib/graphql/house/hooks"
 import useUserContext from "../../lib/hooks/useUserContext"
 import { useAllCostsQuery } from "../../lib/graphql/costs/hooks"
 
@@ -14,7 +14,7 @@ function Costs(_: RouteComponentProps) {
   const user = useUserContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
-  const { house } = useHouseQuery()
+  const { house } = useGetHouseQuery()
   const { costs } = useAllCostsQuery(house.id)
 
   return (

@@ -10,10 +10,10 @@ import * as serviceWorker from "./serviceWorker"
 
 import Application from "./application"
 import { ThemeProvider, theme } from "./application/theme"
-import { apiUrl, env } from "./lib/config"
+import { apiUrl, production } from "./lib/config"
 import GlobalStyles from "./lib/globalStyles"
 
-if (env === "production") {
+if (production) {
   LogRocket.init("yluxch/split")
   setupLogRocketReact(LogRocket)
 }

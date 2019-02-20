@@ -18,6 +18,7 @@ import EditCost from "../pages/EditCost"
 import Costs from "../pages/Costs"
 import Settings from "../pages/Settings"
 import ErrorFallback from "../components/ErrorFallback"
+import { production } from "../lib/config"
 
 function Application() {
   const { data, loading } = useQuery<Me.Query>(ME, { suspend: false })
@@ -27,7 +28,7 @@ function Application() {
   }
 
   const user = (data && data.me) || null
-  if (user) {
+  if (user && production) {
     LogRocket.identify(user.id, {
       name: user.firstName + " " + user.lastName,
       email: user.email,

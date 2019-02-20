@@ -5,7 +5,7 @@ import Arena from "bull-arena"
 export const env = process.env.NODE_ENV || "development"
 
 export const webUrl =
-  env === "production" ? "https://www.splitme.co" : "http://localhost:3000"
+  env === "production" ? "https://www.splitme.co" : "http://localhost:6969"
 
 // CORS
 export const cors = {

@@ -71,9 +71,15 @@ function Participant({
         <Input
           type="number"
           prefix="€"
+          required={true}
           placeholder="0.00"
+          min="0"
+          step="any"
           disabled={!!!userShare}
-          onChange={e => handleCostShareUpdate(user.id, +e.target.value)}
+          onChange={e => {
+            if (+e.target.value < 0) return
+            handleCostShareUpdate(user.id, +e.target.value)
+          }}
           value={
             !userShare || userShare.amount === 0
               ? ""

@@ -29,10 +29,11 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
         <Input
           prefix="€"
           label="Amount"
-          pattern="\d*"
           required={true}
           placeholder="0.00"
+          min="0"
           type="number"
+          step="any"
           value={formState.amount === 0 ? "" : round(formState.amount, 2)}
           onChange={e => {
             if (+e.target.value < 0) return

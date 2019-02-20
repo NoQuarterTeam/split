@@ -9,20 +9,30 @@ import Input from "./Input"
 import Avatar from "./Avatar"
 import Button from "./Button"
 import { useUpdateUserMutation } from "../lib/graphql/user/hooks"
+import Alert from "./Alert"
+import { sleep } from "../lib/helpers"
 
 type ProfileFormProps = {
   user: Me.Me
 }
 
+type UpdateUserValues = {
+  email: string
+  firstName: string
+  lastName: string
+  password: string
+}
+
 function ProfileForm({ user }: ProfileFormProps) {
-  const { formState, setFormState } = useFormState<UpdateInput>({
+  const { formState, setFormState } = useFormState<UpdateUserValues>({
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
+    password: "",
   })
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
-
+  const [updated, setUpdated] = useState<boolean>(false)
   const updateUser = useUpdateUserMutation()
 
   const handleUpdateUser = (e: any) => {
@@ -31,11 +41,15 @@ function ProfileForm({ user }: ProfileFormProps) {
     if (formState.email) data.email = formState.email
     if (formState.firstName) data.firstName = formState.firstName
     if (formState.lastName) data.lastName = formState.lastName
+    if (formState.password) data.password = formState.password
 
     setLoading(true)
     updateUser({ variables: { data } })
       .then(() => {
+        setFormState({ password: "" })
         setLoading(false)
+        setUpdated(true)
+        sleep(3000).then(() => setUpdated(false))
       })
       .catch(updateError => {
         setError(updateError.message.split(":")[1])
@@ -44,11 +58,16 @@ function ProfileForm({ user }: ProfileFormProps) {
 
   return (
     <StyledProfileForm onSubmit={handleUpdateUser}>
+      {updated && (
+        <StyledAlertWrapper>
+          <Alert text="Profile updated!" />
+        </StyledAlertWrapper>
+      )}
       <StyledFormAvatar>
         <Avatar user={user!} />
       </StyledFormAvatar>
       <Input
-        value={formState.email!}
+        value={formState.email}
         onChange={e => setFormState({ email: e.target.value })}
         placeholder="jim@noquarter.co"
         required={true}
@@ -56,7 +75,7 @@ function ProfileForm({ user }: ProfileFormProps) {
       />
       <br />
       <Input
-        value={formState.firstName!}
+        value={formState.firstName}
         onChange={e => setFormState({ firstName: e.target.value })}
         placeholder="jim"
         required={true}
@@ -64,11 +83,19 @@ function ProfileForm({ user }: ProfileFormProps) {
       />
       <br />
       <Input
-        value={formState.lastName!}
+        value={formState.lastName}
         onChange={e => setFormState({ lastName: e.target.value })}
         placeholder="sebe"
         required={true}
         label="Last name"
+      />
+      <br />
+      <Input
+        type="password"
+        value={formState.password}
+        onChange={e => setFormState({ password: e.target.value })}
+        placeholder="********"
+        label="New password"
       />
       <br />
       <Button loading={loading} variant="secondary">
@@ -81,6 +108,10 @@ function ProfileForm({ user }: ProfileFormProps) {
 
 export default memo(ProfileForm)
 
+const StyledAlertWrapper = styled.div`
+  position: absolute;
+  top: 50px;
+`
 const StyledProfileForm = styled.form`
   margin: 0 auto;
   width: 100%;

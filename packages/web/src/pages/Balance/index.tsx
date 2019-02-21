@@ -3,7 +3,6 @@ import { RouteComponentProps } from "@reach/router"
 
 import styled, { media } from "../../application/theme"
 
-import { round } from "../../lib/helpers"
 import { useGetHouseQuery } from "../../lib/graphql/house/hooks"
 import useUserContext from "../../lib/hooks/useUserContext"
 
@@ -13,15 +12,16 @@ import HouseBalance from "../../components/HouseBalance"
 import HouseForm from "../../components/HouseForm"
 import HouseName from "../../components/HouseName"
 import HouseInvite from "../../components/HouseInvite"
+import { round } from "../../lib/helpers"
 
 function Balance(_: RouteComponentProps) {
   const user = useUserContext()
   const { house } = useGetHouseQuery()
   const getBalanceHeader = () => {
     if (user.balance > 0) {
-      return `You are owed €${round(user.balance * 0.01, 2)}`
+      return `You are owed €${round(user.balance * 0.01)}`
     } else {
-      return `You owe €${round(Math.abs(user.balance * 0.01), 2)}`
+      return `You owe €${Math.abs(round(user.balance * 0.01))}`
     }
   }
 

@@ -16,7 +16,23 @@ export const sleep = (delay: number) => {
   })
 }
 
-export const countDecimals = (value: number) => {
+export const decimalCount = (value: number) => {
   if (value % 1 !== 0) return value.toString().split(".")[1].length
   return 0
 }
+
+const distribute = (precision = 2, divider: number, numerator: number) => {
+  const arr = []
+  while (divider > 0) {
+    const amount =
+      Math.round((numerator / divider) * Math.pow(10, precision)) /
+      Math.pow(10, precision)
+    arr.push(amount)
+    numerator -= amount
+    divider--
+  }
+  return arr
+}
+
+export const splitTheBill = (people: number, amount: number) =>
+  distribute(2, people, amount)

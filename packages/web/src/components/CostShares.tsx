@@ -55,7 +55,7 @@ function CostShares({
         )
       })}
 
-      {!equalSplit && (
+      {isDifferent && !equalSplit && (
         <StyledButtonWrapper>
           <Button variant="alternative" onClick={applyEqualSplit}>
             Split equally

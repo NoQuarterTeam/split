@@ -4,7 +4,6 @@ import { navigate } from "@reach/router"
 
 import styled, { media } from "../application/theme"
 import { AllCosts } from "../lib/graphql/types"
-import { round } from "../lib/helpers"
 
 import IconOpen from "../assets/images/icon-open.svg"
 import IconRepeat from "../assets/images/icon-repeat.svg"
@@ -14,6 +13,7 @@ import Column from "./styled/Column"
 import Avatar from "./Avatar"
 import Center from "./styled/Center"
 import ToolTip from "./ToolTip"
+import { round } from "../lib/helpers"
 
 type CostProps = {
   cost: AllCosts.AllCosts
@@ -38,7 +38,7 @@ function CostItem({ cost }: CostProps) {
         </StyledValue>
       </Column>
       <Column flex={5}>
-        <StyledValue>€ {round(cost.amount * 0.01, 2)}</StyledValue>
+        <StyledValue>€ {round(cost.amount * 0.01)}</StyledValue>
       </Column>
       <Column flex={5}>
         <Avatar user={cost.payer} size={40} />

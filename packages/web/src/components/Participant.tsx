@@ -1,7 +1,7 @@
 import React, { memo } from "react"
 import { User, ShareInput } from "../lib/graphql/types"
 import styled, { media } from "../application/theme"
-import { round } from "../lib/helpers"
+import { decimalCount } from "../lib/helpers"
 
 import Input from "./Input"
 import Radio from "./Radio"
@@ -46,15 +46,17 @@ function Participant({
     }
   }
 
-  const handleCostShareUpdate = (userId: string, amount: number) => {
-    if (amount < 0) return
+  const handleCostShareUpdate = (e: any) => {
+    if (+e.target.value < 0) return
+    if (decimalCount(+e.target.value) > 2) return
+
     setEqualSplit(false)
     setFormState({
       costShares: shares.map(s => {
-        if (s.userId !== userId) return s
+        if (s.userId !== user.id) return s
         return {
-          userId,
-          amount,
+          userId: user.id,
+          amount: +e.target.value,
         }
       }),
     })
@@ -74,17 +76,10 @@ function Participant({
           required={true}
           placeholder="0.00"
           min="0"
-          step="any"
+          step="0.01"
           disabled={!!!userShare}
-          onChange={e => {
-            if (+e.target.value < 0) return
-            handleCostShareUpdate(user.id, +e.target.value)
-          }}
-          value={
-            !userShare || userShare.amount === 0
-              ? ""
-              : round(userShare.amount, 2)
-          }
+          onChange={handleCostShareUpdate}
+          value={!userShare || userShare.amount === 0 ? "" : userShare.amount}
           style={{ border: 0, opacity: userShare ? 1 : 0.4 }}
         />
       </Column>

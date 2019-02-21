@@ -18,12 +18,12 @@ function HouseBalance({ users }: IHouseBalance) {
           <StyledUserGraph key={user.id}>
             <StyledFlame
               negative={user.balance < 0}
-              percentage={round(Math.abs(user.balance) / total, 2) * 100}
+              percentage={round(Math.abs(user.balance) / total) * 100}
             />
             <StyledSpacer />
             <Avatar user={user} />
             <StyledUserBalance>
-              € {round(user.balance * 0.01, 2)}
+              € {round(user.balance * 0.01)}
             </StyledUserBalance>
           </StyledUserGraph>
         )
@@ -44,9 +44,9 @@ const StyledHouseBalance = styled.div`
 `
 
 const StyledUserGraph = styled.div`
-  ${p => p.theme.flexCenter};
   position: relative;
   flex-direction: column;
+  ${p => p.theme.flexCenter};
 `
 
 const StyledSpacer = styled.p`
@@ -61,6 +61,6 @@ const StyledFlame = styled.div<{ percentage: number; negative: boolean }>`
   border-radius: 8px;
   background-color: ${p =>
     p.negative ? p.theme.colorSecondary : p.theme.colorPrimary};
-  height: ${p => p.percentage * 2}px;
+  height: ${p => p.percentage * 2.5}px; /* Max 125px as 50% is the max abs */
   ${p => (p.negative ? "top: 100%;" : "bottom: 100%;")};
 `

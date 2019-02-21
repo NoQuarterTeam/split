@@ -8,7 +8,7 @@ import Button from "./Button"
 import useFormState from "../lib/hooks/useFormState"
 import CostInputs from "./CostInputs"
 import CostShares from "./CostShares"
-import { round } from "../lib/helpers"
+import { splitTheBill, round } from "../lib/helpers"
 import useUserContext from "../lib/hooks/useUserContext"
 import { useGetHouseQuery } from "../lib/graphql/house/hooks"
 
@@ -24,7 +24,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
 
   const { formState, setFormState } = useFormState<CostInput>({
     name: cost ? cost.name : "",
-    amount: cost ? cost.amount * 0.01 : 0,
+    amount: cost ? round(cost.amount * 0.01) : 0,
     category: cost ? cost.category : "",
     date: cost
       ? dayjs(cost.date).format("YYYY-MM-DD")
@@ -33,7 +33,10 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     houseId: house.id,
     payerId: cost ? cost.payerId : user.id,
     costShares: cost
-      ? cost.shares.map(s => ({ userId: s.user.id, amount: s.amount * 0.01 }))
+      ? cost.shares.map(s => ({
+          userId: s.user.id,
+          amount: round(s.amount * 0.01),
+        }))
       : house.users.map(u => ({ userId: u.id, amount: 0 })),
   })
   const [equalSplit, setEqualSplit] = useState<boolean>(true)
@@ -41,8 +44,8 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   const [error, setError] = useState<string>("")
 
   const isDifferent =
-    round(formState.amount, 2) !==
-    round(formState.costShares.reduce((acc, s) => acc + s.amount, 0), 2)
+    formState.amount !==
+    formState.costShares.reduce((acc, s) => acc + s.amount, 0)
 
   useEffect(() => {
     if (equalSplit) applyEqualSplit()
@@ -50,10 +53,10 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
 
   const applyEqualSplit = () => {
     if (!equalSplit) setEqualSplit(true)
-    const amountPerUser = formState.amount / formState.costShares.length
-    const costShares = formState.costShares.map(({ userId }) => ({
+    const split = splitTheBill(formState.costShares.length, formState.amount)
+    const costShares = formState.costShares.map(({ userId }, i) => ({
       userId,
-      amount: amountPerUser,
+      amount: split[i],
     }))
     setFormState({ costShares })
   }
@@ -65,10 +68,10 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     const costData = {
       ...formState,
       date: dayjs(formState.date).format(),
-      amount: round(formState.amount * 100, 0),
+      amount: formState.amount * 100,
       costShares: formState.costShares.map(s => ({
         userId: s.userId,
-        amount: round(s.amount * 100, 0),
+        amount: s.amount * 100,
       })),
     }
     onFormSubmit(costData).catch(houseError => {
@@ -96,7 +99,9 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
         />
       </StyleFieldsWrapper>
       <div>
-        <Button loading={loading}>Submit</Button>
+        <Button disabled={loading} loading={loading}>
+          Submit
+        </Button>
         {onCostDelete && (
           <Button type="button" variant="secondary" onClick={onCostDelete}>
             Delete cost

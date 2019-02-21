@@ -1,7 +1,7 @@
 import React, { memo } from "react"
 import styled, { media } from "../application/theme"
 
-import { round } from "../lib/helpers"
+import { decimalCount } from "../lib/helpers"
 import { CostInput } from "../lib/graphql/types"
 import Input from "./Input"
 import Select from "./Select"
@@ -33,11 +33,13 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
           placeholder="0.00"
           min="0"
           type="number"
-          step="any"
-          value={formState.amount === 0 ? "" : round(formState.amount, 2)}
+          step="0.01"
+          value={formState.amount === 0 ? "" : formState.amount}
           onChange={e => {
-            if (+e.target.value < 0) return
-            setFormState({ amount: +e.target.value })
+            const val = +e.target.value
+            if (val < 0) return
+            if (decimalCount(+e.target.value) > 2) return
+            setFormState({ amount: val })
           }}
         />
       </StyledInputWrapper>

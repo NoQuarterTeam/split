@@ -44,8 +44,8 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   const [error, setError] = useState<string>("")
 
   const isDifferent =
-    formState.amount !==
-    formState.costShares.reduce((acc, s) => acc + s.amount, 0)
+    round(formState.amount) !==
+    round(formState.costShares.reduce((acc, s) => acc + s.amount, 0))
 
   useEffect(() => {
     if (equalSplit) applyEqualSplit()
@@ -68,10 +68,10 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     const costData = {
       ...formState,
       date: dayjs(formState.date).format(),
-      amount: formState.amount * 100,
+      amount: round(formState.amount * 100),
       costShares: formState.costShares.map(s => ({
         userId: s.userId,
-        amount: s.amount * 100,
+        amount: round(s.amount * 100),
       })),
     }
     onFormSubmit(costData).catch(houseError => {

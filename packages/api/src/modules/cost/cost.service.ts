@@ -1,6 +1,6 @@
 import { Service } from "typedi"
 import dayjs from "dayjs"
-import { CostInput } from "./cost.input"
+import { CostInput, AllCostArgs } from "./cost.input"
 import { Cost } from "./cost.entity"
 import { ShareService } from "../share/share.service"
 import { CostJob } from "./cost.job"
@@ -15,7 +15,7 @@ export class CostService {
     private readonly houseService: HouseService,
   ) {}
 
-  async findAll(houseId: string): Promise<Cost[]> {
+  async findAll({ houseId, skip }: AllCostArgs): Promise<Cost[]> {
     return new Promise(async (resolve, reject) => {
       try {
         const house = await this.houseService.findById(houseId)
@@ -24,7 +24,9 @@ export class CostService {
         const costs = await Cost.find({
           where: { house },
           relations: ["payer"],
-          order: { date: "DESC" },
+          order: { date: "DESC", createdAt: "DESC" },
+          take: 10,
+          skip,
         })
         resolve(costs)
       } catch (error) {
@@ -61,7 +63,10 @@ export class CostService {
           if (data.recurring !== "one-off") {
             await this.createFuture(cost, data.costShares)
           }
-          resolve(cost)
+          const costWithPayers = await Cost.findOne(cost.id, {
+            relations: ["payer"],
+          })
+          resolve(costWithPayers)
         } else {
           // Create job that will apply the balance in the future
           await this.costJob.createJob(cost)

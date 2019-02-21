@@ -34,6 +34,7 @@ async function main() {
 
     const schema = await buildSchema({
       authChecker,
+
       resolvers: [__dirname + resolverPaths],
       validate: false,
     })

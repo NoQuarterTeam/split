@@ -86,10 +86,6 @@ const StyledValue = styled.div`
   align-items: center;
   justify-content: flex-start;
   font-size: ${p => p.theme.textS};
-
-  ${p => media.greaterThan("sm")`
-    padding: ${p.theme.textM};
-  `}
 `
 
 const StyledInfoIcon = styled.img`

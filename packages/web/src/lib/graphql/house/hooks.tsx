@@ -4,15 +4,15 @@ import { GetHouse, CreateHouse, EditHouse, CheckHouse } from "../types"
 import { ME } from "../user/queries"
 
 export function useGetHouseQuery() {
-  const { data, error } = useQuery<GetHouse.Query>(GET_HOUSE)
+  const { data, error, loading } = useQuery<GetHouse.Query>(GET_HOUSE)
   const house = data!.house!
-  return { house, getHouseError: error }
+  return { house, getHouseLoading: loading, getHouseError: error }
 }
 
 export function useCheckHouseQuery(houseId: string | null) {
   const { data, error } = useQuery<CheckHouse.Query, CheckHouse.Variables>(
     CHECK_HOUSE,
-    { variables: { houseId } },
+    { variables: { houseId }, suspend: true },
   )
   const house = data && data.checkHouse
   return { house, checkHouseError: error }

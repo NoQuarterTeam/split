@@ -7,11 +7,12 @@ import {
   FieldResolver,
   Root,
   Authorized,
+  Args,
 } from "type-graphql"
 
 import { IResolverContext } from "../../lib/types"
 import { Cost } from "./cost.entity"
-import { CostInput } from "./cost.input"
+import { CostInput, AllCostArgs } from "./cost.input"
 import { CostService } from "./cost.service"
 import { Share } from "../share/share.entity"
 
@@ -22,8 +23,8 @@ export class CostResolver {
   // ALL COSTS
   @Authorized()
   @Query(() => [Cost])
-  async allCosts(@Arg("houseId") houseId: string): Promise<Cost[]> {
-    return await this.costService.findAll(houseId)
+  async allCosts(@Args() args: AllCostArgs): Promise<Cost[]> {
+    return await this.costService.findAll(args)
   }
 
   // GET COST

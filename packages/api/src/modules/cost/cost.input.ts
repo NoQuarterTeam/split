@@ -1,6 +1,13 @@
-import { InputType, Field } from "type-graphql"
+import { InputType, Field, ArgsType } from "type-graphql"
 import { Cost } from "./cost.entity"
 import { ShareInput } from "../share/share.input"
+import { PaginationArgs } from "../shared/shared.input"
+
+@ArgsType()
+export class AllCostArgs extends PaginationArgs {
+  @Field()
+  houseId: string
+}
 
 @InputType()
 export class CostInput implements Partial<Cost> {

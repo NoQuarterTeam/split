@@ -2,8 +2,8 @@ import { gql } from "apollo-boost"
 import { Cost, Shares, Payer } from "./fragments"
 
 export const GET_ALL_COSTS = gql`
-  query AllCosts($houseId: String!) {
-    allCosts(houseId: $houseId) {
+  query AllCosts($houseId: String!, $skip: Int) {
+    allCosts(houseId: $houseId, skip: $skip) {
       ...Cost
       ...Payer
     }
@@ -26,9 +26,12 @@ export const GET_COST = gql`
 export const CREATE_COST = gql`
   mutation CreateCost($data: CostInput!) {
     createCost(data: $data) {
-      id
+      ...Cost
+      ...Payer
     }
   }
+  ${Cost}
+  ${Payer}
 `
 
 export const EDIT_COST = gql`

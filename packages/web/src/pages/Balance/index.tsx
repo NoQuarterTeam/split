@@ -16,7 +16,7 @@ import { round } from "../../lib/helpers"
 
 function Balance(_: RouteComponentProps) {
   const user = useUserContext()
-  const { house } = useGetHouseQuery()
+  const { house, getHouseLoading } = useGetHouseQuery()
   const getBalanceHeader = () => {
     if (user.balance > 0) {
       return `You are owed €${round(user.balance * 0.01)}`
@@ -30,16 +30,18 @@ function Balance(_: RouteComponentProps) {
       {!user.houseId ? (
         <HouseForm />
       ) : (
-        <StyledWrapper>
-          <StyledHeader>
-            <HouseName house={house} />
-            <p>{getBalanceHeader()}</p>
-          </StyledHeader>
-          <HouseBalance users={house.users} />
-          <StyledInviteWrapper>
-            <HouseInvite house={house} />
-          </StyledInviteWrapper>
-        </StyledWrapper>
+        !getHouseLoading && (
+          <StyledWrapper>
+            <StyledHeader>
+              <HouseName house={house} />
+              <p>{getBalanceHeader()}</p>
+            </StyledHeader>
+            <HouseBalance users={house.users} />
+            <StyledInviteWrapper>
+              <HouseInvite house={house} />
+            </StyledInviteWrapper>
+          </StyledWrapper>
+        )
       )}
     </Page>
   )

@@ -20,7 +20,7 @@ type CostFormProps = {
 
 function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   const user = useUserContext()
-  const { house } = useGetHouseQuery()
+  const { house, getHouseLoading } = useGetHouseQuery()
 
   const { formState, setFormState } = useFormState<CostInput>({
     name: cost ? cost.name : "",
@@ -30,14 +30,14 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
       ? dayjs(cost.date).format("YYYY-MM-DD")
       : dayjs().format("YYYY-MM-DD"),
     recurring: cost ? cost.recurring : "one-off",
-    houseId: house.id,
+    houseId: house && house.id,
     payerId: cost ? cost.payerId : user.id,
     costShares: cost
       ? cost.shares.map(s => ({
           userId: s.user.id,
           amount: round(s.amount * 0.01),
         }))
-      : house.users.map(u => ({ userId: u.id, amount: 0 })),
+      : house && house.users.map(u => ({ userId: u.id, amount: 0 })),
   })
   const [equalSplit, setEqualSplit] = useState<boolean>(true)
   const [loading, setLoading] = useState<boolean>(false)
@@ -54,6 +54,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   const applyEqualSplit = () => {
     if (!equalSplit) setEqualSplit(true)
     const split = splitTheBill(formState.costShares.length, formState.amount)
+
     const costShares = formState.costShares.map(({ userId }, i) => ({
       userId,
       amount: split[i],
@@ -89,7 +90,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
           isEditing={!!cost && dayjs(cost.date).isBefore(dayjs())}
         />
         <CostShares
-          users={house.users}
+          users={house && house.users}
           equalSplit={equalSplit}
           formState={formState}
           isDifferent={isDifferent}

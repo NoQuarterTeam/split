@@ -3,23 +3,22 @@ import { RouteComponentProps, Link, Redirect } from "@reach/router"
 
 import styled, { media } from "../../application/theme"
 import IconPlus from "../../assets/images/icon-plus.svg"
-import Page from "../../components/Page"
-import CostItem from "../../components/CostItem"
-import Column from "../../components/styled/Column"
-import { useGetHouseQuery } from "../../lib/graphql/house/hooks"
 import useUserContext from "../../lib/hooks/useUserContext"
-import { useAllCostsQuery } from "../../lib/graphql/costs/hooks"
+import { useGetHouseQuery } from "../../lib/graphql/house/hooks"
+
+import Page from "../../components/Page"
+import Column from "../../components/styled/Column"
+import CostList from "../../components/CostList"
 
 function Costs(_: RouteComponentProps) {
   const user = useUserContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
   const { house } = useGetHouseQuery()
-  const { costs } = useAllCostsQuery(house.id)
 
   return (
     <Page activePage="costs">
-      <StyledCostList>
+      <StyledCostPage>
         <StyledHeader>
           <StyledHouseName>Costs</StyledHouseName>
           <Link to="/new-cost">
@@ -41,28 +40,20 @@ function Costs(_: RouteComponentProps) {
           </Column>
           <Column flex={3} />
         </StyledTableHeader>
-        {costs.map(cost => {
-          return <CostItem key={cost.id} cost={cost} />
-        })}
-      </StyledCostList>
+        {house && <CostList house={house} />}
+      </StyledCostPage>
     </Page>
   )
 }
 
 export default Costs
 
-const StyledCostList = styled.div`
-  height: 100vh;
+const StyledCostPage = styled.div`
   max-width: 900px;
   margin: 0 auto;
   width: 100%;
-  overflow-y: scroll;
   padding: ${p => p.theme.paddingL};
   padding-top: ${p => p.theme.paddingXL};
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `
 
 const StyledHeader = styled.div`

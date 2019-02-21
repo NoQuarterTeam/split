@@ -1,4 +1,4 @@
-import { useMutation, useApolloClient } from "react-apollo-hooks"
+import { useMutation, useApolloClient, useQuery } from "react-apollo-hooks"
 
 import {
   Login,
@@ -7,6 +7,7 @@ import {
   InviteUser,
   ForgotPassword,
   ResetPassword,
+  Me,
 } from "../types"
 
 import {
@@ -20,6 +21,11 @@ import {
   RESET_PASSWORD,
 } from "./queries"
 
+export function useMeQuery() {
+  const { data, loading } = useQuery<Me.Query>(ME, { suspend: false })
+  const user = (data && data.me) || null
+  return { user, loading }
+}
 export function useLoginMutation() {
   return useMutation<Login.Mutation, Login.Variables>(LOGIN, {
     refetchQueries: [{ query: ME }],

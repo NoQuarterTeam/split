@@ -64,6 +64,5 @@ const StyledOverlay = styled.div`
 
 const StyledPageContent = styled.div`
   width: 100%;
-  position: relative;
-  ${p => p.theme.flexCenter};
+  min-height: 100vh;
 `

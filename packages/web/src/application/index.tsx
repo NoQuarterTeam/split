@@ -1,16 +1,16 @@
 import React, { memo, Suspense } from "react"
 import { Router } from "@reach/router"
 import LogRocket from "logrocket"
-import { useQuery } from "react-apollo-hooks"
+
 import ErrorBoundary from "react-error-boundary"
 
 import { AppContext } from "./context"
-import { Me } from "../lib/graphql/types"
-import { ME } from "../lib/graphql/user/queries"
+
+import { useMeQuery } from "../lib/graphql/user/hooks"
+import { production } from "../lib/config"
 
 import Loading from "../components/Loading"
 import CheckAuth from "../components/CheckAuth"
-
 import Balance from "../pages/Balance"
 import NotFound from "../pages/NotFound"
 import NewCost from "../pages/NewCost"
@@ -18,16 +18,12 @@ import EditCost from "../pages/EditCost"
 import Costs from "../pages/Costs"
 import Settings from "../pages/Settings"
 import ErrorFallback from "../components/ErrorFallback"
-import { production } from "../lib/config"
 
 function Application() {
-  const { data, loading } = useQuery<Me.Query>(ME, { suspend: false })
-
+  const { user, loading } = useMeQuery()
   const errorHandler = (e: Error, componentStack: string) => {
     console.log(e)
   }
-
-  const user = (data && data.me) || null
   if (user && production) {
     LogRocket.identify(user.id, {
       name: user.firstName + " " + user.lastName,

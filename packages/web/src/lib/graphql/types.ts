@@ -79,6 +79,7 @@ export interface ResetPasswordInput {
 export namespace AllCosts {
   export type Variables = {
     houseId: string
+    skip?: Maybe<number>
   }
 
   export type Query = {
@@ -115,11 +116,7 @@ export namespace CreateCost {
     createCost: CreateCost
   }
 
-  export type CreateCost = {
-    __typename?: "Cost"
-
-    id: string
-  }
+  export type CreateCost = Cost.Fragment & Payer.Fragment
 }
 
 export namespace EditCost {
@@ -589,6 +586,8 @@ export interface UserAuth {
 // ====================================================
 
 export interface AllCostsQueryArgs {
+  skip?: Maybe<number>
+
   houseId: string
 }
 export interface GetCostQueryArgs {

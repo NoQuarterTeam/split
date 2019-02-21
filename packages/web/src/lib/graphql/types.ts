@@ -66,6 +66,12 @@ export interface InviteUserInput {
   houseId: string
 }
 
+export interface ResetPasswordInput {
+  password: string
+
+  token: string
+}
+
 // ====================================================
 // Documents
 // ====================================================
@@ -328,6 +334,30 @@ export namespace InviteUser {
   }
 }
 
+export namespace ForgotPassword {
+  export type Variables = {
+    email: string
+  }
+
+  export type Mutation = {
+    __typename?: "Mutation"
+
+    forgotPassword: boolean
+  }
+}
+
+export namespace ResetPassword {
+  export type Variables = {
+    data: ResetPasswordInput
+  }
+
+  export type Mutation = {
+    __typename?: "Mutation"
+
+    resetPassword: boolean
+  }
+}
+
 export namespace Cost {
   export type Fragment = {
     __typename?: "Cost"
@@ -542,6 +572,10 @@ export interface Mutation {
   logout: boolean
 
   inviteUser: boolean
+
+  forgotPassword: boolean
+
+  resetPassword: boolean
 }
 
 export interface UserAuth {
@@ -593,4 +627,10 @@ export interface UpdateUserMutationArgs {
 }
 export interface InviteUserMutationArgs {
   data: InviteUserInput
+}
+export interface ForgotPasswordMutationArgs {
+  email: string
+}
+export interface ResetPasswordMutationArgs {
+  data: ResetPasswordInput
 }

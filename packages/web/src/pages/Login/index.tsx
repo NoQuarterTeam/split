@@ -1,16 +1,17 @@
 import React, { memo, useState } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
-import styled from "../application/theme"
+import styled from "../../application/theme"
 
-import IconLogo from "../assets/images/icon-logo.svg"
-import Button from "./Button"
-import Input from "./Input"
-import { useLoginMutation } from "../lib/graphql/user/hooks"
+import IconLogo from "../../assets/images/icon-logo.svg"
+import Button from "../../components/Button"
+import Input from "../../components/Input"
+import { useLoginMutation } from "../../lib/graphql/user/hooks"
+import { GraphQLError } from "graphql"
+import Center from "../../components/styled/Center"
 
-function LoginForm(props: RouteComponentProps) {
+function Login(props: RouteComponentProps) {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -23,14 +24,14 @@ function LoginForm(props: RouteComponentProps) {
       variables: { data: { email, password } },
     })
       .then(() => props.navigate!("/"))
-      .catch(loginError => {
+      .catch((loginError: GraphQLError) => {
         setLoading(false)
         setError(loginError.message.split(":")[1])
       })
   }
 
   return (
-    <StyledLogin>
+    <Center style={{ height: "100vh" }}>
       <StyledForm onSubmit={handleSubmit}>
         <StyledHeader>
           <img src={IconLogo} width={30} />
@@ -58,21 +59,20 @@ function LoginForm(props: RouteComponentProps) {
           Login
         </Button>
         {error && <StyledError>{error}</StyledError>}
-        <Link to="/register">
-          <StyledLink>Sign up</StyledLink>
-        </Link>
+        <StyledLinks>
+          <Link to="/forgot-password">
+            <StyledLink>Forgot password?</StyledLink>
+          </Link>
+          <Link to="/register">
+            <StyledLink>Sign up</StyledLink>
+          </Link>
+        </StyledLinks>
       </StyledForm>
-    </StyledLogin>
+    </Center>
   )
 }
 
-export default memo(LoginForm)
-
-const StyledLogin = styled.div`
-  height: 100vh;
-  width: 100vw;
-  ${p => p.theme.flexCenter};
-`
+export default memo(Login)
 
 const StyledForm = styled.form`
   height: 100%;
@@ -89,6 +89,12 @@ const StyledForm = styled.form`
 
 const StyledHeader = styled.h1`
   margin-bottom: ${p => p.theme.paddingXL};
+`
+
+const StyledLinks = styled.div`
+  width: 100%;
+  padding: ${p => p.theme.paddingL} 0;
+  ${p => p.theme.flexBetween};
 `
 
 const StyledLink = styled.div`

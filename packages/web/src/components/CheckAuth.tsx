@@ -1,9 +1,12 @@
 import React, { FC, Fragment } from "react"
 import { Redirect, Router, RouteComponentProps } from "@reach/router"
-import LoginForm from "./LoginForm"
 import Home from "./Home"
-import RegisterForm from "./RegisterForm"
 import useUserContext from "../lib/hooks/useUserContext"
+
+import Login from "../pages/Login"
+import Register from "../pages/Register"
+import ForgotPassword from "../pages/ForgotPassword"
+import ResetPassword from "../pages/ResetPassword"
 
 const CheckAuth: FC = ({ children }) => {
   const user = useUserContext()
@@ -12,8 +15,10 @@ const CheckAuth: FC = ({ children }) => {
   ) : (
     <Router>
       <Home path="/" />
-      <LoginForm path="/login" />
-      <RegisterForm path="/register" />
+      <Login path="/login" />
+      <Register path="/register" />
+      <ForgotPassword path="/forgot-password" />
+      <ResetPassword path="/reset-password/:token" />
       <NotFound default={true} />
     </Router>
   )

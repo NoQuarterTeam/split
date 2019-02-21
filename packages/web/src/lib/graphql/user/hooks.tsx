@@ -1,6 +1,13 @@
 import { useMutation, useApolloClient } from "react-apollo-hooks"
 
-import { Login, UpdateUser, Register, InviteUser } from "../types"
+import {
+  Login,
+  UpdateUser,
+  Register,
+  InviteUser,
+  ForgotPassword,
+  ResetPassword,
+} from "../types"
 
 import {
   LOGIN,
@@ -9,6 +16,8 @@ import {
   REGISTER,
   LOGOUT,
   INVITE_USER,
+  FORGOT_PASSWORD,
+  RESET_PASSWORD,
 } from "./queries"
 
 export function useLoginMutation() {
@@ -39,10 +48,6 @@ export function useRegisterMutation() {
   })
 }
 
-export function useInviteUserMutation() {
-  return useMutation<InviteUser.Mutation, InviteUser.Variables>(INVITE_USER)
-}
-
 export function useLogoutMutation() {
   const client = useApolloClient()
   const logout = useMutation(LOGOUT)
@@ -56,4 +61,20 @@ export function useLogoutMutation() {
   }
 
   return handleLogout
+}
+
+export function useInviteUserMutation() {
+  return useMutation<InviteUser.Mutation, InviteUser.Variables>(INVITE_USER)
+}
+
+export function useForgotPasswordMutation() {
+  return useMutation<ForgotPassword.Mutation, ForgotPassword.Variables>(
+    FORGOT_PASSWORD,
+  )
+}
+
+export function useResetPasswordMutation() {
+  return useMutation<ResetPassword.Mutation, ResetPassword.Variables>(
+    RESET_PASSWORD,
+  )
 }

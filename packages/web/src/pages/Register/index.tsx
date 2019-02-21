@@ -2,15 +2,16 @@ import React, { memo, useState } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import queryString from "query-string"
 
-import styled from "../application/theme"
+import styled from "../../application/theme"
 
-import IconLogo from "../assets/images/icon-logo.svg"
-import Button from "./Button"
-import Input from "./Input"
-import { useRegisterMutation } from "../lib/graphql/user/hooks"
-import { useCheckHouseQuery } from "../lib/graphql/house/hooks"
+import IconLogo from "../../assets/images/icon-logo.svg"
+import Button from "../../components/Button"
+import Input from "../../components/Input"
+import { useRegisterMutation } from "../../lib/graphql/user/hooks"
+import { useCheckHouseQuery } from "../../lib/graphql/house/hooks"
+import { GraphQLError } from "graphql"
 
-function RegisterForm(props: RouteComponentProps) {
+function Register(props: RouteComponentProps) {
   let inviteHouseId: string | null = null
   const queries = queryString.parse(location.search)
   if (queries.invite) {
@@ -36,7 +37,7 @@ function RegisterForm(props: RouteComponentProps) {
       },
     })
       .then(() => props.navigate!("/"))
-      .catch(registerError => {
+      .catch((registerError: GraphQLError) => {
         setLoading(false)
         setError(registerError.message.split(":")[1])
       })
@@ -106,7 +107,7 @@ function RegisterForm(props: RouteComponentProps) {
   )
 }
 
-export default memo(RegisterForm)
+export default memo(Register)
 
 const StyledRegister = styled.div`
   min-height: 100vh;

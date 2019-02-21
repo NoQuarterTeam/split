@@ -8,10 +8,11 @@ import {
   RegisterInput,
   UpdateInput,
   InviteUserInput,
+  ResetPasswordInput,
 } from "./user.input"
 import { HouseService } from "../house/house.service"
 import { UserMailer } from "./user.mailer"
-import { createToken } from "../../lib/jwt"
+import { createToken, decryptToken } from "../../lib/jwt"
 import { UserAuth } from "./user.return"
 
 @Resolver(() => User)
@@ -68,6 +69,28 @@ export class UserResolver {
   async inviteUser(@Arg("data") data: InviteUserInput): Promise<boolean> {
     const house = await this.houseService.findById(data.houseId)
     this.userMailer.sendInvitationLink(data.email, house)
+    return true
+  }
+
+  // FORGOT PASSWORD
+  @Mutation(() => Boolean)
+  async forgotPassword(@Arg("email") email: string): Promise<boolean> {
+    const user = await this.userService.findByEmail(email)
+    if (!user) throw new Error("user not found")
+    const token = await createToken(user.id)
+    this.userMailer.sendResetPasswordLink(user, token)
+    return true
+  }
+
+  // RESET PASSWORD
+  @Mutation(() => Boolean)
+  async resetPassword(@Arg("data")
+  {
+    token,
+    password,
+  }: ResetPasswordInput): Promise<boolean> {
+    const payload: { id: string } = await decryptToken(token)
+    await this.userService.update(payload.id, { password })
     return true
   }
 }

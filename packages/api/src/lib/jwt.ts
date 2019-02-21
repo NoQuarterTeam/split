@@ -18,3 +18,15 @@ export const createToken = (userId: string): Promise<string> => {
     }
   })
 }
+
+export function decryptToken(token: string): Promise<any> {
+  return new Promise(resolve => {
+    try {
+      jwt.verify(token, process.env.APP_SECRET || "supersecret")
+      const payload = jwt.decode(token)
+      resolve(payload)
+    } catch (error) {
+      // Oops
+    }
+  })
+}

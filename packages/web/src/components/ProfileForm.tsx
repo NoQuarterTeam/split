@@ -2,7 +2,7 @@ import React, { memo, useState } from "react"
 
 import styled from "../application/theme"
 
-import { Me, UpdateInput } from "../lib/graphql/types"
+import { Me } from "../lib/graphql/types"
 import useFormState from "../lib/hooks/useFormState"
 
 import Input from "./Input"

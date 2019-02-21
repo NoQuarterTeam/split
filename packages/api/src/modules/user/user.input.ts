@@ -57,3 +57,12 @@ export class InviteUserInput implements Partial<User> {
   @Field()
   houseId: string
 }
+
+@InputType()
+export class ResetPasswordInput implements Partial<User> {
+  @Field()
+  password: string
+
+  @Field()
+  token: string
+}

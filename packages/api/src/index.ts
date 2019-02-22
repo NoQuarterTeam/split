@@ -15,6 +15,8 @@ import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
 
 import { cors, port, arena, resolverPaths } from "./config"
+import { userLoader } from "./modules/user/user.loader"
+import { shareLoader } from "./modules/share/share.loader"
 
 useContainer(Container)
 
@@ -34,7 +36,6 @@ async function main() {
 
     const schema = await buildSchema({
       authChecker,
-
       resolvers: [__dirname + resolverPaths],
       validate: false,
     })
@@ -43,6 +44,8 @@ async function main() {
       context: ({ req, res }: { req: Request; res: Response }) => ({
         req,
         res,
+        userLoader: userLoader(),
+        shareLoader: shareLoader(),
       }),
       formatError: formatArgumentValidationError,
       introspection: true,

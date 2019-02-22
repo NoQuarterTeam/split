@@ -16,6 +16,7 @@
     "bull": "^3.6.0",
     "bull-arena": "^2.5.3",
     "connect-redis": "^3.4.0",
+    "dataloader": "^1.4.0",
     "dayjs": "^1.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",

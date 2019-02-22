@@ -70,15 +70,19 @@ export class CostResolver {
   // FIELD RESOLVERS
 
   @FieldResolver(() => [Share])
-  async shares(@Root() cost: Cost): Promise<Share[]> {
-    return await Share.find({
-      where: { cost },
-    })
+  async shares(
+    @Root() cost: Cost,
+    @Ctx() { shareLoader }: IResolverContext,
+  ): Promise<Share[]> {
+    const shares = await shareLoader.load(cost.id)
+    return shares || []
   }
 
   @FieldResolver(() => User)
-  async payer(@Root() cost: Cost): Promise<User> {
-    // TODO:  solve n + 1 with dataloader etc
-    return await this.userService.findById(cost.payerId)
+  payer(
+    @Root() cost: Cost,
+    @Ctx() { userLoader }: IResolverContext,
+  ): Promise<User> {
+    return userLoader.load(cost.payerId)
   }
 }

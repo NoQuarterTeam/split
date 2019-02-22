@@ -91,4 +91,5 @@ const StyledValue = styled.div`
 const StyledInfoIcon = styled.img`
   cursor: pointer;
   padding-left: ${p => p.theme.paddingS};
+  display: grid;
 `

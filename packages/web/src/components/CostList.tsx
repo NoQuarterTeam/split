@@ -1,22 +1,19 @@
 import React, { useRef } from "react"
+import dayjs from "dayjs"
 
+import styled from "../application/theme"
 import useEventListener from "../lib/hooks/useEventListener"
 import { useDebouncedCallback } from "../lib/hooks/useDebounce"
 
 import { useAllCostsQuery } from "../lib/graphql/costs/hooks"
 
 import CostItem from "../components/CostItem"
-import styled from "../application/theme"
 
 function CostList({ house }: { house: { id: string } }) {
   const { costs, costsCount, next, costsLoading } = useAllCostsQuery(house.id)
   const costListRef = useRef<HTMLDivElement>(null)
-  const costsRef = useRef(costs)
-  const costsCountRef = useRef(costsCount)
-  const costsLoadingRef = useRef(costsLoading)
-  costsRef.current = costs
-  costsLoadingRef.current = costsLoading
-  costsCountRef.current = costsCount
+  const costsRef = useRef({ costs, costsCount, costsLoading })
+  costsRef.current = { costs, costsLoading, costsCount }
 
   const handleScroll = () => {
     if (!costListRef.current) return
@@ -25,15 +22,15 @@ function CostList({ house }: { house: { id: string } }) {
       window.innerHeight
     if (
       bottom &&
-      !costsLoadingRef.current &&
-      costsRef.current.length < costsCountRef.current
+      !costsRef.current.costsLoading &&
+      costsRef.current.costs.length < costsRef.current.costsCount
     ) {
-      next(costsRef.current.length)
+      next(costsRef.current.costs.length)
     }
   }
 
   const debouncedScroll = useDebouncedCallback(handleScroll, 100, [
-    costsRef.current.length,
+    costsRef.current.costs.length,
   ])
 
   useEventListener("scroll", debouncedScroll, true)
@@ -41,9 +38,16 @@ function CostList({ house }: { house: { id: string } }) {
   return (
     <StyledList>
       {costs &&
-        costs.map(cost => {
-          return <CostItem key={cost.id} cost={cost} />
-        })}
+        costs
+          .filter(c => dayjs(c.date).isAfter(dayjs()))
+          .map(cost => {
+            return <CostItem key={cost.id} cost={cost} />
+          })}
+      {costs &&
+        costs.filter(c => dayjs(c.date).isAfter(dayjs())).length > 0 && (
+          <StyledDivider />
+        )}
+      {costs && costs.map(cost => <CostItem key={cost.id} cost={cost} />)}
       <div ref={costListRef} />
     </StyledList>
   )
@@ -53,5 +57,12 @@ export default CostList
 
 const StyledList = styled.div`
   width: 100%;
-  min-height: 100vh;
+`
+
+const StyledDivider = styled.div`
+  width: 100%;
+  height: 2px;
+  margin: ${p => p.theme.paddingM} 0;
+  padding: 0 ${p => p.theme.paddingM};
+  background-color: ${p => p.theme.colorLightGrey};
 `

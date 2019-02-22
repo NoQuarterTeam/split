@@ -37,6 +37,7 @@ function Select(props: SelectProps) {
 export default memo(Select)
 
 const StyledContainer = styled.div`
+  width: 100%;
   padding: ${p => p.theme.paddingS};
 `
 

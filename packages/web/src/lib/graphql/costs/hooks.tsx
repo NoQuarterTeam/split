@@ -79,7 +79,13 @@ export function useDestroyCostMutation(cost: GetCost.GetCost) {
           const costs = costsData.allCosts.costs.filter(c => c.id !== cost.id)
           cache.writeQuery({
             query: GET_ALL_COSTS,
-            data: { allCosts: { costs } },
+            data: {
+              allCosts: {
+                __typename: costsData.allCosts.__typename,
+                count: costsData.allCosts.count,
+                costs,
+              },
+            },
             variables: { houseId: cost.houseId, skip: 0 },
           })
         }
@@ -102,7 +108,11 @@ export function useCreateCostMutation(houseId: string) {
           query: GET_ALL_COSTS,
           variables: { houseId, skip: 0 },
           data: {
-            allCosts: { costs: [data.createCost, ...costsData.allCosts.costs] },
+            allCosts: {
+              __typename: costsData.allCosts.__typename,
+              count: costsData.allCosts.count,
+              costs: [data.createCost, ...costsData.allCosts.costs],
+            },
           },
         })
       }

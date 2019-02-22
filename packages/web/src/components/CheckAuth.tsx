@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from "react"
 import { Redirect, Router, RouteComponentProps } from "@reach/router"
 import Home from "./Home"
-import useUserContext from "../lib/hooks/useUserContext"
+import useAppContext from "../lib/hooks/useAppContext"
 
 import Login from "../pages/Login"
 import Register from "../pages/Register"
@@ -9,7 +9,7 @@ import ForgotPassword from "../pages/ForgotPassword"
 import ResetPassword from "../pages/ResetPassword"
 
 const CheckAuth: FC = ({ children }) => {
-  const user = useUserContext()
+  const { user } = useAppContext()
   return user ? (
     <Fragment>{children}</Fragment>
   ) : (

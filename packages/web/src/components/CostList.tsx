@@ -9,12 +9,14 @@ import CostItem from "../components/CostItem"
 import styled from "../application/theme"
 
 function CostList({ house }: { house: { id: string } }) {
-  const { costs, next, costsLoading } = useAllCostsQuery(house.id)
+  const { costs, costsCount, next, costsLoading } = useAllCostsQuery(house.id)
   const costListRef = useRef<HTMLDivElement>(null)
   const costsRef = useRef(costs)
+  const costsCountRef = useRef(costsCount)
   const costsLoadingRef = useRef(costsLoading)
   costsRef.current = costs
   costsLoadingRef.current = costsLoading
+  costsCountRef.current = costsCount
 
   const handleScroll = () => {
     if (!costListRef.current) return
@@ -23,8 +25,8 @@ function CostList({ house }: { house: { id: string } }) {
       window.innerHeight
     if (
       bottom &&
-      costsRef.current.length % 10 === 0 &&
-      !costsLoadingRef.current
+      !costsLoadingRef.current &&
+      costsRef.current.length < costsCountRef.current
     ) {
       next(costsRef.current.length)
     }
@@ -52,9 +54,4 @@ export default CostList
 const StyledList = styled.div`
   width: 100%;
   min-height: 100vh;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `

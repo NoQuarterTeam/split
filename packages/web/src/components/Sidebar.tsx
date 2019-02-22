@@ -5,12 +5,11 @@ import IconPlus from "../assets/images/icon-plus.svg"
 import IconLogo from "../assets/images/icon-logo.svg"
 
 import styled, { media } from "../application/theme"
-import useUserContext from "../lib/hooks/useUserContext"
+import useAppContext from "../lib/hooks/useAppContext"
 import { useLogoutMutation } from "../lib/graphql/user/hooks"
 
 function Sidebar({ activePage, open }: { activePage: string; open: boolean }) {
-  const user = useUserContext()
-  const house = user!.houseId
+  const { user } = useAppContext()
   const logout = useLogoutMutation()
   const handleLogout = () => {
     logout()
@@ -26,7 +25,7 @@ function Sidebar({ activePage, open }: { activePage: string; open: boolean }) {
         <Link to="/">
           <StyledLink active={activePage === "balance"}>Balance</StyledLink>
         </Link>
-        {house && (
+        {user.houseId && (
           <Fragment>
             <Link to="/new-cost">
               <StyledLink>

@@ -15,16 +15,22 @@ import { Cost } from "./cost.entity"
 import { CostInput, AllCostArgs } from "./cost.input"
 import { CostService } from "./cost.service"
 import { Share } from "../share/share.entity"
+import { User } from "../user/user.entity"
+import { UserService } from "../user/user.service"
+import { AllCostsReturn } from "./cost.return"
 
 @Resolver(() => Cost)
 export class CostResolver {
-  constructor(private readonly costService: CostService) {}
+  constructor(
+    private readonly costService: CostService,
+    private readonly userService: UserService,
+  ) {}
 
   // ALL COSTS
   @Authorized()
-  @Query(() => [Cost])
-  async allCosts(@Args() args: AllCostArgs): Promise<Cost[]> {
-    return await this.costService.findAll(args)
+  @Query(() => AllCostsReturn)
+  async allCosts(@Args() args: AllCostArgs): Promise<AllCostsReturn> {
+    return await this.costService.findAllAndCount(args)
   }
 
   // GET COST
@@ -68,5 +74,11 @@ export class CostResolver {
     return await Share.find({
       where: { cost },
     })
+  }
+
+  @FieldResolver(() => User)
+  async payer(@Root() cost: Cost): Promise<User> {
+    // TODO:  solve n + 1 with dataloader etc
+    return await this.userService.findById(cost.payerId)
   }
 }

@@ -4,8 +4,11 @@ import { Cost, Shares, Payer } from "./fragments"
 export const GET_ALL_COSTS = gql`
   query AllCosts($houseId: String!, $skip: Int) {
     allCosts(houseId: $houseId, skip: $skip) {
-      ...Cost
-      ...Payer
+      costs {
+        ...Cost
+        ...Payer
+      }
+      count
     }
   }
   ${Cost}
@@ -37,9 +40,12 @@ export const CREATE_COST = gql`
 export const EDIT_COST = gql`
   mutation EditCost($costId: String!, $data: CostInput!) {
     editCost(costId: $costId, data: $data) {
-      id
+      ...Cost
+      ...Payer
     }
   }
+  ${Cost}
+  ${Payer}
 `
 
 export const DESTROY_COST = gql`

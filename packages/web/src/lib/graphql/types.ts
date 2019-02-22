@@ -85,10 +85,18 @@ export namespace AllCosts {
   export type Query = {
     __typename?: "Query"
 
-    allCosts: AllCosts[]
+    allCosts: AllCosts
   }
 
-  export type AllCosts = Cost.Fragment & Payer.Fragment
+  export type AllCosts = {
+    __typename?: "AllCostsReturn"
+
+    costs: Costs[]
+
+    count: number
+  }
+
+  export type Costs = Cost.Fragment & Payer.Fragment
 }
 
 export namespace GetCost {
@@ -131,11 +139,7 @@ export namespace EditCost {
     editCost: EditCost
   }
 
-  export type EditCost = {
-    __typename?: "Cost"
-
-    id: string
-  }
+  export type EditCost = Cost.Fragment & Payer.Fragment
 }
 
 export namespace DestroyCost {
@@ -454,7 +458,7 @@ export namespace User {
 // ====================================================
 
 export interface Query {
-  allCosts: Cost[]
+  allCosts: AllCostsReturn
 
   getCost: Cost
 
@@ -463,6 +467,12 @@ export interface Query {
   house?: Maybe<House>
 
   me?: Maybe<User>
+}
+
+export interface AllCostsReturn {
+  costs: Cost[]
+
+  count: number
 }
 
 export interface Cost {

@@ -21,7 +21,7 @@ export const decimalCount = (value: number) => {
   return 0
 }
 
-const distribute = (precision = 2, divider: number, numerator: number) => {
+const distribute = (divider: number, numerator: number, precision = 2) => {
   const arr = []
   while (divider > 0) {
     const amount =
@@ -35,4 +35,4 @@ const distribute = (precision = 2, divider: number, numerator: number) => {
 }
 
 export const splitTheBill = (people: number, amount: number) =>
-  distribute(2, people, amount)
+  distribute(people, amount)

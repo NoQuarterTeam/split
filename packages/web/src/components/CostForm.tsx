@@ -9,8 +9,7 @@ import useFormState from "../lib/hooks/useFormState"
 import CostInputs from "./CostInputs"
 import CostShares from "./CostShares"
 import { splitTheBill, round } from "../lib/helpers"
-import useUserContext from "../lib/hooks/useUserContext"
-import { useGetHouseQuery } from "../lib/graphql/house/hooks"
+import useAppContext from "../lib/hooks/useAppContext"
 
 type CostFormProps = {
   cost?: GetCost.GetCost
@@ -19,9 +18,7 @@ type CostFormProps = {
 }
 
 function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
-  const user = useUserContext()
-  const { house, getHouseLoading } = useGetHouseQuery()
-
+  const { user, house } = useAppContext()
   const { formState, setFormState } = useFormState<CostInput>({
     name: cost ? cost.name : "",
     amount: cost ? round(cost.amount * 0.01) : 0,
@@ -30,14 +27,14 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
       ? dayjs(cost.date).format("YYYY-MM-DD")
       : dayjs().format("YYYY-MM-DD"),
     recurring: cost ? cost.recurring : "one-off",
-    houseId: house && house.id,
+    houseId: house.id,
     payerId: cost ? cost.payerId : user.id,
     costShares: cost
       ? cost.shares.map(s => ({
           userId: s.user.id,
           amount: round(s.amount * 0.01),
         }))
-      : house && house.users.map(u => ({ userId: u.id, amount: 0 })),
+      : house.users.map(u => ({ userId: u.id, amount: 0 })),
   })
   const [equalSplit, setEqualSplit] = useState<boolean>(true)
   const [loading, setLoading] = useState<boolean>(false)
@@ -90,7 +87,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
           isEditing={!!cost && dayjs(cost.date).isBefore(dayjs())}
         />
         <CostShares
-          users={house && house.users}
+          users={house.users}
           equalSplit={equalSplit}
           formState={formState}
           isDifferent={isDifferent}

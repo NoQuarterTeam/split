@@ -6,6 +6,7 @@ import { ShareService } from "../share/share.service"
 import { CostJob } from "./cost.job"
 import { HouseService } from "../house/house.service"
 import { ShareInput } from "../share/share.input"
+import { AllCostsReturn } from "./cost.return"
 
 @Service()
 export class CostService {
@@ -15,20 +16,20 @@ export class CostService {
     private readonly houseService: HouseService,
   ) {}
 
-  async findAll({ houseId, skip }: AllCostArgs): Promise<Cost[]> {
+  async findAllAndCount({
+    houseId,
+    skip,
+  }: AllCostArgs): Promise<AllCostsReturn> {
     return new Promise(async (resolve, reject) => {
       try {
         const house = await this.houseService.findById(houseId)
-        // TODO: remove relation here, add field resolver but solve n + 1
-        // with dataloader etc
-        const costs = await Cost.find({
+        const costsAndCount = await Cost.findAndCount({
           where: { house },
-          relations: ["payer"],
           order: { date: "DESC", createdAt: "DESC" },
           take: 10,
           skip,
         })
-        resolve(costs)
+        resolve({ costs: costsAndCount[0], count: costsAndCount[1] })
       } catch (error) {
         reject(error)
       }
@@ -63,10 +64,7 @@ export class CostService {
           if (data.recurring !== "one-off") {
             await this.createFuture(cost, data.costShares)
           }
-          const costWithPayers = await Cost.findOne(cost.id, {
-            relations: ["payer"],
-          })
-          resolve(costWithPayers)
+          resolve(cost)
         } else {
           // Create job that will apply the balance in the future
           await this.costJob.createJob(cost)
@@ -110,7 +108,6 @@ export class CostService {
     return new Promise(async (resolve, reject) => {
       try {
         const cost = await this.findById(costId)
-        if (!cost) throw new Error("update cost not found")
 
         if (
           // If cost already paid

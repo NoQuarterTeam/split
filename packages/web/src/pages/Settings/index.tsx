@@ -3,11 +3,11 @@ import { RouteComponentProps } from "@reach/router"
 
 import Page from "../../components/Page"
 import ProfileForm from "../../components/ProfileForm"
-import useUserContext from "../../lib/hooks/useUserContext"
+import useAppContext from "../../lib/hooks/useAppContext"
 import Center from "../../components/styled/Center"
 
 function Settings(_: RouteComponentProps) {
-  const user = useUserContext()
+  const { user } = useAppContext()
 
   return (
     <Page activePage="settings">

@@ -3,8 +3,7 @@ import { RouteComponentProps } from "@reach/router"
 
 import styled, { media } from "../../application/theme"
 
-import { useGetHouseQuery } from "../../lib/graphql/house/hooks"
-import useUserContext from "../../lib/hooks/useUserContext"
+import useAppContext from "../../lib/hooks/useAppContext"
 
 import Page from "../../components/Page"
 
@@ -15,8 +14,8 @@ import HouseInvite from "../../components/HouseInvite"
 import { round } from "../../lib/helpers"
 
 function Balance(_: RouteComponentProps) {
-  const user = useUserContext()
-  const { house, getHouseLoading } = useGetHouseQuery()
+  const { user, house } = useAppContext()
+
   const getBalanceHeader = () => {
     if (user.balance > 0) {
       return `You are owed €${round(user.balance * 0.01)}`
@@ -24,24 +23,21 @@ function Balance(_: RouteComponentProps) {
       return `You owe €${Math.abs(round(user.balance * 0.01))}`
     }
   }
-
   return (
     <Page activePage="balance">
       {!user.houseId ? (
         <HouseForm />
-      ) : (
-        !getHouseLoading && (
-          <StyledWrapper>
-            <StyledHeader>
-              <HouseName house={house} />
-              <p>{getBalanceHeader()}</p>
-            </StyledHeader>
-            <HouseBalance users={house.users} />
-            <StyledInviteWrapper>
-              <HouseInvite house={house} />
-            </StyledInviteWrapper>
-          </StyledWrapper>
-        )
+      ) : !house ? null : (
+        <StyledWrapper>
+          <StyledHeader>
+            <HouseName house={house} />
+            <p>{getBalanceHeader()}</p>
+          </StyledHeader>
+          <HouseBalance users={house.users} />
+          <StyledInviteWrapper>
+            <HouseInvite house={house} />
+          </StyledInviteWrapper>
+        </StyledWrapper>
       )}
     </Page>
   )

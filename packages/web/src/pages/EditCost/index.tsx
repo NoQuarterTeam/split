@@ -7,7 +7,7 @@ import { CostInput } from "../../lib/graphql/types"
 import useEventListener from "../../lib/hooks/useEventListener"
 
 import CostForm from "../../components/CostForm"
-import useUserContext from "../../lib/hooks/useUserContext"
+import useAppContext from "../../lib/hooks/useAppContext"
 import {
   useGetCostQuery,
   useEditCostMutation,
@@ -19,39 +19,32 @@ interface EditCostProps extends RouteComponentProps {
 }
 
 function EditCostPage(props: EditCostProps) {
-  const user = useUserContext()
+  const { user } = useAppContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
   const { cost } = useGetCostQuery(props.id!)
 
-  const editCost = useEditCostMutation(cost.houseId)
-
-  const destroyCost = useDestroyCostMutation(cost.houseId)
+  const editCost = useEditCostMutation()
+  const destroyCost = useDestroyCostMutation(cost)
 
   const handleCloseForm = (e: any) => {
     if (e.key === "Escape") handleGoBack()
   }
   useEventListener("keydown", handleCloseForm)
 
-  const handleEditCost = (costData: CostInput) => {
-    return editCost({
+  const handleEditCost = async (costData: CostInput) => {
+    await editCost({
       variables: {
         costId: cost.id,
         data: costData,
       },
-    }).then(() => {
-      props.navigate!("/costs")
     })
+    props.navigate!("/costs")
   }
 
-  const handleDeleteCost = () => {
-    return destroyCost({
-      variables: {
-        costId: cost.id,
-      },
-    }).then(() => {
-      props.navigate!("/costs")
-    })
+  const handleDeleteCost = async () => {
+    await destroyCost()
+    props.navigate!("/costs")
   }
 
   const handleGoBack = () => {

@@ -38,7 +38,7 @@ const StyledHouseBalance = styled.div`
   max-width: 500px;
   width: 100%;
   height: 400px;
-  margin: 0 auto;
+  margin: 30px auto;
 
   ${p => p.theme.flexAround};
 `

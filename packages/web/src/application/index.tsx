@@ -18,9 +18,11 @@ import EditCost from "../pages/EditCost"
 import Costs from "../pages/Costs"
 import Settings from "../pages/Settings"
 import ErrorFallback from "../components/ErrorFallback"
+import { useGetHouseQuery } from "../lib/graphql/house/hooks"
 
 function Application() {
-  const { user, loading } = useMeQuery()
+  const { user, userLoading } = useMeQuery()
+  const { house, getHouseLoading } = useGetHouseQuery()
   const errorHandler = (e: Error, componentStack: string) => {
     console.log(e)
   }
@@ -32,9 +34,9 @@ function Application() {
   }
 
   return (
-    <AppContext.Provider value={{ user }}>
+    <AppContext.Provider value={{ user, house }}>
       <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
-        <Loading loading={loading}>
+        <Loading loading={userLoading || getHouseLoading}>
           <Suspense fallback={null}>
             <CheckAuth>
               <Router>

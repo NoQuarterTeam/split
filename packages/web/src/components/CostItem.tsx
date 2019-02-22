@@ -16,7 +16,7 @@ import ToolTip from "./ToolTip"
 import { round } from "../lib/helpers"
 
 type CostProps = {
-  cost: AllCosts.AllCosts
+  cost: AllCosts.Costs
 }
 
 function CostItem({ cost }: CostProps) {

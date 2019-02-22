@@ -3,18 +3,15 @@ import { RouteComponentProps, Link, Redirect } from "@reach/router"
 
 import styled, { media } from "../../application/theme"
 import IconPlus from "../../assets/images/icon-plus.svg"
-import useUserContext from "../../lib/hooks/useUserContext"
-import { useGetHouseQuery } from "../../lib/graphql/house/hooks"
+import useAppContext from "../../lib/hooks/useAppContext"
 
 import Page from "../../components/Page"
 import Column from "../../components/styled/Column"
 import CostList from "../../components/CostList"
 
 function Costs(_: RouteComponentProps) {
-  const user = useUserContext()
+  const { user, house } = useAppContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
-
-  const { house } = useGetHouseQuery()
 
   return (
     <Page activePage="costs">

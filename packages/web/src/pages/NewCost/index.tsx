@@ -9,11 +9,11 @@ import { CostInput } from "../../lib/graphql/types"
 
 import CostForm from "../../components/CostForm"
 
-import useUserContext from "../../lib/hooks/useUserContext"
+import useAppContext from "../../lib/hooks/useAppContext"
 import { useCreateCostMutation } from "../../lib/graphql/costs/hooks"
 
 function NewCost(props: RouteComponentProps) {
-  const user = useUserContext()
+  const { user } = useAppContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
   const handleCloseForm = (e: any) => {
@@ -23,14 +23,13 @@ function NewCost(props: RouteComponentProps) {
 
   const createCost = useCreateCostMutation(user.houseId)
 
-  const handleCreateCost = (costData: CostInput) => {
-    return createCost({
+  const handleCreateCost = async (costData: CostInput) => {
+    await createCost({
       variables: {
         data: costData,
       },
-    }).then(() => {
-      props.navigate!("/")
     })
+    props.navigate!("/")
   }
 
   const handleGoBack = () => {

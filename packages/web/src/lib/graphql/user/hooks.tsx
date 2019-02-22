@@ -20,19 +20,21 @@ import {
   FORGOT_PASSWORD,
   RESET_PASSWORD,
 } from "./queries"
+import { GET_HOUSE } from "../house/queries"
 
 export function useMeQuery() {
   const { data, loading } = useQuery<Me.Query>(ME, { suspend: false })
   const user = (data && data.me) || null
-  return { user, loading }
+  return { user, userLoading: loading }
 }
 export function useLoginMutation() {
   return useMutation<Login.Mutation, Login.Variables>(LOGIN, {
-    refetchQueries: [{ query: ME }],
+    refetchQueries: [{ query: GET_HOUSE }],
     awaitRefetchQueries: true,
-    update: (_, res) => {
+    update: (cache, res) => {
       if (res.data) {
         localStorage.setItem("token", res.data.login.token)
+        cache.writeQuery({ query: ME, data: { me: res.data.login.user } })
       }
     },
   })
@@ -44,11 +46,12 @@ export function useUpdateUserMutation() {
 
 export function useRegisterMutation() {
   return useMutation<Register.Mutation, Register.Variables>(REGISTER, {
-    refetchQueries: [{ query: ME }],
+    refetchQueries: [{ query: GET_HOUSE }],
     awaitRefetchQueries: true,
-    update: (_, res) => {
+    update: (cache, res) => {
       if (res.data) {
         localStorage.setItem("token", res.data.register.token)
+        cache.writeQuery({ query: ME, data: { me: res.data.register.user } })
       }
     },
   })

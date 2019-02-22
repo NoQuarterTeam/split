@@ -4,7 +4,6 @@ import { Share } from "./share.entity"
 
 export const shareLoader = () =>
   new DataLoader(async (keys: string[]) => {
-    // code review question ids
     const shares = await Share.find({
       where: {
         costId: In(keys),

@@ -17,19 +17,16 @@ import { CostService } from "./cost.service"
 import { Share } from "../share/share.entity"
 import { User } from "../user/user.entity"
 import { UserService } from "../user/user.service"
-import { AllCostsReturn } from "./cost.return"
+import { AllCostsResponse } from "./cost.response"
 
 @Resolver(() => Cost)
 export class CostResolver {
-  constructor(
-    private readonly costService: CostService,
-    private readonly userService: UserService,
-  ) {}
+  constructor(private readonly costService: CostService) {}
 
   // ALL COSTS
   @Authorized()
-  @Query(() => AllCostsReturn)
-  async allCosts(@Args() args: AllCostArgs): Promise<AllCostsReturn> {
+  @Query(() => AllCostsResponse)
+  async allCosts(@Args() args: AllCostArgs): Promise<AllCostsResponse> {
     return await this.costService.findAllAndCount(args)
   }
 
@@ -70,12 +67,11 @@ export class CostResolver {
   // FIELD RESOLVERS
 
   @FieldResolver(() => [Share])
-  async shares(
+  shares(
     @Root() cost: Cost,
     @Ctx() { shareLoader }: IResolverContext,
   ): Promise<Share[]> {
-    const shares = await shareLoader.load(cost.id)
-    return shares || []
+    return shareLoader.load(cost.id)
   }
 
   @FieldResolver(() => User)

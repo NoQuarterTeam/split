@@ -13,7 +13,7 @@ import {
 import { HouseService } from "../house/house.service"
 import { UserMailer } from "./user.mailer"
 import { createToken, decryptToken } from "../../lib/jwt"
-import { UserAuth } from "./user.return"
+import { UserAuthResponse } from "./user.response"
 
 @Resolver(() => User)
 export class UserResolver {
@@ -31,16 +31,16 @@ export class UserResolver {
   }
 
   // REGISTER
-  @Mutation(() => UserAuth)
-  async register(@Arg("data") data: RegisterInput): Promise<UserAuth> {
+  @Mutation(() => UserAuthResponse)
+  async register(@Arg("data") data: RegisterInput): Promise<UserAuthResponse> {
     const user = await this.userService.create(data)
     const token = await createToken(user.id)
     return { user, token }
   }
 
   // LOGIN
-  @Mutation(() => UserAuth)
-  async login(@Arg("data") data: LoginInput): Promise<UserAuth> {
+  @Mutation(() => UserAuthResponse)
+  async login(@Arg("data") data: LoginInput): Promise<UserAuthResponse> {
     const user = await this.userService.login(data)
     const token = await createToken(user.id)
     return { user, token }

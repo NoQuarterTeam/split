@@ -6,7 +6,7 @@ import { ShareService } from "../share/share.service"
 import { CostJob } from "./cost.job"
 import { HouseService } from "../house/house.service"
 import { ShareInput } from "../share/share.input"
-import { AllCostsReturn } from "./cost.return"
+import { AllCostsResponse } from "./cost.response"
 
 @Service()
 export class CostService {
@@ -19,7 +19,7 @@ export class CostService {
   async findAllAndCount({
     houseId,
     skip,
-  }: AllCostArgs): Promise<AllCostsReturn> {
+  }: AllCostArgs): Promise<AllCostsResponse> {
     return new Promise(async (resolve, reject) => {
       try {
         const house = await this.houseService.findById(houseId)

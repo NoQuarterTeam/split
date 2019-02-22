@@ -70,7 +70,11 @@ export class UserService {
       try {
         const user = await this.findById(userId)
         if (!user) throw new Error("user not found")
-        Object.assign(user, data)
+        let password = user.password
+        if (data.password) {
+          password = await bcrypt.hash(data.password, 10)
+        }
+        Object.assign(user, data, { password })
         await user.save()
         resolve(user)
       } catch (error) {

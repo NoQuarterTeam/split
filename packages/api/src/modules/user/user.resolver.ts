@@ -24,10 +24,10 @@ export class UserResolver {
   ) {}
 
   // ME
+  @Authorized()
   @Query(() => User, { nullable: true })
-  async me(@Ctx() { req }: IResolverContext): Promise<User | null> {
-    if (!req.user || !req.user.id) return null
-    return await this.userService.findById(req.user.id)
+  async me(@Ctx() { userId }: IResolverContext): Promise<User> {
+    return await this.userService.findById(userId)
   }
 
   // REGISTER
@@ -48,24 +48,23 @@ export class UserResolver {
 
   // UPDATE USER
   @Authorized()
-  @Mutation(() => User)
+  @Mutation(() => User, { nullable: true })
   async updateUser(
     @Arg("data") data: UpdateInput,
-    @Ctx() { req }: IResolverContext,
+    @Ctx() { userId }: IResolverContext,
   ): Promise<User> {
-    const user = await this.userService.update(req.user!.id, data)
-    return user
+    return this.userService.update(userId, data)
   }
 
   // LOGOUT
   @Mutation(() => Boolean)
-  async logout(@Ctx() ctx: IResolverContext): Promise<boolean> {
+  async logout(): Promise<boolean> {
     return true
   }
 
   // INVITE USER
   @Authorized()
-  @Mutation(() => Boolean)
+  @Mutation(() => Boolean, { nullable: true })
   async inviteUser(@Arg("data") data: InviteUserInput): Promise<boolean> {
     const house = await this.houseService.findById(data.houseId)
     this.userMailer.sendInvitationLink(data.email, house)

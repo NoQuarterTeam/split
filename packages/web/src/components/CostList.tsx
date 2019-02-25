@@ -47,7 +47,10 @@ function CostList({ house }: { house: { id: string } }) {
         costs.filter(c => dayjs(c.date).isAfter(dayjs())).length > 0 && (
           <StyledDivider />
         )}
-      {costs && costs.map(cost => <CostItem key={cost.id} cost={cost} />)}
+      {costs &&
+        costs
+          .filter(c => dayjs(c.date).isBefore(dayjs()))
+          .map(cost => <CostItem key={cost.id} cost={cost} />)}
       <div ref={costListRef} />
     </StyledList>
   )

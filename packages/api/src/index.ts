@@ -17,6 +17,7 @@ import { authChecker } from "./lib/authChecker"
 import { cors, port, arena, resolverPaths } from "./config"
 import { userLoader } from "./modules/user/user.loader"
 import { shareLoader } from "./modules/share/share.loader"
+import { IRequest } from "./lib/types"
 
 useContainer(Container)
 
@@ -36,14 +37,16 @@ async function main() {
 
     const schema = await buildSchema({
       authChecker,
+      authMode: "null",
       resolvers: [__dirname + resolverPaths],
       validate: false,
     })
 
     const apolloServer = new ApolloServer({
-      context: ({ req, res }: { req: Request; res: Response }) => ({
+      context: ({ req, res }: { req: IRequest; res: Response }) => ({
         req,
         res,
+        userId: req.user && req.user.id,
         userLoader: userLoader(),
         shareLoader: shareLoader(),
       }),

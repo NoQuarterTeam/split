@@ -11,7 +11,7 @@ export class HouseService {
     return new Promise(async (resolve, reject) => {
       try {
         const house = await House.findOne(houseId)
-        if (!house) throw new Error("not found")
+        if (!house) throw new Error("house not found")
         resolve(house)
       } catch (error) {
         reject(error)

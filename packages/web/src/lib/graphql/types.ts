@@ -89,7 +89,7 @@ export namespace AllCosts {
   }
 
   export type AllCosts = {
-    __typename?: "AllCostsReturn"
+    __typename?: "AllCostsResponse"
 
     costs: Costs[]
 
@@ -174,7 +174,7 @@ export namespace GetHouse {
   export type Query = {
     __typename?: "Query"
 
-    house: Maybe<House>
+    house: House
   }
 
   export type House = {
@@ -233,7 +233,7 @@ export namespace Me {
   export type Query = {
     __typename?: "Query"
 
-    me: Maybe<Me>
+    me: Me
   }
 
   export type Me = {
@@ -255,7 +255,7 @@ export namespace Login {
   }
 
   export type Login = {
-    __typename?: "UserAuth"
+    __typename?: "UserAuthResponse"
 
     user: User
 
@@ -281,7 +281,7 @@ export namespace Register {
   }
 
   export type Register = {
-    __typename?: "UserAuth"
+    __typename?: "UserAuthResponse"
 
     user: User
 
@@ -458,18 +458,18 @@ export namespace User {
 // ====================================================
 
 export interface Query {
-  allCosts: AllCostsReturn
+  allCosts: AllCostsResponse
 
   getCost: Cost
 
   checkHouse?: Maybe<House>
 
-  house?: Maybe<House>
+  house: House
 
-  me?: Maybe<User>
+  me: User
 }
 
-export interface AllCostsReturn {
+export interface AllCostsResponse {
   costs: Cost[]
 
   count: number
@@ -570,9 +570,9 @@ export interface Mutation {
 
   editHouse: House
 
-  register: UserAuth
+  register: UserAuthResponse
 
-  login: UserAuth
+  login: UserAuthResponse
 
   updateUser: User
 
@@ -585,7 +585,7 @@ export interface Mutation {
   resetPassword: boolean
 }
 
-export interface UserAuth {
+export interface UserAuthResponse {
   user: User
 
   token: string

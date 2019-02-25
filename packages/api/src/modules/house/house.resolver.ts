@@ -35,30 +35,28 @@ export class HouseResolver {
   }
 
   // GET HOUSE
+  @Authorized()
   @Query(() => House, { nullable: true })
-  async house(@Ctx() { req }: IResolverContext): Promise<House | null> {
-    if (!req.user) return null
-    const user = await this.userService.findById(req.user!.id)
-    if (!user) return null
+  async house(@Ctx() { userId }: IResolverContext): Promise<House> {
+    const user = await this.userService.findById(userId)
     const house = await this.houseService.findById(user.houseId)
-    if (!house) return null
     return house
   }
 
   // CREATE HOUSE
   @Authorized()
-  @Mutation(() => House)
+  @Mutation(() => House, { nullable: true })
   async createHouse(
     @Arg("data") data: HouseInput,
-    @Ctx() { req }: IResolverContext,
+    @Ctx() { userId }: IResolverContext,
   ): Promise<House> {
-    const house = await this.houseService.create(req.user!.id, data)
+    const house = await this.houseService.create(userId, data)
     return house
   }
 
   // EDIT HOUSE
   @Authorized()
-  @Mutation(() => House)
+  @Mutation(() => House, { nullable: true })
   async editHouse(
     @Arg("houseId") houseId: string,
     @Arg("data") data: HouseInput,

@@ -47,7 +47,7 @@ function Register(props: RouteComponentProps) {
     <StyledRegister>
       <StyledForm onSubmit={handleSubmit}>
         <StyledHeader>
-          <img src={IconLogo} width={30} />
+          <img src={IconLogo} width={30} alt="logo" />
           Split
         </StyledHeader>
         {house ? (

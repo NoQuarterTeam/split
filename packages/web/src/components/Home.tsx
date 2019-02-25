@@ -11,7 +11,7 @@ function Home(props: RouteComponentProps) {
     <StyledHome>
       <Center style={{ height: "100%", flexDirection: "column" }}>
         <StyledHeader>
-          <img src={IconLogo} width={30} />
+          <img src={IconLogo} width={30} alt="logo" />
           <span style={{ paddingRight: 30 }}>Split</span>
         </StyledHeader>
         <br />

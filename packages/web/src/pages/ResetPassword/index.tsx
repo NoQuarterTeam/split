@@ -42,7 +42,7 @@ function ResetPassword(props: ResetPasswordProps) {
     <Center style={{ height: "100vh" }}>
       <StyledForm onSubmit={handleSubmit}>
         <StyledHeader>
-          <img src={IconLogo} width={30} />
+          <img src={IconLogo} width={30} alt="logo" />
           Split
         </StyledHeader>
         {success ? (

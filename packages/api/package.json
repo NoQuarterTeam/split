@@ -6,6 +6,7 @@
   "scripts": {
     "start": "tsnd --respawn --no-notify src/index.ts",
     "work": "tsnd --respawn --no-notify src/workers.ts",
+    "watch": "nodemon",
     "build": "rimraf dist && tsc --build",
     "heroku-postbuild": "yarn build",
     "lint": "tslint -p ."
@@ -14,7 +15,6 @@
     "apollo-server-express": "^2.3.3",
     "bcryptjs": "^2.4.3",
     "bull": "^3.6.0",
-    "bull-arena": "^2.5.3",
     "connect-redis": "^3.4.0",
     "dataloader": "^1.4.0",
     "dayjs": "^1.8.5",
@@ -46,7 +46,9 @@
     "@types/nodemailer": "^4.6.6",
     "faker": "^4.1.0",
     "jest": "^24.0.0",
+    "nodemon": "^1.18.10",
     "ts-jest": "^23.10.5",
+    "ts-node": "^8.0.2",
     "ts-node-dev": "^1.0.0-pre.32",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",

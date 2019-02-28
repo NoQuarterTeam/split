@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer"
-import Arena from "bull-arena"
 
 // ENV
 export const env = process.env.NODE_ENV || "development"
@@ -24,18 +23,6 @@ export const resolverPaths =
   env === "production"
     ? "/modules/**/*.resolver.js"
     : "/modules/**/*.resolver.ts"
-
-// WORKERS UI
-
-export const arena = Arena(
-  {
-    queues: [{ name: "costWorker", hostId: "split" }],
-  },
-  {
-    basePath: "/arena",
-    disableListen: true,
-  },
-)
 
 // EMAIL
 

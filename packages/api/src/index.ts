@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import "dotenv/config"
 import { ApolloServer } from "apollo-server-express"
-import express, { Request, Response } from "express"
+import express, { Response } from "express"
 import jwt from "express-jwt"
 import morgan from "morgan"
 import {
@@ -14,7 +14,7 @@ import { Container } from "typedi"
 import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
 
-import { cors, port, arena, resolverPaths } from "./config"
+import { cors, port, resolverPaths } from "./config"
 import { userLoader } from "./modules/user/user.loader"
 import { shareLoader } from "./modules/share/share.loader"
 import { IRequest } from "./lib/types"
@@ -33,7 +33,6 @@ async function main() {
           credentialsRequired: false,
         }),
       )
-      .use("/", arena)
 
     const schema = await buildSchema({
       authChecker,

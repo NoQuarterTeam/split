@@ -44,7 +44,7 @@ function Application() {
                 <NewCost path="/new-cost" />
                 <EditCost path="/costs/:id" />
                 <Costs path="/costs" />
-                <Settings path="/profile" />
+                <Settings path="/settings" />
                 <NotFound default={true} />
               </Router>
             </CheckAuth>

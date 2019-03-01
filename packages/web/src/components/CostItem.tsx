@@ -102,10 +102,6 @@ const StyledCostName = styled.div`
   display: flex;
   flex-direction: column;
   padding-right: ${p => p.theme.paddingM};
-
-  p {
-    /* font-size: ${p => p.theme.textM}; */
-  }
   span {
     color: ${p => p.theme.colorLabel};
   }

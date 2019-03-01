@@ -1,4 +1,5 @@
 import React, { memo, useState } from "react"
+import { navigate } from "@reach/router"
 
 import styled from "../application/theme"
 
@@ -9,8 +10,6 @@ import Input from "./Input"
 import Avatar from "./Avatar"
 import Button from "./Button"
 import { useUpdateUserMutation } from "../lib/graphql/user/hooks"
-import Alert from "./Alert"
-import { sleep } from "../lib/helpers"
 
 type ProfileFormProps = {
   user: Me.Me
@@ -32,7 +31,6 @@ function ProfileForm({ user }: ProfileFormProps) {
   })
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
-  const [updated, setUpdated] = useState<boolean>(false)
   const updateUser = useUpdateUserMutation()
 
   const handleUpdateUser = (e: any) => {
@@ -46,10 +44,7 @@ function ProfileForm({ user }: ProfileFormProps) {
     setLoading(true)
     updateUser({ variables: { data } })
       .then(() => {
-        setFormState({ password: "" })
-        setLoading(false)
-        setUpdated(true)
-        sleep(3000).then(() => setUpdated(false))
+        navigate("/")
       })
       .catch(updateError => {
         setError(updateError.message.split(":")[1])
@@ -58,11 +53,6 @@ function ProfileForm({ user }: ProfileFormProps) {
 
   return (
     <StyledProfileForm onSubmit={handleUpdateUser}>
-      {updated && (
-        <StyledAlertWrapper>
-          <Alert text="Profile updated!" />
-        </StyledAlertWrapper>
-      )}
       <StyledFormAvatar>
         <Avatar user={user!} />
       </StyledFormAvatar>
@@ -98,7 +88,7 @@ function ProfileForm({ user }: ProfileFormProps) {
         label="New password"
       />
       <br />
-      <Button loading={loading} variant="secondary">
+      <Button loading={loading} color="pink" variant="primary">
         Submit
       </Button>
       {error && <StyledError>{error}</StyledError>}
@@ -108,10 +98,6 @@ function ProfileForm({ user }: ProfileFormProps) {
 
 export default memo(ProfileForm)
 
-const StyledAlertWrapper = styled.div`
-  position: absolute;
-  top: 50px;
-`
 const StyledProfileForm = styled.form`
   margin: 0 auto;
   width: 100%;

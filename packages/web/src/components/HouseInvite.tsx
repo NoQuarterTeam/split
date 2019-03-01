@@ -60,7 +60,8 @@ function HouseInvite({ house }: HouseInviteProps) {
             <Button variant="primary">Send invite</Button>
             <Button
               type="button"
-              variant="highlight"
+              color="pink"
+              variant="secondary"
               onClick={() => setFormOpen(false)}
             >
               Cancel
@@ -68,7 +69,7 @@ function HouseInvite({ house }: HouseInviteProps) {
           </div>
         </StyledInviteForm>
       ) : (
-        <Button variant="highlight" onClick={handleOpenForm}>
+        <Button color="pink" variant="tertiary" onClick={handleOpenForm}>
           Invite house mate
         </Button>
       )}

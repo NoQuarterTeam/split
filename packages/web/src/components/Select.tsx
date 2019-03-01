@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import styled from "../application/theme"
+import styled, { lighten } from "../application/theme"
 
 type SelectOption = {
   label: string
@@ -52,13 +52,13 @@ const StyledSelect = styled.select`
   outline: 0;
   border-radius: 0;
   cursor: ${p => (p.disabled ? "not-allowed" : "pointer")};
+  appearance: none;
   background-color: transparent;
   font-size: ${p => p.theme.textM};
   padding: ${p => p.theme.paddingM} 0;
-  border-bottom: 2px solid ${p => p.theme.colorHighlight};
-  -webkit-appearance: none;
+  border-bottom: 2px solid ${p => lighten(0.25, p.theme.colorPink)};
 
   &:focus {
-    border-bottom: 2px solid ${p => p.theme.colorSecondary};
+    border-bottom: 2px solid ${p => p.theme.colorPink};
   }
 `

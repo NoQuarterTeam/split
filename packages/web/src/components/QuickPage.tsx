@@ -58,10 +58,11 @@ const StyledHeader = styled.h2`
 `
 
 const StyledClose = styled.div`
-  color: lightgrey;
   flex-direction: column;
   cursor: pointer;
+  color: ${p => p.theme.colorLabel};
   ${p => p.theme.flexCenter};
+
   &:hover {
     opacity: 0.9;
   }

@@ -43,7 +43,7 @@ const StyledCostPage = styled.div`
 const StyledHeader = styled.div`
   width: 100%;
   margin-bottom: ${p => p.theme.paddingXL};
-  padding-left: 75px;
+  padding-left: 60px;
   ${p => p.theme.flexBetween};
 
   ${media.greaterThan("sm")`

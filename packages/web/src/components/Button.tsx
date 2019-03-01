@@ -1,10 +1,13 @@
 import React, { memo, ButtonHTMLAttributes } from "react"
-import styled, { css } from "../application/theme"
+import styled, { css, IThemeInterface, lighten } from "../application/theme"
+import { capitalize } from "../lib/helpers"
 
-export type Variant = "primary" | "secondary" | "alternative" | "highlight"
+export type Variant = "primary" | "secondary" | "tertiary"
+export type Color = "blue" | "pink"
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant
+  color?: Color
   loading?: boolean
   disabled?: boolean
   full?: boolean
@@ -12,6 +15,7 @@ interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 function Button({
   variant = "primary",
+  color = "blue",
   loading = false,
   disabled = false,
   ...props
@@ -19,6 +23,7 @@ function Button({
   return (
     <StyledButton
       variant={variant}
+      color={color}
       loading={loading}
       disabled={loading || disabled}
       {...props}
@@ -37,6 +42,7 @@ const StyledButton = styled.button<IButtonProps>`
   color: white;
   text-align: center;
   border-radius: 100px;
+  font-size: ${p => p.theme.textM};
   margin: ${p => (p.full ? 0 : p.theme.paddingS)};
   cursor: ${p => (p.disabled ? "not-allowed" : "pointer")};
   width: ${p => (!p.full ? "auto" : "100%")};
@@ -47,48 +53,36 @@ const StyledButton = styled.button<IButtonProps>`
     opacity: ${p => (p.disabled ? 0.5 : 0.7)};
   }
 
-  ${p => getVariantStyles(p.variant!)}
+  ${p => getVariantStyles({ ...p, ...p.theme })}
 `
 
-const getVariantStyles = (variant: string) => {
-  switch (variant) {
+const getVariantStyles = ({
+  color,
+  variant,
+}: IThemeInterface & IButtonProps) => {
+  switch (variant!) {
     case "primary":
-      return primaryStyles
+      return primaryStyles(color!)
     case "secondary":
-      return secondaryStyles
-    case "alternative":
-      return alternativeStyles
-    case "highlight":
-      return highlightStyles
-    default:
-      return primaryStyles
+      return secondaryStyles(color!)
+    case "tertiary":
+      return tertiaryStyles(color!)
   }
 }
 
-const primaryStyles = css`
-  background-color: ${p => p.theme.colorPrimary};
-  font-size: ${p => p.theme.textM};
+const primaryStyles = (color: string) => css`
   padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
+  background-color: ${p => p.theme["color" + capitalize(color)]};
 `
 
-const secondaryStyles = css`
-  background-color: ${p => p.theme.colorSecondary};
-  font-size: ${p => p.theme.textM};
+const secondaryStyles = (color: string) => css`
+  background-color: transparent;
   padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
+  border: 2px solid ${p => lighten(0.25, p.theme["color" + capitalize(color)])};
+  color: ${p => p.theme["color" + capitalize(color)]};
 `
 
-const alternativeStyles = css`
+const tertiaryStyles = (color: string) => css`
   background-color: transparent;
-  border: 2px solid ${p => p.theme.colorPrimary};
-  font-size: ${p => p.theme.textM};
-  color: ${p => p.theme.colorPrimary};
-  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingL}`};
-`
-
-const highlightStyles = css`
-  background-color: transparent;
-  border: 2px solid ${p => p.theme.colorHighlight};
-  font-size: ${p => p.theme.textM};
-  color: ${p => p.theme.colorSecondary};
-  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingL}`};
+  color: ${p => p.theme["color" + capitalize(color)]};
 `

@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import styled from "../application/theme"
+import styled, { darken } from "../application/theme"
 import { Maybe } from "../lib/graphql/types"
 
 type UserDetails = {
@@ -45,7 +45,7 @@ const StyledAvatar = styled.div<{ onClick?: (e: any) => void; size: number }>`
 
   ${p => p.theme.flexCenter};
   cursor: ${p => (!!p.onClick ? "pointer" : "default")};
-  background-color: ${p => p.theme.colorPrimary};
-  color: ${p => p.theme.colorPrimaryOverlay};
+  background-color: ${p => p.theme.colorBlue};
+  color: ${p => darken(0.2, p.theme.colorBlue)};
   font-weight: ${p => p.theme.fontBlack};
 `

@@ -57,7 +57,7 @@ const StyledHeader = styled.div`
   display: flex;
   flex-direction: column;
   padding: ${p => p.theme.paddingS};
-  padding-left: 75px;
+  padding-left: 60px;
 
   p {
     padding-left: ${p => p.theme.paddingS};
@@ -71,10 +71,13 @@ const StyledHeader = styled.div`
 `
 
 const StyledInviteWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: ${p => p.theme.paddingM};
+  padding: ${p => p.theme.paddingL};
 
   ${p => media.greaterThan("sm")`
     padding: ${p.theme.paddingXL};

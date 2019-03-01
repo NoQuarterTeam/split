@@ -39,6 +39,7 @@ const StyledHouseBalance = styled.div`
   width: 100%;
   height: 400px;
   margin: 30px auto;
+  position: relative;
 
   ${p => p.theme.flexAround};
 `
@@ -53,14 +54,16 @@ const StyledSpacer = styled.p`
   padding: ${p => p.theme.paddingM} 0;
 `
 
-const StyledUserBalance = styled(StyledSpacer)``
+const StyledUserBalance = styled(StyledSpacer)`
+  color: ${p => p.theme.colorHeader};
+`
 
 const StyledFlame = styled.div<{ percentage: number; negative: boolean }>`
   position: absolute;
   width: 8px;
   border-radius: 8px;
   background-color: ${p =>
-    p.negative ? p.theme.colorSecondary : p.theme.colorPrimary};
+    p.negative ? p.theme.colorPink : p.theme.colorBlue};
   height: ${p => p.percentage * 2.5}px; /* Max 125px as 50% is the max abs */
   ${p => (p.negative ? "top: 100%;" : "bottom: 100%;")};
 `

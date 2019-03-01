@@ -1,10 +1,11 @@
 import React, { memo, Fragment } from "react"
 import { Link } from "@reach/router"
 
+import styled, { media, lighten } from "../application/theme"
+
 import IconPlus from "../assets/images/icon-plus.svg"
 import IconLogo from "../assets/images/icon-logo.svg"
 
-import styled, { media } from "../application/theme"
 import useAppContext from "../lib/hooks/useAppContext"
 import { useLogoutMutation } from "../lib/graphql/user/hooks"
 
@@ -37,7 +38,7 @@ function Sidebar({ activePage, open }: { activePage: string; open: boolean }) {
             </Link>
           </Fragment>
         )}
-        <Link to="/profile">
+        <Link to="/settings">
           <StyledLink active={activePage === "settings"}>Settings</StyledLink>
         </Link>
         <div tabIndex={0} onClick={handleLogout} style={{ cursor: "pointer" }}>
@@ -71,6 +72,7 @@ const StyledSidebar = styled.div<{ open: boolean }>`
   justify-content: space-between;
   flex-direction: column;
   align-items: flex-start;
+  background-color: white;
   padding: ${p => p.theme.paddingXL};
   display: ${p => (p.open ? "flex" : "none")};
 
@@ -85,13 +87,13 @@ const StyledLink = styled.div<{ active?: boolean }>`
   padding-left: ${p => p.theme.paddingM};
   font-size: ${p => p.theme.textM};
   border-left: ${p =>
-    p.active ? `2px solid ${p.theme.colorSecondary}` : "2px solid transparent"};
+    p.active ? `2px solid ${p.theme.colorPink}` : "2px solid transparent"};
 
   &:hover {
     border-left: ${p =>
       p.active
-        ? `2px solid ${p.theme.colorSecondary}`
-        : `2px solid ${p.theme.colorHighlight}`};
+        ? `2px solid ${p.theme.colorPink}`
+        : `2px solid ${lighten(0.25, p.theme.colorPink)}`};
   }
 `
 
@@ -99,7 +101,7 @@ const StyledIcon = styled.img`
   height: 22px;
   vertical-align: middle;
   border-radius: 50%;
-  box-shadow: 0 0 10px 0 ${p => p.theme.colorHighlight};
+  box-shadow: 0 0 10px 0 ${p => lighten(0.25, p.theme.colorPink)}};
   margin-left: ${p => p.theme.paddingM};
 `
 
@@ -107,6 +109,6 @@ const StyledAnchor = styled.a`
   color: black;
 
   &:hover {
-    color: ${p => p.theme.colorSecondary};
+    color: ${p => p.theme.colorPink};
   }
 `

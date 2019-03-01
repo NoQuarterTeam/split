@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import styled from "../application/theme"
+import styled, { lighten } from "../application/theme"
 
 type AlertProps = {
   text: string
@@ -15,7 +15,7 @@ const StyledAlert = styled.div`
   padding: 8px ${p => p.theme.paddingL};
   font-weight: ${p => p.theme.fontBold};
   font-size: ${p => p.theme.textS};
-  color: ${p => p.theme.colorSecondary};
-  background-color: ${p => p.theme.colorHighlight};
+  color: ${p => p.theme.colorPink};
+  background-color: ${p => lighten(0.25, p.theme.colorPink)};
 `
 export default memo(Alert)

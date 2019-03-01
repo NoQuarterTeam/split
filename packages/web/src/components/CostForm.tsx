@@ -101,7 +101,12 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
           Submit
         </Button>
         {onCostDelete && (
-          <Button type="button" variant="secondary" onClick={onCostDelete}>
+          <Button
+            type="button"
+            color="pink"
+            variant="tertiary"
+            onClick={onCostDelete}
+          >
             Delete cost
           </Button>
         )}

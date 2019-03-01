@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes, forwardRef, Ref, memo } from "react"
-import styled from "../application/theme"
+import styled, { lighten } from "../application/theme"
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
@@ -39,19 +39,20 @@ const StyledInput = styled.input<{ hasPrefix?: boolean }>`
   width: 100%;
   outline: 0;
   background-color: transparent;
+  transition: all 200ms;
+  appearance: none;
   font-size: ${p => p.theme.textM};
   padding: ${p => p.theme.paddingM} 0;
   ${p => p.hasPrefix && "padding-left: 16px"};
   ${p => p.type === "date" && "padding-bottom: 7px"};
-  border-bottom: 2px solid ${p => p.theme.colorHighlight};
-  -webkit-appearance: none;
+  border-bottom: 2px solid ${p => lighten(0.25, p.theme.colorPink)};
 
   &::placeholder {
-    color: lightgrey;
+    color: ${p => p.theme.colorPlaceholder};
   }
 
   &:focus {
-    border-bottom: 2px solid ${p => p.theme.colorSecondary};
+    border-bottom: 2px solid ${p => p.theme.colorPink};
   }
 `
 
@@ -59,5 +60,5 @@ const StyledPrefix = styled.span`
   position: absolute;
   left: 0;
   top: 11px;
-  color: grey;
+  color: ${p => p.theme.colorLabel};
 `

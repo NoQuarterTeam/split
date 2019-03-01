@@ -1,6 +1,7 @@
 import * as styledComponents from "styled-components"
 import { ThemedStyledComponentsModule } from "styled-components"
 import { generateMedia } from "styled-media-query"
+import { darken, lighten } from "polished"
 
 const media = generateMedia({
   xl: "1440px",
@@ -10,15 +11,12 @@ const media = generateMedia({
 })
 
 const theme: (small: boolean) => IThemeInterface = small => ({
-  borderRadius: "5px",
   colorBackground: "#f8f9fd",
-  colorLightGrey: "#f8f9fd",
-  colorHeader: "#1b2d41",
+  colorPlaceholder: "#d3d3d3",
   colorLabel: "#b1bbc4",
-  colorPrimary: "#11a9ff",
-  colorPrimaryOverlay: "#0D75AF",
-  colorHighlight: "#fce0f6",
-  colorSecondary: "#ed60d3",
+  colorHeader: "#1b2d41",
+  colorPink: "#ed60d3",
+  colorBlue: "#11a9ff",
   fontBlack: 900,
   fontBold: 400,
   fontNormal: 200,
@@ -27,6 +25,7 @@ const theme: (small: boolean) => IThemeInterface = small => ({
   paddingS: "5px",
   paddingXL: "40px",
   paddingXS: "3px",
+  borderRadius: "5px",
   textL: small ? "1.5rem" : "2rem",
   textM: small ? "1rem" : "1.125rem",
   textS: small ? "0.75rem" : "0.875rem",
@@ -49,16 +48,14 @@ const theme: (small: boolean) => IThemeInterface = small => ({
   `,
 })
 
-interface IThemeInterface {
+export interface IThemeInterface {
   borderRadius: string
   colorBackground: string
-  colorLightGrey: string
-  colorPrimary: string
-  colorPrimaryOverlay: string
   colorHeader: string
   colorLabel: string
-  colorHighlight: string
-  colorSecondary: string
+  colorPlaceholder: string
+  colorPink: string
+  colorBlue: string
   fontBlack: number
   fontBold: number
   fontNormal: number
@@ -75,6 +72,7 @@ interface IThemeInterface {
   flexCenter: string
   flexBetween: string
   flexAround: string
+  [key: string]: any
 }
 
 const {
@@ -85,5 +83,14 @@ const {
   ThemeProvider,
 } = styledComponents as ThemedStyledComponentsModule<IThemeInterface>
 
-export { theme, css, createGlobalStyle, keyframes, ThemeProvider, media }
+export {
+  theme,
+  css,
+  createGlobalStyle,
+  keyframes,
+  ThemeProvider,
+  media,
+  darken,
+  lighten,
+}
 export default styled

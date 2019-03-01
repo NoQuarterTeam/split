@@ -1,5 +1,5 @@
 import React, { memo, InputHTMLAttributes } from "react"
-import styled from "../application/theme"
+import styled, { lighten } from "../application/theme"
 
 function Radio(props: InputHTMLAttributes<HTMLInputElement>) {
   return (
@@ -34,7 +34,7 @@ const StyledLabel = styled.label`
 
   ${HiddenInput} {
     &:focus ~ div {
-      border: 2px solid ${p => p.theme.colorSecondary};
+      border: 2px solid ${p => p.theme.colorPink};
     }
   }
 `
@@ -44,10 +44,10 @@ const StyledRadio = styled.div`
   width: 26px;
   position: relative;
   border-radius: 50%;
-  border: 2px solid ${p => p.theme.colorHighlight};
+  border: 2px solid ${p => lighten(0.25, p.theme.colorPink)};
 
   &:hover {
-    border: 2px solid ${p => p.theme.colorSecondary};
+    border: 2px solid ${p => p.theme.colorPink};
   }
 
   &::after {
@@ -61,6 +61,6 @@ const StyledRadio = styled.div`
     height: 14px;
     border-radius: 50%;
     box-shadow: 0 0 5px 0 rgba(237, 96, 211, 0.5);
-    background-color: ${p => p.theme.colorSecondary};
+    background-color: ${p => p.theme.colorPink};
   }
 `

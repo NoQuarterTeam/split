@@ -20,14 +20,16 @@ export function useAllCostsQuery(houseId: string) {
       skip: 0,
     },
   })
-  const costs = (!loading && data && data.allCosts.costs) || []
-  const costsCount = (!loading && data && data.allCosts.count) || 0
+  const costs = (!loading && data && data.allCosts && data.allCosts.costs) || []
+  const costsCount =
+    (!loading && data && data.allCosts && data.allCosts.count) || 0
 
   const nextPage = (skip: number) =>
     fetchMore({
       variables: { houseId, skip },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult) return prev
+        if (!fetchMoreResult || !prev.allCosts || !fetchMoreResult.allCosts)
+          return prev
         return Object.assign({}, prev, {
           ...prev.allCosts,
           allCosts: {
@@ -42,7 +44,7 @@ export function useAllCostsQuery(houseId: string) {
   return {
     costs,
     costsCount,
-    next: nextPage,
+    fetchMore: nextPage,
     costsLoading: loading,
     allCostsError: error,
   }
@@ -75,7 +77,12 @@ export function useDestroyCostMutation(cost: GetCost.GetCost) {
           query: GET_ALL_COSTS,
           variables: { houseId: cost.houseId, skip: 0 },
         })
-        if (data && costsData && costsData.allCosts.costs) {
+        if (
+          data &&
+          costsData &&
+          costsData.allCosts &&
+          costsData.allCosts.costs
+        ) {
           const costs = costsData.allCosts.costs.filter(c => c.id !== cost.id)
           cache.writeQuery({
             query: GET_ALL_COSTS,

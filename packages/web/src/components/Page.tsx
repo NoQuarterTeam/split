@@ -28,8 +28,6 @@ const StyledPage = styled.div`
   height: 100vh;
   width: 100vw;
   padding-left: 0;
-  padding-top: 50px;
-  position: relative;
   display: flex;
 
   ${media.greaterThan("sm")`
@@ -41,15 +39,18 @@ const StyledPage = styled.div`
 const StyledMenu = styled.button`
   display: block;
   position: fixed;
+  display: flex;
   top: 20px;
   left: 20px;
-  background-color: transparent;
+  background-color: white;
   border: 0;
   cursor: pointer;
-
+  padding: ${p => p.theme.paddingM};
+  border-radius: ${p => p.theme.borderRadius};
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
   ${media.greaterThan("sm")`
     display: none;
-  `}
+  `};
 `
 
 const StyledOverlay = styled.div`
@@ -65,4 +66,6 @@ const StyledOverlay = styled.div`
 const StyledPageContent = styled.div`
   width: 100%;
   min-height: 100vh;
+  overflow-y: scroll;
+  background-color: ${p => p.theme.colorBackground};
 `

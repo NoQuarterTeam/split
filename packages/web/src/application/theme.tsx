@@ -11,9 +11,10 @@ const media = generateMedia({
 
 const theme: (small: boolean) => IThemeInterface = small => ({
   borderRadius: "5px",
-  colorBackground: "#fff",
+  colorBackground: "#f8f9fd",
   colorLightGrey: "#f8f9fd",
   colorHeader: "#1b2d41",
+  colorLabel: "#b1bbc4",
   colorPrimary: "#11a9ff",
   colorPrimaryOverlay: "#0D75AF",
   colorHighlight: "#fce0f6",
@@ -55,6 +56,7 @@ interface IThemeInterface {
   colorPrimary: string
   colorPrimaryOverlay: string
   colorHeader: string
+  colorLabel: string
   colorHighlight: string
   colorSecondary: string
   fontBlack: number

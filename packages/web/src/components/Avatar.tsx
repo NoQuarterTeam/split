@@ -3,7 +3,6 @@ import styled from "../application/theme"
 import { Maybe } from "../lib/graphql/types"
 
 type UserDetails = {
-  id: string
   firstName: string
   lastName: string
   avatar: Maybe<string>

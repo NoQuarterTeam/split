@@ -46,9 +46,6 @@ function Balance(_: RouteComponentProps) {
 export default Balance
 
 const StyledWrapper = styled.div`
-  height: 100%;
-  width: 100%;
-
   padding: ${p => p.theme.paddingL};
 
   ${media.greaterThan("sm")`
@@ -60,9 +57,12 @@ const StyledHeader = styled.div`
   display: flex;
   flex-direction: column;
   padding: ${p => p.theme.paddingS};
+  padding-left: 75px;
 
   p {
     padding-left: ${p => p.theme.paddingS};
+    font-size: ${p => p.theme.textM};
+    color: ${p => p.theme.colorLabel};
   }
 
   ${p => media.greaterThan("sm")`
@@ -71,7 +71,10 @@ const StyledHeader = styled.div`
 `
 
 const StyledInviteWrapper = styled.div`
-  padding: 0 ${p => p.theme.flexCenter};
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: ${p => p.theme.paddingM};
 
   ${p => media.greaterThan("sm")`
     padding: ${p.theme.paddingXL};

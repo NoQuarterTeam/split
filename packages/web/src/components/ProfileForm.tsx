@@ -116,9 +116,12 @@ const StyledProfileForm = styled.form`
   margin: 0 auto;
   width: 100%;
   max-width: 500px;
+  background-color: white;
   flex-direction: column;
+  padding: 0 ${p => p.theme.paddingXL};
+  padding-bottom: ${p => p.theme.paddingXL};
+  border-radius: ${p => p.theme.borderRadius};
   ${p => p.theme.flexCenter};
-  padding: ${p => p.theme.paddingL};
 `
 
 const StyledFormAvatar = styled.div`

@@ -74,7 +74,7 @@ const StyledCostShares = styled.div`
   padding: ${p => p.theme.paddingL};
   margin-top: ${p => p.theme.paddingL};
 
-  ${media.greaterThan("sm")`
+  ${media.greaterThan("md")`
     width: 40%;
     margin-top: 0;
   `}
@@ -89,7 +89,7 @@ const StyledHeader = styled.div`
 `
 
 const StyledLabel = styled.div`
-  color: grey;
+  color: ${p => p.theme.colorLabel};
   position: relative;
   font-size: ${p => p.theme.textS};
 `

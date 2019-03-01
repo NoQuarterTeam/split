@@ -85,7 +85,7 @@ export namespace AllCosts {
   export type Query = {
     __typename?: "Query"
 
-    allCosts: AllCosts
+    allCosts: Maybe<AllCosts>
   }
 
   export type AllCosts = {
@@ -107,7 +107,7 @@ export namespace GetCost {
   export type Query = {
     __typename?: "Query"
 
-    getCost: GetCost
+    getCost: Maybe<GetCost>
   }
 
   export type GetCost = Cost.Fragment & Shares.Fragment
@@ -121,7 +121,7 @@ export namespace CreateCost {
   export type Mutation = {
     __typename?: "Mutation"
 
-    createCost: CreateCost
+    createCost: Maybe<CreateCost>
   }
 
   export type CreateCost = Cost.Fragment & Payer.Fragment
@@ -136,7 +136,7 @@ export namespace EditCost {
   export type Mutation = {
     __typename?: "Mutation"
 
-    editCost: EditCost
+    editCost: Maybe<EditCost>
   }
 
   export type EditCost = Cost.Fragment & Payer.Fragment
@@ -150,7 +150,7 @@ export namespace DestroyCost {
   export type Mutation = {
     __typename?: "Mutation"
 
-    destroyCost: boolean
+    destroyCost: Maybe<boolean>
   }
 }
 
@@ -174,7 +174,7 @@ export namespace GetHouse {
   export type Query = {
     __typename?: "Query"
 
-    house: House
+    house: Maybe<House>
   }
 
   export type House = {
@@ -194,7 +194,7 @@ export namespace CreateHouse {
   export type Mutation = {
     __typename?: "Mutation"
 
-    createHouse: CreateHouse
+    createHouse: Maybe<CreateHouse>
   }
 
   export type CreateHouse = {
@@ -215,7 +215,7 @@ export namespace EditHouse {
   export type Mutation = {
     __typename?: "Mutation"
 
-    editHouse: EditHouse
+    editHouse: Maybe<EditHouse>
   }
 
   export type EditHouse = {
@@ -233,7 +233,7 @@ export namespace Me {
   export type Query = {
     __typename?: "Query"
 
-    me: Me
+    me: Maybe<Me>
   }
 
   export type Me = {
@@ -303,7 +303,7 @@ export namespace UpdateUser {
   export type Mutation = {
     __typename?: "Mutation"
 
-    updateUser: UpdateUser
+    updateUser: Maybe<UpdateUser>
   }
 
   export type UpdateUser = {
@@ -331,7 +331,7 @@ export namespace InviteUser {
   export type Mutation = {
     __typename?: "Mutation"
 
-    inviteUser: boolean
+    inviteUser: Maybe<boolean>
   }
 }
 
@@ -458,15 +458,15 @@ export namespace User {
 // ====================================================
 
 export interface Query {
-  allCosts: AllCostsResponse
+  allCosts?: Maybe<AllCostsResponse>
 
-  getCost: Cost
+  getCost?: Maybe<Cost>
 
   checkHouse?: Maybe<House>
 
-  house: House
+  house?: Maybe<House>
 
-  me: User
+  me?: Maybe<User>
 }
 
 export interface AllCostsResponse {
@@ -560,25 +560,25 @@ export interface Share {
 }
 
 export interface Mutation {
-  createCost: Cost
+  createCost?: Maybe<Cost>
 
-  destroyCost: boolean
+  destroyCost?: Maybe<boolean>
 
-  editCost: Cost
+  editCost?: Maybe<Cost>
 
-  createHouse: House
+  createHouse?: Maybe<House>
 
-  editHouse: House
+  editHouse?: Maybe<House>
 
   register: UserAuthResponse
 
   login: UserAuthResponse
 
-  updateUser: User
+  updateUser?: Maybe<User>
 
   logout: boolean
 
-  inviteUser: boolean
+  inviteUser?: Maybe<boolean>
 
   forgotPassword: boolean
 

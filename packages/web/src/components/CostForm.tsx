@@ -22,7 +22,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   const { formState, setFormState } = useFormState<CostInput>({
     name: cost ? cost.name : "",
     amount: cost ? round(cost.amount * 0.01) : 0,
-    category: cost ? cost.category : "",
+    category: cost ? cost.category : "food",
     date: cost
       ? dayjs(cost.date).format("YYYY-MM-DD")
       : dayjs().format("YYYY-MM-DD"),
@@ -119,8 +119,8 @@ const StyledForm = styled.form`
 
   ${p => p.theme.flexBetween};
 
-  ${p => media.greaterThan("sm")`
-    padding: 0px 120px;
+  ${p => media.greaterThan("md")`
+    padding: 40px 120px;
   `}
 `
 

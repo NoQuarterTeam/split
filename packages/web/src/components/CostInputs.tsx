@@ -95,7 +95,7 @@ const StyledInputs = styled.div`
   flex-wrap: wrap;
   padding-right: 0;
 
-  ${p => media.greaterThan("sm")`
+  ${p => media.greaterThan("md")`
     width: 60%;
     padding-right: ${p.theme.paddingXL};
   `}

@@ -1,6 +1,6 @@
 import React, { memo } from "react"
 import dayjs from "dayjs"
-import { navigate } from "@reach/router"
+import { Link } from "@reach/router"
 
 import styled, { media } from "../application/theme"
 import { AllCosts } from "../lib/graphql/types"
@@ -13,7 +13,7 @@ import Column from "./styled/Column"
 import Avatar from "./Avatar"
 import Center from "./styled/Center"
 import ToolTip from "./ToolTip"
-import { round } from "../lib/helpers"
+import { round, capitalize } from "../lib/helpers"
 
 type CostProps = {
   cost: AllCosts.Costs
@@ -21,37 +21,42 @@ type CostProps = {
 
 function CostItem({ cost }: CostProps) {
   return (
-    <StyledCost onClick={() => navigate(`/costs/${cost.id}`)} tabIndex={0}>
-      <Column flex={5}>
-        <StyledValue>
-          {cost.name}
-          {cost.recurring !== "one-off" && (
-            <ToolTip message="Recurring cost">
-              <StyledInfoIcon src={IconRepeat} width={30} />
-            </ToolTip>
-          )}
-          {dayjs(cost.date).isAfter(dayjs().startOf("day")) && (
-            <ToolTip message="Future cost">
-              <StyledInfoIcon src={IconClock} width={25} />
-            </ToolTip>
-          )}
-        </StyledValue>
-      </Column>
-      <Column flex={5}>
-        <StyledValue>€ {round(cost.amount * 0.01)}</StyledValue>
-      </Column>
-      <Column flex={5}>
-        <Avatar user={cost.payer} size={40} />
-      </Column>
-      <Column flex={5}>
-        <StyledValue>{dayjs(cost.date).format("DD MMM 'YY")}</StyledValue>
-      </Column>
-      <Column flex={3}>
-        <Center>
-          <StyledIcon src={IconOpen} width={10} />
-        </Center>
-      </Column>
-    </StyledCost>
+    <Link to={`/costs/${cost.id}`}>
+      <StyledCost>
+        <Column flex={10}>
+          <StyledValue>
+            <StyledCostName>
+              {cost.name}
+              <span>{capitalize(cost.category)}</span>
+            </StyledCostName>
+            {cost.recurring !== "one-off" && (
+              <ToolTip message="Recurring cost">
+                <StyledInfoIcon src={IconRepeat} width={25} />
+              </ToolTip>
+            )}
+            {dayjs(cost.date).isAfter(dayjs().startOf("day")) && (
+              <ToolTip message="Future cost">
+                <StyledInfoIcon src={IconClock} width={25} />
+              </ToolTip>
+            )}
+          </StyledValue>
+        </Column>
+        <Column flex={5}>
+          <StyledValue>€ {round(cost.amount * 0.01)}</StyledValue>
+        </Column>
+        <Column flex={5}>
+          <Avatar user={cost.payer} size={40} />
+        </Column>
+        <Column flex={3}>
+          <StyledValue>{dayjs(cost.date).format("DD MMM")}</StyledValue>
+        </Column>
+        <Column flex={1}>
+          <Center>
+            <StyledIcon src={IconOpen} width={10} />
+          </Center>
+        </Column>
+      </StyledCost>
+    </Link>
   )
 }
 
@@ -63,18 +68,16 @@ const StyledIcon = styled.img`
 const StyledCost = styled.div`
   width: 100%;
   padding-right: 0;
+  margin-bottom: ${p => p.theme.paddingM};
   border: 2px solid transparent;
+  background-color: white;
   padding: ${p => p.theme.paddingM};
   border-radius: ${p => p.theme.borderRadius};
-  ${p => p.theme.flexCenter};
+  ${p => p.theme.flexBetween};
 
   &:hover {
     cursor: pointer;
-    box-shadow: 0 0 10px 5px rgba(200, 200, 200, 0.1);
-
-    ${StyledIcon} {
-      transform: translateX(5px);
-    }
+    box-shadow: 0 10px 10px 5px rgba(200, 200, 200, 0.1);
   }
 
   ${p => media.greaterThan("sm")`
@@ -86,10 +89,24 @@ const StyledValue = styled.div`
   align-items: center;
   justify-content: flex-start;
   font-size: ${p => p.theme.textS};
+  color: ${p => p.theme.colorHeader};
 `
 
 const StyledInfoIcon = styled.img`
   cursor: pointer;
   padding-left: ${p => p.theme.paddingS};
   display: grid;
+`
+
+const StyledCostName = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-right: ${p => p.theme.paddingM};
+
+  p {
+    /* font-size: ${p => p.theme.textM}; */
+  }
+  span {
+    color: ${p => p.theme.colorLabel};
+  }
 `

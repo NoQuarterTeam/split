@@ -1,16 +1,20 @@
 import React, { useRef } from "react"
-import dayjs from "dayjs"
 
-import styled from "../application/theme"
+import styled, { media } from "../application/theme"
 import useEventListener from "../lib/hooks/useEventListener"
 import { useDebouncedCallback } from "../lib/hooks/useDebounce"
 
+import useAppContext from "../lib/hooks/useAppContext"
 import { useAllCostsQuery } from "../lib/graphql/costs/hooks"
 
 import CostItem from "../components/CostItem"
+import Column from "./styled/Column"
 
-function CostList({ house }: { house: { id: string } }) {
-  const { costs, costsCount, next, costsLoading } = useAllCostsQuery(house.id)
+function CostList() {
+  const { house } = useAppContext()
+  const { costs, costsCount, fetchMore, costsLoading } = useAllCostsQuery(
+    house.id,
+  )
   const costListRef = useRef<HTMLDivElement>(null)
   const costsRef = useRef({ costs, costsCount, costsLoading })
   costsRef.current = { costs, costsLoading, costsCount }
@@ -25,7 +29,7 @@ function CostList({ house }: { house: { id: string } }) {
       !costsRef.current.costsLoading &&
       costsRef.current.costs.length < costsRef.current.costsCount
     ) {
-      next(costsRef.current.costs.length)
+      fetchMore(costsRef.current.costs.length)
     }
   }
 
@@ -37,20 +41,22 @@ function CostList({ house }: { house: { id: string } }) {
 
   return (
     <StyledList>
-      {costs &&
-        costs
-          .filter(c => dayjs(c.date).isAfter(dayjs()))
-          .map(cost => {
-            return <CostItem key={cost.id} cost={cost} />
-          })}
-      {costs &&
-        costs.filter(c => dayjs(c.date).isAfter(dayjs())).length > 0 && (
-          <StyledDivider />
-        )}
-      {costs &&
-        costs
-          .filter(c => dayjs(c.date).isBefore(dayjs()))
-          .map(cost => <CostItem key={cost.id} cost={cost} />)}
+      <StyledTableHeader>
+        <Column flex={10}>
+          <StyledLabel>Name</StyledLabel>
+        </Column>
+        <Column flex={5}>
+          <StyledLabel>Amount</StyledLabel>
+        </Column>
+        <Column flex={5}>
+          <StyledLabel>Payer</StyledLabel>
+        </Column>
+        <Column flex={3}>
+          <StyledLabel>Date</StyledLabel>
+        </Column>
+        <Column flex={1} />
+      </StyledTableHeader>
+      {costs && costs.map(cost => <CostItem key={cost.id} cost={cost} />)}
       <div ref={costListRef} />
     </StyledList>
   )
@@ -62,10 +68,22 @@ const StyledList = styled.div`
   width: 100%;
 `
 
-const StyledDivider = styled.div`
+const StyledTableHeader = styled.div`
   width: 100%;
-  height: 2px;
-  margin: ${p => p.theme.paddingM} 0;
-  padding: 0 ${p => p.theme.paddingM};
-  background-color: ${p => p.theme.colorLightGrey};
+  margin-bottom: ${p => p.theme.paddingL};
+  padding: ${p => p.theme.paddingM};
+  padding-right: 0;
+  ${p => p.theme.flexCenter};
+
+  ${p => media.greaterThan("sm")`
+    padding: ${`${p.theme.paddingM} ${p.theme.paddingL}`};
+  `}
+`
+
+const StyledLabel = styled.div`
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: ${p => p.theme.colorLabel};
+  font-size: ${p => p.theme.textXS};
+  font-weight: ${p => p.theme.fontBlack};
 `

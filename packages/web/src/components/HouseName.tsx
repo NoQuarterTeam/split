@@ -54,12 +54,9 @@ const StyledInput = styled.input`
   width: 100%;
   border: 0;
   border: 2px solid transparent;
+  background-color: transparent;
+  color: ${p => p.theme.colorHeader};
   border-radius: ${p => p.theme.borderRadius};
   font-size: ${p => p.theme.textL};
   font-weight: ${p => p.theme.fontBlack};
-
-  &:hover,
-  &:focus {
-    border: 2px solid ${p => p.theme.colorLightGrey};
-  }
 `

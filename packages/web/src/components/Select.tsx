@@ -42,7 +42,7 @@ const StyledContainer = styled.div`
 `
 
 const StyledLabel = styled.label`
-  color: grey;
+  color: ${p => p.theme.colorLabel};
   font-size: ${p => p.theme.textS};
 `
 

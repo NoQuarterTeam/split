@@ -48,6 +48,9 @@ function CostList() {
     setSearch(input)
   }
 
+  // TODO use memo to store these
+  const futureCosts = costs && costs.filter(c => dayjs(c.date).isAfter(dayjs()))
+  const pastCosts = costs && costs.filter(c => dayjs(c.date).isBefore(dayjs()))
   return (
     <StyledList>
       <CostsSearch onSubmit={handleSearchSubmit} />
@@ -66,15 +69,11 @@ function CostList() {
         </Column>
         <Column flex={1} />
       </StyledTableHeader>
-      {costs &&
-        costs
-          .filter(c => dayjs(c.date).isAfter(dayjs()))
-          .map(cost => <CostItem key={cost.id} cost={cost} />)}
-      <Divider />
-      {costs &&
-        costs
-          .filter(c => dayjs(c.date).isBefore(dayjs()))
-          .map(cost => <CostItem key={cost.id} cost={cost} />)}
+      {futureCosts &&
+        futureCosts.map(cost => <CostItem key={cost.id} cost={cost} />)}
+      {futureCosts && <Divider />}
+      {pastCosts &&
+        pastCosts.map(cost => <CostItem key={cost.id} cost={cost} />)}
       <div ref={costListRef} />
     </StyledList>
   )

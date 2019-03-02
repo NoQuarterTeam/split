@@ -7,6 +7,9 @@ import { PaginationArgs } from "../shared/shared.input"
 export class AllCostArgs extends PaginationArgs {
   @Field()
   houseId: string
+
+  @Field({ nullable: true })
+  search?: string
 }
 
 @InputType()

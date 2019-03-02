@@ -10,13 +10,14 @@ import {
 } from "./queries"
 import { GET_HOUSE } from "../house/queries"
 
-export function useAllCostsQuery(houseId: string) {
+export function useAllCostsQuery(houseId: string, search: string) {
   const { data, error, loading, fetchMore } = useQuery<
     AllCosts.Query,
     AllCosts.Variables
   >(GET_ALL_COSTS, {
     variables: {
       houseId,
+      search,
       skip: 0,
     },
   })
@@ -26,7 +27,7 @@ export function useAllCostsQuery(houseId: string) {
 
   const nextPage = (skip: number) =>
     fetchMore({
-      variables: { houseId, skip },
+      variables: { houseId, skip, search },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult || !prev.allCosts || !fetchMoreResult.allCosts)
           return prev

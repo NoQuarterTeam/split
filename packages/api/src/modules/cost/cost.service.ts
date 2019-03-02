@@ -18,18 +18,29 @@ export class CostService {
 
   async findAllAndCount({
     houseId,
+    search,
     skip,
   }: AllCostArgs): Promise<AllCostsResponse> {
     return new Promise(async (resolve, reject) => {
       try {
         const house = await this.houseService.findById(houseId)
-        const costsAndCount = await Cost.findAndCount({
-          where: { house },
-          order: { date: "DESC", createdAt: "DESC" },
-          take: 10,
-          skip,
-        })
-        resolve({ costs: costsAndCount[0], count: costsAndCount[1] })
+        const query = await Cost.getRepository()
+          .createQueryBuilder("cost")
+          .where({ house })
+
+        const count = await query.getCount()
+
+        const costs = await query
+          .andWhere("cost.name ilike :search", {
+            search: `%${search}%`,
+          })
+          .take(10)
+          .skip(skip)
+          .orderBy("cost.date", "DESC")
+          .addOrderBy("cost.createdAt", "DESC")
+          .getMany()
+
+        resolve({ costs, count })
       } catch (error) {
         reject(error)
       }

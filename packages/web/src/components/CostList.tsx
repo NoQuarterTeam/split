@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 
 import styled, { media } from "../application/theme"
 import useEventListener from "../lib/hooks/useEventListener"
@@ -9,11 +9,14 @@ import { useAllCostsQuery } from "../lib/graphql/costs/hooks"
 
 import CostItem from "../components/CostItem"
 import Column from "./styled/Column"
+import CostsSearch from "./CostsSearch"
 
 function CostList() {
   const { house } = useAppContext()
+  const [search, setSearch] = useState<string>("")
   const { costs, costsCount, fetchMore, costsLoading } = useAllCostsQuery(
     house.id,
+    search,
   )
   const costListRef = useRef<HTMLDivElement>(null)
   const costsRef = useRef({ costs, costsCount, costsLoading })
@@ -39,8 +42,13 @@ function CostList() {
 
   useEventListener("scroll", debouncedScroll, true)
 
+  const handleSearchSubmit = (input: string) => {
+    setSearch(input)
+  }
+
   return (
     <StyledList>
+      <CostsSearch onSubmit={handleSearchSubmit} />
       <StyledTableHeader>
         <Column flex={10}>
           <StyledLabel>Name</StyledLabel>
@@ -70,7 +78,7 @@ const StyledList = styled.div`
 
 const StyledTableHeader = styled.div`
   width: 100%;
-  margin-bottom: ${p => p.theme.paddingL};
+  margin: ${p => p.theme.paddingL} 0;
   padding: ${p => p.theme.paddingM};
   padding-right: 0;
   ${p => p.theme.flexCenter};

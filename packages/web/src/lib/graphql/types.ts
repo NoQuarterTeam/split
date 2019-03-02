@@ -79,6 +79,7 @@ export interface ResetPasswordInput {
 export namespace AllCosts {
   export type Variables = {
     houseId: string
+    search?: Maybe<string>
     skip?: Maybe<number>
   }
 
@@ -599,6 +600,8 @@ export interface AllCostsQueryArgs {
   skip?: Maybe<number>
 
   houseId: string
+
+  search?: Maybe<string>
 }
 export interface GetCostQueryArgs {
   costId: string

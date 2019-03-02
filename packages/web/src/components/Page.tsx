@@ -16,7 +16,7 @@ const Page: FC<PageProps> = ({ children, activePage }) => {
       <StyledPageContent>{children}</StyledPageContent>
       {sidebarOpen && <StyledOverlay onClick={() => setSidebarOpen(false)} />}
       <StyledMenu onClick={() => setSidebarOpen(true)}>
-        <img src={IconMenu} width={25} alt="menu" />
+        <img src={IconMenu} width={20} alt="menu" />
       </StyledMenu>
     </StyledPage>
   )

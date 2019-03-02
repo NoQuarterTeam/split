@@ -29,6 +29,10 @@ export class Cost extends BaseEntity {
   recurring: "month" | "week" | "one-off"
 
   @Field()
+  @Column({ default: true })
+  equalSplit: boolean
+
+  @Field()
   @Column()
   category: string
 

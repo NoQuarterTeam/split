@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react"
+import dayjs from "dayjs"
 
 import styled, { media } from "../application/theme"
 import useEventListener from "../lib/hooks/useEventListener"
@@ -10,6 +11,7 @@ import { useAllCostsQuery } from "../lib/graphql/costs/hooks"
 import CostItem from "../components/CostItem"
 import Column from "./styled/Column"
 import CostsSearch from "./CostsSearch"
+import Divider from "./styled/Divider"
 
 function CostList() {
   const { house } = useAppContext()
@@ -64,7 +66,15 @@ function CostList() {
         </Column>
         <Column flex={1} />
       </StyledTableHeader>
-      {costs && costs.map(cost => <CostItem key={cost.id} cost={cost} />)}
+      {costs &&
+        costs
+          .filter(c => dayjs(c.date).isAfter(dayjs()))
+          .map(cost => <CostItem key={cost.id} cost={cost} />)}
+      <Divider />
+      {costs &&
+        costs
+          .filter(c => dayjs(c.date).isBefore(dayjs()))
+          .map(cost => <CostItem key={cost.id} cost={cost} />)}
       <div ref={costListRef} />
     </StyledList>
   )

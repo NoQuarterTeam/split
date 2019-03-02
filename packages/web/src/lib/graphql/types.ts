@@ -7,6 +7,8 @@ export interface CostInput {
 
   recurring: string
 
+  equalSplit: boolean
+
   category: string
 
   date: string
@@ -400,6 +402,8 @@ export namespace Cost {
 
     recurring: string
 
+    equalSplit: boolean
+
     category: string
 
     createdAt: string
@@ -508,6 +512,8 @@ export interface Cost {
   name: string
 
   recurring: string
+
+  equalSplit: boolean
 
   category: string
 

@@ -8,29 +8,26 @@ import Column from "./styled/Column"
 
 type CostSharesProps = {
   users: User.Fragment[]
-  equalSplit: boolean
   isDifferent: boolean
   formState: CostInput
   setFormState: (val: { [key: string]: any }) => void
-  setEqualSplit: (val: boolean) => void
   applyEqualSplit: () => void
 }
 function CostShares({
   users,
-  equalSplit,
   formState,
   isDifferent,
   setFormState,
-  setEqualSplit,
   applyEqualSplit,
 }: CostSharesProps) {
   return (
     <StyledCostShares>
-      {!equalSplit && isDifferent && (
-        <StyledAlertWrapper>
-          <Alert text="Split must equal amount" />
-        </StyledAlertWrapper>
-      )}
+      {isDifferent &&
+      !formState.equalSplit && ( // Requires equal split to stop flashing
+          <StyledAlertWrapper>
+            <Alert text="Split must equal amount" />
+          </StyledAlertWrapper>
+        )}
       <StyledHeader>
         <Column flex={3}>
           <StyledLabel>Participants</StyledLabel>
@@ -46,7 +43,6 @@ function CostShares({
         return (
           <Participant
             key={user.id}
-            setEqualSplit={setEqualSplit}
             isPayer={user.id === formState.payerId}
             user={user}
             shares={formState.costShares}
@@ -55,7 +51,7 @@ function CostShares({
         )
       })}
 
-      {isDifferent && !equalSplit && (
+      {isDifferent && !formState.equalSplit && (
         <StyledButtonWrapper>
           <Button color="pink" variant="secondary" onClick={applyEqualSplit}>
             Split equally

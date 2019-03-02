@@ -9,7 +9,7 @@ import useAppContext from "../../lib/hooks/useAppContext"
 import { useCreateCostMutation } from "../../lib/graphql/costs/hooks"
 import QuickPage from "../../components/QuickPage"
 
-function NewCost(props: RouteComponentProps) {
+function NewCost(_: RouteComponentProps) {
   const { user } = useAppContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
@@ -21,7 +21,7 @@ function NewCost(props: RouteComponentProps) {
         data: costData,
       },
     })
-    props.navigate!("/")
+    window.history.back()
   }
 
   return (

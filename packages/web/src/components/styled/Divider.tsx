@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import styled from "../../application/theme"
+import styled, { darken } from "../../application/theme"
 
 type DividerProps = {}
 
@@ -14,5 +14,5 @@ const StyledDivider = styled.div`
   height: 2px;
   margin: ${p => p.theme.paddingM} 0;
   padding: 0 ${p => p.theme.paddingM};
-  background-color: ${p => p.theme.colorBackground};
+  background-color: ${p => darken(0.01, p.theme.colorBackground)};
 `

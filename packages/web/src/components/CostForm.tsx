@@ -23,6 +23,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     name: cost ? cost.name : "",
     amount: cost ? round(cost.amount * 0.01) : 0,
     category: cost ? cost.category : "food",
+    equalSplit: cost ? cost.equalSplit : true,
     date: cost
       ? dayjs(cost.date).format("YYYY-MM-DD")
       : dayjs().format("YYYY-MM-DD"),
@@ -36,7 +37,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
         }))
       : house.users.map(u => ({ userId: u.id, amount: 0 })),
   })
-  const [equalSplit, setEqualSplit] = useState<boolean>(true)
+  const [isMounted, setIsMounted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 
@@ -45,18 +46,17 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     round(formState.costShares.reduce((acc, s) => acc + s.amount, 0))
 
   useEffect(() => {
-    if (equalSplit) applyEqualSplit()
+    if (isMounted && formState.equalSplit) applyEqualSplit()
+    setIsMounted(true)
   }, [formState.amount, formState.costShares.length])
 
   const applyEqualSplit = () => {
-    if (!equalSplit) setEqualSplit(true)
     const split = splitTheBill(formState.costShares.length, formState.amount)
-
     const costShares = formState.costShares.map(({ userId }, i) => ({
       userId,
       amount: split[i],
     }))
-    setFormState({ costShares })
+    setFormState({ costShares, equalSplit: true })
   }
 
   const handleCostCreate = async (e: any) => {
@@ -88,11 +88,9 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
         />
         <CostShares
           users={house.users}
-          equalSplit={equalSplit}
           formState={formState}
           isDifferent={isDifferent}
           setFormState={setFormState}
-          setEqualSplit={setEqualSplit}
           applyEqualSplit={applyEqualSplit}
         />
       </StyleFieldsWrapper>

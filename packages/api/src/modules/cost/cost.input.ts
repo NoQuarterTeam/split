@@ -24,6 +24,9 @@ export class CostInput implements Partial<Cost> {
   recurring: "month" | "week" | "one-off"
 
   @Field()
+  equalSplit: boolean
+
+  @Field()
   category: string
 
   @Field()

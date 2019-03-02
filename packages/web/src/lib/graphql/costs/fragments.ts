@@ -7,6 +7,7 @@ export const Cost = gql`
     amount
     date
     recurring
+    equalSplit
     category
     createdAt
     houseId

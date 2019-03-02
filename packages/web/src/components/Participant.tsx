@@ -13,7 +13,6 @@ type ParticipantProps = {
   isPayer: boolean
   shares: ShareInput[]
   setFormState: (val: { [key: string]: any }) => void
-  setEqualSplit: (val: boolean) => void
 }
 
 function Participant({
@@ -21,7 +20,6 @@ function Participant({
   isPayer,
   shares,
   setFormState,
-  setEqualSplit,
 }: ParticipantProps) {
   const userShare = shares.find(s => s.userId === user.id)
 
@@ -49,9 +47,8 @@ function Participant({
   const handleCostShareUpdate = (e: any) => {
     if (+e.target.value < 0) return
     if (decimalCount(+e.target.value) > 2) return
-
-    setEqualSplit(false)
     setFormState({
+      equalSplit: false,
       costShares: shares.map(s => {
         if (s.userId !== user.id) return s
         return {

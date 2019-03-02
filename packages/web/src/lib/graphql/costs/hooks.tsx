@@ -76,7 +76,7 @@ export function useDestroyCostMutation(cost: GetCost.GetCost) {
       update: (cache, { data }) => {
         const costsData = cache.readQuery<AllCosts.Query, AllCosts.Variables>({
           query: GET_ALL_COSTS,
-          variables: { houseId: cost.houseId, skip: 0 },
+          variables: { houseId: cost.houseId, skip: 0, search: "" },
         })
         if (
           data &&
@@ -94,7 +94,7 @@ export function useDestroyCostMutation(cost: GetCost.GetCost) {
                 costs,
               },
             },
-            variables: { houseId: cost.houseId, skip: 0 },
+            variables: { houseId: cost.houseId, skip: 0, search: "" },
           })
         }
       },
@@ -109,12 +109,12 @@ export function useCreateCostMutation(houseId: string) {
     update: (cache, { data }) => {
       const costsData = cache.readQuery<AllCosts.Query, AllCosts.Variables>({
         query: GET_ALL_COSTS,
-        variables: { houseId, skip: 0 },
+        variables: { houseId, skip: 0, search: "" },
       })
       if (data && costsData && costsData.allCosts) {
         cache.writeQuery({
           query: GET_ALL_COSTS,
-          variables: { houseId, skip: 0 },
+          variables: { houseId, skip: 0, search: "" },
           data: {
             allCosts: {
               __typename: costsData.allCosts.__typename,

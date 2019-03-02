@@ -41,7 +41,13 @@ export function useLoginMutation() {
 }
 
 export function useUpdateUserMutation() {
-  return useMutation<UpdateUser.Mutation, UpdateUser.Variables>(UPDATE_USER)
+  return useMutation<UpdateUser.Mutation, UpdateUser.Variables>(UPDATE_USER, {
+    update: (cache, res) => {
+      if (res.data && res.data.updateUser) {
+        cache.writeQuery({ query: ME, data: { me: res.data.updateUser } })
+      }
+    },
+  })
 }
 
 export function useRegisterMutation() {

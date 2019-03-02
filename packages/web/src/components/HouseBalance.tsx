@@ -23,7 +23,7 @@ function HouseBalance({ users }: IHouseBalance) {
             <StyledSpacer />
             <Avatar user={user} />
             <StyledUserBalance>
-              € {round(user.balance * 0.01)}
+              {user.balance < 0 && "-"} € {round(Math.abs(user.balance * 0.01))}
             </StyledUserBalance>
           </StyledUserGraph>
         )

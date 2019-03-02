@@ -37,7 +37,6 @@ export default memo(Button)
 
 const StyledButton = styled.button<IButtonProps>`
   outline: 0;
-  border: 0;
   letter-spacing: 1px;
   color: white;
   text-align: center;

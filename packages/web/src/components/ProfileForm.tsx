@@ -7,9 +7,10 @@ import { Me } from "../lib/graphql/types"
 import useFormState from "../lib/hooks/useFormState"
 
 import Input from "./Input"
-import Avatar from "./Avatar"
 import Button from "./Button"
 import { useUpdateUserMutation } from "../lib/graphql/user/hooks"
+
+import ProfileAvatarUpload from "./ProfileAvatarUpload"
 
 type ProfileFormProps = {
   user: Me.Me
@@ -53,9 +54,7 @@ function ProfileForm({ user }: ProfileFormProps) {
 
   return (
     <StyledProfileForm onSubmit={handleUpdateUser}>
-      <StyledFormAvatar>
-        <Avatar user={user!} />
-      </StyledFormAvatar>
+      <ProfileAvatarUpload user={user} />
       <Input
         value={formState.email}
         onChange={e => setFormState({ email: e.target.value })}
@@ -108,10 +107,6 @@ const StyledProfileForm = styled.form`
   padding-bottom: ${p => p.theme.paddingXL};
   border-radius: ${p => p.theme.borderRadius};
   ${p => p.theme.flexCenter};
-`
-
-const StyledFormAvatar = styled.div`
-  padding-bottom: ${p => p.theme.paddingXL};
 `
 
 const StyledError = styled.div`

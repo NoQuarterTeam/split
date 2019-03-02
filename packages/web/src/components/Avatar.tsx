@@ -34,9 +34,9 @@ function Avatar({ user, onClick, size = 80 }: AvatarProps) {
 export default memo(Avatar)
 
 const StyledAvatar = styled.div<{ onClick?: (e: any) => void; size: number }>`
-  object-fit: contain;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
   border-radius: 50%;
   box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
 

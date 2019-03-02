@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.3.3",
+    "aws-sdk": "^2.413.0",
     "bcryptjs": "^2.4.3",
     "bull": "^3.6.0",
     "connect-redis": "^3.4.0",

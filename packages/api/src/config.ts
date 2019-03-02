@@ -1,3 +1,4 @@
+import S3 from "aws-sdk/clients/s3"
 import nodemailer from "nodemailer"
 
 // ENV
@@ -46,3 +47,11 @@ const emailOptions: any = {
 }
 
 export const mail = nodemailer.createTransport(emailOptions[env])
+
+// AWS
+export const s3 = new S3({
+  signatureVersion: "v4",
+  region: "eu-central-1",
+})
+
+export const s3Bucket = process.env.S3_BUCKET_NAME

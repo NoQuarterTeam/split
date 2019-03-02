@@ -26,7 +26,7 @@ const theme: (small: boolean) => IThemeInterface = small => ({
   paddingXL: "40px",
   paddingXS: "3px",
   borderRadius: "5px",
-  textL: small ? "1.5rem" : "2rem",
+  textL: small ? "1.5rem" : "1.75rem",
   textM: small ? "1rem" : "1.125rem",
   textS: small ? "0.75rem" : "0.875rem",
   textXL: small ? "2rem" : "2.25rem",

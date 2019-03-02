@@ -28,6 +28,12 @@ export interface HouseInput {
   name: string
 }
 
+export interface S3SignedUrlInput {
+  filename: string
+
+  filetype: string
+}
+
 export interface RegisterInput {
   firstName: string
 
@@ -226,6 +232,26 @@ export namespace EditHouse {
   } & House.Fragment
 
   export type Users = User.Fragment
+}
+
+export namespace GetSignedS3Url {
+  export type Variables = {
+    data: S3SignedUrlInput
+  }
+
+  export type Mutation = {
+    __typename?: "Mutation"
+
+    getSignedS3Url: Maybe<GetSignedS3Url>
+  }
+
+  export type GetSignedS3Url = {
+    __typename?: "S3SignedUrlResponse"
+
+    url: string
+
+    signedRequest: string
+  }
 }
 
 export namespace Me {
@@ -571,6 +597,8 @@ export interface Mutation {
 
   editHouse?: Maybe<House>
 
+  getSignedS3Url?: Maybe<S3SignedUrlResponse>
+
   register: UserAuthResponse
 
   login: UserAuthResponse
@@ -584,6 +612,12 @@ export interface Mutation {
   forgotPassword: boolean
 
   resetPassword: boolean
+}
+
+export interface S3SignedUrlResponse {
+  url: string
+
+  signedRequest: string
 }
 
 export interface UserAuthResponse {
@@ -627,6 +661,9 @@ export interface EditHouseMutationArgs {
   data: HouseInput
 
   houseId: string
+}
+export interface GetSignedS3UrlMutationArgs {
+  data: S3SignedUrlInput
 }
 export interface RegisterMutationArgs {
   data: RegisterInput

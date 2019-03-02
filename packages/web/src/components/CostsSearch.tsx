@@ -102,12 +102,8 @@ const StyledSearch = styled.input`
 `
 
 const StyledButton = styled.button`
-  appearance: none;
-  cursor: pointer;
   padding: 0;
   outline: 0;
-  border: 0;
-  background-color: transparent;
   ${p => p.theme.flexCenter};
 `
 

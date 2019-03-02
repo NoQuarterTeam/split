@@ -22,7 +22,12 @@ const QuickPage: FC<QuickPageProps> = ({ children, title }) => {
       <StyledTopbar>
         <StyledHeader>{title}</StyledHeader>
         <StyledClose onClick={handleGoBack}>
-          <img width={60} src={IconClose} alt="close" />
+          <img
+            height={60}
+            src={IconClose}
+            alt="close"
+            style={{ minHeight: 60 }}
+          />
           Esc
         </StyledClose>
       </StyledTopbar>

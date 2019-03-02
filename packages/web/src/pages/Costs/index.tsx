@@ -1,7 +1,7 @@
 import React from "react"
 import { RouteComponentProps, Link, Redirect } from "@reach/router"
 
-import styled, { media } from "../../application/theme"
+import styled, { media, lighten } from "../../application/theme"
 import IconPlus from "../../assets/images/icon-plus.svg"
 import useAppContext from "../../lib/hooks/useAppContext"
 
@@ -18,7 +18,7 @@ function Costs(_: RouteComponentProps) {
         <StyledHeader>
           <StyledTitle>Costs</StyledTitle>
           <Link to="/new-cost">
-            <img src={IconPlus} alt="add" height={40} />
+            <StyledAdd src={IconPlus} alt="add" height={40} />
           </Link>
         </StyledHeader>
         <CostList />
@@ -55,4 +55,9 @@ const StyledTitle = styled.h2`
   color: ${p => p.theme.colorHeader};
   font-size: ${p => p.theme.textL};
   font-weight: normal;
+`
+
+const StyledAdd = styled.img`
+  border-radius: 50%;
+  box-shadow: 0 0 6px 0 ${p => lighten(0.25, p.theme.colorPink)}};
 `

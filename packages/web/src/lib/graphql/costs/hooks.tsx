@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "react-apollo-hooks"
+import { useQuery, useMutation, useApolloClient } from "react-apollo-hooks"
 
 import { AllCosts, GetCost, EditCost, DestroyCost, CreateCost } from "../types"
 import {
@@ -11,41 +11,51 @@ import {
 import { GET_HOUSE } from "../house/queries"
 
 export function useAllCostsQuery(houseId: string, search: string) {
-  const { data, error, loading, fetchMore } = useQuery<
-    AllCosts.Query,
-    AllCosts.Variables
-  >(GET_ALL_COSTS, {
-    variables: {
-      houseId,
-      search,
-      skip: 0,
+  const client = useApolloClient()
+  const { data, error, loading } = useQuery<AllCosts.Query, AllCosts.Variables>(
+    GET_ALL_COSTS,
+    {
+      variables: {
+        houseId,
+        search,
+        skip: 0,
+      },
     },
-  })
+  )
   const costs = (!loading && data && data.allCosts && data.allCosts.costs) || []
   const costsCount =
     (!loading && data && data.allCosts && data.allCosts.count) || 0
 
-  const nextPage = (skip: number) =>
-    fetchMore({
-      variables: { houseId, skip, search },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult || !prev.allCosts || !fetchMoreResult.allCosts)
-          return prev
-        return Object.assign({}, prev, {
-          ...prev.allCosts,
-          allCosts: {
-            __typename: prev.allCosts.__typename,
-            count: prev.allCosts.count,
-            costs: [...prev.allCosts.costs, ...fetchMoreResult.allCosts.costs],
-          },
-        })
+  const handleRefetch = async (skip: number, currentSearch: string) => {
+    const { data: curentData } = await client.query<
+      AllCosts.Query,
+      AllCosts.Variables
+    >({
+      query: GET_ALL_COSTS,
+      variables: { skip, search: currentSearch, houseId },
+    })
+    if (!curentData || !curentData.allCosts) return
+    const prev = client.readQuery<AllCosts.Query, AllCosts.Variables>({
+      query: GET_ALL_COSTS,
+      variables: { skip: 0, houseId, search: currentSearch },
+    })
+    if (!prev || !prev.allCosts) return
+    const newData = Object.assign({}, prev, {
+      allCosts: {
+        ...prev.allCosts,
+        costs: [...prev.allCosts.costs, ...curentData.allCosts.costs],
       },
     })
-
+    await client.writeQuery({
+      query: GET_ALL_COSTS,
+      variables: { skip: 0, houseId, search: currentSearch },
+      data: newData,
+    })
+  }
   return {
     costs,
     costsCount,
-    fetchMore: nextPage,
+    fetchMore: handleRefetch,
     costsLoading: loading,
     allCostsError: error,
   }

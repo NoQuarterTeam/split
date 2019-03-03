@@ -20,9 +20,10 @@ function CostList() {
     house.id,
     search,
   )
+
   const costListRef = useRef<HTMLDivElement>(null)
-  const costsRef = useRef({ costs, costsCount, costsLoading })
-  costsRef.current = { costs, costsLoading, costsCount }
+  const costsRef = useRef({ costs, costsCount, costsLoading, search })
+  costsRef.current = { costs, costsLoading, costsCount, search }
 
   const handleScroll = () => {
     if (!costListRef.current) return
@@ -34,7 +35,7 @@ function CostList() {
       !costsRef.current.costsLoading &&
       costsRef.current.costs.length < costsRef.current.costsCount
     ) {
-      fetchMore(costsRef.current.costs.length)
+      fetchMore(costsRef.current.costs.length, costsRef.current.search)
     }
   }
 
@@ -44,9 +45,7 @@ function CostList() {
 
   useEventListener("scroll", debouncedScroll, true)
 
-  const handleSearchSubmit = (input: string) => {
-    setSearch(input)
-  }
+  const handleSearchSubmit = (input: string) => setSearch(input)
 
   const futureCosts = useMemo(
     () => costs && costs.filter(c => dayjs(c.date).isAfter(dayjs())),

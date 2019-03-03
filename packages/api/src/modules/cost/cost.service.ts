@@ -30,7 +30,7 @@ export class CostService {
           .andWhere("cost.name ilike :search", {
             search: `%${search}%`,
           })
-          .take(10)
+          .take(25)
           .skip(skip)
           .orderBy("cost.date", "DESC")
           .addOrderBy("cost.createdAt", "DESC")

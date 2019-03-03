@@ -1,4 +1,4 @@
-import React, { useState, useRef, memo } from "react"
+import React, { useState, memo } from "react"
 import styled from "../application/theme"
 import { GetHouse } from "../lib/graphql/types"
 import { useEditHouseMutation } from "../lib/graphql/house/hooks"
@@ -9,41 +9,36 @@ type HouseNameProps = {
 
 function HouseName({ house }: HouseNameProps) {
   const [houseName, setHouseName] = useState<string>(house.name)
-  const inputRef = useRef<HTMLInputElement>(null)
   const updateHouse = useEditHouseMutation()
 
   const handleHouseUpdate = (e: any) => {
-    if (e.key === "Enter") {
-      if (!houseName) return setHouseName(name)
-      updateHouse({
-        variables: {
-          houseId: house.id,
-          data: {
-            name: houseName,
-          },
+    e.preventDefault()
+    if (!houseName) return setHouseName(name)
+    updateHouse({
+      variables: {
+        houseId: house.id,
+        data: {
+          name: houseName,
         },
-        optimisticResponse: {
-          __typename: "Mutation",
-          editHouse: {
-            ...house,
-            name: houseName,
-            __typename: "House",
-          },
+      },
+      optimisticResponse: {
+        __typename: "Mutation",
+        editHouse: {
+          ...house,
+          name: houseName,
+          __typename: "House",
         },
-      })
-      if (inputRef.current) {
-        inputRef.current.blur()
-      }
-    }
+      },
+    })
   }
   return (
-    <StyledInput
-      ref={inputRef}
-      value={houseName}
-      onBlur={handleHouseUpdate}
-      onKeyPress={handleHouseUpdate}
-      onChange={e => setHouseName(e.target.value)}
-    />
+    <form onSubmit={handleHouseUpdate}>
+      <StyledInput
+        value={houseName}
+        onBlur={handleHouseUpdate}
+        onChange={e => setHouseName(e.target.value)}
+      />
+    </form>
   )
 }
 

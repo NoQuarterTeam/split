@@ -41,11 +41,11 @@ export const EDIT_COST = gql`
   mutation EditCost($costId: String!, $data: CostInput!) {
     editCost(costId: $costId, data: $data) {
       ...Cost
-      ...Payer
+      ...Shares
     }
   }
   ${Cost}
-  ${Payer}
+  ${Shares}
 `
 
 export const DESTROY_COST = gql`

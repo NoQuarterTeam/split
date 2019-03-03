@@ -23,7 +23,7 @@ function EditCostPage(props: EditCostProps) {
   const { cost } = useGetCostQuery(props.id!)
   if (!cost) return null
 
-  const editCost = useEditCostMutation()
+  const editCost = useEditCostMutation(cost.houseId)
   const destroyCost = useDestroyCostMutation(cost)
 
   const handleEditCost = async (costData: CostInput) => {

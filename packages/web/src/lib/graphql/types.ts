@@ -148,7 +148,7 @@ export namespace EditCost {
     editCost: Maybe<EditCost>
   }
 
-  export type EditCost = Cost.Fragment & Payer.Fragment
+  export type EditCost = Cost.Fragment & Shares.Fragment
 }
 
 export namespace DestroyCost {

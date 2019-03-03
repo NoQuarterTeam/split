@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useMemo } from "react"
 import dayjs from "dayjs"
 
 import styled, { media } from "../application/theme"
@@ -48,9 +48,15 @@ function CostList() {
     setSearch(input)
   }
 
-  // TODO use memo to store these
-  const futureCosts = costs && costs.filter(c => dayjs(c.date).isAfter(dayjs()))
-  const pastCosts = costs && costs.filter(c => dayjs(c.date).isBefore(dayjs()))
+  const futureCosts = useMemo(
+    () => costs && costs.filter(c => dayjs(c.date).isAfter(dayjs())),
+    [costs],
+  )
+  const pastCosts = useMemo(
+    () => costs && costs.filter(c => dayjs(c.date).isBefore(dayjs())),
+    [costs],
+  )
+
   return (
     <StyledList>
       <CostsSearch onSubmit={handleSearchSubmit} />
@@ -71,7 +77,7 @@ function CostList() {
       </StyledTableHeader>
       {futureCosts &&
         futureCosts.map(cost => <CostItem key={cost.id} cost={cost} />)}
-      {futureCosts && <Divider />}
+      {futureCosts && futureCosts.length > 0 && <Divider />}
       {pastCosts &&
         pastCosts.map(cost => <CostItem key={cost.id} cost={cost} />)}
       <div ref={costListRef} />

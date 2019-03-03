@@ -60,9 +60,15 @@ export function useGetCostQuery(costId: string) {
   return { cost, getCostError: error }
 }
 
-export function useEditCostMutation() {
+export function useEditCostMutation(houseId: string) {
   return useMutation<EditCost.Mutation, EditCost.Variables>(EDIT_COST, {
-    refetchQueries: [{ query: GET_HOUSE }],
+    refetchQueries: [
+      { query: GET_HOUSE },
+      {
+        query: GET_ALL_COSTS,
+        variables: { houseId, skip: 0, search: "" },
+      },
+    ],
     awaitRefetchQueries: true,
   })
 }

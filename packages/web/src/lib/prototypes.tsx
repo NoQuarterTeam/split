@@ -12,3 +12,9 @@ Array.prototype.groupBy = function(this: any, key: string) {
     values: obj[itemKey],
   }))
 }
+
+Array.prototype.sumBy = function(this: any, key: string) {
+  return this.reduce((acc: any, item: any) => {
+    return acc + item[key]
+  }, 0)
+}

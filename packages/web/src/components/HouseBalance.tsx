@@ -1,7 +1,7 @@
 import React, { memo } from "react"
 import { User } from "../lib/graphql/types"
 import { round } from "../lib/helpers"
-import styled from "../application/theme"
+import styled, { media } from "../application/theme"
 import Avatar from "./Avatar"
 
 type IHouseBalance = {
@@ -38,10 +38,14 @@ const StyledHouseBalance = styled.div`
   max-width: 500px;
   width: 100%;
   height: 400px;
-  margin: 30px auto;
+  margin: 0 auto;
   position: relative;
 
   ${p => p.theme.flexAround};
+
+  ${media.greaterThan("sm")`
+    margin: 30px auto;
+  `}
 `
 
 const StyledUserGraph = styled.div`

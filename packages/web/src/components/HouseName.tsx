@@ -48,6 +48,7 @@ const StyledInput = styled.input`
   outline: 0;
   width: 100%;
   border: 0;
+  padding: 0;
   border: 2px solid transparent;
   background-color: transparent;
   color: ${p => p.theme.colorHeader};

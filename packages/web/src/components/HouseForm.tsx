@@ -2,14 +2,14 @@ import React, { memo, useState } from "react"
 
 import styled from "../application/theme"
 
-import { GetHouse } from "../lib/graphql/types"
+import { GetHouseHouse } from "../lib/graphql/types"
 import { useCreateHouseMutation } from "../lib/graphql/house/hooks"
 
 import Input from "./Input"
 import Button from "./Button"
 
 type HouseFormProps = {
-  house?: GetHouse.House
+  house?: GetHouseHouse
 }
 
 function HouseForm({ house }: HouseFormProps) {

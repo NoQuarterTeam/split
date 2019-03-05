@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import dayjs from "dayjs"
 
 import styled, { media } from "../application/theme"
-import { CostInput, GetCost } from "../lib/graphql/types"
+import { CostInput, GetCostGetCost } from "../lib/graphql/types"
 
 import Button from "./Button"
 import useFormState from "../lib/hooks/useFormState"
@@ -12,7 +12,7 @@ import { splitTheBill, round } from "../lib/helpers"
 import useAppContext from "../lib/hooks/useAppContext"
 
 type CostFormProps = {
-  cost?: GetCost.GetCost
+  cost?: GetCostGetCost
   onFormSubmit: (data: CostInput) => Promise<any>
   onCostDelete?: () => void
 }

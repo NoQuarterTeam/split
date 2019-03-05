@@ -3,7 +3,7 @@ import Dropzone from "react-dropzone"
 import axios from "axios"
 import styled from "../application/theme"
 
-import { Me } from "../lib/graphql/types"
+import { MeMe } from "../lib/graphql/types"
 import IconCamera from "../assets/images/icon-camera.svg"
 import { useGetSignedS3UrlMutation } from "../lib/graphql/shared/hooks"
 import { useUpdateUserMutation } from "../lib/graphql/user/hooks"
@@ -12,7 +12,7 @@ import Avatar from "./Avatar"
 import Modal from "./Modal"
 
 type ProfileAvatarUploadProps = {
-  user: Me.Me
+  user: MeMe
 }
 
 function ProfileAvatarUpload({ user }: ProfileAvatarUploadProps) {

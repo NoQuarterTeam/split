@@ -3,7 +3,7 @@ import { navigate } from "@reach/router"
 
 import styled from "../application/theme"
 
-import { Me } from "../lib/graphql/types"
+import { MeMe } from "../lib/graphql/types"
 import useFormState from "../lib/hooks/useFormState"
 
 import Input from "./Input"
@@ -13,7 +13,7 @@ import { useUpdateUserMutation } from "../lib/graphql/user/hooks"
 import ProfileAvatarUpload from "./ProfileAvatarUpload"
 
 type ProfileFormProps = {
-  user: Me.Me
+  user: MeMe
 }
 
 type UpdateUserValues = {

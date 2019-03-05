@@ -3,7 +3,7 @@ import dayjs from "dayjs"
 import { Link } from "@reach/router"
 
 import styled, { media } from "../application/theme"
-import { AllCosts } from "../lib/graphql/types"
+import { AllCostsCosts } from "../lib/graphql/types"
 
 import IconOpen from "../assets/images/icon-open.svg"
 import IconRepeat from "../assets/images/icon-repeat.svg"
@@ -16,7 +16,7 @@ import ToolTip from "./ToolTip"
 import { round, capitalize } from "../lib/helpers"
 
 type CostProps = {
-  cost: AllCosts.Costs
+  cost: AllCostsCosts
 }
 
 function CostItem({ cost }: CostProps) {

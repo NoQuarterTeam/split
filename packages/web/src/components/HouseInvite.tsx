@@ -3,11 +3,11 @@ import styled from "../application/theme"
 import Input from "./Input"
 import Button from "./Button"
 import { sleep } from "../lib/helpers"
-import { GetHouse } from "../lib/graphql/types"
+import { GetHouseHouse } from "../lib/graphql/types"
 import { useInviteUserMutation } from "../lib/graphql/user/hooks"
 
 type HouseInviteProps = {
-  house: GetHouse.House
+  house: GetHouseHouse
 }
 
 function HouseInvite({ house }: HouseInviteProps) {

@@ -1,14 +1,14 @@
 import React, { memo } from "react"
-import { User } from "../lib/graphql/types"
+import { UserFragment } from "../lib/graphql/types"
 import { round } from "../lib/helpers"
 import styled, { media } from "../application/theme"
 import Avatar from "./Avatar"
 
-type IHouseBalance = {
-  users: User.Fragment[]
+type HouseBalanceProps = {
+  users: UserFragment[]
 }
 
-function HouseBalance({ users }: IHouseBalance) {
+function HouseBalance({ users }: HouseBalanceProps) {
   const total = users.reduce((acc, u) => Math.abs(u.balance) + acc, 0)
 
   return (

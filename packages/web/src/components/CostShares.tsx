@@ -1,14 +1,14 @@
 import React, { memo } from "react"
 import Participant from "./Participant"
 import Button from "./Button"
-import { User, CostInput } from "../lib/graphql/types"
+import { CostInput, UserFragment } from "../lib/graphql/types"
 import styled, { media } from "../application/theme"
 import Alert from "./Alert"
 import Column from "./styled/Column"
 import { round } from "../lib/helpers"
 
 type CostSharesProps = {
-  users: User.Fragment[]
+  users: UserFragment[]
   isDifferent: boolean
   formState: CostInput
   setFormState: (val: { [key: string]: any }) => void

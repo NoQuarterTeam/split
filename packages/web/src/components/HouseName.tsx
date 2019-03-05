@@ -1,10 +1,10 @@
 import React, { useState, memo } from "react"
 import styled from "../application/theme"
-import { GetHouse } from "../lib/graphql/types"
+import { GetHouseHouse } from "../lib/graphql/types"
 import { useEditHouseMutation } from "../lib/graphql/house/hooks"
 
 type HouseNameProps = {
-  house: GetHouse.House
+  house: GetHouseHouse
 }
 
 function HouseName({ house }: HouseNameProps) {

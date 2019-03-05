@@ -1,10 +1,10 @@
 import { useContext } from "react"
 import { AppContext } from "../../application/context"
-import { Me, GetHouse } from "../graphql/types"
+import { MeMe, GetHouseHouse } from "../graphql/types"
 
 type AppContextReturn = {
-  user: Me.Me
-  house: GetHouse.House
+  user: MeMe
+  house: GetHouseHouse
 }
 
 function useAppContext(): AppContextReturn {

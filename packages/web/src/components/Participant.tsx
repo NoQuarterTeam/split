@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import { ShareInput, UserFragment } from "../lib/graphql/types"
+import { ShareInput, User } from "../lib/graphql/types"
 import styled, { media } from "../application/theme"
 import { decimalCount } from "../lib/helpers"
 
@@ -9,7 +9,7 @@ import Avatar from "./Avatar"
 import Column from "./styled/Column"
 
 type ParticipantProps = {
-  user: UserFragment
+  user: User.Fragment
   isPayer: boolean
   shares: ShareInput[]
   setFormState: (val: { [key: string]: any }) => void

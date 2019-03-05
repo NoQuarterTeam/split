@@ -8,7 +8,7 @@ import IconLogo from "../../assets/images/icon-logo.svg"
 import Center from "../../components/styled/Center"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
-import { useForgotPasswordMutation } from "../../lib/graphql/user/hooks"
+import { useForgotPassword } from "../../lib/graphql/user/hooks"
 
 function ForgotPassword(props: RouteComponentProps) {
   const [email, setEmail] = useState<string>("")
@@ -16,7 +16,7 @@ function ForgotPassword(props: RouteComponentProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
 
-  const forgotPassword = useForgotPasswordMutation()
+  const forgotPassword = useForgotPassword()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()

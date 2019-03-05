@@ -7,8 +7,8 @@ import styled from "../../application/theme"
 import IconLogo from "../../assets/images/icon-logo.svg"
 import Button from "../../components/Button"
 import Input from "../../components/Input"
-import { useRegisterMutation } from "../../lib/graphql/user/hooks"
-import { useCheckHouseQuery } from "../../lib/graphql/house/hooks"
+import { useRegister } from "../../lib/graphql/user/hooks"
+import { useCheckHouse } from "../../lib/graphql/house/hooks"
 import { GraphQLError } from "graphql"
 
 function Register(props: RouteComponentProps) {
@@ -25,8 +25,8 @@ function Register(props: RouteComponentProps) {
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
-  const { house, checkHouseError } = useCheckHouseQuery(inviteHouseId)
-  const register = useRegisterMutation()
+  const { house, checkHouseError } = useCheckHouse(inviteHouseId)
+  const register = useRegister()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()

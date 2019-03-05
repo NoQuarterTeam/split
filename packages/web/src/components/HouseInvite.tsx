@@ -3,11 +3,11 @@ import styled from "../application/theme"
 import Input from "./Input"
 import Button from "./Button"
 import { sleep } from "../lib/helpers"
-import { GetHouseHouse } from "../lib/graphql/types"
-import { useInviteUserMutation } from "../lib/graphql/user/hooks"
+import { GetHouse } from "../lib/graphql/types"
+import { useInviteUser } from "../lib/graphql/user/hooks"
 
 type HouseInviteProps = {
-  house: GetHouseHouse
+  house: GetHouse.House
 }
 
 function HouseInvite({ house }: HouseInviteProps) {
@@ -23,7 +23,7 @@ function HouseInvite({ house }: HouseInviteProps) {
     }
   }
 
-  const inviteUser = useInviteUserMutation()
+  const inviteUser = useInviteUser()
 
   const handleInviteSend = (e: any) => {
     e.preventDefault()

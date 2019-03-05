@@ -6,9 +6,9 @@ import { CostInput } from "../../lib/graphql/types"
 import CostForm from "../../components/CostForm"
 import useAppContext from "../../lib/hooks/useAppContext"
 import {
-  useGetCostQuery,
-  useEditCostMutation,
-  useDestroyCostMutation,
+  useGetCost,
+  useEditCost,
+  useDestroyCost,
 } from "../../lib/graphql/costs/hooks"
 import QuickPage from "../../components/QuickPage"
 
@@ -20,11 +20,11 @@ function EditCostPage(props: EditCostProps) {
   const { user } = useAppContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
-  const { cost } = useGetCostQuery(props.id!)
+  const { cost } = useGetCost(props.id!)
   if (!cost) return null
 
-  const editCost = useEditCostMutation(cost.houseId)
-  const destroyCost = useDestroyCostMutation(cost)
+  const editCost = useEditCost(cost.houseId)
+  const destroyCost = useDestroyCost(cost)
 
   const handleEditCost = async (costData: CostInput) => {
     await editCost({

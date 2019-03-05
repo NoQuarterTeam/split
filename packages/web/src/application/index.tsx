@@ -6,8 +6,10 @@ import ErrorBoundary from "react-error-boundary"
 
 import { AppContext } from "./context"
 
-import { useMeQuery } from "../lib/graphql/user/hooks"
 import { production } from "../lib/config"
+
+import { useMe } from "../lib/graphql/user/hooks"
+import { useGetHouse } from "../lib/graphql/house/hooks"
 
 import Loading from "../components/Loading"
 import CheckAuth from "../components/CheckAuth"
@@ -18,11 +20,10 @@ import EditCost from "../pages/EditCost"
 import Costs from "../pages/Costs"
 import Settings from "../pages/Settings"
 import ErrorFallback from "../components/ErrorFallback"
-import { useGetHouseQuery } from "../lib/graphql/house/hooks"
 
 function Application() {
-  const { user, userLoading } = useMeQuery()
-  const { house, getHouseLoading } = useGetHouseQuery()
+  const { user, userLoading } = useMe()
+  const { house, getHouseLoading } = useGetHouse()
   const errorHandler = (e: Error, componentStack: string) => {
     console.log(e)
   }

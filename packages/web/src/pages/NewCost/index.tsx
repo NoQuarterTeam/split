@@ -3,17 +3,17 @@ import { RouteComponentProps, Redirect } from "@reach/router"
 
 import { CostInput } from "../../lib/graphql/types"
 
-import CostForm from "../../components/CostForm"
-
 import useAppContext from "../../lib/hooks/useAppContext"
-import { useCreateCostMutation } from "../../lib/graphql/costs/hooks"
+import { useCreateCost } from "../../lib/graphql/costs/hooks"
+
+import CostForm from "../../components/CostForm"
 import QuickPage from "../../components/QuickPage"
 
 function NewCost(_: RouteComponentProps) {
   const { user } = useAppContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
-  const createCost = useCreateCostMutation(user.houseId)
+  const createCost = useCreateCost(user.houseId)
 
   const handleCreateCost = async (costData: CostInput) => {
     await createCost({

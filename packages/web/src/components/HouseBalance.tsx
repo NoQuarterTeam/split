@@ -1,11 +1,11 @@
 import React, { memo } from "react"
-import { UserFragment } from "../lib/graphql/types"
+import { User } from "../lib/graphql/types"
 import { round } from "../lib/helpers"
 import styled, { media } from "../application/theme"
 import Avatar from "./Avatar"
 
 type HouseBalanceProps = {
-  users: UserFragment[]
+  users: User.Fragment[]
 }
 
 function HouseBalance({ users }: HouseBalanceProps) {

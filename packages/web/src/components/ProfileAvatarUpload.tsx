@@ -3,23 +3,23 @@ import Dropzone from "react-dropzone"
 import axios from "axios"
 import styled from "../application/theme"
 
-import { MeMe } from "../lib/graphql/types"
+import { Me } from "../lib/graphql/types"
 import IconCamera from "../assets/images/icon-camera.svg"
-import { useGetSignedS3UrlMutation } from "../lib/graphql/shared/hooks"
-import { useUpdateUserMutation } from "../lib/graphql/user/hooks"
+import { useGetSignedS3Url } from "../lib/graphql/shared/hooks"
+import { useUpdateUser } from "../lib/graphql/user/hooks"
 
 import Avatar from "./Avatar"
 import Modal from "./Modal"
 
 type ProfileAvatarUploadProps = {
-  user: MeMe
+  user: Me.Me
 }
 
 function ProfileAvatarUpload({ user }: ProfileAvatarUploadProps) {
   const [avatar, setAvatar] = useState<any>()
 
-  const updateUser = useUpdateUserMutation()
-  const getSignedS3Url = useGetSignedS3UrlMutation()
+  const updateUser = useUpdateUser()
+  const getSignedS3Url = useGetSignedS3Url()
 
   const handleFileDrop = (droppedFile: any) => {
     setAvatar({

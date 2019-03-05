@@ -1,15 +1,15 @@
 import React, { useState, memo } from "react"
 import styled from "../application/theme"
-import { GetHouseHouse } from "../lib/graphql/types"
-import { useEditHouseMutation } from "../lib/graphql/house/hooks"
+import { GetHouse } from "../lib/graphql/types"
+import { useEditHouse } from "../lib/graphql/house/hooks"
 
 type HouseNameProps = {
-  house: GetHouseHouse
+  house: GetHouse.House
 }
 
 function HouseName({ house }: HouseNameProps) {
   const [houseName, setHouseName] = useState<string>(house.name)
-  const updateHouse = useEditHouseMutation()
+  const updateHouse = useEditHouse()
 
   const handleHouseUpdate = (e: any) => {
     e.preventDefault()

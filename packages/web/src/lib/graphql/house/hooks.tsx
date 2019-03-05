@@ -1,20 +1,13 @@
-import {
-  useCreateHouse,
-  useCheckHouse,
-  useGetHouse,
-  GetHouseDocument,
-  useEditHouse,
-  MeDocument,
-} from "../types"
+import { GetHouse, CheckHouse, CreateHouse, EditHouse, Me } from "../types"
 
-export function useGetHouseQuery() {
-  const { data, error, loading } = useGetHouse()
+export function useGetHouse() {
+  const { data, error, loading } = GetHouse.use()
   const house = data!.house!
   return { house, getHouseLoading: loading, getHouseError: error }
 }
 
-export function useCheckHouseQuery(houseId: string | null) {
-  const { data, error } = useCheckHouse({
+export function useCheckHouse(houseId: string | null) {
+  const { data, error } = CheckHouse.use({
     variables: { houseId },
     suspend: true,
   })
@@ -22,14 +15,14 @@ export function useCheckHouseQuery(houseId: string | null) {
   return { house, checkHouseError: error }
 }
 
-export function useCreateHouseMutation() {
-  return useCreateHouse({
-    refetchQueries: [{ query: MeDocument }],
+export function useCreateHouse() {
+  return CreateHouse.use({
+    refetchQueries: [{ query: Me.Document }],
     awaitRefetchQueries: true,
     update: (cache, { data }) => {
       if (data) {
         cache.writeQuery({
-          query: GetHouseDocument,
+          query: GetHouse.Document,
           data: { house: data.createHouse },
         })
       }
@@ -37,12 +30,12 @@ export function useCreateHouseMutation() {
   })
 }
 
-export function useEditHouseMutation() {
-  return useEditHouse({
+export function useEditHouse() {
+  return EditHouse.use({
     update: (cache, { data }) => {
       if (data) {
         const res = data.editHouse
-        cache.writeQuery({ query: GetHouseDocument, data: { house: res } })
+        cache.writeQuery({ query: GetHouse.Document, data: { house: res } })
       }
     },
   })

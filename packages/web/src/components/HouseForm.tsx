@@ -2,14 +2,14 @@ import React, { memo, useState } from "react"
 
 import styled from "../application/theme"
 
-import { GetHouseHouse } from "../lib/graphql/types"
-import { useCreateHouseMutation } from "../lib/graphql/house/hooks"
+import { GetHouse } from "../lib/graphql/types"
+import { useCreateHouse } from "../lib/graphql/house/hooks"
 
 import Input from "./Input"
 import Button from "./Button"
 
 type HouseFormProps = {
-  house?: GetHouseHouse
+  house?: GetHouse.House
 }
 
 function HouseForm({ house }: HouseFormProps) {
@@ -17,7 +17,7 @@ function HouseForm({ house }: HouseFormProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 
-  const createHouse = useCreateHouseMutation()
+  const createHouse = useCreateHouse()
 
   const handleCreateHouseSubmit = (e: any) => {
     e.preventDefault()

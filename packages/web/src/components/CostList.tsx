@@ -4,9 +4,9 @@ import dayjs from "dayjs"
 import styled, { media } from "../application/theme"
 import useEventListener from "../lib/hooks/useEventListener"
 import { useDebouncedCallback } from "../lib/hooks/useDebounce"
-
 import useAppContext from "../lib/hooks/useAppContext"
-import { useAllCostsQuery } from "../lib/graphql/costs/hooks"
+
+import { useAllCosts } from "../lib/graphql/costs/hooks"
 
 import CostItem from "../components/CostItem"
 import Column from "./styled/Column"
@@ -16,7 +16,7 @@ import Divider from "./styled/Divider"
 function CostList() {
   const { house } = useAppContext()
   const [search, setSearch] = useState<string>("")
-  const { costs, costsCount, fetchMore, costsLoading } = useAllCostsQuery(
+  const { costs, costsCount, fetchMore, costsLoading } = useAllCosts(
     house.id,
     search,
   )

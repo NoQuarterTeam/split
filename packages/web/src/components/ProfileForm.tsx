@@ -3,17 +3,17 @@ import { navigate } from "@reach/router"
 
 import styled from "../application/theme"
 
-import { MeMe } from "../lib/graphql/types"
+import { Me } from "../lib/graphql/types"
 import useFormState from "../lib/hooks/useFormState"
+import { useUpdateUser } from "../lib/graphql/user/hooks"
 
 import Input from "./Input"
 import Button from "./Button"
-import { useUpdateUserMutation } from "../lib/graphql/user/hooks"
 
 import ProfileAvatarUpload from "./ProfileAvatarUpload"
 
 type ProfileFormProps = {
-  user: MeMe
+  user: Me.Me
 }
 
 type UpdateUserValues = {
@@ -32,7 +32,7 @@ function ProfileForm({ user }: ProfileFormProps) {
   })
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
-  const updateUser = useUpdateUserMutation()
+  const updateUser = useUpdateUser()
 
   const handleUpdateUser = (e: any) => {
     e.preventDefault()

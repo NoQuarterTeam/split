@@ -7,7 +7,6 @@ generates:
       withHooks: true
       noComponents: true
       noHOC: true
-      noNamespaces: true
       contextType: ./application/context#AppContext
     plugins:
       - typescript-common

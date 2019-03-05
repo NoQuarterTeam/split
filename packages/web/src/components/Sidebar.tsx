@@ -7,14 +7,11 @@ import IconPlus from "../assets/images/icon-plus.svg"
 import IconLogo from "../assets/images/icon-logo.svg"
 
 import useAppContext from "../lib/hooks/useAppContext"
-import { useLogoutMutation } from "../lib/graphql/user/hooks"
+import { useLogout } from "../lib/graphql/user/hooks"
 
 function Sidebar({ activePage, open }: { activePage: string; open: boolean }) {
   const { user } = useAppContext()
-  const logout = useLogoutMutation()
-  const handleLogout = () => {
-    logout()
-  }
+  const logout = useLogout()
 
   return (
     <StyledSidebar open={open}>
@@ -41,7 +38,11 @@ function Sidebar({ activePage, open }: { activePage: string; open: boolean }) {
         <Link to="/settings">
           <StyledLink active={activePage === "settings"}>Settings</StyledLink>
         </Link>
-        <div tabIndex={0} onClick={handleLogout} style={{ cursor: "pointer" }}>
+        <div
+          tabIndex={0}
+          onClick={() => logout()}
+          style={{ cursor: "pointer" }}
+        >
           <StyledLink>Logout</StyledLink>
         </div>
       </div>

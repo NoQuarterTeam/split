@@ -5,7 +5,7 @@ import styled from "../../application/theme"
 import IconLogo from "../../assets/images/icon-logo.svg"
 import Button from "../../components/Button"
 import Input from "../../components/Input"
-import { useLoginMutation } from "../../lib/graphql/user/hooks"
+import { useLogin } from "../../lib/graphql/user/hooks"
 import { GraphQLError } from "graphql"
 import Center from "../../components/styled/Center"
 
@@ -15,7 +15,7 @@ function Login(props: RouteComponentProps) {
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
-  const login = useLoginMutation()
+  const login = useLogin()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()

@@ -8,7 +8,7 @@ import IconLogo from "../../assets/images/icon-logo.svg"
 import Center from "../../components/styled/Center"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
-import { useResetPasswordMutation } from "../../lib/graphql/user/hooks"
+import { useResetPassword } from "../../lib/graphql/user/hooks"
 
 interface ResetPasswordProps extends RouteComponentProps {
   token?: string
@@ -20,7 +20,7 @@ function ResetPassword(props: ResetPasswordProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
 
-  const resetPassword = useResetPasswordMutation()
+  const resetPassword = useResetPassword()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()

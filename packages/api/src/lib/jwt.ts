@@ -9,7 +9,7 @@ export const createToken = (userId: string): Promise<string> => {
         {
           issuer: "@split/api",
           audience: ["@split/app", "@split/web"],
-          expiresIn: "2w",
+          expiresIn: "4w",
         },
       )
       resolve(token)

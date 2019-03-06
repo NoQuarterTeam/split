@@ -33,6 +33,11 @@ async function main() {
           credentialsRequired: false,
         }),
       )
+      .use((err: any, _: any, res: any, next: any) => {
+        if (err.name === "UnauthorizedError") {
+          next()
+        }
+      })
 
     const schema = await buildSchema({
       authChecker,

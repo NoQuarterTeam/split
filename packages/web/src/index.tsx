@@ -20,7 +20,6 @@ if (production) {
 }
 
 const client = new ApolloClient({
-  credentials: "include",
   uri: apiUrl,
   request: async operation => {
     const token = await localStorage.getItem("token")

@@ -9,8 +9,8 @@ export const webUrl =
 
 // CORS
 export const cors = {
-  credentials: true,
-  origin: [webUrl],
+  credentials: false,
+  origin: "*",
 }
 
 // PORT

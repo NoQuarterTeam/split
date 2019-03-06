@@ -47,7 +47,7 @@ function CostItem({ cost }: CostProps) {
         <Column flex={5}>
           <Avatar user={cost.payer} size={40} />
         </Column>
-        <Column flex={3}>
+        <Column flex={4}>
           <StyledValue>{dayjs(cost.date).format("DD MMM")}</StyledValue>
         </Column>
         <Column flex={1}>

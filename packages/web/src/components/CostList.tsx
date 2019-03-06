@@ -69,7 +69,7 @@ function CostList() {
         <Column flex={5}>
           <StyledLabel>Payer</StyledLabel>
         </Column>
-        <Column flex={3}>
+        <Column flex={4}>
           <StyledLabel>Date</StyledLabel>
         </Column>
         <Column flex={1} />

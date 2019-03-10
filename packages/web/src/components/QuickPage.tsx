@@ -28,7 +28,7 @@ const QuickPage: FC<QuickPageProps> = ({ children, title }) => {
             alt="close"
             style={{ minHeight: 60 }}
           />
-          Esc
+          <span>Esc</span>
         </StyledClose>
       </StyledTopbar>
       {children}
@@ -70,5 +70,12 @@ const StyledClose = styled.div`
 
   &:hover {
     opacity: 0.9;
+  }
+
+  span {
+    display: none;
+    ${media.greaterThan("md")`
+      display: block;
+    `}
   }
 `

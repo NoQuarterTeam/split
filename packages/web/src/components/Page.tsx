@@ -67,5 +67,6 @@ const StyledPageContent = styled.div`
   width: 100%;
   min-height: 100vh;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   background-color: ${p => p.theme.colorBackground};
 `

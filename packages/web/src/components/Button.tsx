@@ -5,7 +5,7 @@ import { capitalize } from "../lib/helpers"
 export type Variant = "primary" | "secondary" | "tertiary"
 export type Color = "blue" | "pink"
 
-interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant
   color?: Color
   loading?: boolean
@@ -19,7 +19,7 @@ function Button({
   loading = false,
   disabled = false,
   ...props
-}: IButtonProps) {
+}: ButtonProps) {
   return (
     <StyledButton
       variant={variant}
@@ -35,7 +35,7 @@ function Button({
 
 export default memo(Button)
 
-const StyledButton = styled.button<IButtonProps>`
+const StyledButton = styled.button<ButtonProps>`
   outline: 0;
   letter-spacing: 1px;
   color: white;
@@ -58,7 +58,7 @@ const StyledButton = styled.button<IButtonProps>`
 const getVariantStyles = ({
   color,
   variant,
-}: IThemeInterface & IButtonProps) => {
+}: IThemeInterface & ButtonProps) => {
   switch (variant!) {
     case "primary":
       return primaryStyles(color!)

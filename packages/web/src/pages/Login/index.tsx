@@ -1,13 +1,12 @@
 import React, { memo, useState } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
+import { GraphQLError } from "graphql"
 import styled from "../../application/theme"
 
-import IconLogo from "../../assets/images/icon-logo.svg"
+import { useLogin } from "../../lib/graphql/user/hooks"
 import Button from "../../components/Button"
 import Input from "../../components/Input"
-import { useLogin } from "../../lib/graphql/user/hooks"
-import { GraphQLError } from "graphql"
-import Center from "../../components/styled/Center"
+import AuthForm from "../../components/AuthForm"
 
 function Login(props: RouteComponentProps) {
   const [email, setEmail] = useState<string>("")
@@ -31,65 +30,42 @@ function Login(props: RouteComponentProps) {
   }
 
   return (
-    <Center style={{ height: "100vh" }}>
-      <StyledForm onSubmit={handleSubmit}>
-        <StyledHeader>
-          <img src={IconLogo} width={30} alt="logo" />
-          Split
-        </StyledHeader>
-        <Input
-          label="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          type="email"
-          required={true}
-          placeholder="jim@gmail.com"
-        />
-        <br />
-        <Input
-          label="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          type="password"
-          required={true}
-          placeholder="********"
-        />
-        <br />
-        <Button loading={loading} full={true}>
-          Login
-        </Button>
-        {error && <StyledError>{error}</StyledError>}
-        <StyledLinks>
-          <Link to="/forgot-password">
-            <StyledLink>Forgot password?</StyledLink>
-          </Link>
-          <Link to="/register">
-            <StyledLink>Sign up</StyledLink>
-          </Link>
-        </StyledLinks>
-      </StyledForm>
-    </Center>
+    <AuthForm handleSubmit={handleSubmit}>
+      <Input
+        label="Email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        type="email"
+        required={true}
+        placeholder="jim@gmail.com"
+      />
+      <br />
+      <Input
+        label="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        type="password"
+        required={true}
+        placeholder="********"
+      />
+      <br />
+      <Button loading={loading} full={true}>
+        Login
+      </Button>
+      {error && <StyledError>{error}</StyledError>}
+      <StyledLinks>
+        <Link to="/forgot-password">
+          <StyledLink>Forgot password?</StyledLink>
+        </Link>
+        <Link to="/register">
+          <StyledLink>Sign up</StyledLink>
+        </Link>
+      </StyledLinks>
+    </AuthForm>
   )
 }
 
 export default memo(Login)
-
-const StyledForm = styled.form`
-  height: 100%;
-  max-width: 450px;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  padding: ${p => p.theme.paddingL};
-`
-
-const StyledHeader = styled.h1`
-  margin-bottom: ${p => p.theme.paddingXL};
-`
 
 const StyledLinks = styled.div`
   width: 100%;

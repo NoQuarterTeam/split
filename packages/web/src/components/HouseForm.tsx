@@ -41,7 +41,7 @@ function HouseForm({ house }: HouseFormProps) {
         label="House name"
       />
       <br />
-      <Button loading={loading} variant="secondary">
+      <Button loading={loading} variant="primary" color="blue">
         Submit
       </Button>
       {error && <StyledError>{error}</StyledError>}
@@ -57,11 +57,11 @@ const StyledForm = styled.form`
   width: 100%;
   margin: 0 auto;
   position: relative;
-  padding: ${p => p.theme.paddingM};
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
+  padding: ${p => p.theme.paddingM};
 `
 
 const StyledHeader = styled.h1`

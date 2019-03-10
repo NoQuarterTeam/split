@@ -37,8 +37,9 @@ export class HouseResolver {
   // GET HOUSE
   @Authorized()
   @Query(() => House, { nullable: true })
-  async house(@Ctx() { userId }: IResolverContext): Promise<House> {
+  async house(@Ctx() { userId }: IResolverContext): Promise<House | null> {
     const user = await this.userService.findById(userId)
+    if (!user.houseId) return null
     const house = await this.houseService.findById(user.houseId)
     return house
   }

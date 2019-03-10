@@ -43,7 +43,6 @@ async function main() {
       authChecker,
       authMode: "null",
       resolvers: [__dirname + resolverPaths],
-      validate: false,
     })
 
     const apolloServer = new ApolloServer({

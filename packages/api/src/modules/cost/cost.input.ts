@@ -1,4 +1,5 @@
 import { InputType, Field, ArgsType } from "type-graphql"
+import { IsPositive } from "class-validator"
 import { Cost } from "./cost.entity"
 import { ShareInput } from "../share/share.input"
 import { PaginationArgs } from "../shared/shared.input"
@@ -17,6 +18,7 @@ export class CostInput implements Partial<Cost> {
   @Field()
   name: string
 
+  @IsPositive()
   @Field()
   amount: number
 

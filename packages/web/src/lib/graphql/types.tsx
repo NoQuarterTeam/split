@@ -227,13 +227,7 @@ export namespace EditHouse {
     editHouse: Maybe<EditHouse>
   }
 
-  export type EditHouse = {
-    __typename?: "House"
-
-    users: Users[]
-  } & House.Fragment
-
-  export type Users = User.Fragment
+  export type EditHouse = House.Fragment
 }
 
 export namespace GetSignedS3Url {
@@ -720,14 +714,10 @@ export namespace EditHouse {
     mutation EditHouse($houseId: String!, $data: HouseInput!) {
       editHouse(houseId: $houseId, data: $data) {
         ...House
-        users {
-          ...User
-        }
       }
     }
 
     ${House.FragmentDoc}
-    ${User.FragmentDoc}
   `
   export function use(
     baseOptions?: ReactApolloHooks.MutationHookOptions<Mutation, Variables>,

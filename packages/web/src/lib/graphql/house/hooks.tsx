@@ -17,13 +17,19 @@ export function useCheckHouse(houseId: string | null) {
 
 export function useCreateHouse() {
   return CreateHouse.use({
-    refetchQueries: [{ query: Me.Document }],
-    awaitRefetchQueries: true,
     update: (cache, { data }) => {
-      if (data) {
+      const getMe = cache.readQuery<Me.Query, Me.Variables>({
+        query: Me.Document,
+      })
+      if (data && data.createHouse && getMe) {
+        const house = data.createHouse
         cache.writeQuery({
           query: GetHouse.Document,
-          data: { house: data.createHouse },
+          data: { house },
+        })
+        cache.writeQuery({
+          query: Me.Document,
+          data: { me: { ...getMe.me, houseId: data.createHouse.id } },
         })
       }
     },
@@ -33,9 +39,15 @@ export function useCreateHouse() {
 export function useEditHouse() {
   return EditHouse.use({
     update: (cache, { data }) => {
-      if (data) {
+      const getHouse = cache.readQuery<GetHouse.Query, GetHouse.Variables>({
+        query: GetHouse.Document,
+      })
+      if (data && data.editHouse && getHouse) {
         const res = data.editHouse
-        cache.writeQuery({ query: GetHouse.Document, data: { house: res } })
+        cache.writeQuery({
+          query: GetHouse.Document,
+          data: { house: { ...getHouse.house, name: res.name } },
+        })
       }
     },
   })

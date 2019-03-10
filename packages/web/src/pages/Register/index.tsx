@@ -1,15 +1,16 @@
 import React, { memo, useState } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import queryString from "query-string"
+import { GraphQLError } from "graphql"
 
 import styled from "../../application/theme"
 
-import IconLogo from "../../assets/images/icon-logo.svg"
-import Button from "../../components/Button"
-import Input from "../../components/Input"
 import { useRegister } from "../../lib/graphql/user/hooks"
 import { useCheckHouse } from "../../lib/graphql/house/hooks"
-import { GraphQLError } from "graphql"
+
+import Input from "../../components/Input"
+import Button from "../../components/Button"
+import AuthForm from "../../components/AuthForm"
 
 function Register(props: RouteComponentProps) {
   let inviteHouseId: string | null = null
@@ -44,95 +45,68 @@ function Register(props: RouteComponentProps) {
   }
 
   return (
-    <StyledRegister>
-      <StyledForm onSubmit={handleSubmit}>
-        <StyledHeader>
-          <img src={IconLogo} width={30} alt="logo" />
-          Split
-        </StyledHeader>
-        {house ? (
-          <StyledInviteHeader>
-            You are being invited to join {house.name}
-          </StyledInviteHeader>
-        ) : (
-          checkHouseError && (
-            <StyledInviteHeader>Invalid invite code</StyledInviteHeader>
-          )
-        )}
-        <Input
-          label="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          type="email"
-          required={true}
-          placeholder="jim@gmail.com"
-        />
-        <br />
-        <Input
-          label="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          type="password"
-          required={true}
-          placeholder="********"
-        />
-        <Input
-          label="First name"
-          value={firstName}
-          onChange={e => setFirstName(e.target.value)}
-          type="text"
-          required={true}
-          placeholder="Jim"
-        />
-        <br />
+    <AuthForm handleSubmit={handleSubmit}>
+      {house ? (
+        <StyledInviteHeader>
+          You are being invited to join {house.name}
+        </StyledInviteHeader>
+      ) : (
+        checkHouseError && (
+          <StyledInviteHeader>Invalid invite code</StyledInviteHeader>
+        )
+      )}
+      <Input
+        label="Email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        type="email"
+        required={true}
+        placeholder="jim@gmail.com"
+      />
+      <br />
+      <Input
+        label="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        type="password"
+        required={true}
+        placeholder="********"
+      />
+      <Input
+        label="First name"
+        value={firstName}
+        onChange={e => setFirstName(e.target.value)}
+        type="text"
+        required={true}
+        placeholder="Jim"
+      />
+      <br />
 
-        <Input
-          label="Last name"
-          value={lastName}
-          onChange={e => setLastName(e.target.value)}
-          type="text"
-          required={true}
-          placeholder="Sebe"
-        />
-        <br />
-        <Button disabled={loading} loading={loading} full={true}>
-          Sign up
-        </Button>
-        {error && <StyledError>{error}</StyledError>}
-        <Link to="/login">
-          <StyledLink>Login</StyledLink>
-        </Link>
-      </StyledForm>
-    </StyledRegister>
+      <Input
+        label="Last name"
+        value={lastName}
+        onChange={e => setLastName(e.target.value)}
+        type="text"
+        required={true}
+        placeholder="Sebe"
+      />
+      <br />
+      <Button disabled={loading} loading={loading} full={true}>
+        Sign up
+      </Button>
+      {error && <StyledError>{error}</StyledError>}
+      <Link to="/login">
+        <StyledLink>Login</StyledLink>
+      </Link>
+    </AuthForm>
   )
 }
 
 export default memo(Register)
 
-const StyledRegister = styled.div`
-  min-height: 100vh;
-  width: 100%;
-`
-const StyledForm = styled.form`
-  height: 100%;
-  max-width: 450px;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  padding: ${p => p.theme.paddingL};
-`
-
 const StyledInviteHeader = styled.h2`
   width: 100%;
   text-align: center;
-  margin-bottom: ${p => p.theme.paddingXL};
-`
-
-const StyledHeader = styled.h1`
   margin-bottom: ${p => p.theme.paddingXL};
 `
 

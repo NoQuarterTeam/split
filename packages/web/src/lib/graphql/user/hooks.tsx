@@ -16,6 +16,7 @@ export function useMe() {
   const user = (data && data.me) || null
   return { user, userLoading: loading }
 }
+
 export function useLogin() {
   return Login.use({
     refetchQueries: [{ query: GetHouse.Document }],

@@ -3,13 +3,14 @@ import dayjs from "dayjs"
 
 import styled, { media } from "../application/theme"
 import { CostInput, GetCost } from "../lib/graphql/types"
-import { splitTheBill, round } from "../lib/helpers"
+import { splitTheBill, round, sleep } from "../lib/helpers"
 
 import useFormState from "../lib/hooks/useFormState"
 import useAppContext from "../lib/hooks/useAppContext"
 import Button from "./Button"
 import CostInputs from "./CostInputs"
 import CostShares from "./CostShares"
+import ErrorBanner from "./ErrorBanner"
 
 type CostFormProps = {
   cost?: GetCost.GetCost
@@ -39,7 +40,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   })
   const [isMounted, setIsMounted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string>("")
+  const [error, setError] = useState<string | null>(null)
 
   const isDifferent =
     round(formState.amount) !==
@@ -61,7 +62,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
 
   const handleCostCreate = async (e: any) => {
     e.preventDefault()
-    if (isDifferent) return setError("Split not equal to amount")
+    if (isDifferent) return
     setLoading(true)
     const costData = {
       ...formState,
@@ -72,8 +73,10 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
         amount: round(s.amount * 100),
       })),
     }
-    onFormSubmit(costData).catch(houseError => {
-      setError(houseError.message)
+    onFormSubmit(costData).catch(async () => {
+      setError("Oops, something went wrong, we have been notified!")
+      await sleep(4000)
+      setError(null)
       setLoading(false)
     })
   }
@@ -109,7 +112,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
           </Button>
         )}
       </div>
-      {error && <p>{error}</p>}
+      {error && <ErrorBanner text={error} />}
     </StyledForm>
   )
 }

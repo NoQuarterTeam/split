@@ -33,6 +33,7 @@ function Application() {
       email: user.email,
     })
   }
+  console.log(house)
 
   return (
     <AppContext.Provider value={{ user, house }}>

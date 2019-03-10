@@ -1,14 +1,13 @@
 import React, { useState, Fragment } from "react"
-import styled from "styled-components"
 import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
 
-import IconLogo from "../../assets/images/icon-logo.svg"
+import styled from "../../application/theme"
+import { useResetPassword } from "../../lib/graphql/user/hooks"
 
-import Center from "../../components/styled/Center"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
-import { useResetPassword } from "../../lib/graphql/user/hooks"
+import AuthForm from "../../components/AuthForm"
 
 interface ResetPasswordProps extends RouteComponentProps {
   token?: string
@@ -39,61 +38,38 @@ function ResetPassword(props: ResetPasswordProps) {
       })
   }
   return (
-    <Center style={{ height: "100vh" }}>
-      <StyledForm onSubmit={handleSubmit}>
-        <StyledHeader>
-          <img src={IconLogo} width={30} alt="logo" />
-          Split
-        </StyledHeader>
-        {success ? (
-          <p>Password updated! Try logging in now.</p>
-        ) : (
-          <Fragment>
-            <p>Enter a new password, try not forgetting it this time!</p>
-            <br />
-            <Input
-              label="New password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              type="password"
-              required={true}
-              placeholder="********"
-            />
-            <br />
-            <Button loading={loading} full={true}>
-              Submit
-            </Button>
-            {error && <StyledError>{error}</StyledError>}
-          </Fragment>
-        )}
-        <StyledLinks>
-          <Link to="/login">
-            <StyledLink>Login</StyledLink>
-          </Link>
-        </StyledLinks>
-      </StyledForm>
-    </Center>
+    <AuthForm handleSubmit={handleSubmit}>
+      {success ? (
+        <p>Password updated! Try logging in now.</p>
+      ) : (
+        <Fragment>
+          <p>Enter a new password, try not forgetting it this time!</p>
+          <br />
+          <Input
+            label="New password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            type="password"
+            required={true}
+            placeholder="********"
+          />
+          <br />
+          <Button loading={loading} full={true}>
+            Submit
+          </Button>
+          {error && <StyledError>{error}</StyledError>}
+        </Fragment>
+      )}
+      <StyledLinks>
+        <Link to="/login">
+          <StyledLink>Login</StyledLink>
+        </Link>
+      </StyledLinks>
+    </AuthForm>
   )
 }
 
 export default ResetPassword
-
-const StyledForm = styled.form`
-  height: 100%;
-  max-width: 450px;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  padding: ${p => p.theme.paddingL};
-`
-
-const StyledHeader = styled.h1`
-  margin-bottom: ${p => p.theme.paddingXL};
-`
 
 const StyledLinks = styled.div`
   width: 100%;

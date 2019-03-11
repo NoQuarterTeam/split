@@ -20,40 +20,34 @@ function CostList() {
     house.id,
     search,
   )
-
   const costListRef = useRef<HTMLDivElement>(null)
-  const costsRef = useRef({ costs, costsCount, costsLoading, search })
-  costsRef.current = { costs, costsLoading, costsCount, search }
 
   const handleScroll = () => {
     if (!costListRef.current) return
     const bottom =
       costListRef.current.getBoundingClientRect().bottom - 300 <=
       window.innerHeight
-    if (
-      bottom &&
-      !costsRef.current.costsLoading &&
-      costsRef.current.costs.length < costsRef.current.costsCount
-    ) {
-      fetchMore(costsRef.current.costs.length, costsRef.current.search)
+    if (bottom && !costsLoading && costs.length < costsCount) {
+      fetchMore(costs.length, search)
     }
   }
 
   const debouncedScroll = useDebouncedCallback(handleScroll, 100, [
-    costsRef.current.costs.length,
+    costs.length,
+    search,
   ])
 
-  useEventListener("scroll", debouncedScroll, true)
+  useEventListener("scroll", debouncedScroll, true, [costs.length, search])
 
   const handleSearchSubmit = (input: string) => setSearch(input)
 
   const futureCosts = useMemo(
     () => costs && costs.filter(c => dayjs(c.date).isAfter(dayjs())),
-    [costs],
+    [costs.length],
   )
   const pastCosts = useMemo(
     () => costs && costs.filter(c => dayjs(c.date).isBefore(dayjs())),
-    [costs],
+    [costs.length],
   )
 
   return (

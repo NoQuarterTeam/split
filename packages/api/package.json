@@ -5,8 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "tsnd --respawn --no-notify src/index.ts",
-    "work": "tsnd --respawn --no-notify src/workers.ts",
     "watch": "nodemon",
+    "work": "tsnd --respawn --no-notify src/workers.ts",
+    "seed": "ts-node src/seed.ts",
     "build": "rimraf dist && tsc --build",
     "heroku-postbuild": "yarn build",
     "lint": "tslint -p ."

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useLayoutEffect } from "react"
 import dayjs from "dayjs"
 
 import styled, { media } from "../application/theme"
@@ -46,7 +46,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     round(formState.amount) !==
     round(formState.costShares.reduce((acc, s) => acc + s.amount, 0))
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isMounted && formState.equalSplit) applyEqualSplit()
     setIsMounted(true)
   }, [formState.amount, formState.costShares.length])

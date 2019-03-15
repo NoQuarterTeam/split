@@ -13,4 +13,5 @@ export default Column
 
 const StyledColumn = styled.div<{ flex: number }>`
   flex: ${p => p.flex};
+  display: flex;
 `

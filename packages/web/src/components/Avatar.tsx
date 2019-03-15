@@ -11,13 +11,11 @@ type UserDetails = {
 type AvatarProps = {
   user: UserDetails
   size?: number
-  onClick?: () => void
 }
 
-function Avatar({ user, onClick, size = 80 }: AvatarProps) {
+function Avatar({ user, size = 80 }: AvatarProps) {
   return (
     <StyledAvatar
-      onClick={onClick}
       size={size}
       style={{ backgroundImage: `url(${user.avatar})` }}
     >
@@ -33,7 +31,7 @@ function Avatar({ user, onClick, size = 80 }: AvatarProps) {
 
 export default memo(Avatar)
 
-const StyledAvatar = styled.div<{ onClick?: (e: any) => void; size: number }>`
+const StyledAvatar = styled.div<{ size: number }>`
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -44,7 +42,6 @@ const StyledAvatar = styled.div<{ onClick?: (e: any) => void; size: number }>`
   width: ${p => p.size}px;
 
   ${p => p.theme.flexCenter};
-  cursor: ${p => (!!p.onClick ? "pointer" : "default")};
   background-color: ${p => p.theme.colorBlue};
   color: ${p => darken(0.2, p.theme.colorBlue)};
   font-weight: ${p => p.theme.fontBlack};

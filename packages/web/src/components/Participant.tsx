@@ -6,7 +6,9 @@ import { decimalCount } from "../lib/helpers"
 import Input from "./Input"
 import Radio from "./Radio"
 import Avatar from "./Avatar"
+import Switch from "./Switch"
 import Column from "./styled/Column"
+import Center from "./styled/Center"
 
 type ParticipantProps = {
   user: User.Fragment
@@ -62,9 +64,18 @@ function Participant({
   return (
     <StyledParticipant>
       <Column flex={3}>
-        <div style={{ opacity: userShare ? 1 : 0.4 }}>
-          <Avatar user={user} onClick={() => toggleParticipant(user.id)} />
-        </div>
+        <Center>
+          <Switch
+            on={!!userShare}
+            handleClick={() => toggleParticipant(user.id)}
+          />
+          <StyledAvatarWrapper
+            onClick={() => toggleParticipant(user.id)}
+            on={!!userShare}
+          >
+            <Avatar user={user} />
+          </StyledAvatarWrapper>
+        </Center>
       </Column>
       <Column flex={3}>
         <Input
@@ -106,4 +117,10 @@ const StyledParticipant = styled.div`
   ${p => media.greaterThan("sm")`
     margin-bottom: ${p.theme.paddingXL};
   `}
+`
+
+const StyledAvatarWrapper = styled.div<{ on: boolean }>`
+  cursor: pointer;
+  padding: ${p => p.theme.paddingM};
+  opacity: ${p => (p.on ? 1 : 0.4)};
 `

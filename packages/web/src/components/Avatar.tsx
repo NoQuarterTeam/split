@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import styled, { darken } from "../application/theme"
+import styled, { darken, media } from "../application/theme"
 import { Maybe } from "../lib/graphql/types"
 
 type UserDetails = {
@@ -38,11 +38,17 @@ const StyledAvatar = styled.div<{ size: number }>`
   border-radius: 50%;
   box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
 
-  height: ${p => p.size}px;
-  width: ${p => p.size}px;
+  height: ${p => 0.9 * p.size}px;
+  width: ${p => 0.9 * p.size}px;
 
-  ${p => p.theme.flexCenter};
   background-color: ${p => p.theme.colorBlue};
   color: ${p => darken(0.2, p.theme.colorBlue)};
   font-weight: ${p => p.theme.fontBlack};
+  font-size: ${p => p.theme.textS};
+  ${p => p.theme.flexCenter};
+
+  ${p => media.greaterThan("sm")`
+    height: ${p.size}px;
+    width: ${p.size}px; 
+  `}
 `

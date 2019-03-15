@@ -63,7 +63,7 @@ function Participant({
 
   return (
     <StyledParticipant>
-      <Column flex={3}>
+      <Column flex={4}>
         <Center>
           <Switch
             on={!!userShare}
@@ -121,6 +121,6 @@ const StyledParticipant = styled.div`
 
 const StyledAvatarWrapper = styled.div<{ on: boolean }>`
   cursor: pointer;
-  padding: ${p => p.theme.paddingM};
+  padding-left: ${p => p.theme.paddingM};
   opacity: ${p => (p.on ? 1 : 0.4)};
 `

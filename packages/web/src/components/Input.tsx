@@ -26,7 +26,7 @@ export default memo(forwardRef(Input))
 
 const StyledContainer = styled.div`
   width: 100%;
-  padding: ${p => p.theme.paddingS};
+  padding: ${p => p.theme.paddingS} 0;
 `
 
 const StyledLabel = styled.label`

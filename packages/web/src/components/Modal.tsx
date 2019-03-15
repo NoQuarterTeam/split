@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react"
-import styled from "../application/theme"
+import styled, { media } from "../application/theme"
 
 import IconCancel from "../assets/images/icon-cancel.svg"
 import Button from "./Button"
@@ -76,9 +76,10 @@ export default Modal
 
 const StyledModal = styled.div`
   position: fixed;
-  height: 100vh;
+  height: ${window.innerHeight}px;
   width: 100vw;
   top: 0;
+  bottom: 0;
   left: 0;
   background-color: white;
   z-index: 1000;
@@ -86,13 +87,16 @@ const StyledModal = styled.div`
 
 const StyledModalTopbar = styled.div`
   width: 100%;
-  padding: ${p => p.theme.paddingXL};
+  padding: ${p => p.theme.paddingL};
   padding-bottom: 0;
-  height: 80px;
   position: absolute;
   top: 0;
   left: 0;
   ${p => p.theme.flexBetween};
+
+  ${p => media.greaterThan("sm")`
+    padding: ${p.theme.paddingXL};    
+  `}
 `
 const StyledModalTitle = styled.h2`
   font-size: ${p => p.theme.textL};
@@ -120,8 +124,11 @@ const StyledModalBottombar = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 120px;
   background-color: ${p => p.theme.colorBackground};
-  padding: 0 ${p => p.theme.paddingL};
+  padding: ${p => p.theme.paddingM};
   ${p => p.theme.flexBetween};
+
+  ${p => media.greaterThan("sm")`
+    padding: ${p.theme.paddingL};    
+  `}
 `

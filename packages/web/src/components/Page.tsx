@@ -25,7 +25,7 @@ const Page: FC<PageProps> = ({ children, activePage }) => {
 export default Page
 
 const StyledPage = styled.div`
-  height: 100vh;
+  height: ${window.innerHeight}px;
   width: 100vw;
   padding-left: 0;
   display: flex;
@@ -65,7 +65,7 @@ const StyledOverlay = styled.div`
 
 const StyledPageContent = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: ${window.innerHeight}px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   background-color: ${p => p.theme.colorBackground};

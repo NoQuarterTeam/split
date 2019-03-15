@@ -68,6 +68,10 @@ const StyledFlame = styled.div<{ percentage: number; negative: boolean }>`
   border-radius: 8px;
   background-color: ${p =>
     p.negative ? p.theme.colorPink : p.theme.colorBlue};
-  height: ${p => p.percentage * 2.5}px; /* Max 125px as 50% is the max abs */
+  height: ${p => p.percentage * 2}px; /* Max 125px as 50% is the max abs */
   ${p => (p.negative ? "top: 100%;" : "bottom: 100%;")};
+
+  ${p => media.greaterThan("sm")`
+    height: ${p.percentage * 2.5}px; /* Max 125px as 50% is the max abs */
+  `}
 `

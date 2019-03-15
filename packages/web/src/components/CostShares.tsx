@@ -34,7 +34,7 @@ function CostShares({
           </StyledAlertWrapper>
         )}
       <StyledHeader>
-        <Column flex={3}>
+        <Column flex={4}>
           <StyledLabel>Participants</StyledLabel>
         </Column>
         <Column flex={3}>
@@ -87,10 +87,7 @@ const StyledCostShares = styled.div`
 `
 
 const StyledHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 ${p => p.theme.paddingS};
+  ${p => p.theme.flexBetween};
   margin-bottom: ${p => p.theme.paddingL};
 `
 

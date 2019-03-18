@@ -6,7 +6,7 @@ export const homeUsers = [
     lastName: "Clackett",
     balance: 1211,
     avatar:
-      "https://www-splitme-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
+      "https://www-getsplit-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
   },
   {
     id: "b2e2b2c4-6fbe-4257-9f98-f24116123361",
@@ -15,7 +15,7 @@ export const homeUsers = [
     lastName: "Le Cornu",
     balance: 502,
     avatar:
-      "https://www-splitme-co.s3.amazonaws.com/avatars/b2e2b2c4-6fbe-4257-9f98-f24116123361/dlc-squib-jpg",
+      "https://www-getsplit-co.s3.amazonaws.com/avatars/b2e2b2c4-6fbe-4257-9f98-f24116123361/dlc-squib-jpg",
   },
   {
     id: "e279f8c8-0a4a-465d-a038-f06a98d78595",
@@ -45,7 +45,7 @@ export const homeCosts = [
       firstName: "Jack",
       lastName: "Clackett",
       avatar:
-        "https://www-splitme-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
+        "https://www-getsplit-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
     },
   },
   {
@@ -64,7 +64,7 @@ export const homeCosts = [
       firstName: "Jack",
       lastName: "Clackett",
       avatar:
-        "https://www-splitme-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
+        "https://www-getsplit-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
     },
   },
   {
@@ -102,7 +102,7 @@ export const homeCosts = [
       firstName: "Jack",
       lastName: "Clackett",
       avatar:
-        "https://www-splitme-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
+        "https://www-getsplit-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
     },
   },
   {
@@ -121,7 +121,7 @@ export const homeCosts = [
       firstName: "Dan",
       lastName: "Le Cornu",
       avatar:
-        "https://www-splitme-co.s3.amazonaws.com/avatars/b2e2b2c4-6fbe-4257-9f98-f24116123361/dlc-squib-jpg",
+        "https://www-getsplit-co.s3.amazonaws.com/avatars/b2e2b2c4-6fbe-4257-9f98-f24116123361/dlc-squib-jpg",
     },
   },
 ]

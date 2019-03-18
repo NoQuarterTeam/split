@@ -5,3 +5,10 @@
 # Split
 
 ## Keep track of your costs. We’ll handle the math.
+
+
+![picture](screenshots/split-balance.png)
+
+![picture](screenshots/split-newcost.png)
+
+![picture](screenshots/split-costs.png)

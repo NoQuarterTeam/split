@@ -3,9 +3,11 @@ import nodemailer from "nodemailer"
 
 // ENV
 export const env = process.env.NODE_ENV || "development"
+export const production = env === "production"
 
-export const webUrl =
-  env === "production" ? "https://www.getsplit.co" : "http://localhost:6969"
+export const webUrl = production
+  ? "https://www.getsplit.co"
+  : "http://localhost:6969"
 
 // CORS
 export const cors = {
@@ -25,28 +27,16 @@ export const resolverPaths =
     ? "/modules/**/*.resolver.js"
     : "/modules/**/*.resolver.ts"
 
-// EMAIL
-
+// DEV EMAIL
 const emailOptions: any = {
-  production: {
-    host: "smtp.sendgrid.net",
-    port: 465,
-    secure: true,
-    auth: {
-      user: process.env.SENDGRID_USERNAME,
-      pass: process.env.SENDGRID_PASSWORD,
-    },
-  },
-  development: {
-    host: "localhost",
-    port: 1025,
-    secure: false,
-    debug: true,
-    ignoreTLS: true,
-  },
+  host: "localhost",
+  port: 1025,
+  secure: false,
+  debug: true,
+  ignoreTLS: true,
 }
 
-export const mail = nodemailer.createTransport(emailOptions[env])
+export const devMail = nodemailer.createTransport(emailOptions)
 
 // AWS
 export const s3 = new S3({

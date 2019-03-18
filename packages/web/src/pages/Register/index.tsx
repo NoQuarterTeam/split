@@ -48,7 +48,8 @@ function Register(props: RouteComponentProps) {
     <AuthForm handleSubmit={handleSubmit}>
       {house ? (
         <StyledInviteHeader>
-          You are being invited to join {house.name}
+          You are being invited to join <br />
+          <span>{house.name}</span>
         </StyledInviteHeader>
       ) : (
         checkHouseError && (
@@ -107,7 +108,12 @@ export default memo(Register)
 const StyledInviteHeader = styled.h2`
   width: 100%;
   text-align: center;
+  font-weight: normal;
   margin-bottom: ${p => p.theme.paddingXL};
+
+  span {
+    font-weight: ${p => p.theme.fontBlack};
+  }
 `
 
 const StyledLink = styled.div`

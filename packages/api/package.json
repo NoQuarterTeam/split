@@ -13,6 +13,7 @@
     "lint": "tslint -p ."
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "apollo-server-express": "^2.3.3",
     "aws-sdk": "^2.413.0",
     "bcryptjs": "^2.4.3",

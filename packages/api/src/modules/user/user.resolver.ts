@@ -35,6 +35,7 @@ export class UserResolver {
   async register(@Arg("data") data: RegisterInput): Promise<UserAuthResponse> {
     const user = await this.userService.create(data)
     const token = await createToken(user.id)
+    this.userMailer.sendWelcomeEmail(user)
     return { user, token }
   }
 

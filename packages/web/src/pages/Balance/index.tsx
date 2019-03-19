@@ -24,7 +24,7 @@ function Balance(_: RouteComponentProps) {
     }
   }
   return (
-    <Page activePage="balance">
+    <Page>
       {!user.houseId ? (
         <HouseForm />
       ) : !house ? null : (

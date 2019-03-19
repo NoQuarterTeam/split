@@ -1,5 +1,5 @@
-import React, { memo, Fragment } from "react"
-import { Link } from "@reach/router"
+import React, { memo, Fragment, FC } from "react"
+import { Link, Match } from "@reach/router"
 
 import styled, { media, lighten } from "../application/theme"
 
@@ -9,7 +9,7 @@ import IconLogo from "../assets/images/icon-logo.svg"
 import useAppContext from "../lib/hooks/useAppContext"
 import { useLogout } from "../lib/graphql/user/hooks"
 
-function Sidebar({ activePage, open }: { activePage: string; open: boolean }) {
+function Sidebar({ open }: { open: boolean }) {
   const { user } = useAppContext()
   const logout = useLogout()
 
@@ -20,24 +20,16 @@ function Sidebar({ activePage, open }: { activePage: string; open: boolean }) {
         Split
       </h2>
       <div>
-        <Link to="/">
-          <StyledLink active={activePage === "balance"}>Balance</StyledLink>
-        </Link>
+        <NavLink to="/">Balance</NavLink>
         {user.houseId && (
           <Fragment>
-            <Link to="/new-cost">
-              <StyledLink>
-                New cost <StyledIcon src={IconPlus} />
-              </StyledLink>
-            </Link>
-            <Link to="/costs">
-              <StyledLink active={activePage === "costs"}>Costs</StyledLink>
-            </Link>
+            <NavLink to="/new-cost">
+              New cost <StyledIcon src={IconPlus} />
+            </NavLink>
+            <NavLink to="/costs">Costs</NavLink>
           </Fragment>
         )}
-        <Link to="/settings">
-          <StyledLink active={activePage === "settings"}>Settings</StyledLink>
-        </Link>
+        <NavLink to="/settings">Settings</NavLink>
         <div
           tabIndex={0}
           onClick={() => logout()}
@@ -62,6 +54,18 @@ function Sidebar({ activePage, open }: { activePage: string; open: boolean }) {
 }
 
 export default memo(Sidebar)
+
+const NavLink: FC<{ to: string }> = ({ to = "/", children }) => {
+  return (
+    <Match path={to}>
+      {({ match }) => (
+        <Link to={to}>
+          <StyledLink active={!!match}>{children}</StyledLink>
+        </Link>
+      )}
+    </Match>
+  )
+}
 
 const StyledSidebar = styled.div<{ open: boolean }>`
   position: fixed;

@@ -13,7 +13,7 @@ function Costs(_: RouteComponentProps) {
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
   return (
-    <Page activePage="costs">
+    <Page>
       <StyledCostPage>
         <StyledHeader>
           <StyledTitle>Costs</StyledTitle>

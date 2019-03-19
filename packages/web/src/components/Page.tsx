@@ -4,15 +4,11 @@ import Sidebar from "./Sidebar"
 
 import IconMenu from "../assets/images/icon-menu.svg"
 
-interface PageProps {
-  activePage: string
-}
-
-const Page: FC<PageProps> = ({ children, activePage }) => {
+const Page: FC = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false)
   return (
     <StyledPage>
-      <Sidebar activePage={activePage} open={sidebarOpen} />
+      <Sidebar open={sidebarOpen} />
       <StyledPageContent>{children}</StyledPageContent>
       {sidebarOpen && <StyledOverlay onClick={() => setSidebarOpen(false)} />}
       <StyledMenu onClick={() => setSidebarOpen(true)}>

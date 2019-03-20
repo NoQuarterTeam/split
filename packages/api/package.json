@@ -1,12 +1,17 @@
 {
+  "private": true,
   "name": "@split/api",
   "version": "1.0.0",
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "tsnd --respawn --no-notify src/index.ts",
+    "start": "ts-node src/index.ts",
+    "watch-dev": "tsnd --respawn --no-notify src/index.ts",
     "watch": "nodemon",
-    "work": "tsnd --respawn --no-notify src/workers.ts",
+    "work": "ts-node src/workers.ts",
+    "db:create": "ts-node node_modules/typeorm/cli.js migration:create -c ${NODE_ENV} -n",
+    "db:generate": "ts-node node_modules/typeorm/cli.js migration:generate -c ${NODE_ENV} -n",
+    "db:rollback": "ts-node node_modules/typeorm/cli.js migration:revert -c ${NODE_ENV}",
     "seed": "ts-node src/seed.ts",
     "build": "rimraf dist && tsc --build",
     "heroku-postbuild": "yarn build",
@@ -57,5 +62,11 @@
     "tslint-config-prettier": "^1.17.0",
     "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.3.1"
+  },
+  "workspaces": {
+    "nohoist": [
+      "typeorm",
+      "typeorm/**"
+    ]
   }
 }

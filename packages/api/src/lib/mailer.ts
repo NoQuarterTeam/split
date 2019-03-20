@@ -1,8 +1,21 @@
 import sendgrid from "@sendgrid/mail"
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY || "SENDGRID_API_KEY")
+import nodemailer from "nodemailer"
+
+import { SENDGRID_API_KEY, devEmailOptions } from "../config"
+
+sendgrid.setApiKey(SENDGRID_API_KEY)
 
 export class Mailer {
-  public readonly from: string = "Split Team <noreply@getsplit.co>"
+  private readonly from: string = "Split Team <noreply@getsplit.co>"
+  private devMail: any
+
+  constructor() {
+    this.devMail = nodemailer.createTransport(devEmailOptions)
+  }
+
+  sendDev(args: any) {
+    this.devMail.sendMail({ ...args, from: this.from })
+  }
 
   send(templateId: string, to: string, variables: any) {
     const message = {

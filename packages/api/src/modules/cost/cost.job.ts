@@ -4,8 +4,9 @@ import dayjs from "dayjs"
 import { Cost } from "./cost.entity"
 import { ShareService } from "../share/share.service"
 import { CostService } from "./cost.service"
+import { REDIS_URL } from "../../config"
 
-export const costWorker = new Queue("costWorker", process.env.REDIS_URL || "")
+export const costWorker = new Queue("costWorker", REDIS_URL)
 
 @Service()
 export class CostJob {
@@ -23,7 +24,7 @@ export class CostJob {
             relations: ["shares"],
           })
 
-          if (!cost) throw new Error("cost not found") // Fail silently, sentry..
+          if (!cost) throw new Error("cost not found")
 
           // Apply the balance based of the costs shares
           await this.shareService.applyBalance(cost)
@@ -35,8 +36,8 @@ export class CostJob {
           }
           resolve()
         } catch (err) {
+          // Fail silently, sentry..
           console.log(err)
-          // Sentry
           resolve()
         }
       })
@@ -53,8 +54,8 @@ export class CostJob {
         })
         resolve()
       } catch (err) {
+        // Fail silently, sentry..
         console.log(err)
-        // Sentry
         resolve()
       }
     })
@@ -66,12 +67,12 @@ export class CostJob {
         // Find job by cost id and remove it
         const jobs = await costWorker.getDelayed(dayjs(cost.date).millisecond())
         const costJob = jobs.find(job => job.data.id === cost.id)
-        if (!costJob) throw new Error("cost job not found") // Fail silently, sentry ...
+        if (!costJob) throw new Error("cost job not found")
         await costJob.remove()
         resolve()
       } catch (err) {
+        // Fail silently, sentry..
         console.log(err)
-        // Sentry
         resolve()
       }
     })

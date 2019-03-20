@@ -1,13 +1,14 @@
 import { getConnectionOptions, createConnection } from "typeorm"
+import { NODE_ENV, DATABASE_URL } from "../config"
 
 export const createDbConnection = async () => {
   // Create DB connection
-  const options = await getConnectionOptions(process.env.NODE_ENV)
+  const options = await getConnectionOptions(NODE_ENV)
 
-  await createConnection({
+  return await createConnection({
     ...options,
     name: "default",
     // @ts-ignore
-    url: process.env.DATABASE_URL,
+    url: DATABASE_URL,
   })
 }

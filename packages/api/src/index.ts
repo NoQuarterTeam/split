@@ -14,7 +14,7 @@ import { Container } from "typedi"
 import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
 
-import { cors, port, resolverPaths } from "./config"
+import { cors, PORT, resolverPaths, APP_SECRET } from "./config"
 import { userLoader } from "./modules/user/user.loader"
 import { shareLoader } from "./modules/share/share.loader"
 import { IRequest } from "./lib/types"
@@ -23,20 +23,19 @@ useContainer(Container)
 
 async function main() {
   try {
-    await createDbConnection()
+    const connection = await createDbConnection()
+    await connection.runMigrations()
 
     const app = express()
       .use(morgan("dev"))
       .use(
         jwt({
-          secret: process.env.APP_SECRET || "supersecret",
+          secret: APP_SECRET,
           credentialsRequired: false,
         }),
       )
-      .use((err: any, _: any, res: any, next: any) => {
-        if (err.name === "UnauthorizedError") {
-          next()
-        }
+      .use((err: any, _: any, __: any, next: any) => {
+        if (err.name === "UnauthorizedError") next()
       })
 
     const schema = await buildSchema({
@@ -64,8 +63,8 @@ async function main() {
       cors,
     })
 
-    app.listen(port, () =>
-      console.log(`Server started at http://localhost:${port} 🚀`),
+    app.listen(PORT, () =>
+      console.log(`Server started at http://localhost:${PORT} 🚀`),
     )
   } catch (error) {
     console.log(error)

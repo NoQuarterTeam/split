@@ -1,11 +1,19 @@
-import S3 from "aws-sdk/clients/s3"
-import nodemailer from "nodemailer"
+// ENV VARIABLES
+export const {
+  NODE_ENV = "development",
+  APP_SECRET = "APP_SECRET",
+  PORT = 5000,
+  S3_BUCKET_NAME = "S3_BUCKET",
+  SENDGRID_API_KEY = "SENDGRID_API_KEY",
+  DATABASE_URL = "",
+  REDIS_URL = "",
+} = process.env
 
-// ENV
-export const env = process.env.NODE_ENV || "development"
-export const production = env === "production"
+// IS PRODUCTION
+export const isProduction = NODE_ENV === "production"
 
-export const webUrl = production
+// WEB URL
+export const webUrl = isProduction
   ? "https://www.getsplit.co"
   : "http://localhost:6969"
 
@@ -15,20 +23,16 @@ export const cors = {
   origin: "*",
 }
 
-// PORT
-export const port = process.env.PORT || 5000
-
 // GRAPHQL PATH
 export const path = "/graphql"
 
 // RESOLVER PATHS
-export const resolverPaths =
-  env === "production"
-    ? "/modules/**/*.resolver.js"
-    : "/modules/**/*.resolver.ts"
+export const resolverPaths = isProduction
+  ? "/modules/**/*.resolver.js"
+  : "/modules/**/*.resolver.ts"
 
 // DEV EMAIL
-const emailOptions: any = {
+export const devEmailOptions: any = {
   host: "localhost",
   port: 1025,
   secure: false,
@@ -36,12 +40,8 @@ const emailOptions: any = {
   ignoreTLS: true,
 }
 
-export const devMail = nodemailer.createTransport(emailOptions)
-
-// AWS
-export const s3 = new S3({
+// S3
+export const s3Config = {
   signatureVersion: "v4",
   region: "eu-central-1",
-})
-
-export const s3Bucket = process.env.S3_BUCKET_NAME
+}

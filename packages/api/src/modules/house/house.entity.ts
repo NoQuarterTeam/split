@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from "typeorm"
 import { ObjectType, Field, ID } from "type-graphql"
 import { User } from "../user/user.entity"
@@ -27,4 +29,12 @@ export class House extends BaseEntity {
   @Field(() => [Cost])
   @OneToMany(() => Cost, cost => cost.house)
   costs: Cost[]
+
+  @Field()
+  @CreateDateColumn()
+  createdAt: string
+
+  @Field()
+  @UpdateDateColumn()
+  updatedAt: string
 }

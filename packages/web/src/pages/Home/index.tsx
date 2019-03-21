@@ -1,6 +1,6 @@
 import React from "react"
 import { RouteComponentProps } from "@reach/router"
-import styled from "../../application/theme"
+import styled, { media } from "../../application/theme"
 
 import IconLogo from "../../assets/images/icon-logo.svg"
 import Button from "../../components/Button"
@@ -11,10 +11,10 @@ import { homeUsers, homeCosts } from "../../lib/copy/home"
 function Home(props: RouteComponentProps) {
   return (
     <StyledHome>
-      <StyledHeader>
+      <StyledTopbar>
         <div>
-          <img src={IconLogo} width={30} alt="logo" />
-          <span style={{ paddingRight: 30 }}>Split</span>
+          <img src={IconLogo} width={24} alt="logo" />
+          <StyledHeader>Split</StyledHeader>
         </div>
         <div>
           <Button
@@ -28,7 +28,7 @@ function Home(props: RouteComponentProps) {
             Sign up free
           </Button>
         </div>
-      </StyledHeader>
+      </StyledTopbar>
       <StyledHero>
         <StyledHeroTitle>Keep track of your costs</StyledHeroTitle>
         <StyledHeroSubTitle>We’ll handle the maths</StyledHeroSubTitle>
@@ -50,14 +50,25 @@ function Home(props: RouteComponentProps) {
 export default Home
 
 const StyledHome = styled.div`
-  height: 100vh;
+  min-height: ${window.innerHeight}px;
   width: 100%;
   background-color: ${p => p.theme.colorBackground};
-  padding: ${p => p.theme.paddingXL};
+  padding: 0;
+
+  ${p => media.greaterThan("md")`
+    padding: ${p.theme.paddingXL};
+    padding-bottom: 0;
+  `}
 `
 
-const StyledHeader = styled.h1`
+const StyledTopbar = styled.div`
+  padding: ${p => p.theme.paddingL};
   ${p => p.theme.flexBetween};
+`
+
+const StyledHeader = styled.span`
+  font-weight: bold;
+  font-size: ${p => p.theme.textM};
 `
 
 const StyledHero = styled.div`
@@ -80,16 +91,25 @@ const StyledHeroSubTitle = styled.h3`
 const StyledDemo = styled.div`
   display: flex;
   overflow: hidden;
-  padding: ${p => p.theme.paddingL};
+  flex-wrap: wrap;
+  padding: ${p => p.theme.paddingM};
+
+  ${p => media.greaterThan("md")`
+    padding: ${p.theme.paddingL};
+  `}
 `
 
 const StyledBalance = styled.div`
-  width: 40%;
+  width: 100%;
+
+  ${media.greaterThan("md")`
+    width: 40%;
+  `}
 `
 
 const StyledCosts = styled.div`
   pointer-events: none;
-  width: 60%;
+  width: 100%;
   position: relative;
 
   &:after {
@@ -104,4 +124,8 @@ const StyledCosts = styled.div`
       rgba(255, 255, 255, 0) 80%
     );
   }
+
+  ${media.greaterThan("md")`
+    width: 60%;
+  `}
 `

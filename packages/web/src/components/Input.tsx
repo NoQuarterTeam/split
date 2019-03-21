@@ -41,6 +41,7 @@ const StyledInput = styled.input<{ hasPrefix?: boolean }>`
   background-color: transparent;
   transition: all 200ms;
   appearance: none;
+  border-radius: 0;
   font-size: ${p => p.theme.textM};
   padding: ${p => p.theme.paddingM} 0;
   ${p => p.hasPrefix && "padding-left: 16px"};

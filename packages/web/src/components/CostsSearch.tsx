@@ -65,7 +65,6 @@ const StyledSearchForm = styled.form`
 `
 
 const StyledInputWrap = styled.div<{ focus: boolean }>`
-  position: relative;
   background-color: white;
   width: 100%;
   transition: width 1s ease;

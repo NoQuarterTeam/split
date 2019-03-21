@@ -51,8 +51,6 @@ const StyledMessage = styled.span`
 `
 
 const StyledToolTip = styled.div`
-  position: relative;
-
   &:hover {
     ${StyledMessage} {
       opacity: 1;

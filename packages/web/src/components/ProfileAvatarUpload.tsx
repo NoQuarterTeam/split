@@ -119,7 +119,6 @@ const StyledOverlayText = styled.div`
 const StyledFormAvatar = styled.div`
   appearance: none;
   border: 0;
-  position: relative;
   border-radius: 50px;
   outline: none;
   padding: 0;

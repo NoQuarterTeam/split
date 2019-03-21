@@ -79,9 +79,7 @@ function HouseInvite({ house }: HouseInviteProps) {
 
 export default memo(HouseInvite)
 
-const StyledInviteWrapper = styled.div`
-  position: relative;
-`
+const StyledInviteWrapper = styled.div``
 
 const StyledInviteForm = styled.form`
   width: max-content;

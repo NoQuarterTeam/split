@@ -26,7 +26,6 @@ const StyledForm = styled.form`
   max-width: 450px;
   width: 100%;
   margin: 0 auto;
-  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: center;

@@ -24,7 +24,6 @@ const HiddenInput = styled.input`
 const StyledLabel = styled.label`
   user-select: none;
   cursor: pointer;
-  position: relative;
 
   ${HiddenInput} {
     &:checked ~ div:after {
@@ -42,7 +41,6 @@ const StyledLabel = styled.label`
 const StyledRadio = styled.div`
   height: 26px;
   width: 26px;
-  position: relative;
   border-radius: 50%;
   border: 2px solid ${p => lighten(0.25, p.theme.colorPink)};
 

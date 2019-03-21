@@ -29,6 +29,7 @@ const body = css`
   * {
     font-family: "Open sans", sans-serif;
     box-sizing: border-box;
+    position: relative;
   }
 `
 

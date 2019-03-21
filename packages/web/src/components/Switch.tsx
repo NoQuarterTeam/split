@@ -17,7 +17,6 @@ function Switch({ handleClick, on }: SwitchProps) {
 export default memo(Switch)
 
 const StyledSwitch = styled.button<{ on: boolean }>`
-  position: relative;
   width: 32px;
   height: 20px;
   border-radius: 20px;

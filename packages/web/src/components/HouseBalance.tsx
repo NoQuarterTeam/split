@@ -39,7 +39,6 @@ const StyledHouseBalance = styled.div`
   width: 100%;
   height: 400px;
   margin: 0 auto;
-  position: relative;
 
   ${p => p.theme.flexAround};
 
@@ -49,7 +48,6 @@ const StyledHouseBalance = styled.div`
 `
 
 const StyledUserGraph = styled.div`
-  position: relative;
   flex-direction: column;
   ${p => p.theme.flexCenter};
 `

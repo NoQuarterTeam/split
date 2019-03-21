@@ -111,7 +111,6 @@ const StyledBalance = styled.div`
 const StyledCosts = styled.div`
   pointer-events: none;
   width: 100%;
-  position: relative;
 
   &:after {
     position: absolute;

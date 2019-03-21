@@ -76,7 +76,6 @@ export default memo(CostShares)
 
 const StyledCostShares = styled.div`
   width: 100%;
-  position: relative;
   padding: ${p => p.theme.paddingL};
   margin: ${p => p.theme.paddingXL} 0;
 
@@ -93,7 +92,6 @@ const StyledHeader = styled.div`
 
 const StyledLabel = styled.div`
   color: ${p => p.theme.colorLabel};
-  position: relative;
   font-size: ${p => p.theme.textS};
 `
 

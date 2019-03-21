@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react"
+import React, { useState, memo, useRef } from "react"
 import styled from "../application/theme"
 import { GetHouse } from "../lib/graphql/types"
 import { useEditHouse } from "../lib/graphql/house/hooks"
@@ -8,6 +8,7 @@ type HouseNameProps = {
 }
 
 function HouseName({ house }: HouseNameProps) {
+  const inputRef = useRef<HTMLInputElement>(null)
   const [houseName, setHouseName] = useState<string>(house.name)
   const updateHouse = useEditHouse()
 
@@ -30,10 +31,15 @@ function HouseName({ house }: HouseNameProps) {
         },
       },
     })
+
+    if (inputRef.current) {
+      inputRef.current.blur()
+    }
   }
   return (
     <form onSubmit={handleHouseUpdate}>
       <StyledInput
+        ref={inputRef}
         value={houseName}
         onBlur={handleHouseUpdate}
         onChange={e => setHouseName(e.target.value)}

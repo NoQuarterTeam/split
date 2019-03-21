@@ -14,7 +14,7 @@ function HouseName({ house }: HouseNameProps) {
 
   const handleHouseUpdate = (e: any) => {
     e.preventDefault()
-    if (!houseName) return setHouseName(name)
+    if (!houseName) return setHouseName(house.name)
     updateHouse({
       variables: {
         houseId: house.id,
@@ -27,14 +27,10 @@ function HouseName({ house }: HouseNameProps) {
         editHouse: {
           ...house,
           name: houseName,
-          __typename: "House",
         },
       },
     })
-
-    if (inputRef.current) {
-      inputRef.current.blur()
-    }
+    if (inputRef.current) inputRef.current.blur()
   }
   return (
     <form onSubmit={handleHouseUpdate}>

@@ -2,21 +2,21 @@ import React from "react"
 import { RouteComponentProps } from "@reach/router"
 import styled, { media } from "../../application/theme"
 
-import IconLogo from "../../assets/images/icon-logo.svg"
+import { homeUsers, homeCosts } from "../../lib/copy/home"
+
 import Button from "../../components/Button"
 import HouseBalance from "../../components/HouseBalance"
 import CostItem from "../../components/CostItem"
-import { homeUsers, homeCosts } from "../../lib/copy/home"
+import Display from "../../components/styled/Display"
+import Center from "../../components/styled/Center"
+import Logo from "../../components/Logo"
 
 function Home(props: RouteComponentProps) {
   return (
     <StyledHome>
       <StyledTopbar>
-        <div>
-          <img src={IconLogo} width={24} alt="logo" />
-          <StyledHeader>Split</StyledHeader>
-        </div>
-        <div>
+        <Logo />
+        <Center>
           <Button
             variant="tertiary"
             color="header"
@@ -24,14 +24,21 @@ function Home(props: RouteComponentProps) {
           >
             Login
           </Button>
-          <Button onClick={() => props.navigate!("/register")}>
-            Sign up free
-          </Button>
-        </div>
+          <Display size="md">
+            <Button onClick={() => props.navigate!("/register")}>
+              Sign up free
+            </Button>
+          </Display>
+        </Center>
       </StyledTopbar>
       <StyledHero>
         <StyledHeroTitle>Keep track of your costs</StyledHeroTitle>
         <StyledHeroSubTitle>We’ll handle the maths</StyledHeroSubTitle>
+        <Display size="md" hide={true}>
+          <Button onClick={() => props.navigate!("/register")}>
+            Sign up free
+          </Button>
+        </Display>
       </StyledHero>
       <StyledDemo>
         <StyledBalance>
@@ -56,7 +63,7 @@ const StyledHome = styled.div`
   padding: 0;
 
   ${p => media.greaterThan("md")`
-    padding: ${p.theme.paddingXL};
+    padding: ${p.theme.paddingL};
     padding-bottom: 0;
   `}
 `
@@ -64,11 +71,6 @@ const StyledHome = styled.div`
 const StyledTopbar = styled.div`
   padding: ${p => p.theme.paddingL};
   ${p => p.theme.flexBetween};
-`
-
-const StyledHeader = styled.span`
-  font-weight: bold;
-  font-size: ${p => p.theme.textM};
 `
 
 const StyledHero = styled.div`
@@ -85,7 +87,6 @@ const StyledHeroSubTitle = styled.h3`
   font-weight: normal;
   font-size: ${p => p.theme.textL};
   margin: ${p => p.theme.paddingL} 0;
-  margin-bottom: 0;
 `
 
 const StyledDemo = styled.div`

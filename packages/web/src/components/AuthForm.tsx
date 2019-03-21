@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import Center from "./styled/Center"
 import styled from "../application/theme"
-import IconLogo from "../assets/images/icon-logo.svg"
+import Logo from "./Logo"
 
 type AuthFormProps = {
   handleSubmit: (e: any) => void
@@ -11,8 +11,7 @@ const AuthForm: FC<AuthFormProps> = ({ children, handleSubmit }) => {
     <Center style={{ height: "100vh" }}>
       <StyledForm onSubmit={handleSubmit}>
         <StyledHeader>
-          <img src={IconLogo} width={30} alt="logo" />
-          Split
+          <Logo />
         </StyledHeader>
         {children}
       </StyledForm>
@@ -35,6 +34,6 @@ const StyledForm = styled.form`
   padding: ${p => p.theme.paddingL};
 `
 
-const StyledHeader = styled.h1`
+const StyledHeader = styled.div`
   margin-bottom: ${p => p.theme.paddingXL};
 `

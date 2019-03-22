@@ -13,4 +13,6 @@ function Logo() {
 
 export default Logo
 
-const StyledLogo = styled.h1``
+const StyledLogo = styled.h1`
+  font-size: ${p => p.theme.textL};
+`

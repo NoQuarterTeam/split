@@ -4,9 +4,10 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
+    "watch": "tsc --build --watch",
+    "generate": "graphql-codegen --watch",
     "build": "rm -rf dist && tsc --build",
-    "lint": "tslint -p .",
-    "generate": "graphql-codegen --watch"
+    "lint": "tslint -p ."
   },
   "dependencies": {
     "graphql-tag": "^2.10.1",

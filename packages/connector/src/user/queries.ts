@@ -49,12 +49,6 @@ export const LOGOUT = gql`
   }
 `
 
-export const INVITE_USER = gql`
-  mutation InviteUser($data: InviteUserInput!) {
-    inviteUser(data: $data)
-  }
-`
-
 export const FORGOT_PASSWORD = gql`
   mutation ForgotPassword($email: String!) {
     forgotPassword(email: $email)

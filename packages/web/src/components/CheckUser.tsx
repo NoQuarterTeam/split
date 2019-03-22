@@ -8,7 +8,7 @@ import Register from "../pages/Register"
 import ForgotPassword from "../pages/ForgotPassword"
 import ResetPassword from "../pages/ResetPassword"
 
-const CheckAuth: FC = ({ children }) => {
+const CheckUser: FC = ({ children }) => {
   const { user } = useAppContext()
   return user ? (
     <Fragment>{children}</Fragment>
@@ -24,7 +24,7 @@ const CheckAuth: FC = ({ children }) => {
   )
 }
 
-export default CheckAuth
+export default CheckUser
 
 function NotFound(_: RouteComponentProps) {
   return <Redirect to="/" noThrow={true} />

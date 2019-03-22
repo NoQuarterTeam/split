@@ -2,20 +2,16 @@ import React from "react"
 import { RouteComponentProps } from "@reach/router"
 
 import styled, { media } from "../../application/theme"
-
 import useAppContext from "../../lib/hooks/useAppContext"
+import { round } from "../../lib/helpers"
 
 import Page from "../../components/Page"
-
 import HouseBalance from "../../components/HouseBalance"
-import HouseForm from "../../components/HouseForm"
 import HouseName from "../../components/HouseName"
 import HouseInvite from "../../components/HouseInvite"
-import { round } from "../../lib/helpers"
 
 function Balance(_: RouteComponentProps) {
   const { user, house } = useAppContext()
-
   const getBalanceHeader = () => {
     if (user.balance > 0) {
       return `You are owed €${round(user.balance * 0.01)}`
@@ -25,20 +21,16 @@ function Balance(_: RouteComponentProps) {
   }
   return (
     <Page>
-      {!user.houseId ? (
-        <HouseForm />
-      ) : !house ? null : (
-        <StyledWrapper>
-          <StyledHeader>
-            <HouseName house={house} />
-            <p>{getBalanceHeader()}</p>
-          </StyledHeader>
-          <HouseBalance users={house.users} />
-          <StyledInviteWrapper>
-            <HouseInvite house={house} />
-          </StyledInviteWrapper>
-        </StyledWrapper>
-      )}
+      <StyledWrapper>
+        <StyledHeader>
+          <HouseName house={house} />
+          <p>{getBalanceHeader()}</p>
+        </StyledHeader>
+        <HouseBalance users={house.users} />
+        <StyledInviteWrapper>
+          <HouseInvite house={house} />
+        </StyledInviteWrapper>
+      </StyledWrapper>
     </Page>
   )
 }

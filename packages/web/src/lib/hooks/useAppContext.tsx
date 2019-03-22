@@ -4,6 +4,7 @@ import { AppContext } from "../../application/context"
 
 function useAppContext() {
   const { user, house } = useContext(AppContext)
+  // Casting them as not null for App as there is CheckUser && CheckHouse
   return { user: user!, house: house! }
 }
 

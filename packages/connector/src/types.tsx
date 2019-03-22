@@ -49,6 +49,7 @@ export type House = {
   name: Scalars["String"]
   users: Array<User>
   costs: Array<Cost>
+  invites: Array<Invite>
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
 }
@@ -57,9 +58,17 @@ export type HouseInput = {
   name: Scalars["String"]
 }
 
-export type InviteUserInput = {
+export type Invite = {
+  id: Scalars["ID"]
   email: Scalars["String"]
+  house: House
+  createdAt: Scalars["String"]
+  updatedAt: Scalars["String"]
+}
+
+export type InviteInput = {
   houseId: Scalars["String"]
+  email: Scalars["String"]
 }
 
 export type LoginInput = {
@@ -73,12 +82,12 @@ export type Mutation = {
   editCost?: Maybe<Cost>
   createHouse?: Maybe<House>
   editHouse?: Maybe<House>
+  createInvite?: Maybe<Invite>
   getSignedS3Url?: Maybe<S3SignedUrlResponse>
   register: UserAuthResponse
   login: UserAuthResponse
   updateUser?: Maybe<User>
   logout: Scalars["Boolean"]
-  inviteUser?: Maybe<Scalars["Boolean"]>
   forgotPassword: Scalars["Boolean"]
   resetPassword: Scalars["Boolean"]
 }
@@ -105,6 +114,10 @@ export type MutationEditHouseArgs = {
   houseId: Scalars["String"]
 }
 
+export type MutationCreateInviteArgs = {
+  data: InviteInput
+}
+
 export type MutationGetSignedS3UrlArgs = {
   data: S3SignedUrlInput
 }
@@ -119,10 +132,6 @@ export type MutationLoginArgs = {
 
 export type MutationUpdateUserArgs = {
   data: UpdateInput
-}
-
-export type MutationInviteUserArgs = {
-  data: InviteUserInput
 }
 
 export type MutationForgotPasswordArgs = {
@@ -317,6 +326,7 @@ export type GetHouseQuery = { __typename?: "Query" } & {
   house: Maybe<
     { __typename?: "House" } & {
       users: Array<{ __typename?: "User" } & UserFragment>
+      invites: Array<{ __typename?: "Invite" } & InviteFragment>
     } & HouseFragment
   >
 }
@@ -329,6 +339,7 @@ export type CreateHouseMutation = { __typename?: "Mutation" } & {
   createHouse: Maybe<
     { __typename?: "House" } & {
       users: Array<{ __typename?: "User" } & UserFragment>
+      invites: Array<{ __typename?: "Invite" } & InviteFragment>
     } & HouseFragment
   >
 }
@@ -340,6 +351,19 @@ export type EditHouseMutationVariables = {
 
 export type EditHouseMutation = { __typename?: "Mutation" } & {
   editHouse: Maybe<{ __typename?: "House" } & HouseFragment>
+}
+
+export type InviteFragment = { __typename?: "Invite" } & Pick<
+  Invite,
+  "id" | "email"
+>
+
+export type CreateInviteMutationVariables = {
+  data: InviteInput
+}
+
+export type CreateInviteMutation = { __typename?: "Mutation" } & {
+  createInvite: Maybe<{ __typename?: "Invite" } & InviteFragment>
 }
 
 export type GetSignedS3UrlMutationVariables = {
@@ -403,15 +427,6 @@ export type LogoutMutation = { __typename?: "Mutation" } & Pick<
   "logout"
 >
 
-export type InviteUserMutationVariables = {
-  data: InviteUserInput
-}
-
-export type InviteUserMutation = { __typename?: "Mutation" } & Pick<
-  Mutation,
-  "inviteUser"
->
-
 export type ForgotPasswordMutationVariables = {
   email: Scalars["String"]
 }
@@ -470,6 +485,12 @@ export const HouseFragmentDoc = gql`
   fragment House on House {
     id
     name
+  }
+`
+export const InviteFragmentDoc = gql`
+  fragment Invite on Invite {
+    id
+    email
   }
 `
 export const UserFragmentDoc = gql`
@@ -609,10 +630,14 @@ export const GetHouseDocument = gql`
       users {
         ...User
       }
+      invites {
+        ...Invite
+      }
     }
   }
   ${HouseFragmentDoc}
   ${UserFragmentDoc}
+  ${InviteFragmentDoc}
 `
 
 export function useGetHouseQuery(
@@ -630,10 +655,14 @@ export const CreateHouseDocument = gql`
       users {
         ...User
       }
+      invites {
+        ...Invite
+      }
     }
   }
   ${HouseFragmentDoc}
   ${UserFragmentDoc}
+  ${InviteFragmentDoc}
 `
 
 export function useCreateHouseMutation(
@@ -666,6 +695,26 @@ export function useEditHouseMutation(
     EditHouseMutation,
     EditHouseMutationVariables
   >(EditHouseDocument, baseOptions)
+}
+export const CreateInviteDocument = gql`
+  mutation CreateInvite($data: InviteInput!) {
+    createInvite(data: $data) {
+      ...Invite
+    }
+  }
+  ${InviteFragmentDoc}
+`
+
+export function useCreateInviteMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    CreateInviteMutation,
+    CreateInviteMutationVariables
+  >,
+) {
+  return ReactApolloHooks.useMutation<
+    CreateInviteMutation,
+    CreateInviteMutationVariables
+  >(CreateInviteDocument, baseOptions)
 }
 export const GetSignedS3UrlDocument = gql`
   mutation GetSignedS3Url($data: S3SignedUrlInput!) {
@@ -786,23 +835,6 @@ export function useLogoutMutation(
     LogoutDocument,
     baseOptions,
   )
-}
-export const InviteUserDocument = gql`
-  mutation InviteUser($data: InviteUserInput!) {
-    inviteUser(data: $data)
-  }
-`
-
-export function useInviteUserMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
-    InviteUserMutation,
-    InviteUserMutationVariables
-  >,
-) {
-  return ReactApolloHooks.useMutation<
-    InviteUserMutation,
-    InviteUserMutationVariables
-  >(InviteUserDocument, baseOptions)
 }
 export const ForgotPasswordDocument = gql`
   mutation ForgotPassword($email: String!) {

@@ -7,10 +7,9 @@ import {
   LoginInput,
   RegisterInput,
   UpdateInput,
-  InviteUserInput,
   ResetPasswordInput,
 } from "./user.input"
-import { HouseService } from "../house/house.service"
+
 import { UserMailer } from "./user.mailer"
 import { createToken, decryptToken } from "../../lib/jwt"
 import { UserAuthResponse } from "./user.response"
@@ -20,7 +19,6 @@ export class UserResolver {
   constructor(
     private readonly userService: UserService,
     private readonly userMailer: UserMailer,
-    private readonly houseService: HouseService,
   ) {}
 
   // ME
@@ -60,15 +58,6 @@ export class UserResolver {
   // LOGOUT
   @Mutation(() => Boolean)
   async logout(): Promise<boolean> {
-    return true
-  }
-
-  // INVITE USER
-  @Authorized()
-  @Mutation(() => Boolean, { nullable: true })
-  async inviteUser(@Arg("data") data: InviteUserInput): Promise<boolean> {
-    const house = await this.houseService.findById(data.houseId)
-    this.userMailer.sendInvitationLink(data.email, house)
     return true
   }
 

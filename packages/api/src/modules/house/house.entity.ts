@@ -10,6 +10,7 @@ import {
 import { ObjectType, Field, ID } from "type-graphql"
 import { User } from "../user/user.entity"
 import { Cost } from "../cost/cost.entity"
+import { Invite } from "../invite/invite.entity"
 
 @ObjectType()
 @Entity()
@@ -29,6 +30,10 @@ export class House extends BaseEntity {
   @Field(() => [Cost])
   @OneToMany(() => Cost, cost => cost.house)
   costs: Cost[]
+
+  @Field(() => [Invite])
+  @OneToMany(() => Invite, invite => invite.house)
+  invites: Invite[]
 
   @Field()
   @CreateDateColumn()

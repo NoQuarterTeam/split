@@ -8,7 +8,8 @@ import { AppContext } from "./context"
 import { production } from "../lib/config"
 
 import Loading from "../components/Loading"
-import CheckAuth from "../components/CheckAuth"
+import CheckUser from "../components/CheckUser"
+import CheckHouse from "../components/CheckHouse"
 import ErrorFallback from "../components/ErrorFallback"
 
 import Settings from "../pages/Settings"
@@ -31,21 +32,25 @@ function Application() {
     })
   }
 
+  console.log(house)
+
   return (
     <AppContext.Provider value={{ user, house }}>
       <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
         <Loading loading={userLoading || getHouseLoading}>
           <Suspense fallback={null}>
-            <CheckAuth>
-              <Router>
-                <Balance path="/" />
-                <NewCost path="/new-cost" />
-                <EditCost path="/costs/:id" />
-                <Costs path="/costs" />
-                <Settings path="/settings" />
-                <NotFound default={true} />
-              </Router>
-            </CheckAuth>
+            <CheckUser>
+              <CheckHouse>
+                <Router>
+                  <Balance path="/" />
+                  <NewCost path="/new-cost" />
+                  <EditCost path="/costs/:id" />
+                  <Costs path="/costs" />
+                  <Settings path="/settings" />
+                  <NotFound default={true} />
+                </Router>
+              </CheckHouse>
+            </CheckUser>
           </Suspense>
         </Loading>
       </ErrorBoundary>

@@ -1,6 +1,7 @@
 import gql from "graphql-tag"
 import { User } from "../user/fragments"
 import { House } from "./fragments"
+import { Invite } from "../invite/fragments"
 
 export const CHECK_HOUSE = gql`
   query CheckHouse($houseId: String) {
@@ -18,10 +19,14 @@ export const GET_HOUSE = gql`
       users {
         ...User
       }
+      invites {
+        ...Invite
+      }
     }
   }
   ${House}
   ${User}
+  ${Invite}
 `
 
 export const CREATE_HOUSE = gql`
@@ -30,6 +35,9 @@ export const CREATE_HOUSE = gql`
       ...House
       users {
         ...User
+      }
+      invites {
+        ...Invite
       }
     }
   }

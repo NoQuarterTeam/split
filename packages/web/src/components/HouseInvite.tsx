@@ -1,5 +1,5 @@
 import React, { memo, useState, useRef } from "react"
-import { useInviteUser, HouseFragment } from "@split/connector"
+import { useCreateInvite, HouseFragment } from "@split/connector"
 
 import styled from "../application/theme"
 import { sleep } from "../lib/helpers"
@@ -24,13 +24,13 @@ function HouseInvite({ house }: HouseInviteProps) {
     }
   }
 
-  const inviteUser = useInviteUser()
+  const createInvite = useCreateInvite()
 
   const handleInviteSend = (e: any) => {
     e.preventDefault()
     if (!email) return
 
-    inviteUser({ variables: { data: { houseId: house.id, email } } })
+    createInvite({ variables: { data: { houseId: house.id, email } } })
       .then(() => {
         setEmail("")
         setFormOpen(false)

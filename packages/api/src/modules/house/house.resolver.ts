@@ -16,15 +16,18 @@ import { HouseService } from "./house.service"
 import { Cost } from "../cost/cost.entity"
 import { UserService } from "../user/user.service"
 import { User } from "../user/user.entity"
+import { InviteService } from "../invite/invite.service"
+import { Invite } from "../invite/invite.entity"
 
 @Resolver(() => House)
 export class HouseResolver {
   constructor(
     private readonly houseService: HouseService,
     private readonly userService: UserService,
+    private readonly inviteService: InviteService,
   ) {}
 
-  // Check HOUSE
+  // CHECK HOUSE
   @Query(() => House, { nullable: true })
   async checkHouse(
     @Arg("houseId", { nullable: true }) houseId?: string,
@@ -72,5 +75,11 @@ export class HouseResolver {
   async users(@Root() house: House): Promise<User[]> {
     const users = await this.userService.findAll(house)
     return users
+  }
+
+  @FieldResolver(() => [Cost])
+  async invites(@Root() house: House): Promise<Invite[]> {
+    const invites = await this.inviteService.findAll(house)
+    return invites
   }
 }

@@ -3,25 +3,22 @@ import { Link, Match } from "@reach/router"
 import { useLogout } from "@split/connector"
 
 import styled, { media, lighten } from "../application/theme"
-
-import IconPlus from "../assets/images/icon-plus.svg"
-import IconLogo from "../assets/images/icon-logo.svg"
-
 import useAppContext from "../lib/hooks/useAppContext"
 
+import IconPlus from "../assets/images/icon-plus.svg"
+
+import Logo from "./Logo"
+
 function Sidebar({ open }: { open: boolean }) {
-  const { user } = useAppContext()
+  const { house } = useAppContext()
   const logout = useLogout()
 
   return (
     <StyledSidebar open={open}>
-      <h2>
-        <img src={IconLogo} width={30} />
-        Split
-      </h2>
+      <Logo />
       <div>
         <NavLink to="/">Balance</NavLink>
-        {user.houseId && (
+        {house && house.users.length > 1 && (
           <Fragment>
             <NavLink to="/new-cost">
               New cost <StyledIcon src={IconPlus} />

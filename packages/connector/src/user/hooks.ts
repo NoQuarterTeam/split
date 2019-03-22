@@ -5,7 +5,6 @@ import {
   useUpdateUserMutation,
   useRegisterMutation,
   useLogoutMutation,
-  useInviteUserMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
   GetHouseDocument,
@@ -77,10 +76,6 @@ export function useLogout() {
   }
 
   return handleLogout
-}
-
-export function useInviteUser() {
-  return useInviteUserMutation()
 }
 
 export function useForgotPassword() {

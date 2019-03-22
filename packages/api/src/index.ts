@@ -17,8 +17,7 @@ import { IRequest } from "./lib/types"
 
 async function main() {
   try {
-    const connection = await createDbConnection()
-    await connection.runMigrations()
+    await createDbConnection()
 
     const app = express()
       .use(morgan("dev"))

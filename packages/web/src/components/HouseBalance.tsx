@@ -4,12 +4,15 @@ import { UserFragment } from "@split/connector"
 import { round } from "../lib/helpers"
 import styled, { media } from "../application/theme"
 import Avatar from "./Avatar"
+import useAppContext from "../lib/hooks/useAppContext"
 
 type HouseBalanceProps = {
   users: UserFragment[]
 }
 
 function HouseBalance({ users }: HouseBalanceProps) {
+  const { house } = useAppContext()
+
   const total = users.reduce((acc, u) => Math.abs(u.balance) + acc, 0)
 
   return (
@@ -29,6 +32,12 @@ function HouseBalance({ users }: HouseBalanceProps) {
           </StyledUserGraph>
         )
       })}
+      {house && house!.invites.length > 0 && (
+        <StyledUserGraph>
+          <StyledSpacer />
+          <div>Pending invites</div>
+        </StyledUserGraph>
+      )}
     </StyledHouseBalance>
   )
 }

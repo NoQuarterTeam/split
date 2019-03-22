@@ -1,49 +1,52 @@
 import React, { memo, useState } from "react"
-import { useCreateHouse } from "@split/connector"
+import { useCreateInvite, HouseFragment } from "@split/connector"
 
 import styled from "../application/theme"
 
 import Input from "./Input"
 import Button from "./Button"
 
-function HouseForm() {
-  const [name, setName] = useState<string>("")
+type InviteFormProps = {
+  house: HouseFragment
+}
+function InviteForm({ house }: InviteFormProps) {
+  const [email, setEmail] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 
-  const createHouse = useCreateHouse()
+  const createInvite = useCreateInvite()
 
-  const handleCreateHouse = (e: any) => {
+  const handleCreateInvite = (e: any) => {
     e.preventDefault()
     setLoading(true)
-    createHouse({
-      variables: { data: { name } },
+    createInvite({
+      variables: { data: { email, houseId: house.id } },
     }).catch(() => {
       setLoading(false)
-      setError("error creating house")
+      setError("error sending invite")
     })
   }
 
   return (
-    <StyledForm onSubmit={handleCreateHouse}>
-      <StyledHeader>Start by creating a house</StyledHeader>
+    <StyledForm onSubmit={handleCreateInvite}>
+      <StyledHeader>Now invite someone to join</StyledHeader>
       <Input
-        value={name}
-        onChange={e => setName(e.target.value)}
-        placeholder="The boys gaff"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        placeholder="jimsebe@gmail.com"
         required={true}
-        label="House name"
+        label="House mate"
       />
       <br />
       <Button loading={loading} variant="primary" color="blue">
-        Create house
+        Send invite
       </Button>
       {error && <StyledError>{error}</StyledError>}
     </StyledForm>
   )
 }
 
-export default memo(HouseForm)
+export default memo(InviteForm)
 
 const StyledForm = styled.form`
   height: 100%;

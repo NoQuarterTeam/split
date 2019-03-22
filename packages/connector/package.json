@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "rm -rf dist && NODE_ENV=production parcel build src/index.ts",
+    "build": "rm -rf dist && tsc --build",
     "lint": "tslint -p .",
     "generate": "gql-gen --watch"
   },

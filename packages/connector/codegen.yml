@@ -2,7 +2,7 @@ schema: http://localhost:5000/graphql
 documents: ./**/*.ts
 overwrite: true
 generates:
-  ./src/types.tsx:
+  ./src/types.ts:
     config:
       withHooks: true
       noComponents: true

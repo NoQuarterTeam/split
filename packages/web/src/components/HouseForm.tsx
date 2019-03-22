@@ -1,17 +1,13 @@
 import React, { memo, useState } from "react"
-import { GetHouse, useCreateHouse } from "@split/connector"
+import { useCreateHouse } from "@split/connector"
 
 import styled from "../application/theme"
 
 import Input from "./Input"
 import Button from "./Button"
 
-type HouseFormProps = {
-  house?: GetHouse.House
-}
-
-function HouseForm({ house }: HouseFormProps) {
-  const [name, setName] = useState<string>(house ? house.name : "")
+function HouseForm() {
+  const [name, setName] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 

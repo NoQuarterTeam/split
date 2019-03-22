@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react"
 import Dropzone from "react-dropzone"
 import axios from "axios"
-import { useUpdateUser, useGetSignedS3Url, Me } from "@split/connector"
+import {
+  useUpdateUser,
+  useGetSignedS3Url,
+  UserFragment,
+} from "@split/connector"
 
 import styled from "../application/theme"
 
@@ -11,7 +15,7 @@ import Avatar from "./Avatar"
 import Modal from "./Modal"
 
 type ProfileAvatarUploadProps = {
-  user: Me.Me
+  user: UserFragment
 }
 
 function ProfileAvatarUpload({ user }: ProfileAvatarUploadProps) {

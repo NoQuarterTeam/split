@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost"
+import gql from "graphql-tag"
 import { User } from "../user/fragments"
 import { House } from "./fragments"
 

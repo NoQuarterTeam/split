@@ -1,17 +1,22 @@
 import { useApolloClient } from "react-apollo-hooks"
 
 import {
-  AllCosts,
-  GetCost,
-  EditCost,
-  GetHouse,
-  DestroyCost,
-  CreateCost,
+  useAllCostsQuery,
+  useGetCostQuery,
+  useEditCostMutation,
+  Cost,
+  useDestroyCostMutation,
+  AllCostsQuery,
+  AllCostsQueryVariables,
+  AllCostsDocument,
+  GetHouseDocument,
+  useCreateCostMutation,
+  CostFragment,
 } from "../types"
 
 export function useAllCosts(houseId: string, search: string) {
   const client = useApolloClient()
-  const { data, error, loading } = AllCosts.use({
+  const { data, error, loading } = useAllCostsQuery({
     variables: {
       houseId,
       search,
@@ -24,15 +29,15 @@ export function useAllCosts(houseId: string, search: string) {
 
   const handleRefetch = async (skip: number, currentSearch: string) => {
     const { data: curentData } = await client.query<
-      AllCosts.Query,
-      AllCosts.Variables
+      AllCostsQuery,
+      AllCostsQueryVariables
     >({
-      query: AllCosts.Document,
+      query: AllCostsDocument,
       variables: { skip, search: currentSearch, houseId },
     })
     if (!curentData || !curentData.allCosts) return
-    const prev = client.readQuery<AllCosts.Query, AllCosts.Variables>({
-      query: AllCosts.Document,
+    const prev = client.readQuery<AllCostsQuery, AllCostsQueryVariables>({
+      query: AllCostsDocument,
       variables: { skip: 0, houseId, search: currentSearch },
     })
     if (!prev || !prev.allCosts) return
@@ -43,7 +48,7 @@ export function useAllCosts(houseId: string, search: string) {
       },
     })
     await client.writeQuery({
-      query: AllCosts.Document,
+      query: AllCostsDocument,
       variables: { skip: 0, houseId, search: currentSearch },
       data: newData,
     })
@@ -58,7 +63,7 @@ export function useAllCosts(houseId: string, search: string) {
 }
 
 export function useGetCost(costId: string) {
-  const { data, error } = GetCost.use({
+  const { data, error } = useGetCostQuery({
     variables: { costId },
     suspend: true,
   })
@@ -67,11 +72,11 @@ export function useGetCost(costId: string) {
 }
 
 export function useEditCost(houseId: string) {
-  return EditCost.use({
+  return useEditCostMutation({
     refetchQueries: [
-      { query: GetHouse.Document },
+      { query: GetHouseDocument },
       {
-        query: AllCosts.Document,
+        query: AllCostsDocument,
         variables: { houseId, skip: 0, search: "" },
       },
     ],
@@ -79,19 +84,19 @@ export function useEditCost(houseId: string) {
   })
 }
 
-export function useDestroyCost(cost: GetCost.GetCost) {
-  return DestroyCost.use({
+export function useDestroyCost(cost: CostFragment) {
+  return useDestroyCostMutation({
     variables: { costId: cost.id },
-    refetchQueries: [{ query: GetHouse.Document }],
+    refetchQueries: [{ query: GetHouseDocument }],
     update: (cache, { data }) => {
-      const costsData = cache.readQuery<AllCosts.Query, AllCosts.Variables>({
-        query: AllCosts.Document,
+      const costsData = cache.readQuery<AllCostsQuery, AllCostsQueryVariables>({
+        query: AllCostsDocument,
         variables: { houseId: cost.houseId, skip: 0, search: "" },
       })
       if (data && costsData && costsData.allCosts && costsData.allCosts.costs) {
         const costs = costsData.allCosts.costs.filter(c => c.id !== cost.id)
         cache.writeQuery({
-          query: AllCosts.Document,
+          query: AllCostsDocument,
           data: {
             allCosts: {
               __typename: costsData.allCosts.__typename,
@@ -107,17 +112,17 @@ export function useDestroyCost(cost: GetCost.GetCost) {
 }
 
 export function useCreateCost(houseId: string) {
-  return CreateCost.use({
-    refetchQueries: [{ query: GetHouse.Document }],
+  return useCreateCostMutation({
+    refetchQueries: [{ query: GetHouseDocument }],
     awaitRefetchQueries: true,
     update: (cache, { data }) => {
-      const costsData = cache.readQuery<AllCosts.Query, AllCosts.Variables>({
-        query: AllCosts.Document,
+      const costsData = cache.readQuery<AllCostsQuery, AllCostsQueryVariables>({
+        query: AllCostsDocument,
         variables: { houseId, skip: 0, search: "" },
       })
       if (data && costsData && costsData.allCosts) {
         cache.writeQuery({
-          query: AllCosts.Document,
+          query: AllCostsDocument,
           variables: { houseId, skip: 0, search: "" },
           data: {
             allCosts: {

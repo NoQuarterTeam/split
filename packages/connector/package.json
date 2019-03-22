@@ -6,24 +6,21 @@
   "scripts": {
     "build": "rm -rf dist && tsc --build",
     "lint": "tslint -p .",
-    "generate": "gql-gen --watch"
+    "generate": "graphql-codegen --watch"
   },
   "dependencies": {
-    "apollo-boost": "^0.1.27",
-    "react-apollo-hooks": "^0.4.0"
+    "graphql-tag": "^2.10.1",
+    "react-apollo-hooks": "^0.4.3"
   },
   "devDependencies": {
-    "@types/graphql": "^14.0.5",
-    "@types/node": "^10.12.21",
-    "graphql-code-generator": "^0.16.0",
-    "graphql-codegen-typescript-client": "^0.16.0",
-    "graphql-codegen-typescript-common": "^0.16.0",
-    "graphql-codegen-typescript-react-apollo": "^0.18.0",
-    "graphql-codegen-typescript-server": "^0.16.0",
-    "tslint": "^5.12.1",
-    "tslint-config-prettier": "^1.17.0",
+    "@graphql-codegen/cli": "^1.0.3",
+    "@graphql-codegen/typescript": "^1.0.3",
+    "@graphql-codegen/typescript-operations": "^1.0.3",
+    "@graphql-codegen/typescript-react-apollo": "^1.0.3",
+    "@types/node": "^11.11.5",
+    "tslint": "^5.14.0",
+    "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
-    "tslint-react": "^3.6.0",
-    "typescript": "^3.3.1"
+    "typescript": "^3.3.4000"
   }
 }

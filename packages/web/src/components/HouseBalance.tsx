@@ -1,12 +1,12 @@
 import React, { memo } from "react"
-import { User } from "@split/connector"
+import { UserFragment } from "@split/connector"
 
 import { round } from "../lib/helpers"
 import styled, { media } from "../application/theme"
 import Avatar from "./Avatar"
 
 type HouseBalanceProps = {
-  users: User.Fragment[]
+  users: UserFragment[]
 }
 
 function HouseBalance({ users }: HouseBalanceProps) {

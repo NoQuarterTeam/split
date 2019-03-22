@@ -1,13 +1,24 @@
-import { GetHouse, CheckHouse, CreateHouse, EditHouse, Me } from "../types"
+import {
+  useGetHouseQuery,
+  useCheckHouseQuery,
+  useCreateHouseMutation,
+  MeQuery,
+  useEditHouseMutation,
+  MeDocument,
+  GetHouseDocument,
+  GetHouseQuery,
+  MeQueryVariables,
+  GetHouseQueryVariables,
+} from "../types"
 
 export function useGetHouse() {
-  const { data, error, loading } = GetHouse.use()
+  const { data, error, loading } = useGetHouseQuery()
   const house = data!.house!
   return { house, getHouseLoading: loading, getHouseError: error }
 }
 
 export function useCheckHouse(houseId: string | null) {
-  const { data, error } = CheckHouse.use({
+  const { data, error } = useCheckHouseQuery({
     variables: { houseId },
     suspend: true,
   })
@@ -16,19 +27,19 @@ export function useCheckHouse(houseId: string | null) {
 }
 
 export function useCreateHouse() {
-  return CreateHouse.use({
+  return useCreateHouseMutation({
     update: (cache, { data }) => {
-      const getMe = cache.readQuery<Me.Query, Me.Variables>({
-        query: Me.Document,
+      const getMe = cache.readQuery<MeQuery, MeQueryVariables>({
+        query: MeDocument,
       })
       if (data && data.createHouse && getMe) {
         const house = data.createHouse
         cache.writeQuery({
-          query: GetHouse.Document,
+          query: GetHouseDocument,
           data: { house },
         })
         cache.writeQuery({
-          query: Me.Document,
+          query: MeDocument,
           data: { me: { ...getMe.me, houseId: data.createHouse.id } },
         })
       }
@@ -37,15 +48,15 @@ export function useCreateHouse() {
 }
 
 export function useEditHouse() {
-  return EditHouse.use({
+  return useEditHouseMutation({
     update: (cache, { data }) => {
-      const getHouse = cache.readQuery<GetHouse.Query, GetHouse.Variables>({
-        query: GetHouse.Document,
+      const getHouse = cache.readQuery<GetHouseQuery, GetHouseQueryVariables>({
+        query: GetHouseDocument,
       })
       if (data && data.editHouse && getHouse) {
         const res = data.editHouse
         cache.writeQuery({
-          query: GetHouse.Document,
+          query: GetHouseDocument,
           data: { house: { ...getHouse.house, name: res.name } },
         })
       }

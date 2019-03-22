@@ -1,10 +1,10 @@
 import React, { useState, memo, useRef } from "react"
-import { useEditHouse, GetHouse } from "@split/connector"
+import { useEditHouse, HouseFragment } from "@split/connector"
 
 import styled from "../application/theme"
 
 type HouseNameProps = {
-  house: GetHouse.House
+  house: HouseFragment
 }
 
 function HouseName({ house }: HouseNameProps) {

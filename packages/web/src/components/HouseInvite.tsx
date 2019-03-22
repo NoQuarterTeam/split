@@ -1,5 +1,5 @@
 import React, { memo, useState, useRef } from "react"
-import { useInviteUser, GetHouse } from "@split/connector"
+import { useInviteUser, HouseFragment } from "@split/connector"
 
 import styled from "../application/theme"
 import { sleep } from "../lib/helpers"
@@ -8,7 +8,7 @@ import Input from "./Input"
 import Button from "./Button"
 
 type HouseInviteProps = {
-  house: GetHouse.House
+  house: HouseFragment
 }
 
 function HouseInvite({ house }: HouseInviteProps) {

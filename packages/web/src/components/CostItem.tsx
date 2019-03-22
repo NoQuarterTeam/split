@@ -1,7 +1,7 @@
 import React, { memo } from "react"
 import dayjs from "dayjs"
 import { Link } from "@reach/router"
-import { AllCosts } from "@split/connector"
+import { CostFragment, PayerFragment } from "@split/connector"
 
 import styled, { media } from "../application/theme"
 import { round, capitalize } from "../lib/helpers"
@@ -16,7 +16,7 @@ import Center from "./styled/Center"
 import ToolTip from "./ToolTip"
 
 type CostProps = {
-  cost: AllCosts.Costs
+  cost: CostFragment & PayerFragment
 }
 
 function CostItem({ cost }: CostProps) {

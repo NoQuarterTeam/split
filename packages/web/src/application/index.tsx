@@ -1,25 +1,22 @@
 import React, { memo, Suspense } from "react"
 import { Router } from "@reach/router"
 import LogRocket from "logrocket"
-
 import ErrorBoundary from "react-error-boundary"
+import { useMe, useGetHouse } from "@split/connector"
 
 import { AppContext } from "./context"
-
 import { production } from "../lib/config"
-
-import { useMe } from "@split/connector"
-import { useGetHouse } from "@split/connector"
 
 import Loading from "../components/Loading"
 import CheckAuth from "../components/CheckAuth"
+import ErrorFallback from "../components/ErrorFallback"
+
+import Settings from "../pages/Settings"
 import Balance from "../pages/Balance"
 import NotFound from "../pages/NotFound"
 import NewCost from "../pages/NewCost"
 import EditCost from "../pages/EditCost"
 import Costs from "../pages/Costs"
-import Settings from "../pages/Settings"
-import ErrorFallback from "../components/ErrorFallback"
 
 function Application() {
   const { user, userLoading } = useMe()

@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react"
 import { navigate } from "@reach/router"
-import { useUpdateUser, Me } from "@split/connector"
+import { useUpdateUser, UserFragment } from "@split/connector"
 
 import styled from "../application/theme"
 
@@ -12,7 +12,7 @@ import Button from "./Button"
 import ProfileAvatarUpload from "./ProfileAvatarUpload"
 
 type ProfileFormProps = {
-  user: Me.Me
+  user: UserFragment
 }
 
 type UpdateUserValues = {

@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost"
+import gql from "graphql-tag"
 import { Cost, Shares, Payer } from "./fragments"
 
 export const GET_ALL_COSTS = gql`

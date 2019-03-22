@@ -1,15 +1,13 @@
 import React, { memo } from "react"
-import { Maybe } from "@split/connector"
+
 import styled, { darken, media } from "../application/theme"
 
-type UserDetails = {
-  firstName: string
-  lastName: string
-  avatar: Maybe<string>
-}
-
 type AvatarProps = {
-  user: UserDetails
+  user: {
+    avatar?: string | null
+    firstName: string
+    lastName: string
+  }
   size?: number
 }
 

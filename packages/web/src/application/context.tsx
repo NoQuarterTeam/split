@@ -1,9 +1,9 @@
 import React from "react"
-import { Maybe, Me, GetHouse } from "@split/connector"
+import { MeQuery, GetHouseQuery } from "@split/connector"
 
 export interface IContext {
-  user: Maybe<Me.Me>
-  house: Maybe<GetHouse.House>
+  user: MeQuery["me"]
+  house: GetHouseQuery["house"]
 }
 export const AppContext = React.createContext<IContext>({
   user: null,

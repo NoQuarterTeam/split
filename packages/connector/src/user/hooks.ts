@@ -1,31 +1,32 @@
 import { useApolloClient } from "react-apollo-hooks"
 import {
-  Login,
-  UpdateUser,
-  Register,
-  InviteUser,
-  ForgotPassword,
-  ResetPassword,
-  Me,
-  GetHouse,
-  Logout,
+  useLoginMutation,
+  useMeQuery,
+  useUpdateUserMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+  useInviteUserMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+  GetHouseDocument,
+  MeDocument,
 } from "../types"
 
 export function useMe() {
-  const { data, loading } = Me.use({ suspend: false })
+  const { data, loading } = useMeQuery({ suspend: false })
   const user = (data && data.me) || null
   return { user, userLoading: loading }
 }
 
 export function useLogin() {
-  return Login.use({
-    refetchQueries: [{ query: GetHouse.Document }],
+  return useLoginMutation({
+    refetchQueries: [{ query: GetHouseDocument }],
     awaitRefetchQueries: true,
     update: (cache, res) => {
       if (res.data) {
         localStorage.setItem("token", res.data.login.token)
         cache.writeQuery({
-          query: Me.Document,
+          query: MeDocument,
           data: { me: res.data.login.user },
         })
       }
@@ -34,11 +35,11 @@ export function useLogin() {
 }
 
 export function useUpdateUser() {
-  return UpdateUser.use({
+  return useUpdateUserMutation({
     update: (cache, res) => {
       if (res.data && res.data.updateUser) {
         cache.writeQuery({
-          query: Me.Document,
+          query: MeDocument,
           data: { me: res.data.updateUser },
         })
       }
@@ -47,14 +48,14 @@ export function useUpdateUser() {
 }
 
 export function useRegister() {
-  return Register.use({
-    refetchQueries: [{ query: GetHouse.Document }],
+  return useRegisterMutation({
+    refetchQueries: [{ query: GetHouseDocument }],
     awaitRefetchQueries: true,
     update: (cache, res) => {
       if (res.data) {
         localStorage.setItem("token", res.data.register.token)
         cache.writeQuery({
-          query: Me.Document,
+          query: MeDocument,
           data: { me: res.data.register.user },
         })
       }
@@ -64,13 +65,13 @@ export function useRegister() {
 
 export function useLogout() {
   const client = useApolloClient()
-  const logout = Logout.use()
+  const logout = useLogoutMutation()
 
   const handleLogout = async () => {
     localStorage.removeItem("token")
     await logout({
       update: cache =>
-        cache.writeQuery({ query: Me.Document, data: { me: null } }),
+        cache.writeQuery({ query: MeDocument, data: { me: null } }),
     })
     await client.resetStore()
   }
@@ -79,13 +80,13 @@ export function useLogout() {
 }
 
 export function useInviteUser() {
-  return InviteUser.use()
+  return useInviteUserMutation()
 }
 
 export function useForgotPassword() {
-  return ForgotPassword.use()
+  return useForgotPasswordMutation()
 }
 
 export function useResetPassword() {
-  return ResetPassword.use()
+  return useResetPasswordMutation()
 }

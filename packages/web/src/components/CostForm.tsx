@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect } from "react"
 import dayjs from "dayjs"
-import { CostInput, GetCost } from "@split/connector"
+import { CostInput, GetCostQuery } from "@split/connector"
 
 import styled, { media } from "../application/theme"
 import { splitTheBill, round, sleep } from "../lib/helpers"
@@ -13,7 +13,7 @@ import CostShares from "./CostShares"
 import ErrorBanner from "./ErrorBanner"
 
 type CostFormProps = {
-  cost?: GetCost.GetCost
+  cost?: GetCostQuery["getCost"]
   onFormSubmit: (data: CostInput) => Promise<any>
   onCostDelete?: () => void
 }

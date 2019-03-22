@@ -21,7 +21,7 @@ function EditCostPage(props: EditCostProps) {
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
   const { cost } = useGetCost(props.id!)
-  if (!cost) return null
+  if (!cost) return <Redirect to="/" noThrow={true} />
 
   const editCost = useEditCost(cost.houseId)
   const destroyCost = useDestroyCost(cost)

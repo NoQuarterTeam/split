@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import { CostInput, User } from "@split/connector"
+import { CostInput, UserFragment } from "@split/connector"
 
 import styled, { media } from "../application/theme"
 import { round } from "../lib/helpers"
@@ -10,7 +10,7 @@ import Participant from "./Participant"
 import Button from "./Button"
 
 type CostSharesProps = {
-  users: User.Fragment[]
+  users: UserFragment[]
   isDifferent: boolean
   formState: CostInput
   setFormState: (val: { [key: string]: any }) => void

@@ -4,11 +4,7 @@ import { ApolloServer } from "apollo-server-express"
 import express, { Response } from "express"
 import jwt from "express-jwt"
 import morgan from "morgan"
-import {
-  useContainer,
-  formatArgumentValidationError,
-  buildSchema,
-} from "type-graphql"
+import { buildSchema } from "type-graphql"
 import { Container } from "typedi"
 
 import { createDbConnection } from "./db"
@@ -18,8 +14,6 @@ import { cors, PORT, resolverPaths, APP_SECRET } from "./config"
 import { userLoader } from "./modules/user/user.loader"
 import { shareLoader } from "./modules/share/share.loader"
 import { IRequest } from "./lib/types"
-
-useContainer(Container)
 
 async function main() {
   try {
@@ -41,6 +35,7 @@ async function main() {
     const schema = await buildSchema({
       authChecker,
       authMode: "null",
+      container: Container,
       resolvers: [__dirname + resolverPaths],
     })
 
@@ -52,7 +47,6 @@ async function main() {
         userLoader: userLoader(),
         shareLoader: shareLoader(),
       }),
-      formatError: formatArgumentValidationError,
       introspection: true,
       playground: true,
       schema,

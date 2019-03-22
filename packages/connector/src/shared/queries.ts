@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost"
+import gql from "graphql-tag"
 
 export const GET_SIGNED_S3_URL = gql`
   mutation GetSignedS3Url($data: S3SignedUrlInput!) {

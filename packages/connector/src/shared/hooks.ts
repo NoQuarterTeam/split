@@ -1,5 +1,5 @@
-import { GetSignedS3Url } from "../types"
+import { useGetSignedS3UrlMutation } from "../types"
 
 export function useGetSignedS3Url() {
-  return GetSignedS3Url.use()
+  return useGetSignedS3UrlMutation()
 }

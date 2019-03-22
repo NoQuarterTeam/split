@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import { ShareInput, User } from "@split/connector"
+import { ShareInput, UserFragment } from "@split/connector"
 import styled, { media } from "../application/theme"
 import { decimalCount } from "../lib/helpers"
 
@@ -11,7 +11,7 @@ import Column from "./styled/Column"
 import Center from "./styled/Center"
 
 type ParticipantProps = {
-  user: User.Fragment
+  user: UserFragment
   isPayer: boolean
   shares: ShareInput[]
   setFormState: (val: { [key: string]: any }) => void

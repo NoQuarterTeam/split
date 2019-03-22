@@ -1,11 +1,10 @@
-import { gql } from "apollo-boost"
+import gql from "graphql-tag"
 import { User } from "./fragments"
 
 export const ME = gql`
   query Me {
     me {
       ...User
-      houseId
     }
   }
   ${User}
@@ -16,7 +15,6 @@ export const LOGIN = gql`
     login(data: $data) {
       user {
         ...User
-        houseId
       }
       token
     }
@@ -29,7 +27,6 @@ export const REGISTER = gql`
     register(data: $data) {
       user {
         ...User
-        houseId
       }
       token
     }
@@ -41,7 +38,6 @@ export const UPDATE_USER = gql`
   mutation UpdateUser($data: UpdateInput!) {
     updateUser(data: $data) {
       ...User
-      houseId
     }
   }
   ${User}

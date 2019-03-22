@@ -1,6 +1,6 @@
 import React, { memo } from "react"
+import { Maybe } from "@split/connector"
 import styled, { darken, media } from "../application/theme"
-import { Maybe } from "../lib/graphql/types"
 
 type UserDetails = {
   firstName: string

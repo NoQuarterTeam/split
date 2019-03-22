@@ -1,11 +1,13 @@
 import React, { memo } from "react"
+import { CostInput, User } from "@split/connector"
+
+import styled, { media } from "../application/theme"
+import { round } from "../lib/helpers"
+
+import Column from "./styled/Column"
+import Alert from "./Alert"
 import Participant from "./Participant"
 import Button from "./Button"
-import { CostInput, User } from "../lib/graphql/types"
-import styled, { media } from "../application/theme"
-import Alert from "./Alert"
-import Column from "./styled/Column"
-import { round } from "../lib/helpers"
 
 type CostSharesProps = {
   users: User.Fragment[]

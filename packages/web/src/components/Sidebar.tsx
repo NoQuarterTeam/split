@@ -1,5 +1,6 @@
 import React, { memo, Fragment, FC } from "react"
 import { Link, Match } from "@reach/router"
+import { useLogout } from "@split/connector"
 
 import styled, { media, lighten } from "../application/theme"
 
@@ -7,7 +8,6 @@ import IconPlus from "../assets/images/icon-plus.svg"
 import IconLogo from "../assets/images/icon-logo.svg"
 
 import useAppContext from "../lib/hooks/useAppContext"
-import { useLogout } from "../lib/graphql/user/hooks"
 
 function Sidebar({ open }: { open: boolean }) {
   const { user } = useAppContext()

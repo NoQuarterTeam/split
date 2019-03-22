@@ -1,0 +1,29 @@
+{
+  "name": "@split/connector",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist && NODE_ENV=production parcel build src/index.ts",
+    "lint": "tslint -p .",
+    "generate": "gql-gen --watch"
+  },
+  "dependencies": {
+    "apollo-boost": "^0.1.27",
+    "react-apollo-hooks": "^0.4.0"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.0.5",
+    "@types/node": "^10.12.21",
+    "graphql-code-generator": "^0.16.0",
+    "graphql-codegen-typescript-client": "^0.16.0",
+    "graphql-codegen-typescript-common": "^0.16.0",
+    "graphql-codegen-typescript-react-apollo": "^0.18.0",
+    "graphql-codegen-typescript-server": "^0.16.0",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.3.1"
+  }
+}

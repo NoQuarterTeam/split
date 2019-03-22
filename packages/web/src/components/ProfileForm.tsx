@@ -1,11 +1,10 @@
 import React, { memo, useState } from "react"
 import { navigate } from "@reach/router"
+import { useUpdateUser, Me } from "@split/connector"
 
 import styled from "../application/theme"
 
-import { Me } from "../lib/graphql/types"
 import useFormState from "../lib/hooks/useFormState"
-import { useUpdateUser } from "../lib/graphql/user/hooks"
 
 import Input from "./Input"
 import Button from "./Button"

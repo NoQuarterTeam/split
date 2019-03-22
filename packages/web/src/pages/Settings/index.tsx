@@ -1,9 +1,9 @@
 import React from "react"
-
 import { RouteComponentProps } from "@reach/router"
 
-import ProfileForm from "../../components/ProfileForm"
 import useAppContext from "../../lib/hooks/useAppContext"
+
+import ProfileForm from "../../components/ProfileForm"
 import QuickPage from "../../components/QuickPage"
 
 function Settings(_: RouteComponentProps) {

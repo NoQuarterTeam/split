@@ -1,9 +1,7 @@
 import React, { memo, useState } from "react"
+import { GetHouse, useCreateHouse } from "@split/connector"
 
 import styled from "../application/theme"
-
-import { GetHouse } from "../lib/graphql/types"
-import { useCreateHouse } from "../lib/graphql/house/hooks"
 
 import Input from "./Input"
 import Button from "./Button"

@@ -1,7 +1,7 @@
 import React, { useState, memo, useRef } from "react"
+import { useEditHouse, GetHouse } from "@split/connector"
+
 import styled from "../application/theme"
-import { GetHouse } from "../lib/graphql/types"
-import { useEditHouse } from "../lib/graphql/house/hooks"
 
 type HouseNameProps = {
   house: GetHouse.House

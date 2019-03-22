@@ -1,15 +1,15 @@
 import React from "react"
 import { RouteComponentProps, Redirect } from "@reach/router"
-
-import { CostInput } from "../../lib/graphql/types"
-
-import CostForm from "../../components/CostForm"
-import useAppContext from "../../lib/hooks/useAppContext"
 import {
   useGetCost,
   useEditCost,
   useDestroyCost,
-} from "../../lib/graphql/costs/hooks"
+  CostInput,
+} from "@split/connector"
+
+import useAppContext from "../../lib/hooks/useAppContext"
+
+import CostForm from "../../components/CostForm"
 import QuickPage from "../../components/QuickPage"
 
 interface EditCostProps extends RouteComponentProps {

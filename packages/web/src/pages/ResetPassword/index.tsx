@@ -1,9 +1,9 @@
 import React, { useState, Fragment } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
+import { useResetPassword } from "@split/connector"
 
 import styled from "../../application/theme"
-import { useResetPassword } from "../../lib/graphql/user/hooks"
 
 import Input from "../../components/Input"
 import Button from "../../components/Button"

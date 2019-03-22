@@ -1,8 +1,8 @@
 import React, { useState, useLayoutEffect } from "react"
 import dayjs from "dayjs"
+import { CostInput, GetCost } from "@split/connector"
 
 import styled, { media } from "../application/theme"
-import { CostInput, GetCost } from "../lib/graphql/types"
 import { splitTheBill, round, sleep } from "../lib/helpers"
 
 import useFormState from "../lib/hooks/useFormState"

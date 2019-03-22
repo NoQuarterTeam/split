@@ -1,7 +1,8 @@
 import React, { memo, useContext } from "react"
 import { RouteComponentProps, Redirect } from "@reach/router"
-import Center from "../../components/styled/Center"
 import { AppContext } from "../../application/context"
+
+import Center from "../../components/styled/Center"
 
 function NotFound(_: RouteComponentProps) {
   const { user } = useContext(AppContext)

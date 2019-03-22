@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import { ShareInput, User } from "../lib/graphql/types"
+import { ShareInput, User } from "@split/connector"
 import styled, { media } from "../application/theme"
 import { decimalCount } from "../lib/helpers"
 

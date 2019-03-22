@@ -954,6 +954,10 @@ export interface House {
   users: User[]
 
   costs: Cost[]
+
+  createdAt: string
+
+  updatedAt: string
 }
 
 export interface User {

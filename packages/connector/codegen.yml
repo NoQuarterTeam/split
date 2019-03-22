@@ -1,13 +1,12 @@
 schema: http://localhost:5000/graphql
-documents: ./src/lib/graphql/**/*.ts
+documents: ./**/*.ts
 overwrite: true
 generates:
-  ./src/lib/graphql/types.tsx:
+  ./src/types.tsx:
     config:
       withHooks: true
       noComponents: true
       noHOC: true
-      contextType: ./application/context#AppContext
     plugins:
       - typescript-common
       - typescript-client

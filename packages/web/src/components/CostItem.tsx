@@ -1,9 +1,10 @@
 import React, { memo } from "react"
 import dayjs from "dayjs"
 import { Link } from "@reach/router"
+import { AllCosts } from "@split/connector"
 
 import styled, { media } from "../application/theme"
-import { AllCosts } from "../lib/graphql/types"
+import { round, capitalize } from "../lib/helpers"
 
 import IconOpen from "../assets/images/icon-open.svg"
 import IconRepeat from "../assets/images/icon-repeat.svg"
@@ -13,7 +14,6 @@ import Column from "./styled/Column"
 import Avatar from "./Avatar"
 import Center from "./styled/Center"
 import ToolTip from "./ToolTip"
-import { round, capitalize } from "../lib/helpers"
 
 type CostProps = {
   cost: AllCosts.Costs

@@ -9,10 +9,9 @@
     ]
   },
   "scripts": {
-    "build:api": "cd packages/api && yarn build",
-    "build:web": "cd packages/web && yarn build",
+    "build:api": "lerna run build --scope={@cg/connector,@cg/api}",
+    "build:web": "lerna run build --scope={@cg/connector,@cg/web}",
     "lint": "lerna run lint",
-    "publish": "lerna run publish",
     "heroku-postbuild": "yarn build:api"
   },
   "resolutions": {

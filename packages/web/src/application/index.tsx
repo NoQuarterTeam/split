@@ -8,8 +8,8 @@ import { AppContext } from "./context"
 
 import { production } from "../lib/config"
 
-import { useMe } from "../lib/graphql/user/hooks"
-import { useGetHouse } from "../lib/graphql/house/hooks"
+import { useMe } from "@split/connector"
+import { useGetHouse } from "@split/connector"
 
 import Loading from "../components/Loading"
 import CheckAuth from "../components/CheckAuth"

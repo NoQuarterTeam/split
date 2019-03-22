@@ -1,12 +1,11 @@
 import React, { memo, useState } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import queryString from "query-string"
+import { useRegister, useCheckHouse } from "@split/connector"
+
 import { GraphQLError } from "graphql"
 
 import styled from "../../application/theme"
-
-import { useRegister } from "../../lib/graphql/user/hooks"
-import { useCheckHouse } from "../../lib/graphql/house/hooks"
 
 import Input from "../../components/Input"
 import Button from "../../components/Button"

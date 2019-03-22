@@ -1,10 +1,11 @@
 import React, { memo, useState, useRef } from "react"
+import { useInviteUser, GetHouse } from "@split/connector"
+
 import styled from "../application/theme"
+import { sleep } from "../lib/helpers"
+
 import Input from "./Input"
 import Button from "./Button"
-import { sleep } from "../lib/helpers"
-import { GetHouse } from "../lib/graphql/types"
-import { useInviteUser } from "../lib/graphql/user/hooks"
 
 type HouseInviteProps = {
   house: GetHouse.House

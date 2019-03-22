@@ -1,14 +1,14 @@
 import React, { useState, Fragment } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
+import { useForgotPassword } from "@split/connector"
 
-import { useForgotPassword } from "../../lib/graphql/user/hooks"
 import Input from "../../components/Input"
 import Button from "../../components/Button"
 import AuthForm from "../../components/AuthForm"
 import styled from "../../application/theme"
 
-function ForgotPassword(props: RouteComponentProps) {
+function ForgotPassword(_: RouteComponentProps) {
   const [email, setEmail] = useState<string>("")
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)

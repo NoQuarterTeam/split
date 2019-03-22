@@ -1,8 +1,8 @@
 import React, { memo } from "react"
+import { CostInput } from "@split/connector"
 import styled, { media } from "../application/theme"
 
 import { decimalCount } from "../lib/helpers"
-import { CostInput } from "../lib/graphql/types"
 import Input from "./Input"
 import Select from "./Select"
 

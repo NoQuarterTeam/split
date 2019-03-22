@@ -1,0 +1,10 @@
+{
+  "extends": ["../../tslint.json", "tslint-react"],
+  "linterOptions": {
+    "exclude": ["./node_modules", "./dist", "./cache"]
+  },
+  "rules": {
+    "jsx-no-lambda": false,
+    "jsx-no-multiline-js": false
+  }
+}

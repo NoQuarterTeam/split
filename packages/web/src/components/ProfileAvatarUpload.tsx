@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react"
 import Dropzone from "react-dropzone"
 import axios from "axios"
+import { useUpdateUser, useGetSignedS3Url, Me } from "@split/connector"
+
 import styled from "../application/theme"
 
-import { Me } from "../lib/graphql/types"
 import IconCamera from "../assets/images/icon-camera.svg"
-import { useGetSignedS3Url } from "../lib/graphql/shared/hooks"
-import { useUpdateUser } from "../lib/graphql/user/hooks"
 
 import Avatar from "./Avatar"
 import Modal from "./Modal"

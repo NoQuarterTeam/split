@@ -14,7 +14,6 @@
     "db:rollback": "ts-node node_modules/typeorm/cli.js migration:revert -c ${NODE_ENV}",
     "seed": "ts-node src/seed.ts",
     "build": "rimraf dist && tsc --build",
-    "heroku-postbuild": "yarn build",
     "lint": "tslint -p ."
   },
   "dependencies": {

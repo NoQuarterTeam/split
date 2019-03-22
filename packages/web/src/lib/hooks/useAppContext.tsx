@@ -1,6 +1,7 @@
 import { useContext } from "react"
+import { Me, GetHouse } from "@split/connector"
+
 import { AppContext } from "../../application/context"
-import { Me, GetHouse } from "../../lib/graphql/types"
 
 type AppContextReturn = {
   user: Me.Me

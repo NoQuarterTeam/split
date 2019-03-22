@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from "react"
 import { Redirect, Router, RouteComponentProps } from "@reach/router"
-import useAppContext from "../lib/hooks/useAppContext"
 
+import useAppContext from "../lib/hooks/useAppContext"
 import Home from "../pages/Home"
 import Login from "../pages/Login"
 import Register from "../pages/Register"

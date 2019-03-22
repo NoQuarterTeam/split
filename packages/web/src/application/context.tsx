@@ -1,5 +1,5 @@
 import React from "react"
-import { Maybe, Me, GetHouse } from "../lib/graphql/types"
+import { Maybe, Me, GetHouse } from "@split/connector"
 
 export interface IContext {
   user: Maybe<Me.Me>

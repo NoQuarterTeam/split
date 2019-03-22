@@ -54,6 +54,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
             { value: "home", label: "Home Supplies" },
             { value: "work", label: "Work Supplies" },
             { value: "rent", label: "Rent" },
+            { value: "travel", label: "Travel" },
             { value: "utilities", label: "Utilities" },
             { value: "other", label: "Other" },
           ]}

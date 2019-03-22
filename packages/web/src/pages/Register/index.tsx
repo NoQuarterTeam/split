@@ -1,22 +1,18 @@
 import React, { memo, useState } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
-import queryString from "query-string"
-import { useRegister, useCheckHouse } from "@split/connector"
-
 import { GraphQLError } from "graphql"
 
+import { useRegister, useCheckHouse } from "@split/connector"
+
 import styled from "../../application/theme"
+import { getQueryString } from "../../lib/helpers"
 
 import Input from "../../components/Input"
 import Button from "../../components/Button"
 import AuthForm from "../../components/AuthForm"
 
 function Register(props: RouteComponentProps) {
-  let inviteHouseId: string | null = null
-  const queries = queryString.parse(location.search)
-  if (queries.invite) {
-    inviteHouseId = queries.invite as string
-  }
+  const inviteHouseId = getQueryString("invite")
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [firstName, setFirstName] = useState<string>("")

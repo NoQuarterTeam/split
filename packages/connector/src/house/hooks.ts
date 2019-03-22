@@ -18,6 +18,7 @@ export function useGetHouse() {
 }
 
 export function useCheckHouse(houseId: string | null) {
+  if (!houseId) return { house: null, checkHouseError: null }
   const { data, error } = useCheckHouseQuery({
     variables: { houseId },
     suspend: true,

@@ -1,3 +1,5 @@
+import queryString from "query-string"
+
 export const snakeToCamel = (value: string) =>
   value.replace(/_(\w)/g, m => m[1].toUpperCase())
 
@@ -36,3 +38,12 @@ const distribute = (divider: number, numerator: number, precision = 2) => {
 
 export const splitTheBill = (people: number, amount: number) =>
   distribute(people, amount)
+
+export const getQueryString = (key: string) => {
+  let query: string | null = null
+  const queries = queryString.parse(location.search)
+  if (queries[key]) {
+    query = queries[key] as string
+  }
+  return query
+}

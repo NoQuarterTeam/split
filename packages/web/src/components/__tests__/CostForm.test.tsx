@@ -11,7 +11,6 @@ test("tests changing amount and correctly splits", async () => {
   )
 
   const input = getByLabelText(/Amount/i)
-
   fireEvent.change(input, { target: { value: 21 } })
 
   const participantInput = getAllByTestId(/participant-amount/i)[0]

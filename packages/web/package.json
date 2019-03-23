@@ -8,11 +8,12 @@
     "build": "rm -rf dist && NODE_ENV=production parcel build src/index.html",
     "test": "jest",
     "lint": "tslint -p .",
-    "prettify": "prettier --write './src/**/*.{ts,tsx}'"
+    "prettify": "prettier --write './src/**/*.{ts,tsx}'",
+    "validate": "yarn lint && yarn prettify && yarn test"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint && yarn prettify && yarn test"
+      "pre-commit": "yarn validate"
     }
   },
   "dependencies": {

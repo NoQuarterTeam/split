@@ -11,7 +11,7 @@
   "scripts": {
     "build:api": "lerna run build --scope={@split/connector,@split/api}",
     "build:web": "lerna run build --scope={@split/connector,@split/web}",
-    "lint": "lerna run lint",
+    "validate": "lerna run validate",
     "heroku-postbuild": "yarn build:api"
   },
   "resolutions": {

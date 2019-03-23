@@ -1,20 +1,11 @@
 {
+  "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "jsx": "react",
     "lib": ["es2015", "es2017", "es6", "es7", "dom", "esnext.asynciterable"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "noEmit": true,
-    "noUnusedLocals": true,
-    "resolveJsonModule": true,
-    "removeComments": false,
     "rootDir": "src",
-    "skipLibCheck": true,
-    "strict": true,
     "target": "es5"
   },
   "exclude": ["./node_modules"],

@@ -9,7 +9,7 @@
     "test": "jest",
     "lint": "tslint -p .",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'",
-    "validate": "yarn lint && yarn prettify && yarn test"
+    "pre-commit": "yarn lint && yarn prettify && yarn test"
   },
   "dependencies": {
     "@reach/router": "^1.2.1",

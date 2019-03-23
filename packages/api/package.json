@@ -16,7 +16,7 @@
     "build": "rimraf dist && tsc --build",
     "lint": "tslint -p .",
     "prettify": "prettier --write './src/**/*.ts'",
-    "validate": "yarn lint && yarn prettify"
+    "pre-commit": "yarn lint && yarn prettify"
   },
   "dependencies": {
     "@sendgrid/mail": "^6.3.1",

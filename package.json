@@ -11,12 +11,12 @@
   "scripts": {
     "build:api": "lerna run build --scope={@split/connector,@split/api}",
     "build:web": "lerna run build --scope={@split/connector,@split/web}",
-    "validate": "lerna run validate",
+    "pre-commit": "lerna run pre-commit",
     "heroku-postbuild": "yarn build:api"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn validate"
+      "pre-commit": "yarn pre-commit"
     }
   },
   "resolutions": {

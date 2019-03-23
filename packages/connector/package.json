@@ -9,7 +9,7 @@
     "build": "rm -rf dist && tsc --build",
     "lint": "tslint -p .",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'",
-    "validate": "yarn lint && yarn prettify"
+    "pre-commit": "yarn lint && yarn prettify"
   },
   "dependencies": {
     "graphql-tag": "^2.10.1",

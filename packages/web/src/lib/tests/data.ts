@@ -1,34 +1,48 @@
-export const homeUsers = [
-  {
-    id: "25e1809c-33ae-424b-8f98-4678e29e6899",
-    email: "jack@noquarter.co",
-    firstName: "Jack",
-    lastName: "Clackett",
-    balance: 1211,
-    avatar:
-      "https://www-getsplit-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
-  },
-  {
-    id: "b2e2b2c4-6fbe-4257-9f98-f24116123361",
-    email: "dan@noquarter.co",
-    firstName: "Dan",
-    lastName: "Le Cornu",
-    balance: 502,
-    avatar:
-      "https://www-getsplit-co.s3.amazonaws.com/avatars/b2e2b2c4-6fbe-4257-9f98-f24116123361/dlc-squib-jpg",
-  },
-  {
-    id: "e279f8c8-0a4a-465d-a038-f06a98d78595",
-    email: "george@noquarter.co",
-    firstName: "George",
-    lastName: "Borg",
-    balance: -1713,
-    avatar:
-      "https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/23794829_10159729154370473_309970892997517855_n.jpg?_nc_cat=102&_nc_ht=scontent-amt2-1.xx&oh=0a9a9abfd07c3ed173b3552f719150ea&oe=5D16C12A",
-  },
-]
+export const TEST_USER = {
+  id: "25e1809c-33ae-424b-8f98-4678e29e6899",
+  email: "jack@noquarter.co",
+  firstName: "Jack",
+  lastName: "Clackett",
+  balance: 1211,
+  avatar:
+    "https://www-getsplit-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
+}
 
-export const homeCosts = [
+export const TEST_HOUSE = {
+  id: "1a2b3c4d-5e6f-7g8h-9i1j-2k3l4m5n6o7p",
+  name: "Test house",
+  users: [
+    {
+      id: "25e1809c-33ae-424b-8f98-4678e29e6899",
+      email: "jack@noquarter.co",
+      firstName: "Jack",
+      lastName: "Clackett",
+      balance: 1211,
+      avatar:
+        "https://www-getsplit-co.s3.amazonaws.com/avatars/25e1809c-33ae-424b-8f98-4678e29e6899/jc2-jpeg",
+    },
+    {
+      id: "b2e2b2c4-6fbe-4257-9f98-f24116123361",
+      email: "dan@noquarter.co",
+      firstName: "Dan",
+      lastName: "Le Cornu",
+      balance: 502,
+      avatar:
+        "https://www-getsplit-co.s3.amazonaws.com/avatars/b2e2b2c4-6fbe-4257-9f98-f24116123361/dlc-squib-jpg",
+    },
+    {
+      id: "e279f8c8-0a4a-465d-a038-f06a98d78595",
+      email: "george@noquarter.co",
+      firstName: "George",
+      lastName: "Borg",
+      balance: -1713,
+      avatar:
+        "https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/23794829_10159729154370473_309970892997517855_n.jpg?_nc_cat=102&_nc_ht=scontent-amt2-1.xx&oh=0a9a9abfd07c3ed173b3552f719150ea&oe=5D16C12A",
+    },
+  ],
+  invites: [],
+}
+export const TEST_COSTS = [
   {
     id: "2bc5e7aa-9a04-4ab8-952e-1c1343e558f4",
     name: "Lunch",

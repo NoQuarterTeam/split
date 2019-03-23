@@ -79,6 +79,7 @@ function Participant({
       </Column>
       <Column flex={3}>
         <Input
+          data-testid="participant-amount"
           type="number"
           prefix="€"
           required={true}

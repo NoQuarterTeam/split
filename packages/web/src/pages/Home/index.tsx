@@ -2,7 +2,7 @@ import React from "react"
 import { RouteComponentProps } from "@reach/router"
 import styled, { media } from "../../application/theme"
 
-import { homeUsers, homeCosts } from "../../lib/copy/home"
+import { TEST_HOUSE, TEST_COSTS } from "../../lib/tests/data"
 
 import Button from "../../components/Button"
 import HouseBalance from "../../components/HouseBalance"
@@ -42,10 +42,10 @@ function Home(props: RouteComponentProps) {
       </StyledHero>
       <StyledDemo>
         <StyledBalance>
-          <HouseBalance users={homeUsers} />
+          <HouseBalance users={TEST_HOUSE.users} />
         </StyledBalance>
         <StyledCosts>
-          {homeCosts.map(cost => (
+          {TEST_COSTS.map(cost => (
             <CostItem key={cost.id} cost={cost} />
           ))}
         </StyledCosts>

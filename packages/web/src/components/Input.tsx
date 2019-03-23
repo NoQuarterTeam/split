@@ -13,10 +13,15 @@ function Input(
 ) {
   return (
     <StyledContainer>
-      {label && <StyledLabel>{label}</StyledLabel>}
+      {label && <StyledLabel htmlFor={inputProps.id}>{label}</StyledLabel>}
       <div style={{ position: "relative" }}>
         <StyledPrefix>{prefix}</StyledPrefix>
-        <StyledInput {...inputProps} ref={ref} hasPrefix={!!prefix} />
+        <StyledInput
+          {...inputProps}
+          id={inputProps.id}
+          ref={ref}
+          hasPrefix={!!prefix}
+        />
       </div>
     </StyledContainer>
   )

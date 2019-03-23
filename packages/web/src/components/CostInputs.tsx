@@ -17,6 +17,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
     <StyledInputs>
       <StyledInputWrapper>
         <Input
+          id="name"
           label="Name"
           placeholder="Beers"
           required={true}
@@ -27,6 +28,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
       </StyledInputWrapper>
       <StyledInputWrapper>
         <Input
+          id="amount"
           prefix="€"
           label="Amount"
           required={true}
@@ -45,6 +47,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
       </StyledInputWrapper>
       <StyledInputWrapper>
         <Select
+          id="category"
           label="Category"
           value={formState.category}
           onChange={e => setFormState({ category: e.target.value })}
@@ -62,6 +65,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
       </StyledInputWrapper>
       <StyledInputWrapper>
         <Input
+          id="date"
           label="Date"
           required={true}
           type="date"
@@ -71,6 +75,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
       </StyledInputWrapper>
       <StyledInputWrapper>
         <Select
+          id="recurring"
           label="Recurring"
           disabled={isEditing}
           value={formState.recurring}

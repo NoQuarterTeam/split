@@ -1,23 +1,23 @@
-import React, { memo } from "react"
+import React, { memo, InputHTMLAttributes } from "react"
 import styled, { lighten } from "../application/theme"
 
 type SelectOption = {
   label: string
   value: string
 }
-type SelectProps = {
-  label: string
+interface SelectProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string
   disabled?: boolean
   options: SelectOption[]
-  value: any
   onChange: (e: any) => void
 }
 
 function Select(props: SelectProps) {
   return (
     <StyledContainer>
-      <StyledLabel>{props.label}</StyledLabel>
+      <StyledLabel htmlFor={props.id}>{props.label}</StyledLabel>
       <StyledSelect
+        id={props.id}
         disabled={props.disabled}
         value={props.value}
         onChange={props.onChange}

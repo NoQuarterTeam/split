@@ -14,10 +14,16 @@
     "validate": "lerna run validate",
     "heroku-postbuild": "yarn build:api"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn validate"
+    }
+  },
   "resolutions": {
     "graphql": "14.1.1"
   },
   "devDependencies": {
+    "husky": "^1.3.1",
     "lerna": "^3.13.0"
   }
 }

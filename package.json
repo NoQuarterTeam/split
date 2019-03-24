@@ -11,19 +11,13 @@
   "scripts": {
     "build:api": "lerna run build --scope={@split/connector,@split/api}",
     "build:web": "lerna run build --scope={@split/connector,@split/web}",
+    "pre-commit": "lerna run pre-commit",
     "test": "lerna run test",
     "heroku-postbuild": "yarn build:api"
   },
-  "lint-staged": {
-    "*.{js,jsx,json,ts,tsx,html}": [
-      "prettier --write",
-      "tslint -p .",
-      "git add"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lerna run --concurrency 1 --stream pre-commit"
     }
   },
   "resolutions": {

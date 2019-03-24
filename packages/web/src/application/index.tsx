@@ -32,8 +32,6 @@ function Application() {
     })
   }
 
-  console.log(house)
-
   return (
     <AppContext.Provider value={{ user, house }}>
       <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>

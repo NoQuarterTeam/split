@@ -7,9 +7,15 @@
     "start": "parcel src/index.html --port 6969",
     "build": "rm -rf dist && NODE_ENV=production parcel build src/index.html",
     "test": "jest",
-    "lint": "tslint -p .",
+    "lint": "tslint -p tsconfig.json",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'",
-    "pre-commit": "yarn lint && yarn prettify && yarn test"
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,json,ts,tsx,html}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "@reach/router": "^1.2.1",

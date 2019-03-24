@@ -4,7 +4,6 @@ import {
   useAllCostsQuery,
   useGetCostQuery,
   useEditCostMutation,
-  Cost,
   useDestroyCostMutation,
   AllCostsQuery,
   AllCostsQueryVariables,

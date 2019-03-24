@@ -1,14 +1,27 @@
 {
-  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["dom", "es6", "es2017", "es2018", "esnext.asynciterable"],
+    "lib": ["dom", "es2018"],
+    "outDir": "./dist",
+    "rootDir": "src",
+    "composite": true,
+    "target": "es6",
+    "baseUrl": ".",
+
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./dist",
-    "jsx": "preserve",
-    "strictPropertyInitialization": false,
-    "target": "es6"
+    "skipLibCheck": true,
+    "removeComments": false,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "declaration": true,
+    "strict": true,
+    "strictPropertyInitialization": false
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.ts"]
+  "include": ["src/**/*.tsx", "src/**/*.ts"]
 }

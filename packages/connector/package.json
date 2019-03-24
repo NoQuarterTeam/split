@@ -6,10 +6,16 @@
   "scripts": {
     "watch": "tsc --build --watch",
     "generate": "graphql-codegen --watch",
-    "build": "rm -rf dist && tsc --build",
-    "lint": "tslint -p .",
+    "build": "rm -rf dist && tsc",
+    "lint": "tslint -p tsconfig.json",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'",
-    "pre-commit": "yarn lint && yarn prettify"
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,json,ts,tsx,html}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "graphql-tag": "^2.10.1",

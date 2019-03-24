@@ -10,9 +10,14 @@ test("tests changing amount and correctly splits", async () => {
     <CostForm onFormSubmit={submit} />,
   )
 
-  const input = getByLabelText(/Amount/i)
-  fireEvent.change(input, { target: { value: 21 } })
+  const amount = getByLabelText(/Amount/i)
+  fireEvent.change(amount, { target: { value: 21 } })
 
-  const participantInput = getAllByTestId(/participant-amount/i)[0]
-  expect((participantInput as HTMLInputElement).value).toBe("7")
+  const firstParticipantAmount = getAllByTestId(/participant-amount/i)[0]
+  expect((firstParticipantAmount as HTMLInputElement).value).toBe("7")
+
+  const secondParticipant = getAllByTestId(/participant-avatar/i)[1]
+  fireEvent.click(secondParticipant)
+
+  expect((firstParticipantAmount as HTMLInputElement).value).toBe("10.5")
 })

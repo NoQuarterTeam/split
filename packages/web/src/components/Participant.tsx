@@ -70,6 +70,7 @@ function Participant({
             handleClick={() => toggleParticipant(user.id)}
           />
           <StyledAvatarWrapper
+            data-testid="participant-avatar"
             onClick={() => toggleParticipant(user.id)}
             on={!!userShare}
           >

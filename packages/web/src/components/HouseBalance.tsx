@@ -6,7 +6,7 @@ import styled, { media } from "../application/theme"
 import Avatar from "./Avatar"
 import useAppContext from "../lib/hooks/useAppContext"
 
-type HouseBalanceProps = {
+interface HouseBalanceProps {
   users: UserFragment[]
 }
 
@@ -32,7 +32,7 @@ function HouseBalance({ users }: HouseBalanceProps) {
           </StyledUserGraph>
         )
       })}
-      {house && house!.invites.length > 0 && (
+      {house && house.invites.length > 0 && (
         <StyledUserGraph>
           <StyledSpacer />
           <div>Pending invites</div>

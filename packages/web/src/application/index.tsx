@@ -22,7 +22,7 @@ import Costs from "../pages/Costs"
 function Application() {
   const { user, userLoading } = useMe()
   const { house, getHouseLoading } = useGetHouse()
-  const errorHandler = (e: Error, componentStack: string) => {
+  const errorHandler = (e: Error) => {
     console.log(e)
   }
   if (user && production) {

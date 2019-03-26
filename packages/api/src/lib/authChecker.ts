@@ -1,7 +1,7 @@
 import { AuthChecker } from "type-graphql"
-import { IResolverContext } from "../lib/types"
+import { ResolverContext } from "../lib/types"
 
-export const authChecker: AuthChecker<IResolverContext> = async ({
+export const authChecker: AuthChecker<ResolverContext> = async ({
   context: { userId },
 }) => {
   if (!userId) {

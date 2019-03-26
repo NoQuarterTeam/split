@@ -1,7 +1,7 @@
 import React, { memo, InputHTMLAttributes } from "react"
 import styled, { lighten } from "../application/theme"
 
-type SelectOption = {
+interface SelectOption {
   label: string
   value: string
 }

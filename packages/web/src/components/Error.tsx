@@ -2,7 +2,7 @@ import { useApolloClient } from "react-apollo-hooks"
 import { ApolloError } from "apollo-boost"
 import { navigate } from "@reach/router"
 
-type ErrorProps = {
+interface ErrorProps {
   error: ApolloError
 }
 

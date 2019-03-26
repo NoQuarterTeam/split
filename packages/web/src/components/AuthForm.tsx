@@ -3,7 +3,7 @@ import Center from "./styled/Center"
 import styled from "../application/theme"
 import Logo from "./Logo"
 
-type AuthFormProps = {
+interface AuthFormProps {
   handleSubmit: (e: any) => void
 }
 const AuthForm: FC<AuthFormProps> = ({ children, handleSubmit }) => {

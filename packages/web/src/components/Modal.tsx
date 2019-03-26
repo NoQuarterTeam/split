@@ -5,7 +5,7 @@ import IconCancel from "../assets/images/icon-cancel.svg"
 import Button from "./Button"
 import Alert from "./Alert"
 
-type ModalProps = {
+interface ModalProps {
   onCancel: () => void
   onSubmit: () => void
   title: string

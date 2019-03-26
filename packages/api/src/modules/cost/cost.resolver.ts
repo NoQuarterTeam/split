@@ -10,7 +10,7 @@ import {
   Args,
 } from "type-graphql"
 
-import { IResolverContext } from "../../lib/types"
+import { ResolverContext } from "../../lib/types"
 
 import { Cost } from "./cost.entity"
 import { CostInput, AllCostArgs } from "./cost.input"
@@ -42,7 +42,7 @@ export class CostResolver {
   @Mutation(() => Cost, { nullable: true })
   createCost(
     @Arg("data") data: CostInput,
-    @Ctx() { userId }: IResolverContext,
+    @Ctx() { userId }: ResolverContext,
   ): Promise<Cost> {
     return this.costService.create(userId, data)
   }
@@ -69,7 +69,7 @@ export class CostResolver {
   @FieldResolver(() => [Share])
   shares(
     @Root() cost: Cost,
-    @Ctx() { shareLoader }: IResolverContext,
+    @Ctx() { shareLoader }: ResolverContext,
   ): Promise<Share[]> {
     return shareLoader.load(cost.id)
   }
@@ -77,7 +77,7 @@ export class CostResolver {
   @FieldResolver(() => User)
   payer(
     @Root() cost: Cost,
-    @Ctx() { userLoader }: IResolverContext,
+    @Ctx() { userLoader }: ResolverContext,
   ): Promise<User> {
     return userLoader.load(cost.payerId)
   }

@@ -7,7 +7,7 @@ import { sleep } from "../lib/helpers"
 import Input from "./Input"
 import Button from "./Button"
 
-type HouseInviteProps = {
+interface HouseInviteProps {
   house: HouseFragment
 }
 

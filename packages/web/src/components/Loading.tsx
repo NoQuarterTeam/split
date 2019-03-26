@@ -2,11 +2,11 @@ import React, { Fragment, FC } from "react"
 import styled from "../application/theme"
 import useDebounce from "../lib/hooks/useDebounce"
 
-interface ILoadingProps {
+interface LoadingProps {
   loading: boolean
 }
 
-const Loading: FC<ILoadingProps> = ({ loading, children }) => {
+const Loading: FC<LoadingProps> = ({ loading, children }) => {
   const isLoading = useDebounce(loading, 200)
   return (
     <Fragment>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
 
 import styled, { media } from "../../application/theme"
@@ -10,7 +10,7 @@ import HouseBalance from "../../components/HouseBalance"
 import HouseName from "../../components/HouseName"
 import HouseInvite from "../../components/HouseInvite"
 
-function Balance(_: RouteComponentProps) {
+const Balance: FC<RouteComponentProps> = () => {
   const { user, house } = useAppContext()
   const getBalanceHeader = () => {
     if (user.balance > 0) {

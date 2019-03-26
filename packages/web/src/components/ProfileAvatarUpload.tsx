@@ -14,7 +14,7 @@ import IconCamera from "../assets/images/icon-camera.svg"
 import Avatar from "./Avatar"
 import Modal from "./Modal"
 
-type ProfileAvatarUploadProps = {
+interface ProfileAvatarUploadProps {
   user: UserFragment
 }
 
@@ -69,7 +69,7 @@ function ProfileAvatarUpload({ user }: ProfileAvatarUploadProps) {
 
   return (
     <StyledFormAvatar>
-      <Avatar user={user!} size={100} />
+      <Avatar user={user} size={100} />
       <Dropzone onDrop={handleFileDrop} multiple={false}>
         {({ getRootProps, getInputProps }) => (
           <StyledAvatarOverlay {...getRootProps()}>

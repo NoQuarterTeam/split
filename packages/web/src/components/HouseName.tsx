@@ -3,7 +3,7 @@ import { useEditHouse, HouseFragment } from "@split/connector"
 
 import styled from "../application/theme"
 
-type HouseNameProps = {
+interface HouseNameProps {
   house: HouseFragment
 }
 

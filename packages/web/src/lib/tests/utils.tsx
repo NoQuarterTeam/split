@@ -6,12 +6,10 @@ import { AppContext } from "../../application/context"
 import { TEST_HOUSE, TEST_USER } from "./data"
 import "../prototypes"
 
-const AllTheProviders: FC = ({ children }) => {
+const AllTheProviders: FC = () => {
   return (
     <ThemeProvider theme={theme(false)}>
-      <AppContext.Provider value={{ house: TEST_HOUSE, user: TEST_USER }}>
-        {children}
-      </AppContext.Provider>
+      <AppContext.Provider value={{ house: TEST_HOUSE, user: TEST_USER }} />
     </ThemeProvider>
   )
 }

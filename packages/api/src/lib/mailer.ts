@@ -22,6 +22,7 @@ export class Mailer {
       from: this.from,
       to,
       templateId,
+      // eslint-disable-next-line
       dynamic_template_data: variables,
     }
     return sendgrid.send(message)

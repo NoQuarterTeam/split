@@ -9,7 +9,7 @@ import Alert from "./Alert"
 import Participant from "./Participant"
 import Button from "./Button"
 
-type CostSharesProps = {
+interface CostSharesProps {
   users: UserFragment[]
   isDifferent: boolean
   formState: CostInput

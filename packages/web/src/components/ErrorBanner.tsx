@@ -1,7 +1,7 @@
 import React from "react"
 import styled, { darken } from "../application/theme"
 
-type ErrorBannerProps = {
+interface ErrorBannerProps {
   text: string
 }
 

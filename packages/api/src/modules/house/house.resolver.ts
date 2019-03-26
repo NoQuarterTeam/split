@@ -9,7 +9,7 @@ import {
   Authorized,
 } from "type-graphql"
 
-import { IResolverContext } from "../../lib/types"
+import { ResolverContext } from "../../lib/types"
 import { House } from "./house.entity"
 import { HouseInput } from "./house.input"
 import { HouseService } from "./house.service"
@@ -40,7 +40,7 @@ export class HouseResolver {
   // GET HOUSE
   @Authorized()
   @Query(() => House, { nullable: true })
-  async house(@Ctx() { userId }: IResolverContext): Promise<House | null> {
+  async house(@Ctx() { userId }: ResolverContext): Promise<House | null> {
     const user = await this.userService.findById(userId)
     if (!user.houseId) return null
     const house = await this.houseService.findById(user.houseId)
@@ -52,7 +52,7 @@ export class HouseResolver {
   @Mutation(() => House, { nullable: true })
   async createHouse(
     @Arg("data") data: HouseInput,
-    @Ctx() { userId }: IResolverContext,
+    @Ctx() { userId }: ResolverContext,
   ): Promise<House> {
     const house = await this.houseService.create(userId, data)
     return house

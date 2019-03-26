@@ -1,5 +1,5 @@
-import React from "react"
-import { RouteComponentProps } from "@reach/router"
+import React, { FC } from "react"
+import { RouteComponentProps, navigate } from "@reach/router"
 import styled, { media } from "../../application/theme"
 
 import { TEST_HOUSE, TEST_COSTS } from "../../lib/tests/data"
@@ -11,7 +11,7 @@ import Display from "../../components/styled/Display"
 import Center from "../../components/styled/Center"
 import Logo from "../../components/Logo"
 
-function Home(props: RouteComponentProps) {
+const Home: FC<RouteComponentProps> = () => {
   return (
     <StyledHome>
       <StyledTopbar>
@@ -20,14 +20,12 @@ function Home(props: RouteComponentProps) {
           <Button
             variant="tertiary"
             color="header"
-            onClick={() => props.navigate!("/login")}
+            onClick={() => navigate("/login")}
           >
             Login
           </Button>
           <Display size="md">
-            <Button onClick={() => props.navigate!("/register")}>
-              Sign up free
-            </Button>
+            <Button onClick={() => navigate("/register")}>Sign up free</Button>
           </Display>
         </Center>
       </StyledTopbar>
@@ -35,9 +33,7 @@ function Home(props: RouteComponentProps) {
         <StyledHeroTitle>Keep track of your costs</StyledHeroTitle>
         <StyledHeroSubTitle>We’ll handle the maths</StyledHeroSubTitle>
         <Display size="md" hide={true}>
-          <Button onClick={() => props.navigate!("/register")}>
-            Sign up free
-          </Button>
+          <Button onClick={() => navigate("/register")}>Sign up free</Button>
         </Display>
       </StyledHero>
       <StyledDemo>

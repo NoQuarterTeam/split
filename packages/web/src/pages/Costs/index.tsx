@@ -1,4 +1,4 @@
-import React from "react"
+import React, { FC } from "react"
 import { RouteComponentProps, Link, Redirect } from "@reach/router"
 
 import styled, { media, lighten } from "../../application/theme"
@@ -8,7 +8,7 @@ import useAppContext from "../../lib/hooks/useAppContext"
 import Page from "../../components/Page"
 import CostList from "../../components/CostList"
 
-function Costs(_: RouteComponentProps) {
+const Costs: FC<RouteComponentProps> = () => {
   const { user } = useAppContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 

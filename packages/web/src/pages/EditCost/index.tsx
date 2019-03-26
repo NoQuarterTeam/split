@@ -1,5 +1,5 @@
-import React from "react"
-import { RouteComponentProps, Redirect } from "@reach/router"
+import React, { FC } from "react"
+import { RouteComponentProps, Redirect, navigate } from "@reach/router"
 import {
   useGetCost,
   useEditCost,
@@ -16,11 +16,11 @@ interface EditCostProps extends RouteComponentProps {
   id?: string
 }
 
-function EditCostPage(props: EditCostProps) {
+const EditCostPage: FC<EditCostProps> = props => {
   const { user } = useAppContext()
-  if (!user.houseId) return <Redirect to="/" noThrow={true} />
+  if (!user.houseId || !props.id) return <Redirect to="/" noThrow={true} />
 
-  const { cost } = useGetCost(props.id!)
+  const { cost } = useGetCost(props.id)
   if (!cost) return <Redirect to="/" noThrow={true} />
 
   const editCost = useEditCost(cost.houseId)
@@ -33,12 +33,12 @@ function EditCostPage(props: EditCostProps) {
         data: costData,
       },
     })
-    props.navigate!("/costs")
+    navigate("/costs")
   }
 
   const handleDeleteCost = async () => {
     await destroyCost()
-    props.navigate!("/costs")
+    navigate("/costs")
   }
 
   return (

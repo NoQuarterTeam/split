@@ -1,7 +1,7 @@
 import React, { memo } from "react"
 import styled from "../application/theme"
 
-type SwitchProps = {
+interface SwitchProps {
   handleClick: () => void
   on: boolean
 }

@@ -1,12 +1,11 @@
-import React from "react"
+import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
-
 import useAppContext from "../../lib/hooks/useAppContext"
 
 import ProfileForm from "../../components/ProfileForm"
 import QuickPage from "../../components/QuickPage"
 
-function Settings(_: RouteComponentProps) {
+const Settings: FC<RouteComponentProps> = () => {
   const { user } = useAppContext()
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react"
+import React, { useState, Fragment, FC } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
 import { useResetPassword } from "@split/connector"
@@ -13,7 +13,7 @@ interface ResetPasswordProps extends RouteComponentProps {
   token?: string
 }
 
-function ResetPassword(props: ResetPasswordProps) {
+const ResetPassword: FC<ResetPasswordProps> = props => {
   const [password, setPassword] = useState<string>("")
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
@@ -24,9 +24,9 @@ function ResetPassword(props: ResetPasswordProps) {
   const handleSubmit = (e: any) => {
     e.preventDefault()
     setLoading(true)
-    if (!password) return // valies
+    if (!password || !props.token) return // valies
     resetPassword({
-      variables: { data: { token: props.token!, password } },
+      variables: { data: { token: props.token, password } },
     })
       .then(() => {
         setLoading(false)

@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import styled from "../../application/theme"
 
-type CenterProps = {
+interface CenterProps {
   style?: any
 }
 

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { FC } from "react"
 import { RouteComponentProps, Redirect } from "@reach/router"
 import { CostInput, useCreateCost } from "@split/connector"
 
@@ -7,7 +7,7 @@ import useAppContext from "../../lib/hooks/useAppContext"
 import CostForm from "../../components/CostForm"
 import QuickPage from "../../components/QuickPage"
 
-function NewCost(_: RouteComponentProps) {
+const NewCost: FC<RouteComponentProps> = () => {
   const { user } = useAppContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 

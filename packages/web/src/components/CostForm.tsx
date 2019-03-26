@@ -12,7 +12,7 @@ import CostInputs from "./CostInputs"
 import CostShares from "./CostShares"
 import ErrorBanner from "./ErrorBanner"
 
-type CostFormProps = {
+interface CostFormProps {
   cost?: GetCostQuery["getCost"]
   onFormSubmit: (data: CostInput) => Promise<any>
   onCostDelete?: () => void
@@ -46,11 +46,6 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     round(formState.amount) !==
     round(formState.costShares.reduce((acc, s) => acc + s.amount, 0))
 
-  useLayoutEffect(() => {
-    if (isMounted && formState.equalSplit) applyEqualSplit()
-    setIsMounted(true)
-  }, [formState.amount, formState.costShares.length])
-
   const applyEqualSplit = () => {
     const split = splitTheBill(formState.costShares.length, formState.amount)
     const costShares = formState.costShares.map(({ userId }, i) => ({
@@ -59,6 +54,11 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     }))
     setFormState({ costShares, equalSplit: true })
   }
+
+  useLayoutEffect(() => {
+    if (isMounted && formState.equalSplit) applyEqualSplit()
+    setIsMounted(true)
+  }, [formState.amount, formState.costShares.length])
 
   const handleCostCreate = async (e: any) => {
     e.preventDefault()
@@ -125,7 +125,7 @@ const StyledForm = styled.form`
 
   ${p => p.theme.flexBetween};
 
-  ${p => media.greaterThan("md")`
+  ${media.greaterThan("md")`
     padding: 40px 120px;
   `}
 `

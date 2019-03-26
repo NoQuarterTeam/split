@@ -10,7 +10,7 @@ import Switch from "./Switch"
 import Column from "./styled/Column"
 import Center from "./styled/Center"
 
-type ParticipantProps = {
+interface ParticipantProps {
   user: UserFragment
   isPayer: boolean
   shares: ShareInput[]

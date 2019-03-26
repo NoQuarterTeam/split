@@ -1,5 +1,5 @@
 interface Array {
-  groupBy<T>(key: string): Array<{ key: string; values: T[] }>
+  groupBy<T>(key: string): { key: string; values: T[] }[]
 }
 
 interface Array {

@@ -1,5 +1,5 @@
 import React, { memo, ButtonHTMLAttributes } from "react"
-import styled, { css, IThemeInterface, lighten } from "../application/theme"
+import styled, { css, ThemeInterface, lighten } from "../application/theme"
 import { capitalize } from "../lib/helpers"
 
 export type Variant = "primary" | "secondary" | "tertiary"
@@ -35,6 +35,39 @@ function Button({
 
 export default memo(Button)
 
+const primaryStyles = (color: string) => css`
+  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
+  background-color: ${p => p.theme["color" + capitalize(color)]};
+`
+
+const secondaryStyles = (color: string) => css`
+  background-color: transparent;
+  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
+  border: 2px solid ${p => lighten(0.25, p.theme["color" + capitalize(color)])};
+  color: ${p => p.theme["color" + capitalize(color)]};
+`
+
+const tertiaryStyles = (color: string) => css`
+  background-color: transparent;
+  color: ${p => p.theme["color" + capitalize(color)]};
+`
+
+const getVariantStyles = ({
+  color = "blue",
+  variant = "primary",
+}: ThemeInterface & ButtonProps) => {
+  switch (variant) {
+    case "primary":
+      return primaryStyles(color)
+    case "secondary":
+      return secondaryStyles(color)
+    case "tertiary":
+      return tertiaryStyles(color)
+    default:
+      return primaryStyles(color)
+  }
+}
+
 const StyledButton = styled.button<ButtonProps>`
   outline: 0;
   letter-spacing: 1px;
@@ -53,35 +86,4 @@ const StyledButton = styled.button<ButtonProps>`
   }
 
   ${p => getVariantStyles({ ...p, ...p.theme })}
-`
-
-const getVariantStyles = ({
-  color,
-  variant,
-}: IThemeInterface & ButtonProps) => {
-  switch (variant!) {
-    case "primary":
-      return primaryStyles(color!)
-    case "secondary":
-      return secondaryStyles(color!)
-    case "tertiary":
-      return tertiaryStyles(color!)
-  }
-}
-
-const primaryStyles = (color: string) => css`
-  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
-  background-color: ${p => p.theme["color" + capitalize(color)]};
-`
-
-const secondaryStyles = (color: string) => css`
-  background-color: transparent;
-  padding: ${p => `${p.theme.paddingM} ${p.theme.paddingXL}`};
-  border: 2px solid ${p => lighten(0.25, p.theme["color" + capitalize(color)])};
-  color: ${p => p.theme["color" + capitalize(color)]};
-`
-
-const tertiaryStyles = (color: string) => css`
-  background-color: transparent;
-  color: ${p => p.theme["color" + capitalize(color)]};
 `

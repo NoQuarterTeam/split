@@ -41,7 +41,7 @@ export const splitTheBill = (people: number, amount: number) =>
 
 export const getQueryString = (key: string) => {
   let query: string | null = null
-  const queries = queryString.parse(location.search)
+  const queries = queryString.parse(window.location.search)
   if (queries[key]) {
     query = queries[key] as string
   }

@@ -4,7 +4,7 @@ import styled, { media } from "../application/theme"
 import IconSearch from "../assets/images/icon-search.svg"
 import IconCancel from "../assets/images/icon-cancel.svg"
 
-type CostsSearchProps = {
+interface CostsSearchProps {
   onSubmit: (e: any) => void
 }
 
@@ -75,7 +75,7 @@ const StyledInputWrap = styled.div<{ focus: boolean }>`
   align-items: center;
   justify-content: flex-start;
 
-  ${p => media.greaterThan("md")`
+  ${media.greaterThan("md")`
     transition: width 1s ease;
     width: auto;
   `}

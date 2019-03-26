@@ -66,7 +66,7 @@ export function useGetCost(costId: string) {
     variables: { costId },
     suspend: true,
   })
-  const cost = data!.getCost
+  const cost = data && data.getCost
   return { cost, getCostError: error }
 }
 

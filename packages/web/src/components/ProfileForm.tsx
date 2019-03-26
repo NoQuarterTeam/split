@@ -11,11 +11,11 @@ import Button from "./Button"
 
 import ProfileAvatarUpload from "./ProfileAvatarUpload"
 
-type ProfileFormProps = {
+interface ProfileFormProps {
   user: UserFragment
 }
 
-type UpdateUserValues = {
+interface UpdateUserValues {
   email: string
   firstName: string
   lastName: string

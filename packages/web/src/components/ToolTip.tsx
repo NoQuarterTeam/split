@@ -1,7 +1,7 @@
 import React, { memo, ReactNode } from "react"
 import styled from "../application/theme"
 
-type ToolTipProps = {
+interface ToolTipProps {
   children: ReactNode
   message: string
 }

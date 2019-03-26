@@ -26,6 +26,6 @@ const CheckUser: FC = ({ children }) => {
 
 export default CheckUser
 
-function NotFound(_: RouteComponentProps) {
+const NotFound: FC<RouteComponentProps> = () => {
   return <Redirect to="/" noThrow={true} />
 }

@@ -2,7 +2,7 @@ import React, { memo } from "react"
 
 import styled, { darken, media } from "../application/theme"
 
-type AvatarProps = {
+interface AvatarProps {
   user: {
     avatar?: string | null
     firstName: string

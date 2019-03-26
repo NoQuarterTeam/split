@@ -27,14 +27,14 @@ export function useDebouncedCallback(
 
   useEffect(
     () => () => {
-      clearTimeout(functionTimeoutHandler.current!)
+      clearTimeout(functionTimeoutHandler.current)
     },
     [],
   )
 
   return (...args: any) => {
-    clearTimeout(functionTimeoutHandler.current!)
-    functionTimeoutHandler.current! = setTimeout(() => {
+    clearTimeout(functionTimeoutHandler.current)
+    functionTimeoutHandler.current = setTimeout(() => {
       debouncedFunction(...args)
     }, delay)
   }

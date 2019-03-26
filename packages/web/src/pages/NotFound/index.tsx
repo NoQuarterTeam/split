@@ -1,16 +1,20 @@
-import React, { memo, useContext } from "react"
+import React, { memo, FC } from "react"
 import { RouteComponentProps, Redirect } from "@reach/router"
-import { AppContext } from "../../application/context"
+import useAppContext from "../../lib/hooks/useAppContext"
 
 import Center from "../../components/styled/Center"
 
-function NotFound(_: RouteComponentProps) {
-  const { user } = useContext(AppContext)
-
+const NotFound: FC<RouteComponentProps> = () => {
+  const { user } = useAppContext()
   if (user) return <Redirect to="/" noThrow={true} />
   return (
     <Center style={{ height: "100vh" }}>
-      <h3 style={{ width: "100%", textAlign: "center" }}>Not found 😲</h3>
+      <h3 style={{ width: "100%", textAlign: "center" }}>
+        Not found
+        <span aria-label="not found" role="img">
+          😲
+        </span>
+      </h3>
     </Center>
   )
 }

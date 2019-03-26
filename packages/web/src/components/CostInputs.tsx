@@ -6,7 +6,7 @@ import { decimalCount } from "../lib/helpers"
 import Input from "./Input"
 import Select from "./Select"
 
-type CostInputsProps = {
+interface CostInputsProps {
   formState: CostInput
   isEditing: boolean
   setFormState: (val: { [key: string]: any }) => void

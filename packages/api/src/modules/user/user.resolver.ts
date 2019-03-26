@@ -2,7 +2,7 @@ import { Resolver, Query, Ctx, Mutation, Arg, Authorized } from "type-graphql"
 
 import { User } from "./user.entity"
 import { UserService } from "./user.service"
-import { IResolverContext } from "../../lib/types"
+import { ResolverContext } from "../../lib/types"
 import {
   LoginInput,
   RegisterInput,
@@ -24,7 +24,7 @@ export class UserResolver {
   // ME
   @Authorized()
   @Query(() => User, { nullable: true })
-  async me(@Ctx() { userId }: IResolverContext): Promise<User> {
+  async me(@Ctx() { userId }: ResolverContext): Promise<User> {
     return await this.userService.findById(userId)
   }
 
@@ -50,7 +50,7 @@ export class UserResolver {
   @Mutation(() => User, { nullable: true })
   async updateUser(
     @Arg("data") data: UpdateInput,
-    @Ctx() { userId }: IResolverContext,
+    @Ctx() { userId }: ResolverContext,
   ): Promise<User> {
     return this.userService.update(userId, data)
   }

@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import styled, { media } from "../../application/theme"
 
-type DisplayProps = {
+interface DisplayProps {
   size: "sm" | "md" | "lg" | "xl"
   hide?: boolean
 }

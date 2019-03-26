@@ -15,7 +15,7 @@ import Avatar from "./Avatar"
 import Center from "./styled/Center"
 import ToolTip from "./ToolTip"
 
-type CostProps = {
+interface CostProps {
   cost: CostFragment & PayerFragment
 }
 

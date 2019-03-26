@@ -1,7 +1,7 @@
 import React, { memo } from "react"
 import styled, { lighten } from "../application/theme"
 
-type AlertProps = {
+interface AlertProps {
   text: string
 }
 function Alert({ text }: AlertProps) {

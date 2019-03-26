@@ -6,7 +6,7 @@ import styled from "../application/theme"
 import Input from "./Input"
 import Button from "./Button"
 
-type InviteFormProps = {
+interface InviteFormProps {
   house: HouseFragment
 }
 function InviteForm({ house }: InviteFormProps) {

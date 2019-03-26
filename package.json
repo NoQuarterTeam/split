@@ -12,8 +12,10 @@
     "build:api": "lerna run build --scope={@split/connector,@split/api}",
     "build:web": "lerna run build --scope={@split/connector,@split/web}",
     "test": "lerna run test",
+    "typecheck": "lerna run typecheck",
     "lint": "lerna run lint",
     "pre-commit": "lerna run pre-commit",
+    "ci": "yarn typecheck && yarn lint && yarn test",
     "heroku-postbuild": "yarn build:api"
   },
   "husky": {

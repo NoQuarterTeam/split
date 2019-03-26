@@ -7,9 +7,10 @@
     "start": "parcel src/index.html --port 6969",
     "build": "rm -rf dist && NODE_ENV=production parcel build src/index.html",
     "test": "jest",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'",
-    "pre-commit": "lint-staged"
+    "pre-commit": "yarn typecheck && lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,json,ts,tsx,html}": [

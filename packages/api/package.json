@@ -14,14 +14,15 @@
     "db:rollback": "ts-node node_modules/typeorm/cli.js migration:revert -c ${NODE_ENV}",
     "seed": "ts-node src/seed.ts",
     "build": "rimraf dist && tsc --build",
-    "lint": "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint --fix --cache --ext .ts,.tsx src",
     "prettify": "prettier --write './src/**/*.ts'",
-    "pre-commit": "lint-staged"
+    "pre-commit": "yarn typecheck && lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,json,ts,tsx,html}": [
       "prettier --write",
-      "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
+      "eslint --fix --cache --ext .ts,.tsx src",
       "git add"
     ]
   },

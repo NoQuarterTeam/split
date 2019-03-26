@@ -13,7 +13,7 @@ import {
 
 export function useGetHouse() {
   const { data, error, loading } = useGetHouseQuery()
-  const house = data && data.house
+  const house = (data && data.house) || null
   return { house, getHouseLoading: loading, getHouseError: error }
 }
 

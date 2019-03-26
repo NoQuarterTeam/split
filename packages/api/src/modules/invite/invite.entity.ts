@@ -18,10 +18,13 @@ export class Invite extends BaseEntity {
   id: string
 
   @Field()
-  @Column()
+  @Column({ unique: true })
   email: string
 
-  @Field(() => House)
+  @Field()
+  @Column()
+  houseId: string
+
   @ManyToOne(() => House, house => house.invites)
   house: House
 

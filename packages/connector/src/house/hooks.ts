@@ -1,6 +1,5 @@
 import {
   useGetHouseQuery,
-  useCheckHouseQuery,
   useCreateHouseMutation,
   MeQuery,
   useEditHouseMutation,
@@ -15,16 +14,6 @@ export function useGetHouse() {
   const { data, error, loading } = useGetHouseQuery()
   const house = (data && data.house) || null
   return { house, getHouseLoading: loading, getHouseError: error }
-}
-
-export function useCheckHouse(houseId: string | null) {
-  if (!houseId) return { house: null, checkHouseError: null }
-  const { data, error } = useCheckHouseQuery({
-    variables: { houseId },
-    suspend: true,
-  })
-  const house = data && data.checkHouse
-  return { house, checkHouseError: error }
 }
 
 export function useCreateHouse() {

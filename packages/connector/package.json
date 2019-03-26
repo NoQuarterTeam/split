@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "watch": "tsc --build --watch",
-    "generate": "graphql-codegen --watch",
+    "generate": "graphql-codegen",
     "build": "rm -rf dist && tsc",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",

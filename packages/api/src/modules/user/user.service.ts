@@ -3,9 +3,12 @@ import { User } from "./user.entity"
 import { LoginInput, RegisterInput, UpdateInput } from "./user.input"
 import { House } from "../house/house.entity"
 import { Service } from "typedi"
+import { InviteService } from "../invite/invite.service"
 
 @Service()
 export class UserService {
+  constructor(private readonly inviteService: InviteService) {}
+
   async findAll(house: House): Promise<User[]> {
     const users = await User.find({
       where: { house },
@@ -53,11 +56,18 @@ export class UserService {
     return new Promise(async (resolve, reject) => {
       try {
         const userExists = await this.findByEmail(data.email)
-        if (userExists) throw new Error("user already exists")
-        const user = await User.create({
-          ...data,
-          houseId: data.inviteHouseId,
-        }).save()
+        if (userExists) throw new Error("user with this email already exists")
+        const userData = { ...data } as any
+
+        let invite
+        if (data.inviteId) {
+          invite = await this.inviteService.findById(data.inviteId)
+          userData.houseId = invite.houseId
+        }
+
+        const user = await User.create(userData).save()
+        if (invite) await invite.remove()
+
         resolve(user)
       } catch (error) {
         reject(error)

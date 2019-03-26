@@ -2,7 +2,7 @@ import React, { memo, useState, FC } from "react"
 import { RouteComponentProps, Link, navigate } from "@reach/router"
 import { GraphQLError } from "graphql"
 
-import { useRegister, useCheckHouse } from "@split/connector"
+import { useRegister, useCheckInvite } from "@split/connector"
 
 import styled from "../../application/theme"
 import { getQueryString } from "../../lib/helpers"
@@ -12,7 +12,7 @@ import Button from "../../components/Button"
 import AuthForm from "../../components/AuthForm"
 
 const Register: FC<RouteComponentProps> = () => {
-  const inviteHouseId = getQueryString("invite")
+  const inviteId = getQueryString("invite")
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [firstName, setFirstName] = useState<string>("")
@@ -21,7 +21,7 @@ const Register: FC<RouteComponentProps> = () => {
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
-  const { house, checkHouseError } = useCheckHouse(inviteHouseId)
+  const { house, checkInviteError } = useCheckInvite(inviteId)
   const register = useRegister()
 
   const handleSubmit = (e: any) => {
@@ -29,7 +29,7 @@ const Register: FC<RouteComponentProps> = () => {
     setLoading(true)
     register({
       variables: {
-        data: { email, password, firstName, lastName, inviteHouseId },
+        data: { email, password, firstName, lastName, inviteId },
       },
     })
       .then(() => navigate("/"))
@@ -47,7 +47,7 @@ const Register: FC<RouteComponentProps> = () => {
           <span>{house.name}</span>
         </StyledInviteHeader>
       ) : (
-        checkHouseError && (
+        checkInviteError && (
           <StyledInviteHeader>Invalid invite code</StyledInviteHeader>
         )
       )}

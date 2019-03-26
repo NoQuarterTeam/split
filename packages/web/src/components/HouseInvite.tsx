@@ -8,6 +8,7 @@ import IconPlusAlt from "../assets/images/icon-plus-alt.svg"
 
 import Input from "./Input"
 import Button from "./Button"
+import Alert from "./Alert"
 
 interface HouseInviteProps {
   house: HouseFragment
@@ -17,7 +18,7 @@ function HouseInvite({ house }: HouseInviteProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [formOpen, setFormOpen] = useState<boolean>(false)
   const [email, setEmail] = useState<string>("")
-
+  const [error, setError] = useState<string>("")
   const handleOpenForm = async () => {
     setFormOpen(true)
     await sleep(0)
@@ -35,10 +36,11 @@ function HouseInvite({ house }: HouseInviteProps) {
     createInvite({ variables: { data: { houseId: house.id, email } } })
       .then(() => {
         setEmail("")
+        setError("")
         setFormOpen(false)
       })
-      .catch(() => {
-        // TODO: handle error
+      .catch(err => {
+        setError(err.message.split(":")[1])
       })
   }
 
@@ -46,6 +48,7 @@ function HouseInvite({ house }: HouseInviteProps) {
     <StyledInviteWrapper>
       {formOpen ? (
         <StyledInviteForm onSubmit={handleInviteSend}>
+          {error && <Alert text={error} />}
           <Input
             value={email}
             onChange={e => setEmail(e.target.value)}

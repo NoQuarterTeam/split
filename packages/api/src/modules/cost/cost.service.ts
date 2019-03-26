@@ -87,6 +87,7 @@ export class CostService {
     return new Promise(async (resolve, reject) => {
       try {
         // Pull off unwanted attributes
+        // eslint-disable-next-line
         const { id, date, ...data } = cost
         const futureCost = await Cost.create({
           ...data,

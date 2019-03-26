@@ -8,7 +8,6 @@ import {
   BeforeInsert,
   ManyToOne,
   OneToMany,
-  BeforeUpdate,
 } from "typeorm"
 import { ObjectType, Field, ID } from "type-graphql"
 import bcrypt from "bcryptjs"

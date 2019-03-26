@@ -10,7 +10,7 @@ test("tests changing amount and correctly splits", async () => {
     <CostForm onFormSubmit={submit} />,
   )
 
-  const amount = getByLabelText(/Amount/i)
+  const amount = getByLabelText(/amount/i)
   fireEvent.change(amount, { target: { value: 21 } })
 
   const firstParticipantAmount = getAllByTestId(/participant-amount/i)[0]

@@ -11,17 +11,10 @@
   "scripts": {
     "build:api": "lerna run build --scope={@split/connector,@split/api}",
     "build:web": "lerna run build --scope={@split/connector,@split/web}",
-    "pre-commit": "lerna run pre-commit",
     "test": "lerna run test",
-    "lint": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx packages",
+    "lint": "lerna run lint",
+    "pre-commit": "lerna run pre-commit",
     "heroku-postbuild": "yarn build:api"
-  },
-  "lint-staged": {
-    "*.{js,jsx,json,ts,tsx,html}": [
-      "prettier --write",
-      "eslint --fix --cache --ext .jsx,.js,.ts,.tsx packages",
-      "git add"
-    ]
   },
   "husky": {
     "hooks": {

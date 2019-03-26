@@ -14,7 +14,7 @@
     "db:rollback": "ts-node node_modules/typeorm/cli.js migration:revert -c ${NODE_ENV}",
     "seed": "ts-node src/seed.ts",
     "build": "rimraf dist && tsc --build",
-    "lint": "eslint --fix -c .eslintrc.js --ignore-path .gitignore --cache --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
     "prettify": "prettier --write './src/**/*.ts'",
     "pre-commit": "lint-staged"
   },

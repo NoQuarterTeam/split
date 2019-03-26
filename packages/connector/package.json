@@ -7,7 +7,7 @@
     "watch": "tsc --build --watch",
     "generate": "graphql-codegen --watch",
     "build": "rm -rf dist && tsc",
-    "lint": "eslint --fix -c .eslintrc.js --ignore-path .gitignore --cache --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'",
     "pre-commit": "lint-staged"
   },

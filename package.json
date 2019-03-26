@@ -18,7 +18,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn pre-commit"
+      "pre-commit": "lerna run --concurrency 1 --stream pre-commit"
     }
   },
   "resolutions": {

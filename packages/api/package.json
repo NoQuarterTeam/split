@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint --fix --cache --ext .ts,.tsx src",
     "prettify": "prettier --write './src/**/*.ts'",
-    "pre-commit": "yarn typecheck && lint-staged"
+    "pre-commit": "lint-staged"
   },
   "lint-staged": {
     "*.{js,jsx,json,ts,tsx,html}": [

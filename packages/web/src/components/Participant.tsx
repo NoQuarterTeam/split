@@ -27,8 +27,7 @@ function Participant({
 
   const toggleParticipant = (userId: string) => {
     if (userShare) {
-      // Remove user from split if more than 3 house mates
-      if (shares.length === 2) return
+      if (shares.length === 1) return
       const newCostShares = shares.filter(s => s.userId !== userId)
       setFormState({
         costShares: newCostShares,

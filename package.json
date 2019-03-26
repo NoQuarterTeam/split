@@ -13,19 +13,19 @@
     "build:web": "lerna run build --scope={@split/connector,@split/web}",
     "pre-commit": "lerna run pre-commit",
     "test": "lerna run test",
-    "lint": "eslint --fix -c .eslintrc.js --ignore-path .gitignore --cache --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx packages",
     "heroku-postbuild": "yarn build:api"
   },
   "lint-staged": {
     "*.{js,jsx,json,ts,tsx,html}": [
       "prettier --write",
-      "eslint --fix --ignore-pattern '!.eslintrc.js' --ext .js,.jsx,.ts,.tsx",
+      "eslint --fix --cache --ext .jsx,.js,.ts,.tsx packages",
       "git add"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn pre-commit"
     }
   },
   "resolutions": {

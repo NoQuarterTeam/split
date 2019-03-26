@@ -8,13 +8,12 @@
     "build": "rm -rf dist && NODE_ENV=production parcel build src/index.html",
     "test": "jest",
     "lint": "eslint --fix -c .eslintrc.js --ignore-path .gitignore --cache --ext .js,.jsx,.ts,.tsx .",
-    "prettify": "prettier --write './src/**/*.{ts,tsx}'",
-    "pre-commit": "lint-staged"
+    "prettify": "prettier --write './src/**/*.{ts,tsx}'"
   },
   "lint-staged": {
     "*.{js,jsx,json,ts,tsx,html}": [
       "prettier --write",
-      "eslint --fix -c .eslintrc.js --ignore-path .gitignore --cache --ext .js,.jsx,.ts,.tsx .",
+      "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
       "git add"
     ]
   },

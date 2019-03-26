@@ -2,7 +2,7 @@ import React, { memo } from "react"
 import { UserFragment } from "@split/connector"
 
 import { round } from "../lib/helpers"
-import styled, { media } from "../application/theme"
+import styled, { media, darken } from "../application/theme"
 import Avatar from "./Avatar"
 import useAppContext from "../lib/hooks/useAppContext"
 
@@ -35,7 +35,8 @@ function HouseBalance({ users }: HouseBalanceProps) {
       {house && house.invites.length > 0 && (
         <StyledUserGraph>
           <StyledSpacer />
-          <div>Pending invites</div>
+          <StyledPending>Pending invites</StyledPending>
+          <StyledSpacer />
         </StyledUserGraph>
       )}
     </StyledHouseBalance>
@@ -63,11 +64,31 @@ const StyledUserGraph = styled.div`
 `
 
 const StyledSpacer = styled.p`
-  padding: ${p => p.theme.paddingM} 0;
+  height: 30px;
+  line-height: 30px;
 `
 
 const StyledUserBalance = styled(StyledSpacer)`
   color: ${p => p.theme.colorHeader};
+`
+
+const StyledPending = styled.div`
+  border-radius: 50%;
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
+  text-align: center;
+  height: ${0.9 * 80}px;
+  width: ${0.9 * 80}px;
+
+  background-color: ${p => p.theme.colorPink};
+  color: ${p => darken(0.2, p.theme.colorPink)};
+  font-weight: ${p => p.theme.fontBlack};
+  font-size: ${p => p.theme.textS};
+  ${p => p.theme.flexCenter};
+
+  ${media.greaterThan("sm")`
+    height: ${80}px;
+    width: ${80}px; 
+  `}
 `
 
 const StyledFlame = styled.div<{ percentage: number; negative: boolean }>`
@@ -77,7 +98,7 @@ const StyledFlame = styled.div<{ percentage: number; negative: boolean }>`
   background-color: ${p =>
     p.negative ? p.theme.colorPink : p.theme.colorBlue};
   height: ${p => p.percentage * 2}px; /* Max 125px as 50% is the max abs */
-  ${p => (p.negative ? "top: 100%;" : "bottom: 100%;")};
+  ${p => (p.negative ? "top: 100%;" : "bottom: 100%;")}
 
   ${p => media.greaterThan("sm")`
     height: ${p.percentage * 2.5}px; /* Max 125px as 50% is the max abs */

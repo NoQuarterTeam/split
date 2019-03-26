@@ -103,7 +103,7 @@ const StyledIcon = styled.img`
   height: 22px;
   vertical-align: middle;
   border-radius: 50%;
-  box-shadow: 0 0 10px 0 ${p => lighten(0.25, p.theme.colorPink)}};
+  box-shadow: 0 0 10px 0 ${p => lighten(0.25, p.theme.colorPink)};
   margin-left: ${p => p.theme.paddingM};
 `
 

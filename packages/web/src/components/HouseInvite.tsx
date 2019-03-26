@@ -4,6 +4,8 @@ import { useCreateInvite, HouseFragment } from "@split/connector"
 import styled from "../application/theme"
 import { sleep } from "../lib/helpers"
 
+import IconPlusAlt from "../assets/images/icon-plus-alt.svg"
+
 import Input from "./Input"
 import Button from "./Button"
 
@@ -71,6 +73,7 @@ function HouseInvite({ house }: HouseInviteProps) {
         </StyledInviteForm>
       ) : (
         <Button color="pink" variant="tertiary" onClick={handleOpenForm}>
+          <StyledIcon src={IconPlusAlt} />
           Invite house mate
         </Button>
       )}
@@ -88,4 +91,10 @@ const StyledInviteForm = styled.form`
   transition: 200ms all;
   flex-direction: column;
   ${p => p.theme.flexAround};
+`
+
+const StyledIcon = styled.img`
+  height: 22px;
+  vertical-align: middle;
+  margin-right: ${p => p.theme.paddingM};
 `

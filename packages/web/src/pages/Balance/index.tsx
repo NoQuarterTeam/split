@@ -9,9 +9,11 @@ import Page from "../../components/Page"
 import HouseBalance from "../../components/HouseBalance"
 import HouseName from "../../components/HouseName"
 import HouseInvite from "../../components/HouseInvite"
+import InviteForm from "../../components/InviteForm"
 
 const Balance: FC<RouteComponentProps> = () => {
   const { user, house } = useAppContext()
+  if (!house) return null
   const getBalanceHeader = () => {
     if (user.balance > 0) {
       return `You are owed €${round(user.balance * 0.01)}`
@@ -21,16 +23,20 @@ const Balance: FC<RouteComponentProps> = () => {
   }
   return (
     <Page>
-      <StyledWrapper>
-        <StyledHeader>
-          <HouseName house={house} />
-          <p>{getBalanceHeader()}</p>
-        </StyledHeader>
-        <HouseBalance users={house.users} />
-        <StyledInviteWrapper>
-          <HouseInvite house={house} />
-        </StyledInviteWrapper>
-      </StyledWrapper>
+      {house.invites.length === 0 && house.users.length === 1 ? (
+        <InviteForm house={house} />
+      ) : (
+        <StyledWrapper>
+          <StyledHeader>
+            <HouseName house={house} />
+            <p>{getBalanceHeader()}</p>
+          </StyledHeader>
+          <HouseBalance users={house.users} />
+          <StyledInviteWrapper>
+            <HouseInvite house={house} />
+          </StyledInviteWrapper>
+        </StyledWrapper>
+      )}
     </Page>
   )
 }

@@ -59,5 +59,5 @@ const StyledTitle = styled.h2`
 
 const StyledAdd = styled.img`
   border-radius: 50%;
-  box-shadow: 0 0 6px 0 ${p => lighten(0.25, p.theme.colorPink)}};
+  box-shadow: 0 0 6px 0 ${p => lighten(0.25, p.theme.colorPink)};
 `

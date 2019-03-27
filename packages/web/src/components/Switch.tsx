@@ -7,8 +7,18 @@ interface SwitchProps {
 }
 
 function Switch({ handleClick, on }: SwitchProps) {
+  const handleKeyDown = (e: any) => {
+    if (e.key === "Space") handleClick()
+  }
+
   return (
-    <StyledSwitch type="button" onClick={handleClick} on={on}>
+    <StyledSwitch
+      type="button"
+      onKeyDown={handleKeyDown}
+      aria-checked={on}
+      onClick={handleClick}
+      on={on}
+    >
       <StyledToggle on={on} />
     </StyledSwitch>
   )

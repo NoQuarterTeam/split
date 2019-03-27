@@ -1,13 +1,10 @@
-import React, { memo, Suspense } from "react"
+import React, { Suspense } from "react"
 import { Router } from "@reach/router"
-import LogRocket from "logrocket"
 import ErrorBoundary from "react-error-boundary"
-import { useMe, useGetHouse } from "@split/connector"
 
-import { AppContext } from "./context"
-import { production } from "../lib/config"
+import ThemeProvider from "../components/ThemeProvider"
+import AppProvider from "../components/AppProvider"
 
-import Loading from "../components/Loading"
 import CheckUser from "../components/CheckUser"
 import CheckHouse from "../components/CheckHouse"
 import ErrorFallback from "../components/ErrorFallback"
@@ -18,25 +15,17 @@ import NotFound from "../pages/NotFound"
 import NewCost from "../pages/NewCost"
 import EditCost from "../pages/EditCost"
 import Costs from "../pages/Costs"
+import Loading from "../components/Loading"
 
 function Application() {
-  const { user, userLoading } = useMe()
-  const { house, getHouseLoading } = useGetHouse()
   const errorHandler = (e: Error) => {
     console.log(e)
   }
-  if (user && production) {
-    LogRocket.identify(user.id, {
-      name: user.firstName + " " + user.lastName,
-      email: user.email,
-    })
-  }
-
   return (
-    <AppContext.Provider value={{ user, house }}>
-      <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
-        <Loading loading={userLoading || getHouseLoading}>
-          <Suspense fallback={null}>
+    <ThemeProvider>
+      <AppProvider>
+        <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
+          <Suspense fallback={<Loading loading={true} />}>
             <CheckUser>
               <CheckHouse>
                 <Router>
@@ -50,10 +39,10 @@ function Application() {
               </CheckHouse>
             </CheckUser>
           </Suspense>
-        </Loading>
-      </ErrorBoundary>
-    </AppContext.Provider>
+        </ErrorBoundary>
+      </AppProvider>
+    </ThemeProvider>
   )
 }
 
-export default memo(Application)
+export default Application

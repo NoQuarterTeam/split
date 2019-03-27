@@ -15,4 +15,5 @@ export default Logo
 
 const StyledLogo = styled.h1`
   font-size: ${p => p.theme.textL};
+  color: ${p => p.theme.colorHeader};
 `

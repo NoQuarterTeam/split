@@ -70,7 +70,7 @@ const StyledCost = styled.div`
   padding-right: 0;
   margin-bottom: ${p => p.theme.paddingM};
   border: 2px solid transparent;
-  background-color: white;
+  background-color: ${p => p.theme.colorPage};
   padding: ${p => p.theme.paddingM};
   border-radius: ${p => p.theme.borderRadius};
   ${p => p.theme.flexBetween};

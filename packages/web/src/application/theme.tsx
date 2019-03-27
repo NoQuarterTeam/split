@@ -10,11 +10,15 @@ const media = generateMedia({
   sm: "450px",
 })
 
-const theme: (small: boolean) => ThemeInterface = small => ({
-  colorBackground: "#f8f9fd",
-  colorPlaceholder: "#d3d3d3",
+const theme: (small: boolean, isDark: boolean) => ThemeInterface = (
+  small,
+  isDark,
+) => ({
+  colorPage: isDark ? "#1C1C1C" : "white",
+  colorBackground: isDark ? "#222" : "#f8f9fd",
+  colorPlaceholder: isDark ? "#888" : "#d3d3d3",
   colorLabel: "#b1bbc4",
-  colorHeader: "#1b2d41",
+  colorHeader: isDark ? "#DDD" : "#1b2d41",
   colorPink: "#ed60d3",
   colorBlue: "#11a9ff",
   fontBlack: 900,
@@ -49,6 +53,7 @@ const theme: (small: boolean) => ThemeInterface = small => ({
 })
 
 export interface ThemeInterface {
+  colorPage: string
   borderRadius: string
   colorBackground: string
   colorHeader: string

@@ -41,7 +41,7 @@ export default QuickPage
 const StyledQuickPage = styled.div`
   min-height: ${window.innerHeight}px;
   width: 100vw;
-  background-color: white;
+  background-color: ${p => p.theme.colorPage};
 `
 
 const StyledTopbar = styled.div`

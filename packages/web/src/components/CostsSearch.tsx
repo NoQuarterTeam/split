@@ -65,7 +65,7 @@ const StyledSearchForm = styled.form`
 `
 
 const StyledInputWrap = styled.div<{ focus: boolean }>`
-  background-color: white;
+  background-color: ${p => p.theme.colorPage};
   width: 100%;
   transition: width 1s ease;
   border-radius: ${p => p.theme.borderRadius};
@@ -83,6 +83,7 @@ const StyledInputWrap = styled.div<{ focus: boolean }>`
 
 const StyledSearch = styled.input`
   appearance: none;
+  background-color: transparent;
   border: 0;
   outline: none;
   height: 30px;

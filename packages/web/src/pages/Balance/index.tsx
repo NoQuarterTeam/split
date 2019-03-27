@@ -72,10 +72,8 @@ const StyledInviteWrapper = styled.div`
   position: fixed;
   bottom: 0;
   right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
   padding: ${p => p.theme.paddingL};
+  ${p => p.theme.flexBetween};
 
   ${p => media.greaterThan("sm")`
     padding: ${p.theme.paddingXL};

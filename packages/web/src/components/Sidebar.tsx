@@ -74,7 +74,7 @@ const StyledSidebar = styled.div<{ open: boolean }>`
   justify-content: space-between;
   flex-direction: column;
   align-items: flex-start;
-  background-color: white;
+  background-color: ${p => p.theme.colorPage};
   padding: ${p => p.theme.paddingXL};
   display: ${p => (p.open ? "flex" : "none")};
 

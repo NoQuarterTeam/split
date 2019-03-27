@@ -37,7 +37,7 @@ function CostList() {
     search,
   ])
 
-  useEventListener("scroll", debouncedScroll, true, [costs.length, search])
+  useEventListener("scroll", debouncedScroll, true)
 
   const handleSearchSubmit = (input: string) => setSearch(input)
 

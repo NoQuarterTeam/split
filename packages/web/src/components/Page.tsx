@@ -21,10 +21,10 @@ const Page: FC = ({ children }) => {
 export default Page
 
 const StyledPage = styled.div`
-  height: ${window.innerHeight}px;
   width: 100vw;
   padding-left: 0;
   display: flex;
+  height: ${window.innerHeight}px;
 
   ${media.greaterThan("sm")`
     padding-left: 220px;

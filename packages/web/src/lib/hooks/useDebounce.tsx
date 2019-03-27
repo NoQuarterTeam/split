@@ -22,7 +22,7 @@ export function useDebouncedCallback(
   delay: any,
   deps: any,
 ) {
-  const functionTimeoutHandler = useRef<any>(null)
+  const functionTimeoutHandler = useRef<any>()
   const debouncedFunction = useCallback(callback, deps)
 
   useEffect(

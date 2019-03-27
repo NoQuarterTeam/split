@@ -1,15 +1,27 @@
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 function useEventListener(
-  key: string,
-  cb: (e: any) => void,
+  eventName: string,
+  handler: any,
   options?: any,
-  deps?: any,
+  element?: any,
 ) {
+  let el = element
+  if (!element) el = window
+  const savedHandler = useRef<any>()
   useEffect(() => {
-    window.addEventListener(key, cb, options)
-    return () => window.removeEventListener(key, cb, options)
-  }, deps || [])
+    savedHandler.current = handler
+  }, [handler])
+
+  useEffect(() => {
+    const eventListener = (event: any) => savedHandler.current(event)
+
+    el.addEventListener(eventName, eventListener, options)
+
+    return () => {
+      el.removeEventListener(eventName, eventListener, options)
+    }
+  }, [eventName, el])
 }
 
 export default useEventListener

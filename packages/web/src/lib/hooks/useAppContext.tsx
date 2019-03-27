@@ -1,9 +1,9 @@
 import { useContext } from "react"
 
-import { AppContext } from "../../application/context"
+import { CoreContext } from "../../application/context"
 
 function useAppContext() {
-  const { user, house } = useContext(AppContext)
+  const { user, house } = useContext(CoreContext)
   // eslint-disable-next-line
   return { user: user!, house: house! }
 }

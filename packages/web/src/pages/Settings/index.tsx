@@ -1,9 +1,12 @@
 import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
+import styled from "../../application/theme"
+
 import useAppContext from "../../lib/hooks/useAppContext"
 
 import ProfileForm from "../../components/ProfileForm"
 import QuickPage from "../../components/QuickPage"
+import ThemeSwitcher from "../../components/ThemeSwitcher"
 
 const Settings: FC<RouteComponentProps> = () => {
   const { user } = useAppContext()
@@ -11,8 +14,17 @@ const Settings: FC<RouteComponentProps> = () => {
   return (
     <QuickPage title="Settings">
       <ProfileForm user={user} />
+      <StyledThemeWrapper>
+        <ThemeSwitcher />
+      </StyledThemeWrapper>
     </QuickPage>
   )
 }
 
 export default Settings
+
+const StyledThemeWrapper = styled.div`
+  position: absolute;
+  bottom: ${p => p.theme.paddingXL};
+  left: ${p => p.theme.paddingXL};
+`

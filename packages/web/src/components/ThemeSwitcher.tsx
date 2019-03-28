@@ -16,7 +16,8 @@ function ThemeSwitcher() {
 export default ThemeSwitcher
 
 const StyledSwitcher = styled.div`
-  ${p => p.theme.flexCenter};
+  display: flex;
+  align-items: center;
 `
 
 const StyledLabel = styled.div`

@@ -24,7 +24,5 @@ const Settings: FC<RouteComponentProps> = () => {
 export default Settings
 
 const StyledThemeWrapper = styled.div`
-  position: absolute;
-  bottom: ${p => p.theme.paddingXL};
-  left: ${p => p.theme.paddingXL};
+  padding: ${p => p.theme.paddingL};
 `

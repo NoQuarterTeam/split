@@ -34,12 +34,14 @@ const ForgotPassword: FC<RouteComponentProps> = () => {
   return (
     <AuthForm handleSubmit={handleSubmit}>
       {success ? (
-        <p>We've sent you a link by pigeon mail, good luck!</p>
+        <StyledText>
+          We've sent you a link by pigeon mail, good luck!
+        </StyledText>
       ) : (
         <Fragment>
-          <p>
+          <StyledText>
             What is your email? We'll send you a link to reset your password
-          </p>
+          </StyledText>
           <br />
           <Input
             label="Email"
@@ -66,6 +68,10 @@ const ForgotPassword: FC<RouteComponentProps> = () => {
 }
 
 export default ForgotPassword
+
+const StyledText = styled.p`
+  color: ${p => p.theme.colorText};
+`
 
 const StyledLinks = styled.div`
   width: 100%;

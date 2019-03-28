@@ -40,10 +40,12 @@ const ResetPassword: FC<ResetPasswordProps> = props => {
   return (
     <AuthForm handleSubmit={handleSubmit}>
       {success ? (
-        <p>Password updated! Try logging in now.</p>
+        <StyledText>Password updated! Try logging in now.</StyledText>
       ) : (
         <Fragment>
-          <p>Enter a new password, try not forgetting it this time!</p>
+          <StyledText>
+            Enter a new password, try not forgetting it this time!
+          </StyledText>
           <br />
           <Input
             label="New password"
@@ -71,6 +73,9 @@ const ResetPassword: FC<ResetPasswordProps> = props => {
 
 export default ResetPassword
 
+const StyledText = styled.p`
+  color: ${p => p.theme.colorText};
+`
 const StyledLinks = styled.div`
   width: 100%;
   padding: ${p => p.theme.paddingL} 0;

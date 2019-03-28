@@ -3,7 +3,7 @@ import styled, { css, ThemeInterface, lighten } from "../application/theme"
 import { capitalize } from "../lib/helpers"
 
 export type Variant = "primary" | "secondary" | "tertiary"
-export type Color = "blue" | "pink" | "header"
+export type Color = "blue" | "pink" | "text"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant

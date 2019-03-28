@@ -19,7 +19,7 @@ const Home: FC<RouteComponentProps> = () => {
         <Center>
           <Button
             variant="tertiary"
-            color="header"
+            color="text"
             onClick={() => navigate("/login")}
           >
             Login

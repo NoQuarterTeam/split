@@ -99,10 +99,11 @@ export default memo(ProfileForm)
 const StyledProfileForm = styled.form`
   margin: 0 auto;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   background-color: ${p => p.theme.colorPage};
   flex-direction: column;
   border-radius: ${p => p.theme.borderRadius};
+  padding: 0 ${p => p.theme.paddingL};
   ${p => p.theme.flexCenter};
 `
 

@@ -1,5 +1,5 @@
 import { Service } from "typedi"
-import { webUrl, isProduction } from "../../config"
+import { webUrl, isProduction } from "../../lib/config"
 import { House } from "../house/house.entity"
 import { User } from "./user.entity"
 import { Mailer } from "../../lib/mailer"

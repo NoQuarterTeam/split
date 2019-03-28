@@ -10,7 +10,7 @@ import { Container } from "typedi"
 import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
 
-import { cors, PORT, resolverPaths, APP_SECRET } from "./config"
+import { cors, PORT, resolverPaths, APP_SECRET } from "./lib/config"
 import { userLoader } from "./modules/user/user.loader"
 import { shareLoader } from "./modules/share/share.loader"
 import { AppRequest } from "./lib/types"

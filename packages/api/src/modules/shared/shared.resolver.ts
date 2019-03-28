@@ -1,5 +1,5 @@
 import { Resolver, Authorized, Arg, Mutation } from "type-graphql"
-import { S3_BUCKET_NAME } from "../../config"
+import { S3_BUCKET_NAME } from "../../lib/config"
 import { s3 } from "../../lib/s3"
 
 import { S3SignedUrlResponse } from "./shared.response"

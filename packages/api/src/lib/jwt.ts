@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"
-import { APP_SECRET } from "../config"
+import { APP_SECRET } from "./config"
 
 export const createToken = (userId: string): Promise<string> => {
   return new Promise(resolve => {

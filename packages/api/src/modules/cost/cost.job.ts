@@ -4,7 +4,7 @@ import dayjs from "dayjs"
 import { Cost } from "./cost.entity"
 import { ShareService } from "../share/share.service"
 import { CostService } from "./cost.service"
-import { REDIS_URL } from "../../config"
+import { REDIS_URL } from "../../lib/config"
 
 export const costWorker = new Queue("costWorker", REDIS_URL)
 

@@ -1,25 +1,15 @@
-import {
-  Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-  ManyToOne,
-} from "typeorm"
-import { ObjectType, Field, ID } from "type-graphql"
+import { Entity, Column, OneToMany, ManyToOne } from "typeorm"
+import { ObjectType, Field } from "type-graphql"
+
+import { SharedEntity } from "../shared/shared.entity"
+
 import { Share } from "../share/share.entity"
 import { User } from "../user/user.entity"
 import { House } from "../house/house.entity"
 
 @ObjectType()
 @Entity()
-export class Cost extends BaseEntity {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn("uuid")
-  id: string
-
+export class Cost extends SharedEntity {
   @Field()
   @Column()
   name: string
@@ -70,12 +60,4 @@ export class Cost extends BaseEntity {
   @Field(() => User)
   @ManyToOne(() => User, user => user.costsCreated)
   creator: User
-
-  @Field()
-  @CreateDateColumn()
-  createdAt: string
-
-  @Field()
-  @UpdateDateColumn()
-  updatedAt: string
 }

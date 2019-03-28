@@ -1,7 +1,7 @@
 import sendgrid from "@sendgrid/mail"
 import nodemailer from "nodemailer"
 
-import { SENDGRID_API_KEY, devEmailOptions } from "../config"
+import { SENDGRID_API_KEY, devEmailOptions } from "./config"
 
 sendgrid.setApiKey(SENDGRID_API_KEY)
 

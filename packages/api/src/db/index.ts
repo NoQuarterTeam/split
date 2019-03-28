@@ -1,5 +1,5 @@
 import { getConnectionOptions, createConnection } from "typeorm"
-import { NODE_ENV, DATABASE_URL, isProduction } from "../config"
+import { NODE_ENV, DATABASE_URL, isProduction } from "../lib/config"
 
 export const createDbConnection = async () => {
   // Create DB connection

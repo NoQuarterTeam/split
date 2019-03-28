@@ -1,22 +1,11 @@
-import {
-  Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  ManyToOne,
-} from "typeorm"
-import { ObjectType, Field, ID } from "type-graphql"
+import { Entity, Column, ManyToOne } from "typeorm"
+import { SharedEntity } from "../shared/shared.entity"
+import { ObjectType, Field } from "type-graphql"
 import { House } from "../house/house.entity"
 
 @ObjectType()
 @Entity()
-export class Invite extends BaseEntity {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn("uuid")
-  id: string
-
+export class Invite extends SharedEntity {
   @Field()
   @Column({ unique: true })
   email: string
@@ -27,12 +16,4 @@ export class Invite extends BaseEntity {
 
   @ManyToOne(() => House, house => house.invites)
   house: House
-
-  @Field()
-  @CreateDateColumn()
-  createdAt: string
-
-  @Field()
-  @UpdateDateColumn()
-  updatedAt: string
 }

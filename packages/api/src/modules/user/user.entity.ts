@@ -1,28 +1,15 @@
-import {
-  Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  BeforeInsert,
-  ManyToOne,
-  OneToMany,
-} from "typeorm"
-import { ObjectType, Field, ID } from "type-graphql"
+import { Entity, Column, BeforeInsert, ManyToOne, OneToMany } from "typeorm"
+import { ObjectType, Field } from "type-graphql"
 import bcrypt from "bcryptjs"
 
+import { SharedEntity } from "../shared/shared.entity"
 import { House } from "../house/house.entity"
 import { Share } from "../share/share.entity"
 import { Cost } from "../cost/cost.entity"
 
 @ObjectType()
 @Entity()
-export class User extends BaseEntity {
-  @Field(() => ID)
-  @PrimaryGeneratedColumn("uuid")
-  id: string
-
+export class User extends SharedEntity {
   @Field()
   @Column({ unique: true })
   email: string
@@ -65,14 +52,6 @@ export class User extends BaseEntity {
   @Field(() => [Cost])
   @OneToMany(() => Cost, cost => cost.payer)
   costsPaid: Cost[]
-
-  @Field()
-  @CreateDateColumn()
-  createdAt: string
-
-  @Field()
-  @UpdateDateColumn()
-  updatedAt: string
 
   @BeforeInsert()
   async beforeInsert() {

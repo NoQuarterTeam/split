@@ -38,12 +38,13 @@ const StyledMenu = styled.button`
   display: flex;
   top: 20px;
   left: 20px;
-  background-color: white;
   border: 0;
   cursor: pointer;
+  background-color: ${p => p.theme.colorPage};
   padding: ${p => p.theme.paddingM};
   border-radius: ${p => p.theme.borderRadius};
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+
   ${media.greaterThan("sm")`
     display: none;
   `};

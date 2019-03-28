@@ -3,7 +3,7 @@ import LogRocket from "logrocket"
 import { useMe, useGetHouse } from "@split/connector"
 
 import { production } from "../lib/config"
-import { CoreProvider } from "../application/context"
+import { AppProvider as AppContextProvider } from "../application/context"
 
 import Loading from "./Loading"
 
@@ -18,9 +18,9 @@ const AppProvider: FC = ({ children }) => {
     })
   }
   return (
-    <CoreProvider value={{ user, house }}>
+    <AppContextProvider value={{ user, house }}>
       <Loading loading={userLoading || getHouseLoading}>{children}</Loading>
-    </CoreProvider>
+    </AppContextProvider>
   )
 }
 

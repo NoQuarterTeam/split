@@ -80,7 +80,7 @@ const StyledLink = styled.div`
   text-decoration: none;
   outline: none;
   cursor: pointer;
-  color: ${p => p.theme.colorHeader};
+  color: ${p => p.theme.colorText};
   padding: ${p => p.theme.paddingS};
   font-size: ${p => p.theme.textM};
 

@@ -8,19 +8,24 @@ interface AuthFormProps {
 }
 const AuthForm: FC<AuthFormProps> = ({ children, handleSubmit }) => {
   return (
-    <Center style={{ height: "100vh" }}>
-      <StyledForm onSubmit={handleSubmit}>
-        <StyledHeader>
-          <Logo />
-        </StyledHeader>
-        {children}
-      </StyledForm>
-    </Center>
+    <StyledAuthContainer>
+      <Center style={{ height: "100vh" }}>
+        <StyledForm onSubmit={handleSubmit}>
+          <StyledHeader>
+            <Logo />
+          </StyledHeader>
+          {children}
+        </StyledForm>
+      </Center>
+    </StyledAuthContainer>
   )
 }
 
 export default AuthForm
 
+const StyledAuthContainer = styled.div`
+  background-color: ${p => p.theme.colorPage};
+`
 const StyledForm = styled.form`
   height: 100%;
   max-width: 450px;

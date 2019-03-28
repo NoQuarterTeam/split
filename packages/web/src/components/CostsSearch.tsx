@@ -70,7 +70,7 @@ const StyledInputWrap = styled.div<{ focus: boolean }>`
   transition: width 1s ease;
   border-radius: ${p => p.theme.borderRadius};
   padding: ${p => `${p.theme.paddingS} ${p.theme.paddingM}`};
-  ${p => p.focus && "box-shadow: 0 10px 10px 5px rgba(200, 200, 200, 0.1);"}
+  ${p => p.focus && `box-shadow: 0 5px 10px 5px ${p.theme.colorShadow};`}
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -89,7 +89,7 @@ const StyledSearch = styled.input`
   height: 30px;
   width: 100%;
   line-height: 30px;
-  color: ${p => p.theme.colorHeader};
+  color: ${p => p.theme.colorText};
   padding-left: ${p => p.theme.paddingM};
   padding-right: ${p => p.theme.paddingXL};
   padding-top: ${p => p.theme.paddingS};

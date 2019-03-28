@@ -71,6 +71,7 @@ const StyledTopbar = styled.div`
 
 const StyledHero = styled.div`
   padding: ${p => p.theme.paddingL};
+  color: ${p => p.theme.colorText};
 `
 
 const StyledHeroTitle = styled.h1`

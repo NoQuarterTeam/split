@@ -76,13 +76,13 @@ export default Modal
 
 const StyledModal = styled.div`
   position: fixed;
-  height: ${window.innerHeight}px;
   width: 100vw;
   top: 0;
   bottom: 0;
   left: 0;
-  background-color: white;
   z-index: 1000;
+  height: ${window.innerHeight}px;
+  background-color: ${p => p.theme.colorPage};
 `
 
 const StyledModalTopbar = styled.div`
@@ -99,14 +99,14 @@ const StyledModalTopbar = styled.div`
   `}
 `
 const StyledModalTitle = styled.h2`
-  font-size: ${p => p.theme.textL};
-  color: ${p => p.theme.colorHeader};
   font-weight: 200;
+  font-size: ${p => p.theme.textL};
+  color: ${p => p.theme.colorText};
 `
 
 const StyledTopbarAlert = styled.div`
   position: absolute;
-  top: 90px
+  top: 90px;
   width: 100%;
   ${p => p.theme.flexCenter};
 `

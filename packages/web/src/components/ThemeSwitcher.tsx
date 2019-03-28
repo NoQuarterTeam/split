@@ -21,5 +21,5 @@ const StyledSwitcher = styled.div`
 
 const StyledLabel = styled.div`
   padding-right: ${p => p.theme.paddingM};
-  color: ${p => p.theme.colorHeader};
+  color: ${p => p.theme.colorText};
 `

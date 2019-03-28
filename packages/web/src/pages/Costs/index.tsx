@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { RouteComponentProps, Link, Redirect } from "@reach/router"
 
-import styled, { media, lighten } from "../../application/theme"
+import styled, { media } from "../../application/theme"
 import IconPlus from "../../assets/images/icon-plus.svg"
 import useAppContext from "../../lib/hooks/useAppContext"
 
@@ -52,12 +52,11 @@ const StyledHeader = styled.div`
 `
 
 const StyledTitle = styled.h2`
-  color: ${p => p.theme.colorHeader};
+  color: ${p => p.theme.colorText};
   font-size: ${p => p.theme.textL};
   font-weight: normal;
 `
 
 const StyledAdd = styled.img`
   border-radius: 50%;
-  box-shadow: 0 0 6px 0 ${p => lighten(0.25, p.theme.colorPink)};
 `

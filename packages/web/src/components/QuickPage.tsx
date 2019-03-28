@@ -57,7 +57,7 @@ const StyledTopbar = styled.div`
 `
 
 const StyledHeader = styled.h2`
-  color: ${p => p.theme.colorHeader};
+  color: ${p => p.theme.colorText};
   font-size: ${p => p.theme.textXL};
   font-weight: ${p => p.theme.fontNormal};
 `

@@ -35,7 +35,7 @@ function Sidebar({ open }: { open: boolean }) {
           <StyledLink>Logout</StyledLink>
         </div>
       </div>
-      <h6>
+      <StyledPlug>
         Built by{" "}
         <StyledAnchor
           tabIndex={-1}
@@ -45,7 +45,7 @@ function Sidebar({ open }: { open: boolean }) {
         >
           No Quarter
         </StyledAnchor>
-      </h6>
+      </StyledPlug>
     </StyledSidebar>
   )
 }
@@ -85,7 +85,7 @@ const StyledSidebar = styled.div<{ open: boolean }>`
 
 const StyledLink = styled.div<{ active?: boolean }>`
   margin: ${p => p.theme.paddingL} 0;
-  color: ${p => p.theme.colorHeader};
+  color: ${p => p.theme.colorText};
   padding-left: ${p => p.theme.paddingM};
   font-size: ${p => p.theme.textM};
   border-left: ${p =>
@@ -103,13 +103,15 @@ const StyledIcon = styled.img`
   height: 22px;
   vertical-align: middle;
   border-radius: 50%;
-  box-shadow: 0 0 10px 0 ${p => lighten(0.25, p.theme.colorPink)};
   margin-left: ${p => p.theme.paddingM};
 `
 
+const StyledPlug = styled.div`
+  font-size: ${p => p.theme.textS};
+  color: ${p => p.theme.colorText};
+`
 const StyledAnchor = styled.a`
-  color: black;
-
+  color: ${p => p.theme.colorText};
   &:hover {
     color: ${p => p.theme.colorPink};
   }

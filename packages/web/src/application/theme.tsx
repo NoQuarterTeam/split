@@ -14,11 +14,12 @@ const theme: (small: boolean, isDark: boolean) => ThemeInterface = (
   small,
   isDark,
 ) => ({
-  colorPage: isDark ? "#1C1C1C" : "white",
-  colorBackground: isDark ? "#222" : "#f8f9fd",
-  colorPlaceholder: isDark ? "#888" : "#d3d3d3",
-  colorLabel: "#b1bbc4",
-  colorHeader: isDark ? "#DDD" : "#1b2d41",
+  colorPage: isDark ? "#2f3335" : "white",
+  colorBackground: isDark ? "#373c3f" : "#f8f9fd",
+  colorPlaceholder: isDark ? "#6f7172" : "#d3d3d3",
+  colorShadow: isDark ? "rgba(0, 0, 0, 0.1)" : "rgba(200, 200, 200, 0.1)",
+  colorLabel: isDark ? "#81878a" : "#b1bbc4",
+  colorText: isDark ? "#ebecec" : "#1b2d41",
   colorPink: "#ed60d3",
   colorBlue: "#11a9ff",
   fontBlack: 900,
@@ -56,8 +57,9 @@ export interface ThemeInterface {
   colorPage: string
   borderRadius: string
   colorBackground: string
-  colorHeader: string
+  colorText: string
   colorLabel: string
+  colorShadow: string
   colorPlaceholder: string
   colorPink: string
   colorBlue: string

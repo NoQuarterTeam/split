@@ -77,7 +77,7 @@ const StyledCost = styled.div`
 
   &:hover {
     cursor: pointer;
-    box-shadow: 0 10px 10px 5px rgba(200, 200, 200, 0.1);
+    box-shadow: 0 5px 10px 5px ${p => p.theme.colorShadow};
   }
 
   ${p => media.greaterThan("sm")`
@@ -89,7 +89,7 @@ const StyledValue = styled.div`
   align-items: center;
   justify-content: flex-start;
   font-size: ${p => p.theme.textS};
-  color: ${p => p.theme.colorHeader};
+  color: ${p => p.theme.colorText};
 `
 
 const StyledInfoIcon = styled.img`

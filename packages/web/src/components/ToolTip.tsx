@@ -30,7 +30,7 @@ const StyledMessage = styled.span`
 
   font-size: ${p => p.theme.textS};
   padding: ${p => `${p.theme.paddingS} ${p.theme.paddingM}`};
-  background-color: ${p => p.theme.colorHeader};
+  background-color: ${p => p.theme.colorText};
   border-radius: ${p => p.theme.borderRadius};
 
   &:after {
@@ -46,7 +46,7 @@ const StyledMessage = styled.span`
   &:after {
     border-width: 5px;
     margin-left: -10px;
-    border-top-color: ${p => p.theme.colorHeader};
+    border-top-color: ${p => p.theme.colorText};
   }
 `
 

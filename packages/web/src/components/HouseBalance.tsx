@@ -69,7 +69,7 @@ const StyledSpacer = styled.p`
 `
 
 const StyledUserBalance = styled(StyledSpacer)`
-  color: ${p => p.theme.colorHeader};
+  color: ${p => p.theme.colorText};
 `
 
 const StyledPending = styled.div`

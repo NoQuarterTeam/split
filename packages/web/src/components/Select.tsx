@@ -53,7 +53,7 @@ const StyledSelect = styled.select`
   border-radius: 0;
   appearance: none;
   background-color: transparent;
-  color: ${p => p.theme.colorLabel};
+  color: ${p => p.theme.colorText};
   cursor: ${p => (p.disabled ? "not-allowed" : "pointer")};
   font-size: ${p => p.theme.textM};
   padding: ${p => p.theme.paddingM} 0;

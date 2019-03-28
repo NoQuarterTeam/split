@@ -1894,10 +1894,10 @@
     "@types/connect" "*"
     "@types/node" "*"
 
-"@types/bull@3.5.9":
-  version "3.5.9"
-  resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.5.9.tgz#e523288a049eac1d731347d95dc7599020b29076"
-  integrity sha512-G9ntP/YvH/N+yZG0Xa2mMF306M3ToCPXLxVFMYdmb0zQawaWPm1yxLhEilDbyZazuoZLKpgYJD4WgrVtrzLczg==
+"@types/bull@3.5.11":
+  version "3.5.11"
+  resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.5.11.tgz#baa1d6752e926e549190647a541056df1cc086b7"
+  integrity sha512-cP464wO4pQnvJsYTIwcSitdEv5aXaMsRoP07raOgOSlJDnaDYmV6jMf1Vk1dWhtfJ0FRtjpXeHaYMc/j8bwb4A==
   dependencies:
     "@types/ioredis" "*"
 

@@ -2,7 +2,6 @@ import React, { Suspense } from "react"
 import { Router } from "@reach/router"
 import ErrorBoundary from "react-error-boundary"
 
-import ThemeProvider from "../components/ThemeProvider"
 import AppProvider from "../components/AppProvider"
 
 import CheckUser from "../components/CheckUser"
@@ -22,26 +21,24 @@ function Application() {
     console.log(e)
   }
   return (
-    <ThemeProvider>
-      <AppProvider>
-        <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
-          <Suspense fallback={<Loading loading={true} />}>
-            <CheckUser>
-              <CheckHouse>
-                <Router>
-                  <Balance path="/" />
-                  <NewCost path="/new-cost" />
-                  <EditCost path="/costs/:id" />
-                  <Costs path="/costs" />
-                  <Settings path="/settings" />
-                  <NotFound default={true} />
-                </Router>
-              </CheckHouse>
-            </CheckUser>
-          </Suspense>
-        </ErrorBoundary>
-      </AppProvider>
-    </ThemeProvider>
+    <AppProvider>
+      <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
+        <Suspense fallback={<Loading loading={true} />}>
+          <CheckUser>
+            <CheckHouse>
+              <Router>
+                <Balance path="/" />
+                <NewCost path="/new-cost" />
+                <EditCost path="/costs/:id" />
+                <Costs path="/costs" />
+                <Settings path="/settings" />
+                <NotFound default={true} />
+              </Router>
+            </CheckHouse>
+          </CheckUser>
+        </Suspense>
+      </ErrorBoundary>
+    </AppProvider>
   )
 }
 

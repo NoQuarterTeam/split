@@ -14,11 +14,9 @@ const ThemeProvider: FC = ({ children }) => {
   }
   return (
     <ThemeContextProvider value={{ toggleTheme, isDark }}>
-      <Fragment>
-        <SCThemeProvider theme={theme(isSmall, isDark)}>
-          <Fragment>{children}</Fragment>
-        </SCThemeProvider>
-      </Fragment>
+      <SCThemeProvider theme={theme(isSmall, isDark)}>
+        <Fragment>{children}</Fragment>
+      </SCThemeProvider>
     </ThemeContextProvider>
   )
 }

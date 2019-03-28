@@ -1,17 +1,17 @@
 import React from "react"
 import { MeQuery, GetHouseQuery } from "@split/connector"
 
-export interface AppContext {
+export interface StateContext {
   user: MeQuery["me"]
   house: GetHouseQuery["house"]
 }
 
-export const AppContext = React.createContext<AppContext>({
+export const StateContext = React.createContext<StateContext>({
   user: null,
   house: null,
 })
 
-export const AppProvider = AppContext.Provider
+export const StateProvider = StateContext.Provider
 
 export interface ThemeContext {
   toggleTheme?: () => void

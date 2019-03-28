@@ -1,11 +1,19 @@
 import { useContext } from "react"
 
-import { AppContext } from "../../application/context"
+import { StateContext, ThemeContext } from "../../application/context"
+import { useApolloClient } from "react-apollo-hooks"
 
 function useAppContext() {
-  const { user, house } = useContext(AppContext)
-  // eslint-disable-next-line
-  return { user: user!, house: house! }
+  const client = useApolloClient()
+  const { toggleTheme, isDark } = useContext(ThemeContext)
+  const { user, house } = useContext(StateContext)
+  return {
+    user: user!, // eslint-disable-line
+    house: house!, // eslint-disable-line
+    toggleTheme: toggleTheme!, // eslint-disable-line
+    isDark: isDark!, // eslint-disable-line
+    client,
+  }
 }
 
 export default useAppContext

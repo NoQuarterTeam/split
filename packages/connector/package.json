@@ -8,7 +8,7 @@
     "generate": "graphql-codegen",
     "build": "rm -rf dist && tsc",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
+    "lint": "eslint .",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'",
     "pre-commit": "lint-staged"
   },

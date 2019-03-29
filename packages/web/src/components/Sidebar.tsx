@@ -13,6 +13,12 @@ function Sidebar({ open }: { open: boolean }) {
   const { house } = useAppContext()
   const logout = useLogout()
 
+  const handleLogout = () => {
+    logout().then(() => {
+      localStorage.removeItem("token")
+    })
+  }
+
   return (
     <StyledSidebar open={open}>
       <Logo />
@@ -27,11 +33,7 @@ function Sidebar({ open }: { open: boolean }) {
           </Fragment>
         )}
         <NavLink to="/settings">Settings</NavLink>
-        <div
-          tabIndex={0}
-          onClick={() => logout()}
-          style={{ cursor: "pointer" }}
-        >
+        <div tabIndex={0} onClick={handleLogout} style={{ cursor: "pointer" }}>
           <StyledLink>Logout</StyledLink>
         </div>
       </div>

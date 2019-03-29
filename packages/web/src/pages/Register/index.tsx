@@ -32,7 +32,12 @@ const Register: FC<RouteComponentProps> = () => {
         data: { email, password, firstName, lastName, inviteId },
       },
     })
-      .then(() => navigate("/"))
+      .then(res => {
+        if (res && res.data) {
+          localStorage.setItem("token", res.data.register.token)
+          navigate("/")
+        }
+      })
       .catch((registerError: GraphQLError) => {
         setLoading(false)
         setError(registerError.message.split(":")[1])

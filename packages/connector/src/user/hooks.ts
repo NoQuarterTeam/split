@@ -23,7 +23,6 @@ export function useLogin() {
     awaitRefetchQueries: true,
     update: (cache, res) => {
       if (res.data) {
-        localStorage.setItem("token", res.data.login.token)
         cache.writeQuery({
           query: MeDocument,
           data: { me: res.data.login.user },
@@ -52,7 +51,6 @@ export function useRegister() {
     awaitRefetchQueries: true,
     update: (cache, res) => {
       if (res.data) {
-        localStorage.setItem("token", res.data.register.token)
         cache.writeQuery({
           query: MeDocument,
           data: { me: res.data.register.user },
@@ -64,18 +62,12 @@ export function useRegister() {
 
 export function useLogout() {
   const client = useApolloClient()
-  const logout = useLogoutMutation()
-
-  const handleLogout = async () => {
-    localStorage.removeItem("token")
-    await logout({
-      update: cache =>
-        cache.writeQuery({ query: MeDocument, data: { me: null } }),
-    })
-    await client.resetStore()
-  }
-
-  return handleLogout
+  return useLogoutMutation({
+    update: async cache => {
+      cache.writeQuery({ query: MeDocument, data: { me: null } })
+      await client.resetStore()
+    },
+  })
 }
 
 export function useForgotPassword() {

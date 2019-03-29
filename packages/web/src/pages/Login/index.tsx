@@ -23,7 +23,12 @@ const Login: FC<RouteComponentProps> = () => {
     login({
       variables: { data: { email, password } },
     })
-      .then(() => navigate("/"))
+      .then(res => {
+        if (res && res.data) {
+          localStorage.setItem("token", res.data.login.token)
+          navigate("/")
+        }
+      })
       .catch((loginError: GraphQLError) => {
         setLoading(false)
         setError(loginError.message.split(":")[1])

@@ -2,8 +2,8 @@
   publish = "packages/web/dist/"
   command = "yarn build:web"
   
-  [environment]
-    YARN_VERSION = "1.12.3"
+[build.environment]
+  YARN_VERSION = "1.12.3"
 
 [[redirects]]
   from = "/*"

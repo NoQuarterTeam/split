@@ -21,14 +21,6 @@ export function useLogin() {
   return useLoginMutation({
     refetchQueries: [{ query: GetHouseDocument }],
     awaitRefetchQueries: true,
-    update: (cache, res) => {
-      if (res.data) {
-        cache.writeQuery({
-          query: MeDocument,
-          data: { me: res.data.login.user },
-        })
-      }
-    },
   })
 }
 
@@ -49,14 +41,6 @@ export function useRegister() {
   return useRegisterMutation({
     refetchQueries: [{ query: GetHouseDocument }],
     awaitRefetchQueries: true,
-    update: (cache, res) => {
-      if (res.data) {
-        cache.writeQuery({
-          query: MeDocument,
-          data: { me: res.data.register.user },
-        })
-      }
-    },
   })
 }
 

@@ -2,9 +2,10 @@ import React, { memo, useState, FC } from "react"
 import { RouteComponentProps, Link, navigate } from "@reach/router"
 import { GraphQLError } from "graphql"
 
-import { useRegister, useCheckInvite } from "@split/connector"
+import { useRegister, useCheckInvite, MeDocument } from "@split/connector"
 
 import styled from "../../application/theme"
+import useAppContext from "../../lib/hooks/useAppContext"
 import { getQueryString } from "../../lib/helpers"
 
 import Input from "../../components/Input"
@@ -12,6 +13,7 @@ import Button from "../../components/Button"
 import AuthForm from "../../components/AuthForm"
 
 const Register: FC<RouteComponentProps> = () => {
+  const { client } = useAppContext()
   const inviteId = getQueryString("invite")
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
@@ -35,6 +37,10 @@ const Register: FC<RouteComponentProps> = () => {
       .then(res => {
         if (res && res.data) {
           localStorage.setItem("token", res.data.register.token)
+          client.writeQuery({
+            query: MeDocument,
+            data: { me: res.data.register.user },
+          })
           navigate("/")
         }
       })

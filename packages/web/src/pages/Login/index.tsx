@@ -1,15 +1,17 @@
 import React, { memo, useState, FC } from "react"
 import { RouteComponentProps, Link, navigate } from "@reach/router"
 import { GraphQLError } from "graphql"
-import { useLogin } from "@split/connector"
+import { useLogin, MeDocument } from "@split/connector"
 
 import styled from "../../application/theme"
+import useAppContext from "../../lib/hooks/useAppContext"
 
 import Button from "../../components/Button"
 import Input from "../../components/Input"
 import AuthForm from "../../components/AuthForm"
 
 const Login: FC<RouteComponentProps> = () => {
+  const { client } = useAppContext()
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [error, setError] = useState<string>("")
@@ -26,6 +28,10 @@ const Login: FC<RouteComponentProps> = () => {
       .then(res => {
         if (res && res.data) {
           localStorage.setItem("token", res.data.login.token)
+          client.writeQuery({
+            query: MeDocument,
+            data: { me: res.data.login.user },
+          })
           navigate("/")
         }
       })

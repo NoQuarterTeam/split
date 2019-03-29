@@ -15,7 +15,7 @@
     "seed": "ts-node src/seed.ts",
     "build": "rimraf dist && tsc --build",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint .",
+    "lint": "eslint --cache --ext .jsx,.js,.ts,.tsx src",
     "prettify": "prettier --write './src/**/*.ts'",
     "pre-commit": "lint-staged"
   },

@@ -8,7 +8,7 @@
     "build": "rm -rf dist && NODE_ENV=production parcel build src/index.html",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint .",
+    "lint": "eslint --cache --ext .jsx,.js,.ts,.tsx src",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'",
     "pre-commit": "lint-staged"
   },

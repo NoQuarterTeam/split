@@ -100,6 +100,7 @@ const StyledError = styled.div`
   opacity: 0.4;
   width: 100%;
   text-align: right;
+  color: ${p => p.theme.colorText};
   padding: ${p => p.theme.paddingM};
   font-size: ${p => p.theme.textS};
 `

@@ -1,12 +1,11 @@
-import React, { memo, ReactNode } from "react"
+import React, { memo, FC } from "react"
 import styled from "../application/theme"
 
 interface ToolTipProps {
-  children: ReactNode
   message: string
 }
 
-function ToolTip({ children, message }: ToolTipProps) {
+const ToolTip: FC<ToolTipProps> = ({ children, message }) => {
   return (
     <StyledToolTip>
       <StyledMessage>{message}</StyledMessage>

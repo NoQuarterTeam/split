@@ -669,7 +669,7 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@babel/runtime@^7.2.0", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.2":
+"@babel/runtime@^7.2.0", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.2":
   version "7.4.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.2.tgz#f5ab6897320f16decd855eed70b705908a313fe8"
   integrity sha512-7Bl2rALb7HpvXFL7TETNzKSAeBVCPHELzc0C//9FCxN8nsiueWSJBqaF+2oIJScyILStASR/Cx5WMkXGYTiJFA==
@@ -9799,12 +9799,12 @@ pn@^1.1.0:
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
 
-polished@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/polished/-/polished-3.0.4.tgz#a03050f31ecd654452d1c297d18d996a526b30c7"
-  integrity sha512-EVgEbMVX8arE9TgUyuoFYpc3dnxMs4uwySaz1NFuztTXCFm7Y4Xi5ZERQhWcPTykpXw7JgJlyXXiqnFpsnh2ng==
+polished@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/polished/-/polished-4.0.0.tgz#96dd1bae633ea1d725ecbdf7df8bab42f733f4e8"
+  integrity sha512-pXQ6SdV1gV6seyXERCkbondiyxUvNqlRVupvN1rHwMuPktsAEnX41u4oFAJN7lFip05zEd8IZDxseLDaY4kyGw==
   dependencies:
-    "@babel/runtime" "^7.3.1"
+    "@babel/runtime" "^7.4.2"
 
 posix-character-classes@^0.1.0:
   version "0.1.1"

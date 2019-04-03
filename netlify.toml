@@ -1,5 +1,5 @@
 [build]
-  publish = "packages/web/dist/public"
+  publish = "packages/web/dist/"
   command = "yarn build:web"
   
 [build.environment]
@@ -7,5 +7,5 @@
 
 [[redirects]]
   from = "/*"
-  to = "/public/index.html"
+  to = "/index.html"
   status = 200

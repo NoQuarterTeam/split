@@ -15,7 +15,7 @@
   "lint-staged": {
     "*.{js,jsx,json,ts,tsx,html}": [
       "prettier --write",
-      "eslint --fix --cache --ext .jsx,.js,.ts,.tsx --ignore-pattern html src",
+      "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
       "git add"
     ]
   },

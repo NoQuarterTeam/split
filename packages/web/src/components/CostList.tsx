@@ -1,11 +1,11 @@
 import React, { useRef, useState, useMemo } from "react"
 import dayjs from "dayjs"
+import throttle from "lodash.throttle"
 import { useAllCosts } from "@split/connector"
 
 import styled, { media } from "../application/theme"
 
 import useEventListener from "../lib/hooks/useEventListener"
-import { useDebouncedCallback } from "../lib/hooks/useDebounce"
 import useAppContext from "../lib/hooks/useAppContext"
 
 import CostItem from "../components/CostItem"
@@ -25,19 +25,18 @@ function CostList() {
   const handleScroll = () => {
     if (!costListRef.current) return
     const bottom =
-      costListRef.current.getBoundingClientRect().bottom - 300 <=
+      costListRef.current.getBoundingClientRect().bottom - 800 <=
       window.innerHeight
     if (bottom && !costsLoading && costs.length < costsCount) {
       fetchMore(costs.length, search)
     }
   }
 
-  const debouncedScroll = useDebouncedCallback(handleScroll, 100, [
-    costs.length,
-    search,
-  ])
-
-  useEventListener("scroll", debouncedScroll, true)
+  useEventListener(
+    "scroll",
+    throttle(handleScroll, 700, { leading: true, trailing: false }),
+    true,
+  )
 
   const handleSearchSubmit = (input: string) => setSearch(input)
 

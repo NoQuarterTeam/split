@@ -4,8 +4,8 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "parcel src/public/index.html --port 6969",
-    "build": "rm -rf dist && NODE_ENV=production parcel build src/public/index.html",
+    "start": "parcel src/index.html --port 6969",
+    "build": "rm -rf dist && NODE_ENV=production parcel build src/index.html",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --cache --ext .jsx,.js,.ts,.tsx src",
@@ -15,7 +15,7 @@
   "lint-staged": {
     "*.{js,jsx,json,ts,tsx,html}": [
       "prettier --write",
-      "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
+      "eslint --fix --cache --ext .jsx,.js,.ts,.tsx --ignore-pattern html src",
       "git add"
     ]
   },

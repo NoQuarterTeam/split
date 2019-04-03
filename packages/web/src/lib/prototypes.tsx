@@ -13,8 +13,9 @@ Array.prototype.groupBy = function(this: any, key: string) {
   }))
 }
 
-Array.prototype.sumBy = function(this: any, key: string) {
+Array.prototype.sumBy = function(this: any, key: string, abs?: boolean) {
   return this.reduce((acc: any, item: any) => {
+    if (abs) return Math.abs(item[key]) + acc
     return acc + item[key]
   }, 0)
 }

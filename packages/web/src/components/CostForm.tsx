@@ -43,8 +43,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   const [error, setError] = useState<string | null>(null)
 
   const isDifferent =
-    round(formState.amount) !==
-    round(formState.costShares.reduce((acc, s) => acc + s.amount, 0))
+    round(formState.amount) !== round(formState.costShares.sumBy("amount"))
 
   const applyEqualSplit = () => {
     const split = splitTheBill(formState.costShares.length, formState.amount)

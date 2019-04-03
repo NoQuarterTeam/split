@@ -12,8 +12,7 @@ interface HouseBalanceProps {
 
 function HouseBalance({ users }: HouseBalanceProps) {
   const { house } = useAppContext()
-
-  const total = users.reduce((acc, u) => Math.abs(u.balance) + acc, 0)
+  const total = users.sumBy("balance", true)
 
   return (
     <StyledHouseBalance>

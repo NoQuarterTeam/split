@@ -3,5 +3,5 @@ interface Array {
 }
 
 interface Array {
-  sumBy<number>(key: string): number
+  sumBy<number>(key: string, abs?: boolean): number
 }

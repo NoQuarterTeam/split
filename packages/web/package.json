@@ -4,8 +4,8 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "parcel src/index.html --port 6969",
-    "build": "rm -rf dist && NODE_ENV=production parcel build src/index.html",
+    "start": "parcel src/public/index.html --port 6969",
+    "build": "rm -rf dist && NODE_ENV=production parcel build src/public/index.html",
     "test": "jest",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --cache --ext .jsx,.js,.ts,.tsx src",

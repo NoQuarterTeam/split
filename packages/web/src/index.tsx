@@ -4,7 +4,7 @@ import ReactDOM from "react-dom"
 import LogRocket from "logrocket"
 import setupLogRocketReact from "logrocket-react"
 
-import * as serviceWorker from "./serviceWorker"
+import * as serviceWorker from "./lib/serviceWorker"
 
 import Application from "./application"
 import { production } from "./lib/config"

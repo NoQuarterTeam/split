@@ -9,7 +9,7 @@
     ]
   },
   "scripts": {
-    "build:api": "lerna run build --scope={@split/connector,@split/api}",
+    "build:api": "cd packages/api && yarn build",
     "build:web": "lerna run build --scope={@split/connector,@split/web}",
     "test": "lerna run test",
     "typecheck": "lerna run typecheck",

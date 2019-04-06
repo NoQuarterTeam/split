@@ -1,0 +1,47 @@
+{
+  "name": "@split/app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "dayjs": "^1.8.12",
+    "polished": "^3.2.0",
+    "react": "16.8.3",
+    "react-apollo-hooks": "^0.4.4",
+    "react-native": "0.59.3",
+    "styled-components": "^4.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/runtime": "^7.4.3",
+    "@types/jest": "^24.0.11",
+    "@types/react": "^16.8.12",
+    "@types/react-native": "^0.57.42",
+    "@types/react-test-renderer": "^16.8.1",
+    "@typescript-eslint/eslint-plugin": "1.6.0",
+    "@typescript-eslint/parser": "1.6.0",
+    "babel-eslint": "10.0.1",
+    "babel-jest": "^24.7.1",
+    "eslint": "5.16.0",
+    "eslint-config-prettier": "4.1.0",
+    "eslint-plugin-flowtype": "3.5.1",
+    "eslint-plugin-import": "2.16.0",
+    "jest": "^24.7.1",
+    "metro-react-native-babel-preset": "^0.53.1",
+    "prettier": "1.16.4",
+    "react-test-renderer": "16.8.3",
+    "typescript": "^3.4.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "workspaces": {
+    "nohoist": [
+      "react-native",
+      "react-native/**"
+    ]
+  }
+}

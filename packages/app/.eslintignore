@@ -1,0 +1,6 @@
+node_modules
+dist
+ios
+android
+.buckconfig
+package.json

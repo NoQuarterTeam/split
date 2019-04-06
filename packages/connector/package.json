@@ -15,13 +15,17 @@
   "lint-staged": {
     "*.{js,jsx,json,ts,tsx,html}": [
       "prettier --write",
+      "git add"
+    ],
+    "*.{js,jsx,ts,tsx}": [
       "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
       "git add"
     ]
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.2.4",
     "graphql-tag": "^2.10.1",
-    "react-apollo-hooks": "^0.4.3"
+    "react-apollo-hooks": "^0.4.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.0.7",

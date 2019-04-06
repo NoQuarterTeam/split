@@ -15,6 +15,9 @@
   "lint-staged": {
     "*.{js,jsx,json,ts,tsx,html}": [
       "prettier --write",
+      "git add"
+    ],
+    "*.{js,jsx,ts,tsx}": [
       "eslint --fix --cache --ext .jsx,.js,.ts,.tsx src",
       "git add"
     ]
@@ -32,7 +35,7 @@
     "polished": "^3.0.4",
     "query-string": "^6.4.0",
     "react": "^16.8.4",
-    "react-apollo-hooks": "^0.4.3",
+    "react-apollo-hooks": "^0.4.4",
     "react-dom": "^16.8.4",
     "react-dropzone": "^10.0.5",
     "react-error-boundary": "^1.2.3",

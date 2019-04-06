@@ -2,7 +2,7 @@ import React, { Suspense } from "react"
 import { Router } from "@reach/router"
 import ErrorBoundary from "react-error-boundary"
 
-import AppProvider from "../components/AppProvider"
+import AppProvider from "../components/providers/AppProvider"
 
 import CheckUser from "../components/CheckUser"
 import CheckHouse from "../components/CheckHouse"

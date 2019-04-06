@@ -7,9 +7,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.2.4",
     "dayjs": "^1.8.12",
     "polished": "^3.2.0",
-    "react": "16.8.3",
+    "react": "^16.8.4",
     "react-apollo-hooks": "^0.4.4",
     "react-native": "0.59.3",
     "styled-components": "^4.2.0"

@@ -1,5 +1,4 @@
-import * as styledComponents from "styled-components"
-import { ThemedStyledComponentsModule } from "styled-components"
+import * as styledComponents from "styled-components/native"
 import { darken, lighten } from "polished"
 
 const theme: (isDark: boolean) => ThemeInterface = isDark => ({
@@ -20,11 +19,11 @@ const theme: (isDark: boolean) => ThemeInterface = isDark => ({
   paddingXL: "40px",
   paddingXS: "3px",
   borderRadius: "5px",
-  textL: "1.5rem",
-  textM: "1rem",
-  textS: "0.75rem",
-  textXL: "2rem",
-  textXS: "0.625rem",
+  textL: "15px",
+  textM: "10px",
+  textS: "7.5px",
+  textXL: "20px",
+  textXS: "6.25px",
   flexCenter: `
     display: flex;
     align-items: center;
@@ -75,7 +74,9 @@ const {
   default: styled,
   css,
   ThemeProvider,
-} = styledComponents as ThemedStyledComponentsModule<ThemeInterface>
+} = styledComponents as styledComponents.ReactNativeThemedStyledComponentsModule<
+  ThemeInterface
+>
 
 export { theme, css, ThemeProvider, darken, lighten }
 export default styled

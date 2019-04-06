@@ -1,23 +1,17 @@
 import React from "react"
-import { StyleSheet, Text, View } from "react-native"
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF",
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-  },
-})
-export default function App() {
+import AppProvider from "../components/providers/AppProvider"
+import Balance from "../screens/Balance"
+import CheckUser from "../components/CheckUser"
+
+function Application() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Welcome to the Split app</Text>
-    </View>
+    <AppProvider>
+      <CheckUser>
+        <Balance />
+      </CheckUser>
+    </AppProvider>
   )
 }
+
+export default Application

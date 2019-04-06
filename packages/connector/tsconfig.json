@@ -6,7 +6,6 @@
     "composite": true,
     "target": "es6",
     "baseUrl": ".",
-
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,

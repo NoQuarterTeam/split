@@ -1,7 +1,14 @@
 import React, { memo, useState, FC } from "react"
-import { RouteComponentProps, Link, navigate } from "@reach/router"
+import { RouteComponentProps, Link } from "@reach/router"
+import { useApolloClient } from "react-apollo-hooks"
 import { GraphQLError } from "graphql"
-import { useLogin } from "@split/connector"
+import {
+  useLogin,
+  GetHouseDocument,
+  MeDocument,
+  GetHouseQuery,
+  GetHouseQueryVariables,
+} from "@split/connector"
 
 import styled from "../../application/theme"
 
@@ -10,6 +17,7 @@ import Input from "../../components/Input"
 import AuthForm from "../../components/AuthForm"
 
 const Login: FC<RouteComponentProps> = () => {
+  const client = useApolloClient()
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [error, setError] = useState<string>("")
@@ -22,14 +30,29 @@ const Login: FC<RouteComponentProps> = () => {
     setLoading(true)
     login({
       variables: { data: { email, password } },
+      update: async (cache, { data }) => {
+        if (data) {
+          localStorage.setItem("token", data.login.token)
+          const houseRes = await client.query<
+            GetHouseQuery,
+            GetHouseQueryVariables
+          >({ query: GetHouseDocument, fetchPolicy: "network-only" })
+          if (houseRes.data) {
+            cache.writeQuery({
+              query: MeDocument,
+              data: { me: data.login.user },
+            })
+            cache.writeQuery({
+              query: GetHouseDocument,
+              data: { house: houseRes.data.house },
+            })
+          }
+        }
+      },
+    }).catch((loginError: GraphQLError) => {
+      setLoading(false)
+      setError(loginError.message.split(":")[1])
     })
-      .then(() => {
-        navigate("/")
-      })
-      .catch((loginError: GraphQLError) => {
-        setLoading(false)
-        setError(loginError.message.split(":")[1])
-      })
   }
 
   return (

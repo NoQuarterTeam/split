@@ -1,10 +1,18 @@
 import React, { memo, useState, FC } from "react"
-import { RouteComponentProps, Link, navigate } from "@reach/router"
+import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
 
-import { useRegister, useCheckInvite } from "@split/connector"
+import {
+  useRegister,
+  useCheckInvite,
+  GetHouseDocument,
+  MeDocument,
+  GetHouseQuery,
+  GetHouseQueryVariables,
+} from "@split/connector"
 
 import styled from "../../application/theme"
+import useAppContext from "../../lib/hooks/useAppContext"
 import { getQueryString } from "../../lib/helpers"
 
 import Input from "../../components/Input"
@@ -12,6 +20,7 @@ import Button from "../../components/Button"
 import AuthForm from "../../components/AuthForm"
 
 const Register: FC<RouteComponentProps> = () => {
+  const { client } = useAppContext()
   const inviteId = getQueryString("invite")
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
@@ -31,14 +40,29 @@ const Register: FC<RouteComponentProps> = () => {
       variables: {
         data: { email, password, firstName, lastName, inviteId },
       },
+      update: async (cache, { data }) => {
+        if (data) {
+          localStorage.setItem("token", data.register.token)
+          const houseRes = await client.query<
+            GetHouseQuery,
+            GetHouseQueryVariables
+          >({ query: GetHouseDocument, fetchPolicy: "network-only" })
+          if (houseRes.data) {
+            cache.writeQuery({
+              query: MeDocument,
+              data: { me: data.register.user },
+            })
+            cache.writeQuery({
+              query: GetHouseDocument,
+              data: { house: houseRes.data.house },
+            })
+          }
+        }
+      },
+    }).catch((registerError: GraphQLError) => {
+      setLoading(false)
+      setError(registerError.message.split(":")[1])
     })
-      .then(() => {
-        navigate("/")
-      })
-      .catch((registerError: GraphQLError) => {
-        setLoading(false)
-        setError(registerError.message.split(":")[1])
-      })
   }
 
   return (

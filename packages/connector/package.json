@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "tsc --build --watch",
     "generate": "graphql-codegen",
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && rm tsconfig.tsbuildinfo && tsc",
     "typecheck": "tsc --noEmit",
     "lint": "eslint --cache --ext .jsx,.js,.ts,.tsx src",
     "prettify": "prettier --write './src/**/*.{ts,tsx}'",

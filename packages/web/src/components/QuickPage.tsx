@@ -1,4 +1,6 @@
 import React, { FC } from "react"
+import { navigate } from "@reach/router"
+
 import styled, { media } from "../application/theme"
 
 import IconClose from "../assets/images/icon-close.svg"
@@ -10,7 +12,11 @@ interface QuickPageProps {
 
 const QuickPage: FC<QuickPageProps> = ({ children, title }) => {
   const handleGoBack = () => {
-    window.history.back()
+    if (window.history.state) {
+      window.history.back()
+    } else {
+      navigate("/")
+    }
   }
   const handleKeyDown = (e: any) => {
     if (e.key === "Escape") handleGoBack()

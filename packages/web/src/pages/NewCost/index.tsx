@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { RouteComponentProps, Redirect } from "@reach/router"
+import { RouteComponentProps, Redirect, navigate } from "@reach/router"
 import { CostInput, useCreateCost } from "@split/connector"
 
 import useAppContext from "../../lib/hooks/useAppContext"
@@ -19,7 +19,11 @@ const NewCost: FC<RouteComponentProps> = () => {
         data: costData,
       },
     })
-    window.history.back()
+    if (window.history.state) {
+      window.history.back()
+    } else {
+      navigate("/")
+    }
   }
 
   return (

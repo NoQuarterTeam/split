@@ -8,6 +8,7 @@ import { round } from "../../lib/helpers"
 
 import Page from "../../components/Page"
 import HouseName from "../../components/HouseName"
+import AsyncStorage from "@react-native-community/async-storage"
 
 // import HouseBalance from "../../components/HouseBalance"
 // import HouseInvite from "../../components/HouseInvite"
@@ -18,7 +19,10 @@ const Balance: FC = () => {
   if (!house) return null
 
   const logout = useLogout()
-  const handleLogout = () => logout()
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem("token")
+    logout()
+  }
 
   const getBalanceHeader = () => {
     if (user.balance > 0) {

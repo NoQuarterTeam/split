@@ -42,11 +42,6 @@ export function useLogout() {
   const client = useApolloClient()
   return useLogoutMutation({
     update: async cache => {
-      if (typeof localStorage !== "undefined") {
-        localStorage.removeItem("token")
-      } else {
-        await AsyncStorage.removeItem("token")
-      }
       cache.writeQuery({ query: MeDocument, data: { me: null } })
       await client.resetStore()
     },

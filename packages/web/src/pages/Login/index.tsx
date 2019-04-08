@@ -1,6 +1,5 @@
 import React, { memo, useState, FC } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
-import { useApolloClient } from "react-apollo-hooks"
 import { GraphQLError } from "graphql"
 import {
   useLogin,
@@ -11,13 +10,14 @@ import {
 } from "@split/connector"
 
 import styled from "../../application/theme"
+import useAppContext from "../../lib/hooks/useAppContext"
 
 import Button from "../../components/Button"
 import Input from "../../components/Input"
 import AuthForm from "../../components/AuthForm"
 
 const Login: FC<RouteComponentProps> = () => {
-  const client = useApolloClient()
+  const { client } = useAppContext()
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [error, setError] = useState<string>("")

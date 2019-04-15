@@ -12,6 +12,7 @@ import {
 import styled from "../../application/theme"
 import useAppContext from "../../lib/hooks/useAppContext"
 import AsyncStorage from "@react-native-community/async-storage"
+import Input from "../../components/Input"
 
 function Login() {
   const { client } = useAppContext()
@@ -52,8 +53,8 @@ function Login() {
 
   return (
     <StyledAuthForm>
-      <StyledInput onChangeText={text => setEmail(text)} value={email} />
-      <StyledInput onChangeText={text => setPassword(text)} value={password} />
+      <Input onChangeText={text => setEmail(text)} value={email} />
+      <Input onChangeText={text => setPassword(text)} value={password} />
       <Button title="Login" onPress={handleSubmit} disabled={loading} />
       {error ? (
         <StyledError>
@@ -71,10 +72,7 @@ const StyledAuthForm = styled.View`
   width: 100%;
   align-items: center;
   justify-content: center;
-`
-const StyledInput = styled.TextInput`
-  border: 2px solid black;
-  width: 100px;
+  padding: 0 ${p => p.theme.paddingM};
 `
 
 const StyledError = styled.View`

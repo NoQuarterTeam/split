@@ -1,6 +1,7 @@
 import { Service } from "typedi"
 import dayjs from "dayjs"
-import { CostInput, AllCostArgs } from "./cost.input"
+import { CostInput } from "./inputs/cost.input"
+import { AllCostArgs } from "./args/allCost.args"
 import { Cost } from "./cost.entity"
 import { ShareService } from "../share/share.service"
 import { CostJob } from "./cost.job"

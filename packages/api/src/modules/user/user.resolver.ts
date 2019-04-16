@@ -1,18 +1,17 @@
 import { Resolver, Query, Ctx, Mutation, Arg, Authorized } from "type-graphql"
 
+import { ResolverContext } from "../../lib/types"
+import { createToken, decryptToken } from "../../lib/jwt"
+
 import { User } from "./user.entity"
 import { UserService } from "./user.service"
-import { ResolverContext } from "../../lib/types"
-import {
-  LoginInput,
-  RegisterInput,
-  UpdateInput,
-  ResetPasswordInput,
-} from "./user.input"
-
 import { UserMailer } from "./user.mailer"
-import { createToken, decryptToken } from "../../lib/jwt"
 import { UserAuthResponse } from "./user.response"
+
+import { RegisterInput } from "./inputs/register.input"
+import { LoginInput } from "./inputs/login.input"
+import { UpdateInput } from "./inputs/update.input"
+import { ResetPasswordInput } from "./inputs/resetPassword.input"
 
 @Resolver(() => User)
 export class UserResolver {

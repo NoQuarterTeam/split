@@ -2,14 +2,14 @@ import { Entity, Column, BeforeInsert, ManyToOne, OneToMany } from "typeorm"
 import { ObjectType, Field } from "type-graphql"
 import bcrypt from "bcryptjs"
 
-import { SharedEntity } from "../shared/shared.entity"
+import { BaseEntity } from "../shared/base.entity"
 import { House } from "../house/house.entity"
 import { Share } from "../share/share.entity"
 import { Cost } from "../cost/cost.entity"
 
 @ObjectType()
 @Entity()
-export class User extends SharedEntity {
+export class User extends BaseEntity {
   @Field()
   @Column({ unique: true })
   email: string

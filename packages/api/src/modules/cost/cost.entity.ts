@@ -1,15 +1,14 @@
 import { Entity, Column, OneToMany, ManyToOne } from "typeorm"
 import { ObjectType, Field } from "type-graphql"
 
-import { SharedEntity } from "../shared/shared.entity"
-
+import { BaseEntity } from "../shared/base.entity"
 import { Share } from "../share/share.entity"
 import { User } from "../user/user.entity"
 import { House } from "../house/house.entity"
 
 @ObjectType()
 @Entity()
-export class Cost extends SharedEntity {
+export class Cost extends BaseEntity {
   @Field()
   @Column()
   name: string

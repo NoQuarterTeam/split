@@ -5,7 +5,7 @@ import { House } from "./modules/house/house.entity"
 
 import Container, { Service } from "typedi"
 import { CostService } from "./modules/cost/cost.service"
-import { CostInput } from "./modules/cost/cost.input"
+import { CostInput } from "./modules/cost/inputs/cost.input"
 
 @Service()
 class Seeds {

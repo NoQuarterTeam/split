@@ -1,9 +1,13 @@
-import bcrypt from "bcryptjs"
-import { User } from "./user.entity"
-import { LoginInput, RegisterInput, UpdateInput } from "./user.input"
-import { House } from "../house/house.entity"
 import { Service } from "typedi"
+import bcrypt from "bcryptjs"
+
+import { User } from "./user.entity"
+import { House } from "../house/house.entity"
 import { InviteService } from "../invite/invite.service"
+
+import { LoginInput } from "./inputs/login.input"
+import { RegisterInput } from "./inputs/register.input"
+import { UpdateInput } from "./inputs/update.input"
 
 @Service()
 export class UserService {

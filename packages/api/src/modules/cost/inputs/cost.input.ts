@@ -1,17 +1,7 @@
-import { InputType, Field, ArgsType } from "type-graphql"
+import { InputType, Field } from "type-graphql"
 import { IsPositive } from "class-validator"
-import { Cost } from "./cost.entity"
-import { ShareInput } from "../share/share.input"
-import { PaginationArgs } from "../shared/shared.input"
-
-@ArgsType()
-export class AllCostArgs extends PaginationArgs {
-  @Field()
-  houseId: string
-
-  @Field({ nullable: true })
-  search?: string
-}
+import { Cost } from "../cost.entity"
+import { ShareInput } from "../../share/share.input"
 
 @InputType()
 export class CostInput implements Partial<Cost> {

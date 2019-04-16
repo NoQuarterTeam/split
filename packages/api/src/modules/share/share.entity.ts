@@ -1,13 +1,13 @@
 import { Entity, Column, ManyToOne } from "typeorm"
-
 import { Field, ObjectType } from "type-graphql"
+
+import { BaseEntity } from "../shared/base.entity"
 import { User } from "../user/user.entity"
 import { Cost } from "../cost/cost.entity"
-import { SharedEntity } from "../shared/shared.entity"
 
 @ObjectType()
 @Entity()
-export class Share extends SharedEntity {
+export class Share extends BaseEntity {
   @Field()
   @Column()
   amount: number

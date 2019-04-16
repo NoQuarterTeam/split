@@ -1,5 +1,5 @@
 import {
-  BaseEntity,
+  BaseEntity as TypeOrmBase,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
@@ -8,7 +8,7 @@ import {
 import { Field, ID, ObjectType } from "type-graphql"
 
 @ObjectType()
-export abstract class SharedEntity extends BaseEntity {
+export abstract class BaseEntity extends TypeOrmBase {
   @Field(() => ID)
   @PrimaryGeneratedColumn("uuid")
   id: string

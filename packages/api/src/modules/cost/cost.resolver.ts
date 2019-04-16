@@ -13,7 +13,8 @@ import {
 import { ResolverContext } from "../../lib/types"
 
 import { Cost } from "./cost.entity"
-import { CostInput, AllCostArgs } from "./cost.input"
+import { CostInput } from "./inputs/cost.input"
+import { AllCostArgs } from "./args/allCost.args"
 import { CostService } from "./cost.service"
 import { AllCostsResponse } from "./cost.response"
 import { Share } from "../share/share.entity"

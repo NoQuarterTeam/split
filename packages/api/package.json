@@ -78,7 +78,7 @@
     "ts-jest": "24.0.2",
     "ts-node": "8.1.0",
     "ts-node-dev": "1.0.0-pre.32",
-    "typescript": "3.4.3"
+    "typescript": "3.4.4"
   },
   "workspaces": {
     "nohoist": [

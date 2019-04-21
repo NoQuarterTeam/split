@@ -23,7 +23,6 @@
     ]
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.2.4",
     "graphql-tag": "^2.10.1",
     "react-apollo-hooks": "^0.4.4"
   },

@@ -1,14 +1,14 @@
 import React from "react"
 
 import AppProvider from "../components/providers/AppProvider"
-import Balance from "../screens/Balance"
 import CheckUser from "../components/CheckUser"
+import Routes from "./routes"
 
 function Application() {
   return (
     <AppProvider>
       <CheckUser>
-        <Balance />
+        <Routes />
       </CheckUser>
     </AppProvider>
   )

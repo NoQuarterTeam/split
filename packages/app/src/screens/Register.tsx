@@ -4,12 +4,12 @@ import { TextInput } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import { useRegister } from "@split/connector"
 
-import styled from "../../application/theme"
-import useAppContext from "../../lib/hooks/useAppContext"
-import Input from "../../components/Input"
-import Button from "../../components/Button"
-import Spacer from "../../components/styled/Spacer"
-import Logo from "../../components/Logo"
+import styled from "../application/theme"
+import useAppContext from "../lib/hooks/useAppContext"
+import Input from "../components/Input"
+import Button from "../components/Button"
+import Spacer from "../components/styled/Spacer"
+import Logo from "../components/Logo"
 
 function Register() {
   const { setRoute } = useAppContext()

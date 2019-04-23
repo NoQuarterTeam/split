@@ -2,25 +2,19 @@ import React, { FC } from "react"
 import { Text, Button } from "react-native"
 import { useLogout } from "@split/connector"
 
-import styled from "../../application/theme"
-import useAppContext from "../../lib/hooks/useAppContext"
-import { round } from "../../lib/helpers"
+import styled from "../application/theme"
+import useAppContext from "../lib/hooks/useAppContext"
+import { round } from "../lib/helpers"
 
-import Page from "../../components/Page"
-import HouseName from "../../components/HouseName"
-import AsyncStorage from "@react-native-community/async-storage"
-
-// import HouseBalance from "../../components/HouseBalance"
-// import HouseInvite from "../../components/HouseInvite"
-// import InviteForm from "../../components/InviteForm"
+import Page from "../components/Page"
+import HouseName from "../components/HouseName"
 
 const Balance: FC = () => {
   const { user, house } = useAppContext()
-  if (!house) return null
+  if (!house) return <Text>Create House Form</Text>
 
   const logout = useLogout()
-  const handleLogout = async () => {
-    await AsyncStorage.removeItem("token")
+  const handleLogout = () => {
     logout()
   }
 

@@ -28,9 +28,11 @@ export const ThemeProvider = ThemeContext.Provider
 
 // Route
 
+export type Routes = "LOGIN" | "REGISTER" | "BALANCE" | "COSTS" | "NEW_COST"
+
 export interface RouteContext {
-  setRoute?: (route: string) => void
-  route?: string
+  setRoute?: (route: Routes) => void
+  route?: Routes
 }
 
 export const RouteContext = React.createContext<RouteContext>({})

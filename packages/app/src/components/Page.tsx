@@ -2,14 +2,17 @@ import React, { FC, useState } from "react"
 import { Text } from "react-native"
 import styled from "../application/theme"
 
+import BottomBar from "./BottomBar"
+
 const Page: FC = ({ children }) => {
-  const [setSidebarOpen] = useState<boolean>(false)
+  const [sideBarOpen, setSidebarOpen] = useState<boolean>(false)
   return (
     <StyledPage>
       <StyledPageContent>{children}</StyledPageContent>
       <StyledMenu onPress={() => setSidebarOpen(true)}>
         <Text>Menu</Text>
       </StyledMenu>
+      <BottomBar />
     </StyledPage>
   )
 }

@@ -1,4 +1,4 @@
-import React, { memo, forwardRef, Ref } from "react"
+import React, { memo, forwardRef, Ref, useState } from "react"
 import { TextInputProps, TextInput } from "react-native"
 
 import styled, { lighten } from "../application/theme"
@@ -15,8 +15,9 @@ function Input(
   ref: Ref<TextInput>,
 ) {
   const { theme } = useAppContext()
+  const [focused, setFocused] = useState(false)
   return (
-    <StyledContainer>
+    <StyledContainer focused={focused}>
       {label ? <StyledLabel>{label}</StyledLabel> : null}
       {prefix ? <StyledPrefix>{prefix}</StyledPrefix> : null}
       <StyledInput
@@ -24,6 +25,8 @@ function Input(
         hasPrefix={!!prefix}
         placeholderTextColor={theme.colorPlaceholder}
         style={style}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         {...inputProps}
       />
     </StyledContainer>
@@ -32,11 +35,12 @@ function Input(
 
 export default memo(forwardRef(Input))
 
-const StyledContainer = styled.View`
+const StyledContainer = styled.View<{ focused: boolean }>`
   width: 100%;
   padding: ${p => p.theme.paddingS} 0;
   border-bottom-width: 2px;
-  border-color: ${p => lighten(0.25, p.theme.colorPink)};
+  border-color: ${p =>
+    p.focused ? p.theme.colorPink : lighten(0.25, p.theme.colorPink)};
 `
 
 const StyledLabel = styled.Text`

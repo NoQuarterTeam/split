@@ -1,14 +1,14 @@
 import React, { useState, useRef } from "react"
 import { GraphQLError } from "graphql"
 import { TextInput } from "react-native"
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import AsyncStorage from "@react-native-community/async-storage"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 import {
-  useLogin,
   GetHouseQuery,
   GetHouseQueryVariables,
   GetHouseDocument,
   MeDocument,
+  useRegister,
 } from "@split/connector"
 
 import styled from "../../application/theme"
@@ -18,23 +18,28 @@ import Button from "../../components/Button"
 import Spacer from "../../components/styled/Spacer"
 import Logo from "../../components/Logo"
 
-function Login() {
+function Register() {
   const { client, setRoute } = useAppContext()
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
-  const passwordRef = useRef<TextInput>(null)
+  const [firstName, setFirstName] = useState<string>("")
+  const [lastName, setLastName] = useState<string>("")
 
-  const login = useLogin()
+  const passwordRef = useRef<TextInput>(null)
+  const firstNameRef = useRef<TextInput>(null)
+  const lastNameRef = useRef<TextInput>(null)
+
+  const register = useRegister()
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
   const handleSubmit = () => {
     setLoading(true)
-    login({
-      variables: { data: { email, password } },
+    register({
+      variables: { data: { email, password, firstName, lastName } },
       update: async (cache, { data }) => {
         if (data) {
-          await AsyncStorage.setItem("token", data.login.token)
+          await AsyncStorage.setItem("token", data.register.token)
           const houseRes = await client.query<
             GetHouseQuery,
             GetHouseQueryVariables
@@ -45,7 +50,7 @@ function Login() {
           if (houseRes.data) {
             cache.writeQuery({
               query: MeDocument,
-              data: { me: data.login.user },
+              data: { me: data.register.user },
             })
             cache.writeQuery({
               query: GetHouseDocument,
@@ -55,9 +60,9 @@ function Login() {
           }
         }
       },
-    }).catch((loginError: GraphQLError) => {
+    }).catch((error: GraphQLError) => {
       setLoading(false)
-      setError(loginError.message.split(":")[1])
+      setError(error.message.split(":")[1])
     })
   }
 
@@ -78,7 +83,7 @@ function Login() {
           onSubmitEditing={() =>
             passwordRef.current && passwordRef.current.focus()
           }
-          onChangeText={setEmail}
+          onChangeText={text => setEmail(text)}
           value={email}
         />
         <Spacer />
@@ -88,18 +93,45 @@ function Login() {
           autoCapitalize="none"
           secureTextEntry={true}
           placeholder="********"
+          returnKeyLabel="next"
+          returnKeyType="next"
+          value={password}
+          onChangeText={setPassword}
+          onSubmitEditing={() =>
+            firstNameRef.current && firstNameRef.current.focus()
+          }
+        />
+        <Spacer />
+        <Input
+          ref={firstNameRef}
+          label="First name"
+          placeholder="Jim"
+          returnKeyLabel="next"
+          returnKeyType="next"
+          value={firstName}
+          onChangeText={setFirstName}
+          onSubmitEditing={() =>
+            lastNameRef.current && lastNameRef.current.focus()
+          }
+        />
+        <Spacer />
+        <Input
+          ref={lastNameRef}
+          label="Last name"
+          secureTextEntry={true}
+          placeholder="Sebe"
           returnKeyLabel="done"
           returnKeyType="done"
-          onChangeText={setPassword}
+          value={lastName}
+          onChangeText={setLastName}
           onSubmitEditing={handleSubmit}
-          value={password}
         />
         <Spacer />
         <Button
           loading={loading}
-          text="Login"
+          text="Register"
           variant="primary"
-          color="pink"
+          color="blue"
           onPress={handleSubmit}
           disabled={loading}
         />
@@ -111,10 +143,10 @@ function Login() {
         <Spacer />
         <Button
           full={true}
-          text="Sign up"
+          text="Login"
           variant="tertiary"
-          color="blue"
-          onPress={() => setRoute("REGISTER")}
+          color="pink"
+          onPress={() => setRoute("LOGIN")}
           disabled={loading}
         />
       </StyledAuthForm>
@@ -122,7 +154,7 @@ function Login() {
   )
 }
 
-export default Login
+export default Register
 
 const StyledAuthForm = styled.View`
   width: 100%;

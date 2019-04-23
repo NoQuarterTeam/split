@@ -1,6 +1,7 @@
 const path = require("path")
 module.exports = {
   resolver: {
+    "react-native": path.resolve(__dirname, "node_modules/react-native"),
     extraNodeModules: {
       "@split/connector": path.resolve(
         __dirname,

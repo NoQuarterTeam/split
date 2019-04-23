@@ -14134,10 +14134,10 @@ type-fest@^0.3.0:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.3.0.tgz#1eb4a83c4ee233afd59d4db3faef44fecee0e9a2"
   integrity sha512-fg3sfdDdJDtdHLUpeGsf/fLyG1aapk6zgFiYG5+MDUPybGrJemH4SLk5tP7hGRe8ntxjg0q5LYW53b6YpJIQ9Q==
 
-type-graphql@0.17.1:
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/type-graphql/-/type-graphql-0.17.1.tgz#bb2658b15f96c3993f367c1f3c8ab92484abcfcd"
-  integrity sha512-IsO+mitgBgkAfD/S0zD0xdDeVZ3FI1I3ihyMEFaL//VHEn2WG+/PMmNlfNva/TGneTXrN7NpgR0941Ov51hppQ==
+type-graphql@0.17.2:
+  version "0.17.2"
+  resolved "https://registry.yarnpkg.com/type-graphql/-/type-graphql-0.17.2.tgz#1262f675062e03a7733073cc591190f19755fca0"
+  integrity sha512-HbOeLpSBA4y0484yzHoAAeLSRjy6N/1MxElceFpaMlhsc1oAFlBDrfRx7p+2tY1hbr+KygF2CPYoCfQbXQr2Ig==
   dependencies:
     "@types/glob" "^7.1.1"
     "@types/node" "^11.11.0"

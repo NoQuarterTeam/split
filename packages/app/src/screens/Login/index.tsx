@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import { Button } from "react-native"
+import React, { useState, useRef } from "react"
 import { GraphQLError } from "graphql"
+import AsyncStorage from "@react-native-community/async-storage"
 import {
   useLogin,
   GetHouseQuery,
@@ -11,13 +11,18 @@ import {
 
 import styled from "../../application/theme"
 import useAppContext from "../../lib/hooks/useAppContext"
-import AsyncStorage from "@react-native-community/async-storage"
 import Input from "../../components/Input"
+import Button from "../../components/Button"
+import Spacer from "../../components/styled/Spacer"
+import { KeyboardAvoidingView, TextInput } from "react-native"
+import Logo from "../../components/Logo"
 
 function Login() {
   const { client } = useAppContext()
-  const [email, setEmail] = useState<string>("jack@noquarter.co")
-  const [password, setPassword] = useState<string>("password")
+  const [email, setEmail] = useState<string>("")
+  const [password, setPassword] = useState<string>("")
+  const passwordRef = useRef<TextInput>(null)
+
   const login = useLogin()
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
@@ -32,7 +37,10 @@ function Login() {
           const houseRes = await client.query<
             GetHouseQuery,
             GetHouseQueryVariables
-          >({ query: GetHouseDocument, fetchPolicy: "network-only" })
+          >({
+            query: GetHouseDocument,
+            fetchPolicy: "network-only",
+          })
           if (houseRes.data) {
             cache.writeQuery({
               query: MeDocument,
@@ -52,16 +60,54 @@ function Login() {
   }
 
   return (
-    <StyledAuthForm>
-      <Input onChangeText={text => setEmail(text)} value={email} />
-      <Input onChangeText={text => setPassword(text)} value={password} />
-      <Button title="Login" onPress={handleSubmit} disabled={loading} />
-      {error ? (
-        <StyledError>
-          <StyledErrorMessage>{error}</StyledErrorMessage>
-        </StyledError>
-      ) : null}
-    </StyledAuthForm>
+    <KeyboardAvoidingView behavior="padding">
+      <StyledAuthForm>
+        <Logo />
+        <Spacer />
+        <Input
+          label="Email"
+          keyboardType="email-address"
+          enablesReturnKeyAutomatically={true}
+          blurOnSubmit={false}
+          autoCapitalize="none"
+          placeholder="jimsebe@gmail.com"
+          returnKeyLabel="next"
+          returnKeyType="next"
+          onSubmitEditing={() =>
+            passwordRef.current && passwordRef.current.focus()
+          }
+          onChangeText={text => setEmail(text)}
+          value={email}
+        />
+        <Spacer />
+        <Input
+          ref={passwordRef}
+          label="Password"
+          autoCapitalize="none"
+          secureTextEntry={true}
+          placeholder="********"
+          returnKeyLabel="done"
+          returnKeyType="done"
+          onChangeText={text => setPassword(text)}
+          onSubmitEditing={handleSubmit}
+          value={password}
+        />
+        <Spacer />
+        <Button
+          loading={loading}
+          text="Login"
+          variant="primary"
+          color="pink"
+          onPress={handleSubmit}
+          disabled={loading}
+        />
+        {error ? (
+          <StyledError>
+            <StyledErrorMessage>{error}</StyledErrorMessage>
+          </StyledError>
+        ) : null}
+      </StyledAuthForm>
+    </KeyboardAvoidingView>
   )
 }
 
@@ -72,7 +118,7 @@ const StyledAuthForm = styled.View`
   width: 100%;
   align-items: center;
   justify-content: center;
-  padding: 0 ${p => p.theme.paddingM};
+  padding: 0 ${p => p.theme.paddingXL};
 `
 
 const StyledError = styled.View`

@@ -19,11 +19,11 @@ const theme: (isDark: boolean) => ThemeInterface = isDark => ({
   paddingXL: "40px",
   paddingXS: "3px",
   borderRadius: "5px",
-  textL: "15px",
-  textM: "10px",
-  textS: "7.5px",
-  textXL: "20px",
-  textXS: "6.25px",
+  textL: "22px",
+  textM: "16px",
+  textS: "12px",
+  textXL: "28px",
+  textXS: "10px",
   flexCenter: `
     display: flex;
     align-items: center;

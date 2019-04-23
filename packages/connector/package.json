@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "graphql-tag": "^2.10.1",
-    "react-apollo-hooks": "^0.4.4"
+    "react-apollo-hooks": "0.4.5"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "1.1.1",

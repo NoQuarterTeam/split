@@ -20,8 +20,8 @@
     "@babel/core": "7.4.3",
     "@babel/runtime": "7.4.3",
     "@types/jest": "24.0.11",
-    "@types/react": "16.8.14",
-    "@types/react-native": "0.57.47",
+    "@types/react": "^16.8.14",
+    "@types/react-native": "^0.57.47",
     "@types/react-test-renderer": "16.8.1",
     "@typescript-eslint/eslint-plugin": "1.7.0",
     "@typescript-eslint/parser": "1.7.0",
@@ -40,10 +40,17 @@
   "jest": {
     "preset": "react-native"
   },
+  "rnpm": {
+    "assets": [
+      "src/assets/fonts"
+    ]
+  },
   "workspaces": {
     "nohoist": [
       "react-native",
-      "react-native/**"
+      "react-native/**",
+      "@react-native-community/async-storage",
+      "@react-native-community/async-storage/**"
     ]
   }
 }

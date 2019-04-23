@@ -1,6 +1,8 @@
-import React, { forwardRef, memo } from "react"
-import styled from "../application/theme"
-import { TextInputProps } from "react-native"
+import React, { memo, forwardRef, Ref } from "react"
+import { TextInputProps, TextInput } from "react-native"
+
+import styled, { lighten } from "../application/theme"
+import useAppContext from "../lib/hooks/useAppContext"
 
 interface InputProps extends TextInputProps {
   label?: string
@@ -8,12 +10,22 @@ interface InputProps extends TextInputProps {
   prefix?: string
 }
 
-function Input({ label, prefix = "", ...inputProps }: InputProps) {
+function Input(
+  { label, prefix, style, ...inputProps }: InputProps,
+  ref: Ref<TextInput>,
+) {
+  const { theme } = useAppContext()
   return (
     <StyledContainer>
-      {label && <StyledLabel>{label}</StyledLabel>}
-      <StyledPrefix>{prefix}</StyledPrefix>
-      <StyledInput {...inputProps} hasPrefix={!!prefix} />
+      {label ? <StyledLabel>{label}</StyledLabel> : null}
+      {prefix ? <StyledPrefix>{prefix}</StyledPrefix> : null}
+      <StyledInput
+        ref={ref}
+        hasPrefix={!!prefix}
+        placeholderTextColor={theme.colorPlaceholder}
+        style={style}
+        {...inputProps}
+      />
     </StyledContainer>
   )
 }
@@ -23,6 +35,8 @@ export default memo(forwardRef(Input))
 const StyledContainer = styled.View`
   width: 100%;
   padding: ${p => p.theme.paddingS} 0;
+  border-bottom-width: 2px;
+  border-color: ${p => lighten(0.25, p.theme.colorPink)};
 `
 
 const StyledLabel = styled.Text`
@@ -37,7 +51,8 @@ const StyledInput = styled.TextInput<{ hasPrefix?: boolean }>`
   border-radius: 0;
   color: ${p => p.theme.colorText};
   font-size: ${p => p.theme.textM};
-  padding: ${p => p.theme.paddingM} 0;
+  padding-top: ${p => p.theme.paddingM};
+  padding-bottom: ${p => p.theme.paddingS};
   ${p => p.hasPrefix && "padding-left: 16px"};
   border-top-left-radius: ${p => p.theme.borderRadius};
   border-top-right-radius: ${p => p.theme.borderRadius};

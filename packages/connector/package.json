@@ -27,10 +27,10 @@
     "react-apollo-hooks": "^0.4.4"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "1.1.0",
-    "@graphql-codegen/typescript": "1.1.0",
-    "@graphql-codegen/typescript-operations": "1.1.0",
-    "@graphql-codegen/typescript-react-apollo": "1.1.0",
+    "@graphql-codegen/cli": "1.1.1",
+    "@graphql-codegen/typescript": "1.1.1",
+    "@graphql-codegen/typescript-operations": "1.1.1",
+    "@graphql-codegen/typescript-react-apollo": "1.1.1",
     "@types/node": "11.13.7",
     "@typescript-eslint/eslint-plugin": "1.7.0",
     "@typescript-eslint/parser": "1.7.0",

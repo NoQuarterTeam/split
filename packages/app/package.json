@@ -14,15 +14,15 @@
     "react": "16.8.6",
     "react-apollo-hooks": "0.4.5",
     "react-native": "0.59.6",
-    "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-keyboard-aware-scroll-view": "0.8.0",
     "styled-components": "4.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.4.3",
     "@babel/runtime": "7.4.3",
     "@types/jest": "24.0.11",
-    "@types/react": "^16.8.14",
-    "@types/react-native": "^0.57.47",
+    "@types/react": "16.8.14",
+    "@types/react-native": "0.57.47",
     "@types/react-test-renderer": "16.8.1",
     "@typescript-eslint/eslint-plugin": "1.7.0",
     "@typescript-eslint/parser": "1.7.0",

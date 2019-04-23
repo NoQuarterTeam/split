@@ -2,14 +2,7 @@ import React, { useState, useRef } from "react"
 import { GraphQLError } from "graphql"
 import { TextInput } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
-import AsyncStorage from "@react-native-community/async-storage"
-import {
-  useLogin,
-  GetHouseQuery,
-  GetHouseQueryVariables,
-  GetHouseDocument,
-  MeDocument,
-} from "@split/connector"
+import { useLogin } from "@split/connector"
 
 import styled from "../../application/theme"
 import useAppContext from "../../lib/hooks/useAppContext"
@@ -19,7 +12,7 @@ import Spacer from "../../components/styled/Spacer"
 import Logo from "../../components/Logo"
 
 function Login() {
-  const { client, setRoute } = useAppContext()
+  const { setRoute } = useAppContext()
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const passwordRef = useRef<TextInput>(null)
@@ -32,33 +25,14 @@ function Login() {
     setLoading(true)
     login({
       variables: { data: { email, password } },
-      update: async (cache, { data }) => {
-        if (data) {
-          await AsyncStorage.setItem("token", data.login.token)
-          const houseRes = await client.query<
-            GetHouseQuery,
-            GetHouseQueryVariables
-          >({
-            query: GetHouseDocument,
-            fetchPolicy: "network-only",
-          })
-          if (houseRes.data) {
-            cache.writeQuery({
-              query: MeDocument,
-              data: { me: data.login.user },
-            })
-            cache.writeQuery({
-              query: GetHouseDocument,
-              data: { house: houseRes.data.house },
-            })
-            setRoute("BALANCE")
-          }
-        }
-      },
-    }).catch((loginError: GraphQLError) => {
-      setLoading(false)
-      setError(loginError.message.split(":")[1])
     })
+      .then(() => {
+        setRoute("BALANCE")
+      })
+      .catch((loginError: GraphQLError) => {
+        setLoading(false)
+        setError(loginError.message.split(":")[1])
+      })
   }
 
   return (

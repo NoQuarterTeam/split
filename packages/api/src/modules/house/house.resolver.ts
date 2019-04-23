@@ -30,10 +30,10 @@ export class HouseResolver {
   // GET HOUSE
   @Authorized()
   @Query(() => House, { nullable: true })
-  async house(@Ctx() { userId }: ResolverContext): Promise<House | null> {
-    const user = await this.userService.findById(userId)
-    if (!user.houseId) return null
-    const house = await this.houseService.findById(user.houseId)
+  async house(@Ctx() { req }: ResolverContext): Promise<House | null> {
+    const foundUser = await this.userService.findById(req.session.user.id)
+    if (!foundUser.houseId) return null
+    const house = await this.houseService.findById(foundUser.houseId)
     return house
   }
 
@@ -42,9 +42,9 @@ export class HouseResolver {
   @Mutation(() => House, { nullable: true })
   async createHouse(
     @Arg("data") data: HouseInput,
-    @Ctx() { userId }: ResolverContext,
+    @Ctx() { req }: ResolverContext,
   ): Promise<House> {
-    const house = await this.houseService.create(userId, data)
+    const house = await this.houseService.create(req.session.user.id, data)
     return house
   }
 

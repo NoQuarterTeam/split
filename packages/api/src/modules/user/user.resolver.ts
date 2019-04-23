@@ -6,7 +6,6 @@ import { createToken, decryptToken } from "../../lib/jwt"
 import { User } from "./user.entity"
 import { UserService } from "./user.service"
 import { UserMailer } from "./user.mailer"
-import { UserAuthResponse } from "./user.response"
 
 import { RegisterInput } from "./inputs/register.input"
 import { LoginInput } from "./inputs/login.input"
@@ -23,25 +22,31 @@ export class UserResolver {
   // ME
   @Authorized()
   @Query(() => User, { nullable: true })
-  async me(@Ctx() { userId }: ResolverContext): Promise<User> {
-    return await this.userService.findById(userId)
+  async me(@Ctx() { req }: ResolverContext): Promise<User> {
+    return await this.userService.findById(req.session.user.id)
   }
 
   // REGISTER
-  @Mutation(() => UserAuthResponse)
-  async register(@Arg("data") data: RegisterInput): Promise<UserAuthResponse> {
+  @Mutation(() => User)
+  async register(
+    @Arg("data") data: RegisterInput,
+    @Ctx() { req }: ResolverContext,
+  ): Promise<User> {
     const user = await this.userService.create(data)
-    const token = await createToken(user.id)
+    if (req.session) req.session.user = user
     this.userMailer.sendWelcomeEmail(user)
-    return { user, token }
+    return user
   }
 
   // LOGIN
-  @Mutation(() => UserAuthResponse)
-  async login(@Arg("data") data: LoginInput): Promise<UserAuthResponse> {
+  @Mutation(() => User)
+  async login(
+    @Arg("data") data: LoginInput,
+    @Ctx() { req }: ResolverContext,
+  ): Promise<User> {
     const user = await this.userService.login(data)
-    const token = await createToken(user.id)
-    return { user, token }
+    req.session!.user = user // eslint-disable-line
+    return user
   }
 
   // UPDATE USER
@@ -49,14 +54,19 @@ export class UserResolver {
   @Mutation(() => User, { nullable: true })
   async updateUser(
     @Arg("data") data: UpdateInput,
-    @Ctx() { userId }: ResolverContext,
+    @Ctx()
+    { req }: ResolverContext,
   ): Promise<User> {
-    return this.userService.update(userId, data)
+    return this.userService.update(req.session.user.id, data)
   }
 
   // LOGOUT
   @Mutation(() => Boolean)
-  async logout(): Promise<boolean> {
+  async logout(@Ctx() { req, res }: ResolverContext): Promise<boolean> {
+    await new Promise(res => {
+      if (req.session) req.session.destroy(() => res())
+    })
+    res.clearCookie("split.cookie")
     return true
   }
 

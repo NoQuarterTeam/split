@@ -1,23 +1,15 @@
 import React, { memo, useState, FC } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
-import {
-  useLogin,
-  GetHouseDocument,
-  MeDocument,
-  GetHouseQuery,
-  GetHouseQueryVariables,
-} from "@split/connector"
+import { useLogin } from "@split/connector"
 
 import styled from "../../application/theme"
-import useAppContext from "../../lib/hooks/useAppContext"
 
 import Button from "../../components/Button"
 import Input from "../../components/Input"
 import AuthForm from "../../components/AuthForm"
 
 const Login: FC<RouteComponentProps> = () => {
-  const { client } = useAppContext()
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [error, setError] = useState<string>("")
@@ -30,25 +22,6 @@ const Login: FC<RouteComponentProps> = () => {
     setLoading(true)
     login({
       variables: { data: { email, password } },
-      update: async (cache, { data }) => {
-        if (data) {
-          localStorage.setItem("token", data.login.token)
-          const houseRes = await client.query<
-            GetHouseQuery,
-            GetHouseQueryVariables
-          >({ query: GetHouseDocument, fetchPolicy: "network-only" })
-          if (houseRes.data) {
-            cache.writeQuery({
-              query: MeDocument,
-              data: { me: data.login.user },
-            })
-            cache.writeQuery({
-              query: GetHouseDocument,
-              data: { house: houseRes.data.house },
-            })
-          }
-        }
-      },
     }).catch((loginError: GraphQLError) => {
       setLoading(false)
       setError(loginError.message.split(":")[1])

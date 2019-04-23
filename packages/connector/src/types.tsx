@@ -1,4 +1,4 @@
-type Maybe<T> = T | null
+export type Maybe<T> = T | null
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -13,8 +13,16 @@ export type AllCostsResponse = {
   count: Scalars["Float"]
 }
 
+export type BaseEntity = {
+  id: Scalars["ID"]
+  createdAt: Scalars["String"]
+  updatedAt: Scalars["String"]
+}
+
 export type Cost = {
   id: Scalars["ID"]
+  createdAt: Scalars["String"]
+  updatedAt: Scalars["String"]
   name: Scalars["String"]
   recurring: Scalars["String"]
   equalSplit: Scalars["Boolean"]
@@ -27,8 +35,6 @@ export type Cost = {
   house: House
   payer: User
   creator: User
-  createdAt: Scalars["String"]
-  updatedAt: Scalars["String"]
   shares: Array<Share>
 }
 
@@ -46,12 +52,12 @@ export type CostInput = {
 
 export type House = {
   id: Scalars["ID"]
+  createdAt: Scalars["String"]
+  updatedAt: Scalars["String"]
   name: Scalars["String"]
   users: Array<User>
   costs: Array<Cost>
   invites: Array<Invite>
-  createdAt: Scalars["String"]
-  updatedAt: Scalars["String"]
 }
 
 export type HouseInput = {
@@ -60,10 +66,10 @@ export type HouseInput = {
 
 export type Invite = {
   id: Scalars["ID"]
-  email: Scalars["String"]
-  houseId: Scalars["String"]
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
+  email: Scalars["String"]
+  houseId: Scalars["String"]
 }
 
 export type InviteInput = {
@@ -84,8 +90,8 @@ export type Mutation = {
   editHouse?: Maybe<House>
   createInvite?: Maybe<Invite>
   getSignedS3Url?: Maybe<S3SignedUrlResponse>
-  register: UserAuthResponse
-  login: UserAuthResponse
+  register: User
+  login: User
   updateUser?: Maybe<User>
   logout: Scalars["Boolean"]
   forgotPassword: Scalars["Boolean"]
@@ -189,11 +195,11 @@ export type S3SignedUrlResponse = {
 
 export type Share = {
   id: Scalars["ID"]
+  createdAt: Scalars["String"]
+  updatedAt: Scalars["String"]
   amount: Scalars["Float"]
   user: User
   cost: Cost
-  createdAt: Scalars["String"]
-  updatedAt: Scalars["String"]
 }
 
 export type ShareInput = {
@@ -212,6 +218,8 @@ export type UpdateInput = {
 
 export type User = {
   id: Scalars["ID"]
+  createdAt: Scalars["String"]
+  updatedAt: Scalars["String"]
   email: Scalars["String"]
   firstName: Scalars["String"]
   lastName: Scalars["String"]
@@ -222,13 +230,6 @@ export type User = {
   shares: Array<Share>
   costsCreated: Array<Cost>
   costsPaid: Array<Cost>
-  createdAt: Scalars["String"]
-  updatedAt: Scalars["String"]
-}
-
-export type UserAuthResponse = {
-  user: User
-  token: Scalars["String"]
 }
 export type CostFragment = { __typename?: "Cost" } & Pick<
   Cost,
@@ -268,7 +269,7 @@ export type AllCostsQueryVariables = {
 export type AllCostsQuery = { __typename?: "Query" } & {
   allCosts: Maybe<
     { __typename?: "AllCostsResponse" } & Pick<AllCostsResponse, "count"> & {
-        costs: Array<{ __typename?: "Cost" } & CostFragment & PayerFragment>
+        costs: Array<{ __typename?: "Cost" } & (CostFragment & PayerFragment)>
       }
   >
 }
@@ -278,7 +279,7 @@ export type GetCostQueryVariables = {
 }
 
 export type GetCostQuery = { __typename?: "Query" } & {
-  getCost: Maybe<{ __typename?: "Cost" } & CostFragment & SharesFragment>
+  getCost: Maybe<{ __typename?: "Cost" } & (CostFragment & SharesFragment)>
 }
 
 export type CreateCostMutationVariables = {
@@ -286,7 +287,7 @@ export type CreateCostMutationVariables = {
 }
 
 export type CreateCostMutation = { __typename?: "Mutation" } & {
-  createCost: Maybe<{ __typename?: "Cost" } & CostFragment & PayerFragment>
+  createCost: Maybe<{ __typename?: "Cost" } & (CostFragment & PayerFragment)>
 }
 
 export type EditCostMutationVariables = {
@@ -295,7 +296,7 @@ export type EditCostMutationVariables = {
 }
 
 export type EditCostMutation = { __typename?: "Mutation" } & {
-  editCost: Maybe<{ __typename?: "Cost" } & CostFragment & SharesFragment>
+  editCost: Maybe<{ __typename?: "Cost" } & (CostFragment & SharesFragment)>
 }
 
 export type DestroyCostMutationVariables = {
@@ -395,10 +396,7 @@ export type LoginMutationVariables = {
 }
 
 export type LoginMutation = { __typename?: "Mutation" } & {
-  login: { __typename?: "UserAuthResponse" } & Pick<
-    UserAuthResponse,
-    "token"
-  > & { user: { __typename?: "User" } & UserFragment }
+  login: { __typename?: "User" } & UserFragment
 }
 
 export type RegisterMutationVariables = {
@@ -406,10 +404,7 @@ export type RegisterMutationVariables = {
 }
 
 export type RegisterMutation = { __typename?: "Mutation" } & {
-  register: { __typename?: "UserAuthResponse" } & Pick<
-    UserAuthResponse,
-    "token"
-  > & { user: { __typename?: "User" } & UserFragment }
+  register: { __typename?: "User" } & UserFragment
 }
 
 export type UpdateUserMutationVariables = {
@@ -447,6 +442,7 @@ export type ResetPasswordMutation = { __typename?: "Mutation" } & Pick<
 
 import gql from "graphql-tag"
 import * as ReactApolloHooks from "react-apollo-hooks"
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 export const CostFragmentDoc = gql`
   fragment Cost on Cost {
     id
@@ -555,6 +551,10 @@ export const CreateCostDocument = gql`
   ${CostFragmentDoc}
   ${PayerFragmentDoc}
 `
+export type CreateCostMutationFn = ReactApolloHooks.MutationFn<
+  CreateCostMutation,
+  CreateCostMutationVariables
+>
 
 export function useCreateCostMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -577,6 +577,10 @@ export const EditCostDocument = gql`
   ${CostFragmentDoc}
   ${SharesFragmentDoc}
 `
+export type EditCostMutationFn = ReactApolloHooks.MutationFn<
+  EditCostMutation,
+  EditCostMutationVariables
+>
 
 export function useEditCostMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -594,6 +598,10 @@ export const DestroyCostDocument = gql`
     destroyCost(costId: $costId)
   }
 `
+export type DestroyCostMutationFn = ReactApolloHooks.MutationFn<
+  DestroyCostMutation,
+  DestroyCostMutationVariables
+>
 
 export function useDestroyCostMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -647,6 +655,10 @@ export const CreateHouseDocument = gql`
   ${UserFragmentDoc}
   ${InviteFragmentDoc}
 `
+export type CreateHouseMutationFn = ReactApolloHooks.MutationFn<
+  CreateHouseMutation,
+  CreateHouseMutationVariables
+>
 
 export function useCreateHouseMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -667,6 +679,10 @@ export const EditHouseDocument = gql`
   }
   ${HouseFragmentDoc}
 `
+export type EditHouseMutationFn = ReactApolloHooks.MutationFn<
+  EditHouseMutation,
+  EditHouseMutationVariables
+>
 
 export function useEditHouseMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -687,6 +703,10 @@ export const CreateInviteDocument = gql`
   }
   ${InviteFragmentDoc}
 `
+export type CreateInviteMutationFn = ReactApolloHooks.MutationFn<
+  CreateInviteMutation,
+  CreateInviteMutationVariables
+>
 
 export function useCreateInviteMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -724,6 +744,10 @@ export const GetSignedS3UrlDocument = gql`
     }
   }
 `
+export type GetSignedS3UrlMutationFn = ReactApolloHooks.MutationFn<
+  GetSignedS3UrlMutation,
+  GetSignedS3UrlMutationVariables
+>
 
 export function useGetSignedS3UrlMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -756,14 +780,15 @@ export function useMeQuery(
 export const LoginDocument = gql`
   mutation Login($data: LoginInput!) {
     login(data: $data) {
-      user {
-        ...User
-      }
-      token
+      ...User
     }
   }
   ${UserFragmentDoc}
 `
+export type LoginMutationFn = ReactApolloHooks.MutationFn<
+  LoginMutation,
+  LoginMutationVariables
+>
 
 export function useLoginMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -779,14 +804,15 @@ export function useLoginMutation(
 export const RegisterDocument = gql`
   mutation Register($data: RegisterInput!) {
     register(data: $data) {
-      user {
-        ...User
-      }
-      token
+      ...User
     }
   }
   ${UserFragmentDoc}
 `
+export type RegisterMutationFn = ReactApolloHooks.MutationFn<
+  RegisterMutation,
+  RegisterMutationVariables
+>
 
 export function useRegisterMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -807,6 +833,10 @@ export const UpdateUserDocument = gql`
   }
   ${UserFragmentDoc}
 `
+export type UpdateUserMutationFn = ReactApolloHooks.MutationFn<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
+>
 
 export function useUpdateUserMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -824,6 +854,10 @@ export const LogoutDocument = gql`
     logout
   }
 `
+export type LogoutMutationFn = ReactApolloHooks.MutationFn<
+  LogoutMutation,
+  LogoutMutationVariables
+>
 
 export function useLogoutMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -841,6 +875,10 @@ export const ForgotPasswordDocument = gql`
     forgotPassword(email: $email)
   }
 `
+export type ForgotPasswordMutationFn = ReactApolloHooks.MutationFn<
+  ForgotPasswordMutation,
+  ForgotPasswordMutationVariables
+>
 
 export function useForgotPasswordMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<
@@ -858,6 +896,10 @@ export const ResetPasswordDocument = gql`
     resetPassword(data: $data)
   }
 `
+export type ResetPasswordMutationFn = ReactApolloHooks.MutationFn<
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables
+>
 
 export function useResetPasswordMutation(
   baseOptions?: ReactApolloHooks.MutationHookOptions<

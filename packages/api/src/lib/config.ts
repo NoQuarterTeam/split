@@ -19,8 +19,8 @@ export const webUrl = isProduction
 
 // CORS
 export const cors = {
-  credentials: false,
-  origin: "*",
+  credentials: true,
+  origin: webUrl,
 }
 
 // GRAPHQL PATH
@@ -44,4 +44,17 @@ export const devEmailOptions: any = {
 export const s3Config = {
   signatureVersion: "v4",
   region: "eu-central-1",
+}
+
+// SESSION
+export const sessionConfig = {
+  name: "split.cookie",
+  secret: APP_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: isProduction,
+    maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
+  },
 }

@@ -13,10 +13,7 @@ export const ME = gql`
 export const LOGIN = gql`
   mutation Login($data: LoginInput!) {
     login(data: $data) {
-      user {
-        ...User
-      }
-      token
+      ...User
     }
   }
   ${User}
@@ -25,10 +22,7 @@ export const LOGIN = gql`
 export const REGISTER = gql`
   mutation Register($data: RegisterInput!) {
     register(data: $data) {
-      user {
-        ...User
-      }
-      token
+      ...User
     }
   }
   ${User}

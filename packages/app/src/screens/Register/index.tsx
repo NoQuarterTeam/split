@@ -1,15 +1,8 @@
 import React, { useState, useRef } from "react"
 import { GraphQLError } from "graphql"
 import { TextInput } from "react-native"
-import AsyncStorage from "@react-native-community/async-storage"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
-import {
-  GetHouseQuery,
-  GetHouseQueryVariables,
-  GetHouseDocument,
-  MeDocument,
-  useRegister,
-} from "@split/connector"
+import { useRegister } from "@split/connector"
 
 import styled from "../../application/theme"
 import useAppContext from "../../lib/hooks/useAppContext"
@@ -19,7 +12,7 @@ import Spacer from "../../components/styled/Spacer"
 import Logo from "../../components/Logo"
 
 function Register() {
-  const { client, setRoute } = useAppContext()
+  const { setRoute } = useAppContext()
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [firstName, setFirstName] = useState<string>("")
@@ -37,33 +30,14 @@ function Register() {
     setLoading(true)
     register({
       variables: { data: { email, password, firstName, lastName } },
-      update: async (cache, { data }) => {
-        if (data) {
-          await AsyncStorage.setItem("token", data.register.token)
-          const houseRes = await client.query<
-            GetHouseQuery,
-            GetHouseQueryVariables
-          >({
-            query: GetHouseDocument,
-            fetchPolicy: "network-only",
-          })
-          if (houseRes.data) {
-            cache.writeQuery({
-              query: MeDocument,
-              data: { me: data.register.user },
-            })
-            cache.writeQuery({
-              query: GetHouseDocument,
-              data: { house: houseRes.data.house },
-            })
-            setRoute("BALANCE")
-          }
-        }
-      },
-    }).catch((error: GraphQLError) => {
-      setLoading(false)
-      setError(error.message.split(":")[1])
     })
+      .then(() => {
+        setRoute("BALANCE")
+      })
+      .catch((error: GraphQLError) => {
+        setLoading(false)
+        setError(error.message.split(":")[1])
+      })
   }
 
   return (

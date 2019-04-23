@@ -43,9 +43,9 @@ export class CostResolver {
   @Mutation(() => Cost, { nullable: true })
   createCost(
     @Arg("data") data: CostInput,
-    @Ctx() { userId }: ResolverContext,
+    @Ctx() { req }: ResolverContext,
   ): Promise<Cost> {
-    return this.costService.create(userId, data)
+    return this.costService.create(req.session.user.id, data)
   }
 
   // DESTROY COST

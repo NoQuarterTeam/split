@@ -42,11 +42,11 @@ function CostList() {
 
   const futureCosts = useMemo(
     () => costs && costs.filter(c => dayjs(c.date).isAfter(dayjs())),
-    [costs.length],
+    [costs],
   )
   const pastCosts = useMemo(
     () => costs && costs.filter(c => dayjs(c.date).isBefore(dayjs())),
-    [costs.length],
+    [costs],
   )
 
   return (

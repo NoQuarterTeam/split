@@ -21,7 +21,7 @@ function useEventListener(
     return () => {
       el.removeEventListener(eventName, eventListener, options)
     }
-  }, [eventName, el])
+  }, [eventName, el, options])
 }
 
 export default useEventListener

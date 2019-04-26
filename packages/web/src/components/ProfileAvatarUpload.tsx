@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import Dropzone from "react-dropzone"
 import axios from "axios"
 import {
@@ -59,13 +59,13 @@ function ProfileAvatarUpload({ user }: ProfileAvatarUploadProps) {
     }
   }
 
-  const handleRemoveFile = () => {
+  const handleRemoveFile = useCallback(() => {
     if (avatar) URL.revokeObjectURL(avatar.file.preview)
-  }
+  }, [avatar])
 
   useEffect(() => {
     return () => handleRemoveFile()
-  }, [])
+  }, [handleRemoveFile])
 
   return (
     <StyledFormAvatar>

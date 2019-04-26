@@ -38,7 +38,6 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
         }))
       : house.users.map(u => ({ userId: u.id, amount: 0 })),
   })
-  const [isMounted, setIsMounted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -55,8 +54,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
   }
 
   useLayoutEffect(() => {
-    if (isMounted && formState.equalSplit) applyEqualSplit()
-    setIsMounted(true)
+    if (formState.equalSplit) applyEqualSplit()
   }, [formState.amount, formState.costShares.length])
 
   const handleCostCreate = async (e: any) => {

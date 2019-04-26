@@ -23,7 +23,7 @@
     "@babel/runtime": "7.4.3",
     "@types/jest": "24.0.11",
     "@types/react": "16.8.14",
-    "@types/react-native": "0.57.49",
+    "@types/react-native": "0.57.47",
     "@types/react-test-renderer": "16.8.1",
     "@typescript-eslint/eslint-plugin": "1.7.0",
     "@typescript-eslint/parser": "1.7.0",
@@ -33,6 +33,7 @@
     "eslint-config-prettier": "4.1.0",
     "eslint-plugin-flowtype": "3.6.1",
     "eslint-plugin-import": "2.17.2",
+    "eslint-plugin-react-hooks": "^1.6.0",
     "jest": "24.7.1",
     "metro-react-native-babel-preset": "0.53.1",
     "prettier": "1.17.0",
@@ -41,11 +42,6 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "rnpm": {
-    "assets": [
-      "src/assets/fonts"
-    ]
   },
   "workspaces": {
     "nohoist": [

@@ -17,9 +17,7 @@ import Costs from "../pages/Costs"
 import Loading from "../components/Loading"
 
 function Application() {
-  const errorHandler = (e: Error) => {
-    console.log(e)
-  }
+  const errorHandler = (e: Error) => console.log(e)
   return (
     <AppProvider>
       <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>

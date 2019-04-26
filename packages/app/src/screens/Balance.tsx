@@ -14,9 +14,7 @@ const Balance: FC = () => {
   if (!house) return <Text>Create House Form</Text>
 
   const logout = useLogout()
-  const handleLogout = () => {
-    logout()
-  }
+  const handleLogout = () => logout()
 
   const getBalanceHeader = () => {
     if (user.balance > 0) {

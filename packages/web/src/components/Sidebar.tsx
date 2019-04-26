@@ -12,10 +12,7 @@ import Logo from "./Logo"
 function Sidebar({ open }: { open: boolean }) {
   const { house } = useAppContext()
   const logout = useLogout()
-  const handleLogout = () => {
-    localStorage.removeItem("token")
-    logout()
-  }
+  const handleLogout = () => logout()
 
   return (
     <StyledSidebar open={open}>

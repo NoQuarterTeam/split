@@ -34,7 +34,7 @@
     "apollo-server-express": "2.4.8",
     "aws-sdk": "2.444.0",
     "bcryptjs": "2.4.3",
-    "bull": "3.8.0",
+    "bull": "3.8.1",
     "connect-redis": "3.4.1",
     "dataloader": "1.4.0",
     "dayjs": "1.8.13",

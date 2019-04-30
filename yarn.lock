@@ -2367,10 +2367,10 @@
     "@types/connect" "*"
     "@types/node" "*"
 
-"@types/bull@3.5.11":
-  version "3.5.11"
-  resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.5.11.tgz#baa1d6752e926e549190647a541056df1cc086b7"
-  integrity sha512-cP464wO4pQnvJsYTIwcSitdEv5aXaMsRoP07raOgOSlJDnaDYmV6jMf1Vk1dWhtfJ0FRtjpXeHaYMc/j8bwb4A==
+"@types/bull@3.5.12":
+  version "3.5.12"
+  resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.5.12.tgz#7e06548ae5b9215508ff5e5a2467c55b03a2fccb"
+  integrity sha512-2RYoqUZin0ZzrlWCEZlFmdsFmF+J1cWnig71foHY0drLSZTtJqS+Fg2aORpOWzXIUc9PmI9WWqAd6hVe+MaZyw==
   dependencies:
     "@types/ioredis" "*"
 

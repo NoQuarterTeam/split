@@ -63,7 +63,7 @@
     "@types/jest": "24.0.12",
     "@types/jsonwebtoken": "8.3.2",
     "@types/morgan": "1.7.35",
-    "@types/node": "11.13.8",
+    "@types/node": "11.13.9",
     "@types/nodemailer": "4.6.8",
     "@typescript-eslint/eslint-plugin": "1.7.0",
     "@typescript-eslint/parser": "1.7.0",

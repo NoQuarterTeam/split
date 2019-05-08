@@ -13,7 +13,7 @@
     "polished": "3.3.0",
     "react": "16.8.6",
     "react-apollo-hooks": "0.4.5",
-    "react-native": "0.59.7",
+    "react-native": "0.59.8",
     "react-native-keyboard-aware-scroll-view": "0.8.0",
     "scheduler": "0.14.0",
     "styled-components": "4.2.0"

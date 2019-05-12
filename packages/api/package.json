@@ -6,8 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "watch-dev": "tsnd --respawn --transpileOnly --no-notify src/index.ts",
-    "watch": "nodemon",
+    "watch": "tsnd --respawn --transpileOnly --no-notify --ignore-watch node_modules src/index.ts",
     "work": "ts-node src/workers.ts",
     "db:create": "ts-node node_modules/typeorm/cli.js migration:create -c ${NODE_ENV} -n",
     "db:generate": "ts-node node_modules/typeorm/cli.js migration:generate -c ${NODE_ENV} -n",

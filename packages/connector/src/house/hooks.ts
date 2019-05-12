@@ -5,9 +5,7 @@ import {
   useEditHouseMutation,
   MeDocument,
   GetHouseDocument,
-  GetHouseQuery,
   MeQueryVariables,
-  GetHouseQueryVariables,
 } from "../types"
 
 export function useGetHouse() {
@@ -38,18 +36,5 @@ export function useCreateHouse() {
 }
 
 export function useEditHouse() {
-  return useEditHouseMutation({
-    update: (cache, { data }) => {
-      const getHouse = cache.readQuery<GetHouseQuery, GetHouseQueryVariables>({
-        query: GetHouseDocument,
-      })
-      if (data && data.editHouse && getHouse) {
-        const res = data.editHouse
-        cache.writeQuery({
-          query: GetHouseDocument,
-          data: { house: { ...getHouse.house, name: res.name } },
-        })
-      }
-    },
-  })
+  return useEditHouseMutation()
 }

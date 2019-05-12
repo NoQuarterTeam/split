@@ -1,22 +1,13 @@
-import React, { memo, FC } from "react"
+import React, { memo, ReactNode } from "react"
 import styled from "../application/theme"
 
-interface ToolTipProps {
-  message: string
-}
-
-const ToolTip: FC<ToolTipProps> = ({ children, message }) => {
-  return (
-    <StyledToolTip>
-      <StyledMessage>{message}</StyledMessage>
-      {children}
-    </StyledToolTip>
-  )
+const ToolTip = ({ children }: { children: ReactNode }) => {
+  return <StyledToolTip>{children}</StyledToolTip>
 }
 
 export default memo(ToolTip)
 
-const StyledMessage = styled.span`
+const StyledToolTip = styled.span`
   position: absolute;
   transition: 400ms all;
   right: 0;
@@ -47,12 +38,8 @@ const StyledMessage = styled.span`
     margin-left: -10px;
     border-top-color: ${p => p.theme.colorText};
   }
-`
 
-const StyledToolTip = styled.div`
   &:hover {
-    ${StyledMessage} {
-      opacity: 1;
-    }
+    opacity: 1;
   }
 `

@@ -30,12 +30,14 @@ function CostItem({ cost }: CostProps) {
               <span>{capitalize(cost.category)}</span>
             </StyledCostName>
             {cost.recurring !== "one-off" && (
-              <ToolTip message="Recurring cost">
+              <ToolTip>
+                Recurring cost
                 <StyledInfoIcon src={IconRepeat} width={25} />
               </ToolTip>
             )}
             {dayjs(cost.date).isAfter(dayjs().startOf("day")) && (
-              <ToolTip message="Future cost">
+              <ToolTip>
+                Future cost
                 <StyledInfoIcon src={IconClock} width={25} />
               </ToolTip>
             )}

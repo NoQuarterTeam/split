@@ -10,12 +10,13 @@
   },
   "scripts": {
     "build:api": "cd packages/api && yarn build",
+    "build:connector": "cd packages/connector && yarn build",
     "build:web": "lerna run build --scope={@split/connector,@split/web}",
     "test": "lerna run test",
     "typecheck": "lerna run typecheck",
     "lint": "lerna run lint",
     "pre-commit": "lerna run pre-commit",
-    "ci": "yarn build:web && yarn typecheck && yarn lint && yarn test",
+    "ci": "yarn build:connector && yarn typecheck && yarn lint && yarn test",
     "heroku-postbuild": "yarn build:api"
   },
   "husky": {

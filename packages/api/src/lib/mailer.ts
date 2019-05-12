@@ -1,9 +1,14 @@
 import sendgrid from "@sendgrid/mail"
 import nodemailer from "nodemailer"
-
-import { SENDGRID_API_KEY, devEmailOptions } from "./config"
+import { SENDGRID_API_KEY, devEmailOptions, isProduction } from "./config"
 
 sendgrid.setApiKey(SENDGRID_API_KEY)
+
+interface DevMailArgs {
+  to: string
+  subject: string
+  html: string
+}
 
 export class Mailer {
   private readonly from: string = "Split Team <noreply@getsplit.co>"
@@ -13,11 +18,21 @@ export class Mailer {
     this.devMail = nodemailer.createTransport(devEmailOptions)
   }
 
-  sendDev(args: any) {
+  onError(err: any) {
+    console.log(err)
+    // TODO: Do something with mailer errors
+  }
+
+  sendDev(args: DevMailArgs) {
     this.devMail.sendMail({ ...args, from: this.from })
   }
 
-  send(templateId: string, to: string, variables: any) {
+  send(
+    templateId: string,
+    to: string,
+    variables: any,
+    devArgs: { subject: string; html: string },
+  ) {
     const message = {
       from: this.from,
       to,
@@ -25,6 +40,15 @@ export class Mailer {
       // eslint-disable-next-line
       dynamic_template_data: variables,
     }
-    return sendgrid.send(message)
+
+    try {
+      if (isProduction) {
+        sendgrid.send(message)
+      } else {
+        this.sendDev({ to, ...devArgs })
+      }
+    } catch (err) {
+      this.onError(err)
+    }
   }
 }

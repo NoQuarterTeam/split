@@ -1,5 +1,3 @@
-import { useApolloClient } from "react-apollo-hooks"
-
 import {
   useAllCostsQuery,
   useGetCostQuery,
@@ -11,11 +9,11 @@ import {
   GetHouseDocument,
   useCreateCostMutation,
   CostFragment,
+  QueryAllCostsArgs,
 } from "../types"
 
 export function useAllCosts(houseId: string, search: string) {
-  const client = useApolloClient()
-  const { data, error, loading } = useAllCostsQuery({
+  const { data, error, loading, fetchMore } = useAllCostsQuery({
     variables: {
       houseId,
       search,
@@ -26,36 +24,25 @@ export function useAllCosts(houseId: string, search: string) {
   const costsCount =
     (!loading && data && data.allCosts && data.allCosts.count) || 0
 
-  const handleRefetch = async (skip: number, currentSearch: string) => {
-    const { data: curentData } = await client.query<
-      AllCostsQuery,
-      AllCostsQueryVariables
-    >({
-      query: AllCostsDocument,
-      variables: { skip, search: currentSearch, houseId },
-    })
-    if (!curentData || !curentData.allCosts) return
-    const prev = client.readQuery<AllCostsQuery, AllCostsQueryVariables>({
-      query: AllCostsDocument,
-      variables: { skip: 0, houseId, search: currentSearch },
-    })
-    if (!prev || !prev.allCosts) return
-    const newData = Object.assign({}, prev, {
-      allCosts: {
-        ...prev.allCosts,
-        costs: [...prev.allCosts.costs, ...curentData.allCosts.costs],
+  const handleFetchMore = (variables: QueryAllCostsArgs) => {
+    fetchMore({
+      variables,
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult || !prev.allCosts || !fetchMoreResult.allCosts)
+          return prev
+        return Object.assign({}, prev, {
+          allCosts: {
+            ...prev.allCosts,
+            costs: [...prev.allCosts.costs, ...fetchMoreResult.allCosts.costs],
+          },
+        })
       },
-    })
-    await client.writeQuery({
-      query: AllCostsDocument,
-      variables: { skip: 0, houseId, search: currentSearch },
-      data: newData,
     })
   }
   return {
     costs,
     costsCount,
-    fetchMore: handleRefetch,
+    fetchMore: handleFetchMore,
     costsLoading: loading,
     allCostsError: error,
   }

@@ -28,7 +28,7 @@ function CostList() {
       costListRef.current.getBoundingClientRect().bottom - 800 <=
       window.innerHeight
     if (bottom && !costsLoading && costs.length < costsCount) {
-      fetchMore(costs.length, search)
+      fetchMore({ houseId: house.id, skip: costs.length, search })
     }
   }
 

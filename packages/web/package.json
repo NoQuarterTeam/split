@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@types/graphql": "14.2.0",
-    "@types/jest": "24.0.12",
+    "@types/jest": "24.0.13",
     "@types/lodash.throttle": "4.1.6",
     "@types/node": "11.13.10",
     "@types/reach__router": "1.2.4",

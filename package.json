@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "husky": "2.3.0",
-    "lerna": "3.14.0",
+    "lerna": "3.14.1",
     "lint-staged": "8.1.7"
   }
 }

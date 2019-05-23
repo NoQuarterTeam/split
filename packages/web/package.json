@@ -30,7 +30,7 @@
     "dayjs": "^1.8.11",
     "graphql": "^14.1.1",
     "lodash.throttle": "^4.1.1",
-    "logrocket": "^0.6.19",
+    "logrocket": "^1.0.0",
     "logrocket-react": "^3.0.0",
     "polished": "^3.0.4",
     "query-string": "^6.4.0",

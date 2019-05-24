@@ -1,7 +1,18 @@
 {
-  "extends": ["config:base"],
+  "extends": ["config:base", "schedule:earlyMondays"],
   "automerge": true,
-  "major": {
-    "automerge": false
-  }
+  "packageRules": [
+    {
+      "packagePatterns": ["eslint"],
+      "groupName": "eslint"
+    },
+    {
+      "packagePatterns": ["@types/"],
+      "groupName": "@types"
+    },
+    {
+      "packageNames": ["aws-sdk"],
+      "extends": ["schedule:monthly"]
+    }
+  ]
 }

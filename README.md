@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/NoQuarterCo/split.svg?branch=master)](https://travis-ci.org/NoQuarterCo/split)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/8e52f73c-5024-4a7d-9d7c-7c9b19713bd3/deploy-status)](https://app.netlify.com/sites/getsplit/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8e62e74a-0b94-459e-bc6b-85e5475d968c/deploy-status)](https://app.netlify.com/sites/getsplit/deploys)
 
 # Split
 

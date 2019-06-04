@@ -11,7 +11,7 @@ interface AuthFormProps {
 const AuthForm: FC<AuthFormProps> = ({ children, handleSubmit }) => {
   return (
     <StyledAuthContainer>
-      <Center style={{ height: "100vh" }}>
+      <Center style={{ height: "100vh", padding: 20 }}>
         <Tile style={{ width: 450 }}>
           <StyledForm onSubmit={handleSubmit}>
             <StyledHeader>

@@ -1,5 +1,5 @@
 import React from "react"
-import styled, { darken } from "../application/theme"
+import { styled, darken } from "@noquarter/ui"
 
 interface ErrorBannerProps {
   text: string
@@ -21,5 +21,5 @@ const StyledErrorBanner = styled.div`
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
   font-size: ${p => p.theme.textS};
   padding: ${p => p.theme.paddingL};
-  background-color: ${p => darken(0.1, p.theme.colorBlue)};
+  background-color: ${p => darken(0.1, p.theme.colorSecondary)};
 `

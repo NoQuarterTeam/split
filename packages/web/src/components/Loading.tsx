@@ -1,6 +1,6 @@
 import React, { Fragment, FC } from "react"
-import styled from "../application/theme"
-import useDebounce from "../lib/hooks/useDebounce"
+import { styled } from "@noquarter/ui"
+import { useDebounce } from "@noquarter/hooks"
 
 interface LoadingProps {
   loading: boolean
@@ -25,7 +25,7 @@ const StyledContainer = styled.div<{ loading: boolean }>`
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: ${p => p.theme.colorPage};
+  background-color: white;
   transition: opacity 1s, visibility -0.3s linear 1s;
 
   ${p => p.theme.flexCenter};

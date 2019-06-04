@@ -7,7 +7,7 @@ import {
   UserFragment,
 } from "@split/connector"
 
-import styled from "../application/theme"
+import { styled } from "@noquarter/ui"
 
 import IconCamera from "../assets/images/icon-camera.svg"
 
@@ -116,7 +116,7 @@ const StyledOverlayText = styled.div`
   text-align: center;
   color: white;
   font-size: ${p => p.theme.textS};
-  font-weight: ${p => p.theme.fontBlack};
+  font-weight: ${p => p.theme.fontExtraBold};
 `
 
 const StyledFormAvatar = styled.div`

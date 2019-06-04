@@ -1,10 +1,9 @@
 import React, { memo } from "react"
 import { CostInput } from "@split/connector"
-import styled, { media } from "../application/theme"
+import { styled, Input, Select } from "@noquarter/ui"
+import { decimalCount } from "@noquarter/utils"
 
-import { decimalCount } from "../lib/helpers"
-import Input from "./Input"
-import Select from "./Select"
+import { media } from "../application/theme"
 
 interface CostInputsProps {
   formState: CostInput

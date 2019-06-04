@@ -1,8 +1,9 @@
 import React, { memo } from "react"
 import { UserFragment } from "@split/connector"
+import { styled, darken } from "@noquarter/ui"
+import { round } from "@noquarter/utils"
 
-import { round } from "../lib/helpers"
-import styled, { media, darken } from "../application/theme"
+import { media } from "../application/theme"
 import Avatar from "./Avatar"
 import useAppContext from "../lib/hooks/useAppContext"
 
@@ -78,9 +79,9 @@ const StyledPending = styled.div`
   height: ${0.9 * 80}px;
   width: ${0.9 * 80}px;
 
-  background-color: ${p => p.theme.colorPink};
-  color: ${p => darken(0.2, p.theme.colorPink)};
-  font-weight: ${p => p.theme.fontBlack};
+  background-color: ${p => p.theme.colorPrimary};
+  color: ${p => darken(0.2, p.theme.colorPrimary)};
+  font-weight: ${p => p.theme.fontExtraBold};
   font-size: ${p => p.theme.textS};
   ${p => p.theme.flexCenter};
 
@@ -95,7 +96,7 @@ const StyledFlame = styled.div<{ percentage: number; negative: boolean }>`
   width: 8px;
   border-radius: 8px;
   background-color: ${p =>
-    p.negative ? p.theme.colorPink : p.theme.colorBlue};
+    p.negative ? p.theme.colorPrimary : p.theme.colorSecondary};
   height: ${p => p.percentage * 2}px; /* Max 125px as 50% is the max abs */
   ${p => (p.negative ? "top: 100%;" : "bottom: 100%;")}
 

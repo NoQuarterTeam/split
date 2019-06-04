@@ -1,8 +1,9 @@
 import React, { memo, Fragment, FC } from "react"
 import { Link, Match } from "@reach/router"
 import { useLogout } from "@split/connector"
+import { styled, lighten } from "@noquarter/ui"
 
-import styled, { media, lighten } from "../application/theme"
+import { media } from "../application/theme"
 import useAppContext from "../lib/hooks/useAppContext"
 
 import IconPlus from "../assets/images/icon-plus.svg"
@@ -71,7 +72,7 @@ const StyledSidebar = styled.div<{ open: boolean }>`
   justify-content: space-between;
   flex-direction: column;
   align-items: flex-start;
-  background-color: ${p => p.theme.colorPage};
+  background-color: white;
   padding: ${p => p.theme.paddingXL};
   display: ${p => (p.open ? "flex" : "none")};
 
@@ -86,21 +87,21 @@ const StyledLink = styled.div<{ active?: boolean }>`
   padding-left: ${p => p.theme.paddingM};
   font-size: ${p => p.theme.textM};
   border-left: ${p =>
-    p.active ? `2px solid ${p.theme.colorPink}` : "2px solid transparent"};
+    p.active ? `2px solid ${p.theme.colorPrimary}` : "2px solid transparent"};
 
   &:hover {
     border-left: ${p =>
       p.active
-        ? `2px solid ${p.theme.colorPink}`
-        : `2px solid ${lighten(0.25, p.theme.colorPink)}`};
+        ? `2px solid ${p.theme.colorPrimary}`
+        : `2px solid ${lighten(0.25, p.theme.colorPrimary)}`};
   }
 `
 
 const StyledIcon = styled.img`
-  height: 22px;
+  height: 30px;
   vertical-align: middle;
   border-radius: 50%;
-  margin-left: ${p => p.theme.paddingM};
+  margin-left: ${p => p.theme.paddingS};
 `
 
 const StyledPlug = styled.div`
@@ -110,6 +111,6 @@ const StyledPlug = styled.div`
 const StyledAnchor = styled.a`
   color: ${p => p.theme.colorText};
   &:hover {
-    color: ${p => p.theme.colorPink};
+    color: ${p => p.theme.colorPrimary};
   }
 `

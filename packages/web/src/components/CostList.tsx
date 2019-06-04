@@ -1,11 +1,13 @@
 import React, { useRef, useState, useMemo } from "react"
 import dayjs from "dayjs"
 import throttle from "lodash.throttle"
+import { useEventListener } from "@noquarter/hooks"
+
+import { styled } from "@noquarter/ui"
 import { useAllCosts } from "@split/connector"
 
-import styled, { media } from "../application/theme"
+import { media } from "../application/theme"
 
-import useEventListener from "../lib/hooks/useEventListener"
 import useAppContext from "../lib/hooks/useAppContext"
 
 import CostItem from "../components/CostItem"
@@ -100,5 +102,5 @@ const StyledLabel = styled.div`
   letter-spacing: 1px;
   color: ${p => p.theme.colorLabel};
   font-size: ${p => p.theme.textXS};
-  font-weight: ${p => p.theme.fontBlack};
+  font-weight: ${p => p.theme.fontExtraBold};
 `

@@ -17,6 +17,7 @@ const CheckUser: FC = ({ children }) => {
     <Router>
       <Home path="/" />
       <Login path="/login" />
+      <Register path="/register/:token" />
       <Register path="/register" />
       <ForgotPassword path="/forgot-password" />
       <ResetPassword path="/reset-password/:token" />

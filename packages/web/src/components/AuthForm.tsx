@@ -1,7 +1,9 @@
 import React, { FC } from "react"
-import Center from "./styled/Center"
-import styled from "../application/theme"
+import { styled } from "@noquarter/ui"
+
 import Logo from "./Logo"
+import Center from "./styled/Center"
+import Tile from "./styled/Tile"
 
 interface AuthFormProps {
   handleSubmit: (e: any) => void
@@ -10,12 +12,14 @@ const AuthForm: FC<AuthFormProps> = ({ children, handleSubmit }) => {
   return (
     <StyledAuthContainer>
       <Center style={{ height: "100vh" }}>
-        <StyledForm onSubmit={handleSubmit}>
-          <StyledHeader>
-            <Logo />
-          </StyledHeader>
-          {children}
-        </StyledForm>
+        <Tile style={{ width: 450 }}>
+          <StyledForm onSubmit={handleSubmit}>
+            <StyledHeader>
+              <Logo />
+            </StyledHeader>
+            {children}
+          </StyledForm>
+        </Tile>
       </Center>
     </StyledAuthContainer>
   )
@@ -24,10 +28,9 @@ const AuthForm: FC<AuthFormProps> = ({ children, handleSubmit }) => {
 export default AuthForm
 
 const StyledAuthContainer = styled.div`
-  background-color: ${p => p.theme.colorPage};
+  background-color: ${p => p.theme.colorBackground};
 `
 const StyledForm = styled.form`
-  height: 100%;
   max-width: 450px;
   width: 100%;
   margin: 0 auto;

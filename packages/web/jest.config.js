@@ -4,5 +4,5 @@ module.exports = {
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
   testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-  setupFilesAfterEnv: ["react-testing-library/cleanup-after-each"],
+  setupFilesAfterEnv: ["@testing-library/react/cleanup-after-each"],
 }

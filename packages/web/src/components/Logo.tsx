@@ -1,6 +1,6 @@
 import React from "react"
 import IconLogo from "../assets/images/icon-logo.svg"
-import styled from "../application/theme"
+import { styled } from "@noquarter/ui"
 
 function Logo() {
   return (

@@ -1,13 +1,11 @@
 import React, { memo, useState, useRef } from "react"
 import { useCreateInvite, HouseFragment } from "@split/connector"
 
-import styled from "../application/theme"
-import { sleep } from "../lib/helpers"
+import { styled, Button, Input } from "@noquarter/ui"
+import { sleep } from "@noquarter/utils"
 
 import IconPlusAlt from "../assets/images/icon-plus-alt.svg"
 
-import Input from "./Input"
-import Button from "./Button"
 import Alert from "./Alert"
 
 interface HouseInviteProps {
@@ -63,11 +61,10 @@ function HouseInvite({ house }: HouseInviteProps) {
               alignItems: "center",
             }}
           >
-            <Button variant="primary">Send invite</Button>
+            <Button>Send invite</Button>
             <Button
               type="button"
-              color="pink"
-              variant="secondary"
+              variant="outline"
               onClick={() => setFormOpen(false)}
             >
               Cancel
@@ -75,7 +72,7 @@ function HouseInvite({ house }: HouseInviteProps) {
           </div>
         </StyledInviteForm>
       ) : (
-        <Button color="pink" variant="tertiary" onClick={handleOpenForm}>
+        <Button variant="text" onClick={handleOpenForm}>
           <StyledIcon src={IconPlusAlt} />
           Invite house mate
         </Button>

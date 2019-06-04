@@ -1,10 +1,7 @@
 import React, { memo, useState } from "react"
 import { useCreateInvite, HouseFragment } from "@split/connector"
 
-import styled from "../application/theme"
-
-import Input from "./Input"
-import Button from "./Button"
+import { styled, Button, Input } from "@noquarter/ui"
 
 interface InviteFormProps {
   house: HouseFragment
@@ -38,7 +35,7 @@ function InviteForm({ house }: InviteFormProps) {
         label="House mate"
       />
       <br />
-      <Button loading={loading} variant="primary" color="blue">
+      <Button loading={loading} color="secondary">
         Send invite
       </Button>
       {error && <StyledError>{error}</StyledError>}

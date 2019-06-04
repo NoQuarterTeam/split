@@ -1,12 +1,13 @@
 import React, { FC } from "react"
 import { RouteComponentProps, Link, Redirect } from "@reach/router"
+import { styled } from "@noquarter/ui"
 
-import styled, { media } from "../../application/theme"
-import IconPlus from "../../assets/images/icon-plus.svg"
-import useAppContext from "../../lib/hooks/useAppContext"
+import { media } from "../application/theme"
+import IconPlus from "../assets/images/icon-plus.svg"
+import useAppContext from "../lib/hooks/useAppContext"
 
-import Page from "../../components/Page"
-import CostList from "../../components/CostList"
+import Page from "../components/Page"
+import CostList from "../components/CostList"
 
 const Costs: FC<RouteComponentProps> = () => {
   const { user } = useAppContext()
@@ -18,7 +19,7 @@ const Costs: FC<RouteComponentProps> = () => {
         <StyledHeader>
           <StyledTitle>Costs</StyledTitle>
           <Link to="/new-cost">
-            <StyledAdd src={IconPlus} alt="add" height={40} />
+            <StyledAdd src={IconPlus} alt="add" height={60} />
           </Link>
         </StyledHeader>
         <CostList />

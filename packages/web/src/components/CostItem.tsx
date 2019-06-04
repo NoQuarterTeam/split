@@ -3,9 +3,10 @@ import dayjs from "dayjs"
 import { Link } from "@reach/router"
 import { CostFragment, PayerFragment } from "@split/connector"
 
-import styled, { media } from "../application/theme"
-import { round, capitalize } from "../lib/helpers"
+import { styled } from "@noquarter/ui"
+import { round, capitalize } from "@noquarter/utils"
 
+import { media } from "../application/theme"
 import IconOpen from "../assets/images/icon-open.svg"
 import IconRepeat from "../assets/images/icon-repeat.svg"
 import IconClock from "../assets/images/icon-clock.svg"
@@ -72,7 +73,7 @@ const StyledCost = styled.div`
   padding-right: 0;
   margin-bottom: ${p => p.theme.paddingM};
   border: 2px solid transparent;
-  background-color: ${p => p.theme.colorPage};
+  background-color: white;
   padding: ${p => p.theme.paddingM};
   border-radius: ${p => p.theme.borderRadius};
   ${p => p.theme.flexBetween};

@@ -1,8 +1,9 @@
 import React, { FC, useState } from "react"
-import styled, { media } from "../application/theme"
+import { media } from "../application/theme"
+import { styled } from "@noquarter/ui"
 
 import IconCancel from "../assets/images/icon-cancel.svg"
-import Button from "./Button"
+import { Button } from "@noquarter/ui"
 import Alert from "./Alert"
 
 interface ModalProps {
@@ -50,9 +51,9 @@ const Modal: FC<ModalProps> = ({
         <div>
           <Button
             type="button"
-            color="blue"
+            color="secondary"
             disabled={loading}
-            variant="tertiary"
+            variant="text"
             onClick={onCancel}
           >
             Cancel
@@ -61,7 +62,6 @@ const Modal: FC<ModalProps> = ({
             type="button"
             disabled={loading}
             loading={loading}
-            color="pink"
             onClick={handleSubmit}
           >
             {submitText || "submit"}
@@ -82,7 +82,7 @@ const StyledModal = styled.div`
   left: 0;
   z-index: 1000;
   height: ${window.innerHeight}px;
-  background-color: ${p => p.theme.colorPage};
+  background-color: white;
 `
 
 const StyledModalTopbar = styled.div`

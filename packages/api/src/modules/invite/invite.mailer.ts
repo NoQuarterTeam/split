@@ -15,11 +15,11 @@ export class InviteMailer {
       email,
       {
         houseName: house.name,
-        buttonUrl: `${webUrl}/register?invite=${invite.id}`,
+        buttonUrl: `${webUrl}/register/${invite.id}`,
       },
       {
         subject: `You have been invited to join ${house.name}`,
-        html: `click <a href="${webUrl}/register?invite=${
+        html: `click <a href="${webUrl}/register${
           invite.id
         }">here</a> to sign up and start splitting`,
       },

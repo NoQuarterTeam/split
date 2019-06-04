@@ -1,7 +1,7 @@
 import React, { useState, memo, useRef } from "react"
 import { useEditHouse, HouseFragment } from "@split/connector"
 
-import styled from "../application/theme"
+import { styled } from "@noquarter/ui"
 
 interface HouseNameProps {
   house: HouseFragment
@@ -56,5 +56,5 @@ const StyledInput = styled.input`
   color: ${p => p.theme.colorText};
   border-radius: ${p => p.theme.borderRadius};
   font-size: ${p => p.theme.textL};
-  font-weight: ${p => p.theme.fontBlack};
+  font-weight: ${p => p.theme.fontExtraBold};
 `

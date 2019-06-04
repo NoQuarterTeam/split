@@ -7,10 +7,10 @@ import {
   CostInput,
 } from "@split/connector"
 
-import useAppContext from "../../lib/hooks/useAppContext"
+import useAppContext from "../lib/hooks/useAppContext"
 
-import CostForm from "../../components/CostForm"
-import QuickPage from "../../components/QuickPage"
+import CostForm from "../components/CostForm"
+import QuickPage from "../components/QuickPage"
 
 interface EditCostProps extends RouteComponentProps {
   id?: string

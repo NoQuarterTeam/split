@@ -2,12 +2,9 @@ import React, { memo, useState } from "react"
 import { navigate } from "@reach/router"
 import { useUpdateUser, UserFragment } from "@split/connector"
 
-import styled from "../application/theme"
+import { styled, Button, Input } from "@noquarter/ui"
 
 import useFormState from "../lib/hooks/useFormState"
-
-import Input from "./Input"
-import Button from "./Button"
 
 import ProfileAvatarUpload from "./ProfileAvatarUpload"
 
@@ -86,9 +83,7 @@ function ProfileForm({ user }: ProfileFormProps) {
         label="New password"
       />
       <br />
-      <Button loading={loading} color="pink" variant="primary">
-        Submit
-      </Button>
+      <Button loading={loading}>Submit</Button>
       {error && <StyledError>{error}</StyledError>}
     </StyledProfileForm>
   )
@@ -100,7 +95,7 @@ const StyledProfileForm = styled.form`
   margin: 0 auto;
   width: 100%;
   max-width: 450px;
-  background-color: ${p => p.theme.colorPage};
+  background-color: white;
   flex-direction: column;
   border-radius: ${p => p.theme.borderRadius};
   padding: 0 ${p => p.theme.paddingL};

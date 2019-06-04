@@ -1,10 +1,7 @@
 import React, { memo, useState } from "react"
 import { useCreateHouse } from "@split/connector"
 
-import styled from "../application/theme"
-
-import Input from "./Input"
-import Button from "./Button"
+import { styled, Button, Input } from "@noquarter/ui"
 
 function HouseForm() {
   const [name, setName] = useState<string>("")
@@ -35,7 +32,7 @@ function HouseForm() {
         label="House name"
       />
       <br />
-      <Button loading={loading} variant="primary" color="blue">
+      <Button loading={loading} color="secondary">
         Create house
       </Button>
       {error && <StyledError>{error}</StyledError>}

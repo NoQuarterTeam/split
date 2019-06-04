@@ -1,15 +1,15 @@
 import React, { FC } from "react"
 import { RouteComponentProps, navigate } from "@reach/router"
-import styled, { media } from "../../application/theme"
+import { media } from "../application/theme"
 
-import { TEST_HOUSE, TEST_COSTS } from "../../lib/tests/data"
+import { TEST_HOUSE, TEST_COSTS } from "../lib/tests/data"
 
-import Button from "../../components/Button"
-import HouseBalance from "../../components/HouseBalance"
-import CostItem from "../../components/CostItem"
-import Display from "../../components/styled/Display"
-import Center from "../../components/styled/Center"
-import Logo from "../../components/Logo"
+import HouseBalance from "../components/HouseBalance"
+import CostItem from "../components/CostItem"
+import Display from "../components/styled/Display"
+import Center from "../components/styled/Center"
+import Logo from "../components/Logo"
+import { Button, styled } from "@noquarter/ui"
 
 const Home: FC<RouteComponentProps> = () => {
   return (
@@ -18,8 +18,8 @@ const Home: FC<RouteComponentProps> = () => {
         <Logo />
         <Center>
           <Button
-            variant="tertiary"
-            color="text"
+            variant="text"
+            color="tertiary"
             onClick={() => navigate("/login")}
           >
             Login
@@ -75,7 +75,7 @@ const StyledHero = styled.div`
 `
 
 const StyledHeroTitle = styled.h1`
-  font-weight: ${p => p.theme.fontBlack};
+  font-weight: ${p => p.theme.fontExtraBold};
   font-size: ${p => p.theme.textXL};
   margin: ${p => p.theme.paddingL} 0;
 `

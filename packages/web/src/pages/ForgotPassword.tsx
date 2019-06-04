@@ -1,32 +1,24 @@
 import React, { useState, Fragment, FC } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
-import { useResetPassword } from "@split/connector"
+import { styled, Button, Input } from "@noquarter/ui"
+import { useForgotPassword } from "@split/connector"
 
-import styled from "../../application/theme"
+import AuthForm from "../components/AuthForm"
 
-import Input from "../../components/Input"
-import Button from "../../components/Button"
-import AuthForm from "../../components/AuthForm"
-
-interface ResetPasswordProps extends RouteComponentProps {
-  token?: string
-}
-
-const ResetPassword: FC<ResetPasswordProps> = props => {
-  const [password, setPassword] = useState<string>("")
+const ForgotPassword: FC<RouteComponentProps> = () => {
+  const [email, setEmail] = useState<string>("")
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
 
-  const resetPassword = useResetPassword()
+  const forgotPassword = useForgotPassword()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
     setLoading(true)
-    if (!password || !props.token) return // valies
-    resetPassword({
-      variables: { data: { token: props.token, password } },
+    forgotPassword({
+      variables: { email },
     })
       .then(() => {
         setLoading(false)
@@ -40,24 +32,26 @@ const ResetPassword: FC<ResetPasswordProps> = props => {
   return (
     <AuthForm handleSubmit={handleSubmit}>
       {success ? (
-        <StyledText>Password updated! Try logging in now.</StyledText>
+        <StyledText>
+          We've sent you a link by pigeon mail, good luck!
+        </StyledText>
       ) : (
         <Fragment>
           <StyledText>
-            Enter a new password, try not forgetting it this time!
+            What is your email? We'll send you a link to reset your password
           </StyledText>
           <br />
           <Input
-            label="New password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            type="password"
+            label="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            type="email"
             required={true}
-            placeholder="********"
+            placeholder="jim@gmail.com"
           />
           <br />
           <Button loading={loading} full={true}>
-            Submit
+            Send reset link
           </Button>
           {error && <StyledError>{error}</StyledError>}
         </Fragment>
@@ -71,11 +65,12 @@ const ResetPassword: FC<ResetPasswordProps> = props => {
   )
 }
 
-export default ResetPassword
+export default ForgotPassword
 
 const StyledText = styled.p`
   color: ${p => p.theme.colorText};
 `
+
 const StyledLinks = styled.div`
   width: 100%;
   padding: ${p => p.theme.paddingL} 0;

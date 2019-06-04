@@ -1,5 +1,6 @@
 import React, { memo, useState } from "react"
-import styled, { media } from "../application/theme"
+import { media } from "../application/theme"
+import { styled } from "@noquarter/ui"
 
 import IconSearch from "../assets/images/icon-search.svg"
 import IconCancel from "../assets/images/icon-cancel.svg"
@@ -65,7 +66,7 @@ const StyledSearchForm = styled.form`
 `
 
 const StyledInputWrap = styled.div<{ focus: boolean }>`
-  background-color: ${p => p.theme.colorPage};
+  background-color: white;
   width: 100%;
   transition: width 1s ease;
   border-radius: ${p => p.theme.borderRadius};
@@ -97,7 +98,7 @@ const StyledSearch = styled.input`
   font-size: ${p => p.theme.textM};
 
   &::placeholder {
-    color: ${p => p.theme.colorPlaceholder};
+    color: ${p => p.theme.colorTertiary};
   }
 `
 

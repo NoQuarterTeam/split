@@ -1,6 +1,7 @@
 import React, { memo } from "react"
 
-import styled, { darken, media } from "../application/theme"
+import { darken, styled } from "@noquarter/ui"
+import { media } from "../application/theme"
 
 interface AvatarProps {
   user: {
@@ -39,9 +40,9 @@ const StyledAvatar = styled.div<{ size: number }>`
   height: ${p => 0.9 * p.size}px;
   width: ${p => 0.9 * p.size}px;
 
-  background-color: ${p => p.theme.colorBlue};
-  color: ${p => darken(0.2, p.theme.colorBlue)};
-  font-weight: ${p => p.theme.fontBlack};
+  background-color: ${p => p.theme.colorSecondary};
+  color: ${p => darken(0.2, p.theme.colorSecondary)};
+  font-weight: ${p => p.theme.fontExtraBold};
   font-size: ${p => p.theme.textS};
   ${p => p.theme.flexCenter};
 

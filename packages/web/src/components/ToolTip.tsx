@@ -1,5 +1,5 @@
 import React, { memo, ReactNode } from "react"
-import styled from "../application/theme"
+import { styled } from "@noquarter/ui"
 
 const ToolTip = ({ children }: { children: ReactNode }) => {
   return <StyledToolTip>{children}</StyledToolTip>

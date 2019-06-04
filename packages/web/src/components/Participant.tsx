@@ -1,12 +1,11 @@
 import React, { memo } from "react"
 import { ShareInput, UserFragment } from "@split/connector"
-import styled, { media } from "../application/theme"
-import { decimalCount } from "../lib/helpers"
+import { styled, Input, Switch, Radio } from "@noquarter/ui"
+import { decimalCount } from "@noquarter/utils"
 
-import Input from "./Input"
-import Radio from "./Radio"
+import { media } from "../application/theme"
+
 import Avatar from "./Avatar"
-import Switch from "./Switch"
 import Column from "./styled/Column"
 import Center from "./styled/Center"
 
@@ -66,7 +65,7 @@ function Participant({
         <Center>
           <Switch
             on={!!userShare}
-            handleClick={() => toggleParticipant(user.id)}
+            onChange={() => toggleParticipant(user.id)}
           />
           <StyledAvatarWrapper
             data-testid="participant-avatar"
@@ -89,7 +88,11 @@ function Participant({
           disabled={!!!userShare}
           onChange={handleCostShareUpdate}
           value={!userShare || userShare.amount === 0 ? "" : userShare.amount}
-          style={{ border: 0, opacity: userShare ? 1 : 0.4 }}
+          style={{
+            border: 0,
+            backgroundColor: "transparent",
+            opacity: userShare ? 1 : 0.4,
+          }}
         />
       </Column>
       <Column flex={1}>

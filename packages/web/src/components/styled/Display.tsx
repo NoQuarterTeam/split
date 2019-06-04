@@ -1,5 +1,6 @@
 import React, { FC } from "react"
-import styled, { media } from "../../application/theme"
+import { media } from "../../application/theme"
+import { styled } from "@noquarter/ui"
 
 interface DisplayProps {
   size: "sm" | "md" | "lg" | "xl"

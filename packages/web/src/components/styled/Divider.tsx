@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import styled, { darken } from "../../application/theme"
+import { styled, darken } from "@noquarter/ui"
 
 const Divider: FC = () => {
   return <StyledDivider />

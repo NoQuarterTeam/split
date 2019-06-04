@@ -2,10 +2,10 @@ import React, { FC } from "react"
 import { RouteComponentProps, Redirect, navigate } from "@reach/router"
 import { CostInput, useCreateCost } from "@split/connector"
 
-import useAppContext from "../../lib/hooks/useAppContext"
+import useAppContext from "../lib/hooks/useAppContext"
 
-import CostForm from "../../components/CostForm"
-import QuickPage from "../../components/QuickPage"
+import CostForm from "../components/CostForm"
+import QuickPage from "../components/QuickPage"
 
 const NewCost: FC<RouteComponentProps> = () => {
   const { user } = useAppContext()

@@ -1,13 +1,14 @@
 import React, { memo } from "react"
 import { CostInput, UserFragment } from "@split/connector"
 
-import styled, { media } from "../application/theme"
-import { round } from "../lib/helpers"
+import { styled } from "@noquarter/ui"
+import { Button } from "@noquarter/ui"
+import { round } from "@noquarter/utils"
 
+import { media } from "../application/theme"
 import Column from "./styled/Column"
 import Alert from "./Alert"
 import Participant from "./Participant"
-import Button from "./Button"
 
 interface CostSharesProps {
   users: UserFragment[]
@@ -60,12 +61,7 @@ function CostShares({
 
       {(isDifferent || !formState.equalSplit) && (
         <StyledButtonWrapper>
-          <Button
-            type="button"
-            color="pink"
-            variant="secondary"
-            onClick={applyEqualSplit}
-          >
+          <Button type="button" variant="outline" onClick={applyEqualSplit}>
             Split equally
           </Button>
         </StyledButtonWrapper>

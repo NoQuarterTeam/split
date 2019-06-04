@@ -2,17 +2,14 @@ import React, { memo, useState, FC } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
 
+import { styled, Button, Input } from "@noquarter/ui"
 import { useRegister, useCheckInvite } from "@split/connector"
 
-import styled from "../../application/theme"
-import { getQueryString } from "../../lib/helpers"
+import AuthForm from "../components/AuthForm"
 
-import Input from "../../components/Input"
-import Button from "../../components/Button"
-import AuthForm from "../../components/AuthForm"
-
-const Register: FC<RouteComponentProps> = () => {
-  const inviteId = getQueryString("invite")
+const Register: FC<RouteComponentProps<{ token?: string }>> = ({
+  token = "",
+}) => {
   const [email, setEmail] = useState<string>("")
   const [password, setPassword] = useState<string>("")
   const [firstName, setFirstName] = useState<string>("")
@@ -21,7 +18,7 @@ const Register: FC<RouteComponentProps> = () => {
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
-  const { house, checkInviteError } = useCheckInvite(inviteId)
+  const { house, checkInviteError } = useCheckInvite(token)
   const register = useRegister()
 
   const handleSubmit = (e: any) => {
@@ -29,7 +26,7 @@ const Register: FC<RouteComponentProps> = () => {
     setLoading(true)
     register({
       variables: {
-        data: { email, password, firstName, lastName, inviteId },
+        data: { email, password, firstName, lastName, inviteId: token },
       },
     }).catch((registerError: GraphQLError) => {
       setLoading(false)
@@ -89,9 +86,11 @@ const Register: FC<RouteComponentProps> = () => {
         Sign up
       </Button>
       {error && <StyledError>{error}</StyledError>}
-      <Link to="/login">
-        <StyledLink>Login</StyledLink>
-      </Link>
+      <StyledLinks>
+        <Link to="/login">
+          <StyledLink>Login</StyledLink>
+        </Link>
+      </StyledLinks>
     </AuthForm>
   )
 }
@@ -105,7 +104,7 @@ const StyledInviteHeader = styled.h2`
   margin-bottom: ${p => p.theme.paddingXL};
 
   span {
-    font-weight: ${p => p.theme.fontBlack};
+    font-weight: ${p => p.theme.fontExtraBold};
   }
 `
 
@@ -133,4 +132,10 @@ const StyledError = styled.div`
   color: ${p => p.theme.colorText};
   padding: ${p => p.theme.paddingM};
   font-size: ${p => p.theme.textS};
+`
+
+const StyledLinks = styled.div`
+  width: 100%;
+  padding: ${p => p.theme.paddingL} 0;
+  ${p => p.theme.flexBetween};
 `

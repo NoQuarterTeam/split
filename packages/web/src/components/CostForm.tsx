@@ -1,13 +1,12 @@
-import React, { useState, useLayoutEffect } from "react"
+import React, { useLayoutEffect, useState } from "react"
 import dayjs from "dayjs"
+import { Button, styled } from "@noquarter/ui"
 import { CostInput, GetCostQuery } from "@split/connector"
-
-import styled, { media } from "../application/theme"
-import { splitTheBill, round, sleep } from "../lib/helpers"
-
-import useFormState from "../lib/hooks/useFormState"
+import { round, sleep } from "@noquarter/utils"
+import { splitTheBill } from "../lib/helpers"
+import { media } from "../application/theme"
 import useAppContext from "../lib/hooks/useAppContext"
-import Button from "./Button"
+import useFormState from "../lib/hooks/useFormState"
 import CostInputs from "./CostInputs"
 import CostShares from "./CostShares"
 import ErrorBanner from "./ErrorBanner"
@@ -99,12 +98,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
           Submit
         </Button>
         {onCostDelete && (
-          <Button
-            type="button"
-            color="pink"
-            variant="tertiary"
-            onClick={onCostDelete}
-          >
+          <Button type="button" variant="text" onClick={onCostDelete}>
             Delete cost
           </Button>
         )}

@@ -1,5 +1,6 @@
 import React, { FC, useState } from "react"
-import styled, { media } from "../application/theme"
+import { media } from "../application/theme"
+import { styled } from "@noquarter/ui"
 import Sidebar from "./Sidebar"
 
 import IconMenu from "../assets/images/icon-menu.svg"
@@ -40,7 +41,7 @@ const StyledMenu = styled.button`
   left: 20px;
   border: 0;
   cursor: pointer;
-  background-color: ${p => p.theme.colorPage};
+  background-color: white;
   padding: ${p => p.theme.paddingM};
   border-radius: ${p => p.theme.borderRadius};
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);

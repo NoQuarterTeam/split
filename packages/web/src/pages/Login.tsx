@@ -3,11 +3,8 @@ import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
 import { useLogin } from "@split/connector"
 
-import styled from "../../application/theme"
-
-import Button from "../../components/Button"
-import Input from "../../components/Input"
-import AuthForm from "../../components/AuthForm"
+import { styled, Button, Input } from "@noquarter/ui"
+import AuthForm from "../components/AuthForm"
 
 const Login: FC<RouteComponentProps> = () => {
   const [email, setEmail] = useState<string>("")

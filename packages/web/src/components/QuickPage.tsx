@@ -1,10 +1,11 @@
 import React, { FC } from "react"
 import { navigate } from "@reach/router"
 
-import styled, { media } from "../application/theme"
+import { media } from "../application/theme"
+import { styled } from "@noquarter/ui"
 
 import IconClose from "../assets/images/icon-close.svg"
-import useEventListener from "../lib/hooks/useEventListener"
+import { useEventListener } from "@noquarter/hooks"
 
 interface QuickPageProps {
   title: string
@@ -47,7 +48,7 @@ export default QuickPage
 const StyledQuickPage = styled.div`
   min-height: ${window.innerHeight}px;
   width: 100vw;
-  background-color: ${p => p.theme.colorPage};
+  background-color: white;
 `
 
 const StyledTopbar = styled.div`

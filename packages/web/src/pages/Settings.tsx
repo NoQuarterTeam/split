@@ -1,28 +1,33 @@
 import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
-// import { styled } from "@noquarter/ui"
+import { styled } from "@noquarter/ui"
 
 import useAppContext from "../lib/hooks/useAppContext"
 
 import ProfileForm from "../components/ProfileForm"
 import QuickPage from "../components/QuickPage"
-// import ThemeSwitcher from "../components/ThemeSwitcher"
+import HouseInvite from "../components/HouseInvite"
 
 const Settings: FC<RouteComponentProps> = () => {
-  const { user } = useAppContext()
+  const { user, house } = useAppContext()
 
   return (
     <QuickPage title="Settings">
       <ProfileForm user={user} />
-      {/* <StyledThemeWrapper>
-        <ThemeSwitcher />
-      </StyledThemeWrapper> */}
+      <StyledWrapper>
+        <HouseInvite house={house} />
+      </StyledWrapper>
     </QuickPage>
   )
 }
 
 export default Settings
 
-// const StyledThemeWrapper = styled.div`
-//   padding: ${p => p.theme.paddingL};
-// `
+const StyledWrapper = styled.div`
+  width: 100%;
+  padding: ${p => p.theme.paddingXL};
+  /* padding-top: 0; */
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+`

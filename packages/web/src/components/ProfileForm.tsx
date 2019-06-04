@@ -58,7 +58,6 @@ function ProfileForm({ user }: ProfileFormProps) {
         required={true}
         label="Email"
       />
-      <br />
       <Input
         value={formState.firstName}
         onChange={e => setFormState({ firstName: e.target.value })}
@@ -66,7 +65,6 @@ function ProfileForm({ user }: ProfileFormProps) {
         required={true}
         label="First name"
       />
-      <br />
       <Input
         value={formState.lastName}
         onChange={e => setFormState({ lastName: e.target.value })}
@@ -74,7 +72,6 @@ function ProfileForm({ user }: ProfileFormProps) {
         required={true}
         label="Last name"
       />
-      <br />
       <Input
         type="password"
         value={formState.password}
@@ -82,7 +79,6 @@ function ProfileForm({ user }: ProfileFormProps) {
         placeholder="********"
         label="New password"
       />
-      <br />
       <Button loading={loading}>Submit</Button>
       {error && <StyledError>{error}</StyledError>}
     </StyledProfileForm>

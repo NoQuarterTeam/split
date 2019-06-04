@@ -1,15 +1,16 @@
 import React, { FC } from "react"
-import { RouteComponentProps } from "@reach/router"
+import { RouteComponentProps, Link } from "@reach/router"
 import { round } from "@noquarter/utils"
 import { styled } from "@noquarter/ui"
 import { media } from "../application/theme"
 import useAppContext from "../lib/hooks/useAppContext"
+import IconPlus from "../assets/images/icon-plus.svg"
 
 import Page from "../components/Page"
 import HouseBalance from "../components/HouseBalance"
 import HouseName from "../components/HouseName"
-import HouseInvite from "../components/HouseInvite"
 import InviteForm from "../components/InviteForm"
+import Display from "../components/styled/Display"
 
 const Balance: FC<RouteComponentProps> = () => {
   const { user, house } = useAppContext()
@@ -28,13 +29,24 @@ const Balance: FC<RouteComponentProps> = () => {
       ) : (
         <StyledWrapper>
           <StyledHeader>
-            <HouseName house={house} />
-            <p>{getBalanceHeader()}</p>
+            <StyledName>
+              <HouseName house={house} />
+              <p>{getBalanceHeader()}</p>
+            </StyledName>
+            <Display size="md">
+              <Link to="/new-cost">
+                <StyledAdd src={IconPlus} alt="add" height={60} />
+              </Link>
+            </Display>
           </StyledHeader>
           <HouseBalance users={house.users} />
-          <StyledInviteWrapper>
-            <HouseInvite house={house} />
-          </StyledInviteWrapper>
+          <Display size="md" hide={true}>
+            <StyledButtonWrapper>
+              <Link to="/new-cost">
+                <StyledAdd src={IconPlus} alt="add" height={60} />
+              </Link>
+            </StyledButtonWrapper>
+          </Display>
         </StyledWrapper>
       )}
     </Page>
@@ -50,12 +62,20 @@ const StyledWrapper = styled.div`
     padding: 0;
   `}
 `
+
 const StyledHeader = styled.div`
-  width: 100%;
+  ${p => p.theme.flexBetween};
+  padding: 0 0 0 60px;
+
+  ${media.greaterThan("sm")`
+    padding: 0 60px;
+  `}
+`
+
+const StyledName = styled.div`
   display: flex;
   flex-direction: column;
   padding: ${p => p.theme.paddingS};
-  padding-left: 60px;
 
   p {
     padding-left: ${p => p.theme.paddingS};
@@ -67,15 +87,11 @@ const StyledHeader = styled.div`
     padding: ${p.theme.paddingXL};
   `}
 `
+const StyledButtonWrapper = styled.div`
+  width: 100%;
+  ${p => p.theme.flexCenter};
+`
 
-const StyledInviteWrapper = styled.div`
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  padding: ${p => p.theme.paddingL};
-  ${p => p.theme.flexBetween};
-
-  ${p => media.greaterThan("sm")`
-    padding: ${p.theme.paddingXL};
-  `}
+const StyledAdd = styled.img`
+  border-radius: 50%;
 `

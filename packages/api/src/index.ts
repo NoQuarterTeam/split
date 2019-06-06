@@ -10,7 +10,7 @@ import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
 import { session } from "./lib/session"
 
-import { cors, PORT, resolverPaths } from "./lib/config"
+import { cors, PORT, resolverPaths, APOLLO_ENGINE_API_KEY } from "./lib/config"
 
 import { userLoader } from "./modules/user/user.loader"
 import { shareLoader } from "./modules/share/share.loader"
@@ -38,6 +38,7 @@ async function main() {
         userLoader: userLoader(),
         shareLoader: shareLoader(),
       }),
+      engine: { apiKey: APOLLO_ENGINE_API_KEY },
       introspection: true,
       playground: true,
       schema,

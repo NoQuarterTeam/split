@@ -1,15 +1,15 @@
 import "reflect-metadata"
 import Container, { Service } from "typedi"
-import { createDbConnection } from "./db"
+import { createDbConnection } from "../db"
 
-import { Cost } from "./modules/cost/cost.entity"
-import { User } from "./modules/user/user.entity"
+import { Cost } from "../modules/cost/cost.entity"
+import { User } from "../modules/user/user.entity"
 
 let userList: { [key: string]: { name: string; balance: number } } = {}
 
 @Service()
-class Reset {
-  async reset() {
+class CheckBalance {
+  async check() {
     await createDbConnection()
     const users = await User.find()
 
@@ -33,7 +33,7 @@ class Reset {
   }
 }
 
-Container.get(Reset)
-  .reset()
+Container.get(CheckBalance)
+  .check()
   .then(() => console.log("Reset running"))
   .catch(err => console.log(err.message))

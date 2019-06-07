@@ -60,15 +60,25 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     e.preventDefault()
     if (isDifferent) return
     setLoading(true)
+
+    const costShares = house.users.map(u => {
+      const userShare = formState.costShares.find(s => s.userId === u.id)
+      if (userShare) {
+        return {
+          userId: userShare.userId,
+          amount: round(userShare.amount * 100),
+        }
+      } else {
+        return { userId: u.id, amount: 0 }
+      }
+    })
     const costData = {
       ...formState,
+      costShares,
       date: dayjs(formState.date).format(),
       amount: round(formState.amount * 100),
-      costShares: formState.costShares.map(s => ({
-        userId: s.userId,
-        amount: round(s.amount * 100),
-      })),
     }
+
     onFormSubmit(costData).catch(async () => {
       setError("Oops, something went wrong, we have been notified!")
       await sleep(4000)

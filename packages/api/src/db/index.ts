@@ -1,7 +1,7 @@
 import { getConnectionOptions, createConnection } from "typeorm"
 import { NODE_ENV, DATABASE_URL, isProduction } from "../lib/config"
 
-export const createDbConnection = async () => {
+export const createDbConnection = async (migrate = false) => {
   // Create DB connection
   const options = await getConnectionOptions(NODE_ENV)
 
@@ -13,5 +13,5 @@ export const createDbConnection = async () => {
   })
 
   // Run migrations in production
-  if (isProduction) await connection.runMigrations()
+  if (migrate && isProduction) await connection.runMigrations()
 }

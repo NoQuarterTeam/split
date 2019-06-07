@@ -17,7 +17,7 @@ import { shareLoader } from "./modules/share/share.loader"
 
 async function main() {
   try {
-    await createDbConnection()
+    await createDbConnection(true)
 
     const app = express()
       .enable("trust proxy")

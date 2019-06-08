@@ -8,7 +8,7 @@ import { useAllCosts } from "@split/connector"
 
 import { media } from "../application/theme"
 
-import useAppContext from "../lib/hooks/useAppContext"
+import useAppContext from "../lib/hooks/useAppState"
 
 import CostItem from "../components/CostItem"
 import Column from "./styled/Column"

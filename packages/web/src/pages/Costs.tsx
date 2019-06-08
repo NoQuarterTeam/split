@@ -4,7 +4,7 @@ import { styled } from "@noquarter/ui"
 
 import { media } from "../application/theme"
 import IconPlus from "../assets/images/icon-plus.svg"
-import useAppContext from "../lib/hooks/useAppContext"
+import useAppContext from "../lib/hooks/useAppState"
 
 import Page from "../components/Page"
 import CostList from "../components/CostList"

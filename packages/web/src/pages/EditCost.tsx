@@ -7,7 +7,7 @@ import {
   CostInput,
 } from "@split/connector"
 
-import useAppContext from "../lib/hooks/useAppContext"
+import useAppContext from "../lib/hooks/useAppState"
 
 import CostForm from "../components/CostForm"
 import QuickPage from "../components/QuickPage"

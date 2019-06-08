@@ -4,14 +4,14 @@ import { useLogout } from "@split/connector"
 import { styled, lighten } from "@noquarter/ui"
 
 import { media } from "../application/theme"
-import useAppContext from "../lib/hooks/useAppContext"
+import useAppState from "../lib/hooks/useAppState"
 
 import IconPlus from "../assets/images/icon-plus.svg"
 
 import Logo from "./Logo"
 
 function Sidebar({ open }: { open: boolean }) {
-  const { house } = useAppContext()
+  const { house } = useAppState()
   const logout = useLogout()
   const handleLogout = () => logout()
 

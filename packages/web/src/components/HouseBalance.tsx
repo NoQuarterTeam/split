@@ -5,7 +5,7 @@ import { round } from "@noquarter/utils"
 
 import { media } from "../application/theme"
 import Avatar from "./Avatar"
-import useAppContext from "../lib/hooks/useAppContext"
+import useAppContext from "../lib/hooks/useAppState"
 
 interface HouseBalanceProps {
   users: UserFragment[]

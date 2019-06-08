@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { RouteComponentProps } from "@reach/router"
 import { styled } from "@noquarter/ui"
 
-import useAppContext from "../lib/hooks/useAppContext"
+import useAppContext from "../lib/hooks/useAppState"
 
 import ProfileForm from "../components/ProfileForm"
 import QuickPage from "../components/QuickPage"

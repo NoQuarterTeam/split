@@ -1,13 +1,14 @@
 import { ApolloError } from "apollo-boost"
 import { navigate } from "@reach/router"
-import useAppContext from "../lib/hooks/useAppContext"
+
+import { useApolloClient } from "react-apollo-hooks"
 
 interface ErrorProps {
   error: ApolloError
 }
 
 function Error({ error }: ErrorProps) {
-  const { client } = useAppContext()
+  const client = useApolloClient()
   if (error.message.includes("Access denied!")) {
     client.resetStore().then(() => navigate("/"))
   }

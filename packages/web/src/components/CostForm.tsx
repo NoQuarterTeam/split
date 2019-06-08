@@ -31,10 +31,12 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     houseId: house.id,
     payerId: cost ? cost.payerId : user.id,
     costShares: cost
-      ? cost.shares.map(s => ({
-          userId: s.user.id,
-          amount: round(s.amount * 0.01),
-        }))
+      ? cost.shares
+          .filter(s => s.amount > 0)
+          .map(s => ({
+            userId: s.user.id,
+            amount: round(s.amount * 0.01),
+          }))
       : house.users.map(u => ({ userId: u.id, amount: 0 })),
   })
   const [loading, setLoading] = useState<boolean>(false)
@@ -103,16 +105,16 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
           applyEqualSplit={applyEqualSplit}
         />
       </StyleFieldsWrapper>
-      <div>
+      <StyledButtonWrapper>
         <Button disabled={loading} loading={loading}>
           Submit
         </Button>
         {onCostDelete && (
           <Button type="button" variant="text" onClick={onCostDelete}>
-            Delete cost
+            Delete
           </Button>
         )}
-      </div>
+      </StyledButtonWrapper>
       {error && <ErrorBanner text={error} />}
     </StyledForm>
   )
@@ -137,4 +139,13 @@ const StyleFieldsWrapper = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
   width: 100%;
+`
+
+const StyledButtonWrapper = styled.div`
+  width: 100%;
+  ${p => p.theme.flexCenter};
+
+  ${media.greaterThan("md")`
+    width: auto;
+  `}
 `

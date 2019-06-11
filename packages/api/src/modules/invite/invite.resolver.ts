@@ -26,6 +26,13 @@ export class InviteResolver {
     return invite
   }
 
+  // DESTROY INVITE
+  @Authorized()
+  @Mutation(() => Boolean, { nullable: true })
+  async destroyInvite(@Arg("inviteId") inviteId: string): Promise<boolean> {
+    return this.inviteService.destroy(inviteId)
+  }
+
   // CHECK INVITE
   @Query(() => House, { nullable: true })
   async checkInvite(

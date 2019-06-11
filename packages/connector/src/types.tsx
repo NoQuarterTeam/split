@@ -1,3 +1,6 @@
+import gql from "graphql-tag"
+import * as ReactApolloHooks from "react-apollo-hooks"
+import * as ReactApollo from "react-apollo"
 export type Maybe<T> = T | null
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -9,17 +12,20 @@ export type Scalars = {
 }
 
 export type AllCostsResponse = {
+  __typename?: "AllCostsResponse"
   costs: Array<Cost>
   count: Scalars["Float"]
 }
 
 export type BaseEntity = {
+  __typename?: "BaseEntity"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
 }
 
 export type Cost = {
+  __typename?: "Cost"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
@@ -51,6 +57,7 @@ export type CostInput = {
 }
 
 export type House = {
+  __typename?: "House"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
@@ -65,6 +72,7 @@ export type HouseInput = {
 }
 
 export type Invite = {
+  __typename?: "Invite"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
@@ -83,12 +91,14 @@ export type LoginInput = {
 }
 
 export type Mutation = {
+  __typename?: "Mutation"
   createCost?: Maybe<Cost>
   destroyCost?: Maybe<Scalars["Boolean"]>
   editCost?: Maybe<Cost>
   createHouse?: Maybe<House>
   editHouse?: Maybe<House>
   createInvite?: Maybe<Invite>
+  destroyInvite?: Maybe<Scalars["Boolean"]>
   getSignedS3Url?: Maybe<S3SignedUrlResponse>
   register: User
   login: User
@@ -124,6 +134,10 @@ export type MutationCreateInviteArgs = {
   data: InviteInput
 }
 
+export type MutationDestroyInviteArgs = {
+  inviteId: Scalars["String"]
+}
+
 export type MutationGetSignedS3UrlArgs = {
   data: S3SignedUrlInput
 }
@@ -149,6 +163,7 @@ export type MutationResetPasswordArgs = {
 }
 
 export type Query = {
+  __typename?: "Query"
   allCosts?: Maybe<AllCostsResponse>
   getCost?: Maybe<Cost>
   house?: Maybe<House>
@@ -189,11 +204,13 @@ export type S3SignedUrlInput = {
 }
 
 export type S3SignedUrlResponse = {
+  __typename?: "S3SignedUrlResponse"
   url: Scalars["String"]
   signedRequest: Scalars["String"]
 }
 
 export type Share = {
+  __typename?: "Share"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
@@ -217,6 +234,7 @@ export type UpdateInput = {
 }
 
 export type User = {
+  __typename?: "User"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
@@ -359,6 +377,15 @@ export type CreateInviteMutation = { __typename?: "Mutation" } & {
   createInvite: Maybe<{ __typename?: "Invite" } & InviteFragment>
 }
 
+export type DestroyInviteMutationVariables = {
+  inviteId: Scalars["String"]
+}
+
+export type DestroyInviteMutation = { __typename?: "Mutation" } & Pick<
+  Mutation,
+  "destroyInvite"
+>
+
 export type CheckInviteQueryVariables = {
   inviteId?: Maybe<Scalars["String"]>
 }
@@ -439,10 +466,6 @@ export type ResetPasswordMutation = { __typename?: "Mutation" } & Pick<
   Mutation,
   "resetPassword"
 >
-
-import gql from "graphql-tag"
-import * as ReactApolloHooks from "react-apollo-hooks"
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 export const CostFragmentDoc = gql`
   fragment Cost on Cost {
     id
@@ -551,7 +574,7 @@ export const CreateCostDocument = gql`
   ${CostFragmentDoc}
   ${PayerFragmentDoc}
 `
-export type CreateCostMutationFn = ReactApolloHooks.MutationFn<
+export type CreateCostMutationFn = ReactApollo.MutationFn<
   CreateCostMutation,
   CreateCostMutationVariables
 >
@@ -577,7 +600,7 @@ export const EditCostDocument = gql`
   ${CostFragmentDoc}
   ${SharesFragmentDoc}
 `
-export type EditCostMutationFn = ReactApolloHooks.MutationFn<
+export type EditCostMutationFn = ReactApollo.MutationFn<
   EditCostMutation,
   EditCostMutationVariables
 >
@@ -598,7 +621,7 @@ export const DestroyCostDocument = gql`
     destroyCost(costId: $costId)
   }
 `
-export type DestroyCostMutationFn = ReactApolloHooks.MutationFn<
+export type DestroyCostMutationFn = ReactApollo.MutationFn<
   DestroyCostMutation,
   DestroyCostMutationVariables
 >
@@ -655,7 +678,7 @@ export const CreateHouseDocument = gql`
   ${UserFragmentDoc}
   ${InviteFragmentDoc}
 `
-export type CreateHouseMutationFn = ReactApolloHooks.MutationFn<
+export type CreateHouseMutationFn = ReactApollo.MutationFn<
   CreateHouseMutation,
   CreateHouseMutationVariables
 >
@@ -679,7 +702,7 @@ export const EditHouseDocument = gql`
   }
   ${HouseFragmentDoc}
 `
-export type EditHouseMutationFn = ReactApolloHooks.MutationFn<
+export type EditHouseMutationFn = ReactApollo.MutationFn<
   EditHouseMutation,
   EditHouseMutationVariables
 >
@@ -703,7 +726,7 @@ export const CreateInviteDocument = gql`
   }
   ${InviteFragmentDoc}
 `
-export type CreateInviteMutationFn = ReactApolloHooks.MutationFn<
+export type CreateInviteMutationFn = ReactApollo.MutationFn<
   CreateInviteMutation,
   CreateInviteMutationVariables
 >
@@ -718,6 +741,27 @@ export function useCreateInviteMutation(
     CreateInviteMutation,
     CreateInviteMutationVariables
   >(CreateInviteDocument, baseOptions)
+}
+export const DestroyInviteDocument = gql`
+  mutation DestroyInvite($inviteId: String!) {
+    destroyInvite(inviteId: $inviteId)
+  }
+`
+export type DestroyInviteMutationFn = ReactApollo.MutationFn<
+  DestroyInviteMutation,
+  DestroyInviteMutationVariables
+>
+
+export function useDestroyInviteMutation(
+  baseOptions?: ReactApolloHooks.MutationHookOptions<
+    DestroyInviteMutation,
+    DestroyInviteMutationVariables
+  >,
+) {
+  return ReactApolloHooks.useMutation<
+    DestroyInviteMutation,
+    DestroyInviteMutationVariables
+  >(DestroyInviteDocument, baseOptions)
 }
 export const CheckInviteDocument = gql`
   query CheckInvite($inviteId: String) {
@@ -744,7 +788,7 @@ export const GetSignedS3UrlDocument = gql`
     }
   }
 `
-export type GetSignedS3UrlMutationFn = ReactApolloHooks.MutationFn<
+export type GetSignedS3UrlMutationFn = ReactApollo.MutationFn<
   GetSignedS3UrlMutation,
   GetSignedS3UrlMutationVariables
 >
@@ -785,7 +829,7 @@ export const LoginDocument = gql`
   }
   ${UserFragmentDoc}
 `
-export type LoginMutationFn = ReactApolloHooks.MutationFn<
+export type LoginMutationFn = ReactApollo.MutationFn<
   LoginMutation,
   LoginMutationVariables
 >
@@ -809,7 +853,7 @@ export const RegisterDocument = gql`
   }
   ${UserFragmentDoc}
 `
-export type RegisterMutationFn = ReactApolloHooks.MutationFn<
+export type RegisterMutationFn = ReactApollo.MutationFn<
   RegisterMutation,
   RegisterMutationVariables
 >
@@ -833,7 +877,7 @@ export const UpdateUserDocument = gql`
   }
   ${UserFragmentDoc}
 `
-export type UpdateUserMutationFn = ReactApolloHooks.MutationFn<
+export type UpdateUserMutationFn = ReactApollo.MutationFn<
   UpdateUserMutation,
   UpdateUserMutationVariables
 >
@@ -854,7 +898,7 @@ export const LogoutDocument = gql`
     logout
   }
 `
-export type LogoutMutationFn = ReactApolloHooks.MutationFn<
+export type LogoutMutationFn = ReactApollo.MutationFn<
   LogoutMutation,
   LogoutMutationVariables
 >
@@ -875,7 +919,7 @@ export const ForgotPasswordDocument = gql`
     forgotPassword(email: $email)
   }
 `
-export type ForgotPasswordMutationFn = ReactApolloHooks.MutationFn<
+export type ForgotPasswordMutationFn = ReactApollo.MutationFn<
   ForgotPasswordMutation,
   ForgotPasswordMutationVariables
 >
@@ -896,7 +940,7 @@ export const ResetPasswordDocument = gql`
     resetPassword(data: $data)
   }
 `
-export type ResetPasswordMutationFn = ReactApolloHooks.MutationFn<
+export type ResetPasswordMutationFn = ReactApollo.MutationFn<
   ResetPasswordMutation,
   ResetPasswordMutationVariables
 >

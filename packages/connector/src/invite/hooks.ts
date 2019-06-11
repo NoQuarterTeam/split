@@ -4,6 +4,7 @@ import {
   GetHouseQueryVariables,
   GetHouseQuery,
   useCheckInviteQuery,
+  useDestroyInviteMutation,
 } from "../types"
 
 export function useCreateInvite() {
@@ -20,6 +21,29 @@ export function useCreateInvite() {
             house: {
               ...res.house,
               invites: [...res.house.invites, data.createInvite],
+            },
+          },
+        })
+      }
+    },
+  })
+}
+
+export function useDestroyInvite(inviteId: string) {
+  return useDestroyInviteMutation({
+    update: (cache, { data }) => {
+      const res = cache.readQuery<GetHouseQuery, GetHouseQueryVariables>({
+        query: GetHouseDocument,
+      })
+      if (data && res && res.house && data.destroyInvite) {
+        const invites = res.house.invites.filter(i => i.id !== inviteId)
+        cache.writeQuery({
+          query: GetHouseDocument,
+          data: {
+            ...res,
+            house: {
+              ...res.house,
+              invites,
             },
           },
         })

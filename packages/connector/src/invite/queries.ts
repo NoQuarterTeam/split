@@ -11,6 +11,12 @@ export const CREATE_INVITE = gql`
   ${Invite}
 `
 
+export const DESTROY_INVITE = gql`
+  mutation DestroyInvite($inviteId: String!) {
+    destroyInvite(inviteId: $inviteId)
+  }
+`
+
 export const CHECK_INVITE = gql`
   query CheckInvite($inviteId: String) {
     checkInvite(inviteId: $inviteId) {

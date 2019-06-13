@@ -24,9 +24,6 @@
       "pre-commit": "lerna run --concurrency 1 --stream pre-commit"
     }
   },
-  "resolutions": {
-    "graphql": "14.1.1"
-  },
   "devDependencies": {
     "husky": "2.4.0",
     "lerna": "3.14.1",

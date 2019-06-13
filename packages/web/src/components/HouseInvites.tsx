@@ -29,6 +29,8 @@ const StyledInviteWrapper = styled.div`
 `
 
 const StyledHeader = styled.h3`
-  padding: ${p => p.theme.paddingL};
+  color: ${p => p.theme.colorText};
+  font-size: ${p => p.theme.textL};
+  font-weight: ${p => p.theme.fontNormal};
   margin-bottom: ${p => p.theme.paddingM};
 `

@@ -19,23 +19,28 @@ import { CostService } from "./cost.service"
 import { AllCostsResponse } from "./cost.response"
 import { Share } from "../share/share.entity"
 import { User } from "../user/user.entity"
+import { CurrentUser } from "../shared/middleware/currentUser"
+import { CostRepository } from "./cost.repository"
 
 @Resolver(() => Cost)
 export class CostResolver {
-  constructor(private readonly costService: CostService) {}
+  constructor(
+    private readonly costService: CostService,
+    private readonly costRepository: CostRepository,
+  ) {}
 
   // ALL COSTS
   @Authorized()
   @Query(() => AllCostsResponse, { nullable: true })
   allCosts(@Args() args: AllCostArgs): Promise<AllCostsResponse> {
-    return this.costService.findAllAndCount(args)
+    return this.costRepository.findAllAndCount(args)
   }
 
   // GET COST
   @Authorized()
   @Query(() => Cost, { nullable: true })
   getCost(@Arg("costId") costId: string): Promise<Cost> {
-    return this.costService.findById(costId)
+    return this.costRepository.findById(costId)
   }
 
   // CREATE COST
@@ -43,9 +48,9 @@ export class CostResolver {
   @Mutation(() => Cost, { nullable: true })
   createCost(
     @Arg("data") data: CostInput,
-    @Ctx() { req }: ResolverContext,
+    @CurrentUser() currentUser: User,
   ): Promise<Cost> {
-    return this.costService.create(req.session.user.id, data)
+    return this.costService.create(currentUser.id, data)
   }
 
   // DESTROY COST

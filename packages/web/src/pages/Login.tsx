@@ -20,6 +20,8 @@ const Login: FC<RouteComponentProps> = () => {
     login({
       variables: { data: { email, password } },
     }).catch((loginError: GraphQLError) => {
+      console.log(loginError)
+
       setLoading(false)
       setError(loginError.message.split(":")[1])
     })

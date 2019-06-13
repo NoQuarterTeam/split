@@ -11,19 +11,22 @@ import { RegisterInput } from "./inputs/register.input"
 import { LoginInput } from "./inputs/login.input"
 import { UpdateInput } from "./inputs/update.input"
 import { ResetPasswordInput } from "./inputs/resetPassword.input"
+import { UserRepository } from "./user.repository"
+import { CurrentUser } from "../shared/middleware/currentUser"
 
 @Resolver(() => User)
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
+    private readonly userRepository: UserRepository,
     private readonly userMailer: UserMailer,
   ) {}
 
   // ME
   @Authorized()
   @Query(() => User, { nullable: true })
-  async me(@Ctx() { req }: ResolverContext): Promise<User> {
-    return await this.userService.findById(req.session.user.id)
+  me(@CurrentUser() currentUser: User): Promise<User> {
+    return this.userRepository.findById(currentUser.id)
   }
 
   // REGISTER
@@ -45,7 +48,7 @@ export class UserResolver {
     @Ctx() { req }: ResolverContext,
   ): Promise<User> {
     const user = await this.userService.login(data)
-    req.session!.user = user // eslint-disable-line
+    if (req.session) req.session.user = user
     return user
   }
 
@@ -54,10 +57,9 @@ export class UserResolver {
   @Mutation(() => User, { nullable: true })
   async updateUser(
     @Arg("data") data: UpdateInput,
-    @Ctx()
-    { req }: ResolverContext,
+    @CurrentUser() currentUser: User,
   ): Promise<User> {
-    return this.userService.update(req.session.user.id, data)
+    return this.userService.update(currentUser.id, data)
   }
 
   // LOGOUT
@@ -73,8 +75,8 @@ export class UserResolver {
   // FORGOT PASSWORD
   @Mutation(() => Boolean)
   async forgotPassword(@Arg("email") email: string): Promise<boolean> {
-    const user = await this.userService.findByEmail(email)
-    if (!user) throw new Error("user not found")
+    const user = await this.userRepository.findByEmail(email)
+    if (!user) throw new Error("User not found")
     const token = await createToken(user.id)
     this.userMailer.sendResetPasswordLink(user, token)
     return true

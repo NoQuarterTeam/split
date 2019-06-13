@@ -10,19 +10,13 @@ export class InviteMailer {
   constructor(private readonly mailer: Mailer) {}
 
   async sendInvitationLink(email: string, invite: Invite, house: House) {
-    this.mailer.send(
-      "d-679a934498094837b3946fd3abdf1aa4",
-      email,
-      {
+    this.mailer.send({
+      templateId: "d-679a934498094837b3946fd3abdf1aa4",
+      to: email,
+      variables: {
         houseName: house.name,
         buttonUrl: `${webUrl}/register/${invite.id}`,
       },
-      {
-        subject: `You have been invited to join ${house.name}`,
-        html: `click <a href="${webUrl}/register${
-          invite.id
-        }">here</a> to sign up and start splitting`,
-      },
-    )
+    })
   }
 }

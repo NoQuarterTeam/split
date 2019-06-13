@@ -1,6 +1,5 @@
 import {
   Resolver,
-  Ctx,
   Mutation,
   Arg,
   FieldResolver,
@@ -9,31 +8,33 @@ import {
   Authorized,
 } from "type-graphql"
 
-import { ResolverContext } from "../../lib/types"
+import { CurrentUser } from "../shared/middleware/currentUser"
 import { House } from "./house.entity"
 import { HouseInput } from "./house.input"
 import { HouseService } from "./house.service"
 import { Cost } from "../cost/cost.entity"
-import { UserService } from "../user/user.service"
+import { UserRepository } from "../user/user.repository"
 import { User } from "../user/user.entity"
 import { InviteService } from "../invite/invite.service"
 import { Invite } from "../invite/invite.entity"
+import { HouseRepository } from "./house.repository"
 
 @Resolver(() => House)
 export class HouseResolver {
   constructor(
     private readonly houseService: HouseService,
-    private readonly userService: UserService,
+    private readonly houseRepository: HouseRepository,
+    private readonly userRepository: UserRepository,
     private readonly inviteService: InviteService,
   ) {}
 
   // GET HOUSE
   @Authorized()
   @Query(() => House, { nullable: true })
-  async house(@Ctx() { req }: ResolverContext): Promise<House | null> {
-    const foundUser = await this.userService.findById(req.session.user.id)
+  async house(@CurrentUser() currentUser: User): Promise<House | null> {
+    const foundUser = await this.userRepository.findById(currentUser.id)
     if (!foundUser.houseId) return null
-    const house = await this.houseService.findById(foundUser.houseId)
+    const house = await this.houseRepository.findById(foundUser.houseId)
     return house
   }
 
@@ -42,9 +43,9 @@ export class HouseResolver {
   @Mutation(() => House, { nullable: true })
   async createHouse(
     @Arg("data") data: HouseInput,
-    @Ctx() { req }: ResolverContext,
+    @CurrentUser() currentUser: User,
   ): Promise<House> {
-    const house = await this.houseService.create(req.session.user.id, data)
+    const house = await this.houseService.create(currentUser.id, data)
     return house
   }
 
@@ -63,7 +64,7 @@ export class HouseResolver {
 
   @FieldResolver(() => [Cost])
   async users(@Root() house: House): Promise<User[]> {
-    const users = await this.userService.findAll(house)
+    const users = await this.userRepository.findAll(house)
     return users
   }
 

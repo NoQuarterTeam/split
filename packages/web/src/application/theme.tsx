@@ -1,4 +1,5 @@
 import { generateMedia } from "styled-media-query"
+import { defaultTheme } from "@noquarter/ui"
 
 const media = generateMedia({
   xl: "1440px",
@@ -8,6 +9,7 @@ const media = generateMedia({
 })
 
 const theme = (small: boolean, isDark: boolean) => ({
+  ...defaultTheme,
   colorBackground: isDark ? "#373c3f" : "#f8f9fd",
   colorShadow: isDark ? "rgba(0, 0, 0, 0.1)" : "rgba(200, 200, 200, 0.1)",
   colorLabel: isDark ? "#81878a" : "#b1bbc4",

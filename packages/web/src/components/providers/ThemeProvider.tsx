@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from "react"
 import useMedia from "use-media"
 import { useLocalStorage } from "@noquarter/hooks"
-import { ThemeProvider as SCThemeProvider, defaultTheme } from "@noquarter/ui"
+import { ThemeProvider as SCThemeProvider } from "@noquarter/ui"
 
 import { ThemeProvider as ThemeContextProvider } from "../../application/context"
 import { theme } from "../../application/theme"
@@ -12,7 +12,7 @@ const ThemeProvider: FC = ({ children }) => {
   const toggleTheme = () => setDarkTheme(!isDark)
   return (
     <ThemeContextProvider value={{ toggleTheme, isDark }}>
-      <SCThemeProvider theme={{ ...defaultTheme, ...theme(isSmall, isDark) }}>
+      <SCThemeProvider theme={theme(isSmall, isDark)}>
         <Fragment>{children}</Fragment>
       </SCThemeProvider>
     </ThemeContextProvider>

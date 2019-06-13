@@ -1699,15 +1699,15 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@noquarter/hooks@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@noquarter/hooks/-/hooks-1.0.2.tgz#15162136307879aecaec04734f7cc7bd24147cf2"
-  integrity sha512-YMfYbTNI4A36RHO/iJl5sYjByqCYbYIbwDYVa7T7gnYqzlcONvydIK5ZdlIa59/4TVqywg5fhwCmiM4HmPEg+g==
+"@noquarter/hooks@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@noquarter/hooks/-/hooks-1.0.5.tgz#ea93c0200762e7ab74fe47651ec99cd1b19bf823"
+  integrity sha512-L6H052w10GjfCSBzOCP09f9Hm3EDs5J3P0+k7KmSzuhQvMgmHJox+bjZN/KMEwMzHrbHfIpnuKDbBIm4XKjnfA==
 
-"@noquarter/ui@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@noquarter/ui/-/ui-1.1.5.tgz#d81975f679807aa7f69c3c6571a48b87eed1daf2"
-  integrity sha512-HSxv0ln2ik8U0SZ1MKAAgqajis3geDYQPCtNMW5M5ZUDKs+DY5YJyrjWRL7JEu0n1L5vmy1RDUI2cbM2wkxOoA==
+"@noquarter/ui@^1.1.12":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@noquarter/ui/-/ui-1.1.12.tgz#4da16bfd6c5645d13fff3a8a5bc0eda872a97301"
+  integrity sha512-BIPwEW3tQeuqhsZoHWi/u3wzpJJbTeT+CLgVQ5kpZvMpdsgI9IpO8uAu3HnKNBB5ZkNjgStypNR8n31FMtQk+w==
   dependencies:
     polished "^3.3.2"
     styled-components "^4.2.0"
@@ -6144,7 +6144,7 @@ graphql-upload@^8.0.2:
     http-errors "^1.7.2"
     object-path "^0.11.4"
 
-graphql@14.1.1, graphql@^14.1.1:
+graphql@^14.1.1:
   version "14.1.1"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.1.1.tgz#d5d77df4b19ef41538d7215d1e7a28834619fac0"
   integrity sha512-C5zDzLqvfPAgTtP8AUPIt9keDabrdRAqSWjj2OPRKrKxI9Fb65I36s1uCs1UUBFnSWTdO7hyHi7z1ZbwKMKF6Q==

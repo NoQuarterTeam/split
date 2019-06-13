@@ -88,10 +88,8 @@ function ProfileForm({ user }: ProfileFormProps) {
 export default memo(ProfileForm)
 
 const StyledProfileForm = styled.form`
-  margin: 0 auto;
   width: 100%;
   max-width: 450px;
-  background-color: white;
   flex-direction: column;
   border-radius: ${p => p.theme.borderRadius};
   padding: 0 ${p => p.theme.paddingL};

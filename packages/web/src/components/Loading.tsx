@@ -10,7 +10,7 @@ const Loading: FC<LoadingProps> = ({ loading, children }) => {
   const isLoading = useDebounce(loading, 200)
   return (
     <Fragment>
-      <StyledContainer loading={isLoading} />
+      <StyledContainer isLoading={isLoading} />
       {!isLoading && children}
     </Fragment>
   )
@@ -18,7 +18,7 @@ const Loading: FC<LoadingProps> = ({ loading, children }) => {
 
 export default Loading
 
-const StyledContainer = styled.div<{ loading: boolean }>`
+const StyledContainer = styled.div<{ isLoading: boolean }>`
   position: fixed;
   z-index: 1000;
   top: 0;
@@ -29,6 +29,6 @@ const StyledContainer = styled.div<{ loading: boolean }>`
   transition: opacity 1s, visibility -0.3s linear 1s;
 
   ${p => p.theme.flexCenter};
-  visibility: ${p => (p.loading ? "visible" : "hidden")};
-  opacity: ${p => (p.loading ? 1 : 0)};
+  visibility: ${p => (p.isLoading ? "visible" : "hidden")};
+  opacity: ${p => (p.isLoading ? 1 : 0)};
 `

@@ -2,17 +2,21 @@ import React, { FC, Fragment } from "react"
 
 import useAppContext from "../lib/hooks/useAppState"
 
-import Page from "./Page"
-import HouseForm from "./HouseForm"
+import { Router } from "@reach/router"
+import Settings from "../pages/Settings"
+import NotFound from "../pages/NotFound"
+import NewHouse from "../pages/NewHouse"
 
 const CheckHouse: FC = ({ children }) => {
   const { user } = useAppContext()
   return user.houseId ? (
     <Fragment>{children}</Fragment>
   ) : (
-    <Page>
-      <HouseForm />
-    </Page>
+    <Router>
+      <NewHouse path="/" />
+      <Settings path="/settings" />
+      <NotFound default={true} />
+    </Router>
   )
 }
 

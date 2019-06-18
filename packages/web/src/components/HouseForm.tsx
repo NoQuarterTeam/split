@@ -24,17 +24,16 @@ function HouseForm() {
   return (
     <StyledForm onSubmit={handleCreateHouse}>
       <StyledHeader>Start by creating a house</StyledHeader>
+      <br />
+
       <Input
         value={name}
         onChange={e => setName(e.target.value)}
-        placeholder="The boys gaff"
+        placeholder="House name"
         required={true}
-        label="House name"
       />
       <br />
-      <Button loading={loading} color="secondary">
-        Create house
-      </Button>
+      <Button loading={loading}>Create house</Button>
       {error && <StyledError>{error}</StyledError>}
     </StyledForm>
   )
@@ -54,9 +53,7 @@ const StyledForm = styled.form`
   padding: ${p => p.theme.paddingM};
 `
 
-const StyledHeader = styled.h1`
-  margin-bottom: ${p => p.theme.paddingXL};
-`
+const StyledHeader = styled.h1``
 
 const StyledError = styled.div`
   opacity: 0.4;

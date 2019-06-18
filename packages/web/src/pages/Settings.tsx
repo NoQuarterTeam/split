@@ -19,9 +19,11 @@ const Settings: FC<RouteComponentProps> = () => {
         <StyledSettingColumn>
           <ProfileForm user={user} />
         </StyledSettingColumn>
-        <StyledSettingColumn>
-          <HouseInvites house={house} />
-        </StyledSettingColumn>
+        {house && (
+          <StyledSettingColumn>
+            <HouseInvites house={house} />
+          </StyledSettingColumn>
+        )}
       </StyledSettingWrapper>
     </QuickPage>
   )

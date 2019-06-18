@@ -1,4 +1,4 @@
-import React, { memo, Fragment, FC } from "react"
+import React, { memo, FC } from "react"
 import { Link, Match } from "@reach/router"
 import { useLogout } from "@split/connector"
 import { styled, lighten } from "@noquarter/ui"
@@ -21,13 +21,11 @@ function Sidebar({ open }: { open: boolean }) {
       <div>
         <NavLink to="/">Balance</NavLink>
         {house && house.users.length > 1 && (
-          <Fragment>
-            <NavLink to="/new-cost">
-              New cost <StyledIcon src={IconPlus} />
-            </NavLink>
-            <NavLink to="/costs">Costs</NavLink>
-          </Fragment>
+          <NavLink to="/new-cost">
+            New cost <StyledIcon src={IconPlus} />
+          </NavLink>
         )}
+        <NavLink to="/costs">Costs</NavLink>
         <NavLink to="/settings">Settings</NavLink>
         <div tabIndex={0} onClick={handleLogout} style={{ cursor: "pointer" }}>
           <StyledLink>Logout</StyledLink>

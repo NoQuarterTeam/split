@@ -27,17 +27,15 @@ function InviteForm({ house }: InviteFormProps) {
   return (
     <StyledForm onSubmit={handleCreateInvite}>
       <StyledHeader>Now invite someone to join</StyledHeader>
+      <br />
       <Input
         value={email}
         onChange={e => setEmail(e.target.value)}
-        placeholder="jimsebe@gmail.com"
+        placeholder="housemate@gmail.com"
         required={true}
-        label="House mate"
       />
       <br />
-      <Button loading={loading} color="secondary">
-        Send invite
-      </Button>
+      <Button loading={loading}>Send invite</Button>
       {error && <StyledError>{error}</StyledError>}
     </StyledForm>
   )
@@ -57,9 +55,7 @@ const StyledForm = styled.form`
   padding: ${p => p.theme.paddingM};
 `
 
-const StyledHeader = styled.h1`
-  margin-bottom: ${p => p.theme.paddingXL};
-`
+const StyledHeader = styled.h1``
 
 const StyledError = styled.div`
   opacity: 0.4;

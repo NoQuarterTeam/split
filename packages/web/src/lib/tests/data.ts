@@ -37,7 +37,7 @@ export const TEST_HOUSE = {
       lastName: "Borg",
       balance: -1713,
       avatar:
-        "https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/23794829_10159729154370473_309970892997517855_n.jpg?_nc_cat=102&_nc_ht=scontent-amt2-1.xx&oh=0a9a9abfd07c3ed173b3552f719150ea&oe=5D16C12A",
+        "https://www-getsplit-co.s3.amazonaws.com/avatars/e279f8c8-0a4a-465d-a038-f06a98d78595/untitled-png",
     },
   ],
   invites: [],
@@ -97,7 +97,7 @@ export const TEST_COSTS = [
       firstName: "George",
       lastName: "Karatzas Borg",
       avatar:
-        "https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/23794829_10159729154370473_309970892997517855_n.jpg?_nc_cat=102&_nc_ht=scontent-amt2-1.xx&oh=0a9a9abfd07c3ed173b3552f719150ea&oe=5D16C12A",
+        "https://www-getsplit-co.s3.amazonaws.com/avatars/e279f8c8-0a4a-465d-a038-f06a98d78595/untitled-png",
     },
   },
   {

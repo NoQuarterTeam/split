@@ -59,8 +59,7 @@ const StyledHome = styled.div`
   padding: 0;
 
   ${p => media.greaterThan("md")`
-    padding: ${p.theme.paddingL};
-    padding-bottom: 0;
+    padding: 0 ${p.theme.paddingL};
   `}
 `
 
@@ -77,7 +76,7 @@ const StyledHero = styled.div`
 const StyledHeroTitle = styled.h1`
   font-weight: ${p => p.theme.fontExtraBold};
   font-size: ${p => p.theme.textXL};
-  margin: ${p => p.theme.paddingL} 0;
+  margin: ${p => p.theme.paddingM} 0;
 `
 
 const StyledHeroSubTitle = styled.h3`
@@ -91,10 +90,6 @@ const StyledDemo = styled.div`
   overflow: hidden;
   flex-wrap: wrap;
   padding: ${p => p.theme.paddingM};
-
-  ${p => media.greaterThan("md")`
-    padding: ${p.theme.paddingL};
-  `}
 `
 
 const StyledBalance = styled.div`

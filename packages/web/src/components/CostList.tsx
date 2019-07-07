@@ -1,7 +1,7 @@
-import React, { useRef, useState, useMemo } from "react"
+import React, { useRef, useMemo } from "react"
 import dayjs from "dayjs"
 import throttle from "lodash.throttle"
-import { useEventListener } from "@noquarter/hooks"
+import { useEventListener, useLocalStorage } from "@noquarter/hooks"
 
 import { styled } from "@noquarter/ui"
 import { useAllCosts } from "@split/connector"
@@ -17,7 +17,7 @@ import Divider from "./styled/Divider"
 
 function CostList() {
   const { house } = useAppContext()
-  const [search, setSearch] = useState<string>("")
+  const [search, setSearch] = useLocalStorage("costs:search", "")
   const { costs, costsCount, fetchMore, costsLoading } = useAllCosts(
     house.id,
     search,
@@ -53,7 +53,7 @@ function CostList() {
 
   return (
     <StyledList>
-      <CostsSearch onSubmit={handleSearchSubmit} />
+      <CostsSearch onSubmit={handleSearchSubmit} search={search} />
       <StyledTableHeader>
         <Column flex={10}>
           <StyledLabel>Name</StyledLabel>

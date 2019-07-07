@@ -7,17 +7,18 @@ import IconCancel from "../assets/images/icon-cancel.svg"
 
 interface CostsSearchProps {
   onSubmit: (e: any) => void
+  search: string
 }
 
-function CostsSearch({ onSubmit }: CostsSearchProps) {
-  const [search, setSearch] = useState<string>("")
+function CostsSearch({ onSubmit, search }: CostsSearchProps) {
+  const [inputSearch, setSearch] = useState<string>(search)
   const [submitted, setSubmitted] = useState<boolean>(false)
   const [focus, setFocus] = useState<boolean>(false)
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    onSubmit(search)
-    if (search) {
+    onSubmit(inputSearch)
+    if (inputSearch) {
       setSubmitted(true)
     } else {
       setSubmitted(false)
@@ -40,12 +41,12 @@ function CostsSearch({ onSubmit }: CostsSearchProps) {
         <StyledSearch
           type="text"
           placeholder="Search costs"
-          value={search}
+          value={inputSearch}
           onBlur={() => setFocus(false)}
           onFocus={() => setFocus(true)}
           onChange={(e: any) => setSearch(e.target.value)}
         />
-        {(search || submitted) && (
+        {(inputSearch || submitted) && (
           <StyledCancelWrapper>
             <StyledButton type="button" onClick={handleClearSearch}>
               <img src={IconCancel} alt="cancel" width={15} />

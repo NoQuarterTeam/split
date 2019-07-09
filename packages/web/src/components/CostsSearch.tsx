@@ -12,24 +12,17 @@ interface CostsSearchProps {
 
 function CostsSearch({ onSubmit, search }: CostsSearchProps) {
   const [inputSearch, setSearch] = useState<string>(search)
-  const [submitted, setSubmitted] = useState<boolean>(false)
   const [focus, setFocus] = useState<boolean>(false)
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
     onSubmit(inputSearch)
-    if (inputSearch) {
-      setSubmitted(true)
-    } else {
-      setSubmitted(false)
-    }
   }
 
   const handleClearSearch = (e: any) => {
     e.preventDefault()
-    if (submitted) onSubmit("")
+    onSubmit("")
     setSearch("")
-    setSubmitted(false)
   }
 
   return (
@@ -46,7 +39,7 @@ function CostsSearch({ onSubmit, search }: CostsSearchProps) {
           onFocus={() => setFocus(true)}
           onChange={(e: any) => setSearch(e.target.value)}
         />
-        {(inputSearch || submitted) && (
+        {inputSearch && (
           <StyledCancelWrapper>
             <StyledButton type="button" onClick={handleClearSearch}>
               <img src={IconCancel} alt="cancel" width={15} />

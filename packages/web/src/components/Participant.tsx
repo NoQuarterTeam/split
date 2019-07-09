@@ -45,15 +45,16 @@ function Participant({
   }
 
   const handleCostShareUpdate = (e: any) => {
-    if (+e.target.value < 0) return
-    if (decimalCount(+e.target.value) > 2) return
+    const amount = +e.target.value
+    if (amount < 0) return
+    if (decimalCount(amount) > 2) return
     setFormState({
       equalSplit: false,
       costShares: shares.map(s => {
         if (s.userId !== user.id) return s
         return {
           userId: user.id,
-          amount: +e.target.value,
+          amount,
         }
       }),
     })

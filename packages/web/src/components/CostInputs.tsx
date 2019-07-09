@@ -37,10 +37,10 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
           step="0.01"
           value={formState.amount === 0 ? "" : formState.amount}
           onChange={e => {
-            const val = +e.target.value
-            if (val < 0) return
-            if (decimalCount(+e.target.value) > 2) return
-            setFormState({ amount: val })
+            const amount = +e.target.value
+            if (amount < 0) return
+            if (decimalCount(amount) > 2) return
+            setFormState({ amount })
           }}
         />
       </StyledInputWrapper>

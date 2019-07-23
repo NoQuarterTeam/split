@@ -23,8 +23,8 @@
     ]
   },
   "dependencies": {
-    "@noquarter/hooks": "^1.0.5",
-    "@noquarter/ui": "^1.1.14",
+    "@noquarter/hooks": "^1.0.12",
+    "@noquarter/ui": "^1.1.20",
     "@noquarter/utils": "^1.0.5",
     "@reach/router": "^1.2.1",
     "@split/connector": "1.0.0",

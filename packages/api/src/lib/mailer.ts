@@ -9,7 +9,7 @@ sendgridClient.setApiKey(SENDGRID_API_KEY)
 
 interface MailArgs {
   templateId: string
-  to: string
+  to: string[] | string
   variables?: any
 }
 
@@ -26,7 +26,6 @@ export class Mailer {
       from: this.from,
       to: args.to,
       templateId: args.templateId,
-      // eslint-disable-next-line
       dynamic_template_data: args.variables,
     }
     try {
@@ -67,7 +66,10 @@ export class Mailer {
     if (typeof params === "object") {
       Object.keys(params).forEach(field => {
         const paramKey = `{{ ${field} }}`
+        const paramKey2 = `{{${field}}}`
+
         newHtml = newHtml.replace(new RegExp(paramKey, "g"), params[field])
+        newHtml = newHtml.replace(new RegExp(paramKey2, "g"), params[field])
       })
     }
     return newHtml

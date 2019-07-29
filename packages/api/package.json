@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",
-    "@types/bull": "3.10.0",
+    "@types/bull": "3.10.1",
     "@types/connect-redis": "0.0.10",
     "@types/express": "4.17.0",
     "@types/express-jwt": "0.0.42",
@@ -64,7 +64,7 @@
     "@types/jsonwebtoken": "8.3.2",
     "@types/morgan": "1.7.36",
     "@types/node": "11.13.11",
-    "@types/nodemailer": "6.2.0",
+    "@types/nodemailer": "6.2.1",
     "@typescript-eslint/eslint-plugin": "1.11.0",
     "@typescript-eslint/parser": "1.11.0",
     "babel-eslint": "10.0.2",

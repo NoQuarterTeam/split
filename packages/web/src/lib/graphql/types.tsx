@@ -3,7 +3,7 @@ import * as ApolloReactCommon from "@apollo/react-common"
 import * as ApolloReactHooks from "@apollo/react-hooks"
 export type Maybe<T> = T | null
 /** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
+export interface Scalars {
   ID: string
   String: string
   Boolean: boolean
@@ -11,20 +11,20 @@ export type Scalars = {
   Float: number
 }
 
-export type AllCostsResponse = {
+export interface AllCostsResponse {
   __typename?: "AllCostsResponse"
-  costs: Array<Cost>
+  costs: Cost[]
   count: Scalars["Float"]
 }
 
-export type BaseEntity = {
+export interface BaseEntity {
   __typename?: "BaseEntity"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
 }
 
-export type Cost = {
+export interface Cost {
   __typename?: "Cost"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
@@ -41,10 +41,10 @@ export type Cost = {
   house: House
   payer: User
   creator: User
-  shares: Array<Share>
+  shares: Share[]
 }
 
-export type CostInput = {
+export interface CostInput {
   name: Scalars["String"]
   amount: Scalars["Float"]
   recurring: Scalars["String"]
@@ -53,27 +53,27 @@ export type CostInput = {
   date: Scalars["String"]
   houseId: Scalars["String"]
   payerId: Scalars["String"]
-  costShares: Array<ShareInput>
+  costShares: ShareInput[]
 }
 
-export type House = {
+export interface House {
   __typename?: "House"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
   name: Scalars["String"]
   currency?: Maybe<Scalars["String"]>
-  users: Array<User>
-  costs: Array<Cost>
-  invites: Array<Invite>
+  users: User[]
+  costs: Cost[]
+  invites: Invite[]
 }
 
-export type HouseInput = {
+export interface HouseInput {
   name: Scalars["String"]
   currency: Scalars["String"]
 }
 
-export type Invite = {
+export interface Invite {
   __typename?: "Invite"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
@@ -82,17 +82,17 @@ export type Invite = {
   houseId: Scalars["String"]
 }
 
-export type InviteInput = {
+export interface InviteInput {
   houseId: Scalars["String"]
   email: Scalars["String"]
 }
 
-export type LoginInput = {
+export interface LoginInput {
   email: Scalars["String"]
   password: Scalars["String"]
 }
 
-export type Mutation = {
+export interface Mutation {
   __typename?: "Mutation"
   createCost?: Maybe<Cost>
   destroyCost?: Maybe<Scalars["Boolean"]>
@@ -110,61 +110,61 @@ export type Mutation = {
   resetPassword: Scalars["Boolean"]
 }
 
-export type MutationCreateCostArgs = {
+export interface MutationCreateCostArgs {
   data: CostInput
 }
 
-export type MutationDestroyCostArgs = {
+export interface MutationDestroyCostArgs {
   costId: Scalars["String"]
 }
 
-export type MutationEditCostArgs = {
+export interface MutationEditCostArgs {
   data: CostInput
   costId: Scalars["String"]
 }
 
-export type MutationCreateHouseArgs = {
+export interface MutationCreateHouseArgs {
   data: HouseInput
 }
 
-export type MutationEditHouseArgs = {
+export interface MutationEditHouseArgs {
   data: HouseInput
   houseId: Scalars["String"]
 }
 
-export type MutationCreateInviteArgs = {
+export interface MutationCreateInviteArgs {
   data: InviteInput
 }
 
-export type MutationDestroyInviteArgs = {
+export interface MutationDestroyInviteArgs {
   inviteId: Scalars["String"]
 }
 
-export type MutationGetSignedS3UrlArgs = {
+export interface MutationGetSignedS3UrlArgs {
   data: S3SignedUrlInput
 }
 
-export type MutationRegisterArgs = {
+export interface MutationRegisterArgs {
   data: RegisterInput
 }
 
-export type MutationLoginArgs = {
+export interface MutationLoginArgs {
   data: LoginInput
 }
 
-export type MutationUpdateUserArgs = {
+export interface MutationUpdateUserArgs {
   data: UpdateInput
 }
 
-export type MutationForgotPasswordArgs = {
+export interface MutationForgotPasswordArgs {
   email: Scalars["String"]
 }
 
-export type MutationResetPasswordArgs = {
+export interface MutationResetPasswordArgs {
   data: ResetPasswordInput
 }
 
-export type Query = {
+export interface Query {
   __typename?: "Query"
   allCosts?: Maybe<AllCostsResponse>
   getCost?: Maybe<Cost>
@@ -173,21 +173,21 @@ export type Query = {
   me?: Maybe<User>
 }
 
-export type QueryAllCostsArgs = {
+export interface QueryAllCostsArgs {
   skip?: Maybe<Scalars["Int"]>
   houseId: Scalars["String"]
   search?: Maybe<Scalars["String"]>
 }
 
-export type QueryGetCostArgs = {
+export interface QueryGetCostArgs {
   costId: Scalars["String"]
 }
 
-export type QueryCheckInviteArgs = {
+export interface QueryCheckInviteArgs {
   inviteId?: Maybe<Scalars["String"]>
 }
 
-export type RegisterInput = {
+export interface RegisterInput {
   firstName: Scalars["String"]
   lastName: Scalars["String"]
   email: Scalars["String"]
@@ -195,23 +195,23 @@ export type RegisterInput = {
   inviteId?: Maybe<Scalars["String"]>
 }
 
-export type ResetPasswordInput = {
+export interface ResetPasswordInput {
   password: Scalars["String"]
   token: Scalars["String"]
 }
 
-export type S3SignedUrlInput = {
+export interface S3SignedUrlInput {
   filename: Scalars["String"]
   filetype: Scalars["String"]
 }
 
-export type S3SignedUrlResponse = {
+export interface S3SignedUrlResponse {
   __typename?: "S3SignedUrlResponse"
   url: Scalars["String"]
   signedRequest: Scalars["String"]
 }
 
-export type Share = {
+export interface Share {
   __typename?: "Share"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
@@ -221,12 +221,12 @@ export type Share = {
   cost: Cost
 }
 
-export type ShareInput = {
+export interface ShareInput {
   userId: Scalars["String"]
   amount: Scalars["Float"]
 }
 
-export type UpdateInput = {
+export interface UpdateInput {
   firstName?: Maybe<Scalars["String"]>
   lastName?: Maybe<Scalars["String"]>
   email?: Maybe<Scalars["String"]>
@@ -235,7 +235,7 @@ export type UpdateInput = {
   houseId?: Maybe<Scalars["String"]>
 }
 
-export type User = {
+export interface User {
   __typename?: "User"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
@@ -247,9 +247,9 @@ export type User = {
   balance: Scalars["Float"]
   houseId?: Maybe<Scalars["String"]>
   house?: Maybe<House>
-  shares: Array<Share>
-  costsCreated: Array<Cost>
-  costsPaid: Array<Cost>
+  shares: Share[]
+  costsCreated: Cost[]
+  costsPaid: Cost[]
 }
 export type CostFragment = { __typename?: "Cost" } & Pick<
   Cost,
@@ -266,11 +266,9 @@ export type CostFragment = { __typename?: "Cost" } & Pick<
 >
 
 export type SharesFragment = { __typename?: "Cost" } & {
-  shares: Array<
-    { __typename?: "Share" } & Pick<Share, "amount"> & {
-        user: { __typename?: "User" } & Pick<User, "id">
-      }
-  >
+  shares: ({ __typename?: "Share" } & Pick<Share, "amount"> & {
+      user: { __typename?: "User" } & Pick<User, "id">
+    })[]
 }
 
 export type PayerFragment = { __typename?: "Cost" } & {
@@ -280,7 +278,7 @@ export type PayerFragment = { __typename?: "Cost" } & {
   >
 }
 
-export type AllCostsQueryVariables = {
+export interface AllCostsQueryVariables {
   houseId: Scalars["String"]
   search?: Maybe<Scalars["String"]>
   skip?: Maybe<Scalars["Int"]>
@@ -289,12 +287,12 @@ export type AllCostsQueryVariables = {
 export type AllCostsQuery = { __typename?: "Query" } & {
   allCosts: Maybe<
     { __typename?: "AllCostsResponse" } & Pick<AllCostsResponse, "count"> & {
-        costs: Array<{ __typename?: "Cost" } & (CostFragment & PayerFragment)>
+        costs: ({ __typename?: "Cost" } & (CostFragment & PayerFragment))[]
       }
   >
 }
 
-export type GetCostQueryVariables = {
+export interface GetCostQueryVariables {
   costId: Scalars["String"]
 }
 
@@ -302,7 +300,7 @@ export type GetCostQuery = { __typename?: "Query" } & {
   getCost: Maybe<{ __typename?: "Cost" } & (CostFragment & SharesFragment)>
 }
 
-export type CreateCostMutationVariables = {
+export interface CreateCostMutationVariables {
   data: CostInput
 }
 
@@ -310,7 +308,7 @@ export type CreateCostMutation = { __typename?: "Mutation" } & {
   createCost: Maybe<{ __typename?: "Cost" } & (CostFragment & PayerFragment)>
 }
 
-export type EditCostMutationVariables = {
+export interface EditCostMutationVariables {
   costId: Scalars["String"]
   data: CostInput
 }
@@ -319,7 +317,7 @@ export type EditCostMutation = { __typename?: "Mutation" } & {
   editCost: Maybe<{ __typename?: "Cost" } & (CostFragment & SharesFragment)>
 }
 
-export type DestroyCostMutationVariables = {
+export interface DestroyCostMutationVariables {
   costId: Scalars["String"]
 }
 
@@ -333,31 +331,31 @@ export type HouseFragment = { __typename?: "House" } & Pick<
   "id" | "name" | "currency"
 >
 
-export type GetHouseQueryVariables = {}
+export interface GetHouseQueryVariables {}
 
 export type GetHouseQuery = { __typename?: "Query" } & {
   house: Maybe<
     { __typename?: "House" } & {
-      users: Array<{ __typename?: "User" } & UserFragment>
-      invites: Array<{ __typename?: "Invite" } & InviteFragment>
+      users: ({ __typename?: "User" } & UserFragment)[]
+      invites: ({ __typename?: "Invite" } & InviteFragment)[]
     } & HouseFragment
   >
 }
 
-export type CreateHouseMutationVariables = {
+export interface CreateHouseMutationVariables {
   data: HouseInput
 }
 
 export type CreateHouseMutation = { __typename?: "Mutation" } & {
   createHouse: Maybe<
     { __typename?: "House" } & {
-      users: Array<{ __typename?: "User" } & UserFragment>
-      invites: Array<{ __typename?: "Invite" } & InviteFragment>
+      users: ({ __typename?: "User" } & UserFragment)[]
+      invites: ({ __typename?: "Invite" } & InviteFragment)[]
     } & HouseFragment
   >
 }
 
-export type EditHouseMutationVariables = {
+export interface EditHouseMutationVariables {
   houseId: Scalars["String"]
   data: HouseInput
 }
@@ -371,7 +369,7 @@ export type InviteFragment = { __typename?: "Invite" } & Pick<
   "id" | "email"
 >
 
-export type CreateInviteMutationVariables = {
+export interface CreateInviteMutationVariables {
   data: InviteInput
 }
 
@@ -379,7 +377,7 @@ export type CreateInviteMutation = { __typename?: "Mutation" } & {
   createInvite: Maybe<{ __typename?: "Invite" } & InviteFragment>
 }
 
-export type DestroyInviteMutationVariables = {
+export interface DestroyInviteMutationVariables {
   inviteId: Scalars["String"]
 }
 
@@ -388,7 +386,7 @@ export type DestroyInviteMutation = { __typename?: "Mutation" } & Pick<
   "destroyInvite"
 >
 
-export type CheckInviteQueryVariables = {
+export interface CheckInviteQueryVariables {
   inviteId?: Maybe<Scalars["String"]>
 }
 
@@ -396,7 +394,7 @@ export type CheckInviteQuery = { __typename?: "Query" } & {
   checkInvite: Maybe<{ __typename?: "House" } & HouseFragment>
 }
 
-export type GetSignedS3UrlMutationVariables = {
+export interface GetSignedS3UrlMutationVariables {
   data: S3SignedUrlInput
 }
 
@@ -414,13 +412,13 @@ export type UserFragment = { __typename?: "User" } & Pick<
   "id" | "firstName" | "lastName" | "houseId" | "email" | "balance" | "avatar"
 >
 
-export type MeQueryVariables = {}
+export interface MeQueryVariables {}
 
 export type MeQuery = { __typename?: "Query" } & {
   me: Maybe<{ __typename?: "User" } & UserFragment>
 }
 
-export type LoginMutationVariables = {
+export interface LoginMutationVariables {
   data: LoginInput
 }
 
@@ -428,7 +426,7 @@ export type LoginMutation = { __typename?: "Mutation" } & {
   login: { __typename?: "User" } & UserFragment
 }
 
-export type RegisterMutationVariables = {
+export interface RegisterMutationVariables {
   data: RegisterInput
 }
 
@@ -436,7 +434,7 @@ export type RegisterMutation = { __typename?: "Mutation" } & {
   register: { __typename?: "User" } & UserFragment
 }
 
-export type UpdateUserMutationVariables = {
+export interface UpdateUserMutationVariables {
   data: UpdateInput
 }
 
@@ -444,14 +442,14 @@ export type UpdateUserMutation = { __typename?: "Mutation" } & {
   updateUser: Maybe<{ __typename?: "User" } & UserFragment>
 }
 
-export type LogoutMutationVariables = {}
+export interface LogoutMutationVariables {}
 
 export type LogoutMutation = { __typename?: "Mutation" } & Pick<
   Mutation,
   "logout"
 >
 
-export type ForgotPasswordMutationVariables = {
+export interface ForgotPasswordMutationVariables {
   email: Scalars["String"]
 }
 
@@ -460,7 +458,7 @@ export type ForgotPasswordMutation = { __typename?: "Mutation" } & Pick<
   "forgotPassword"
 >
 
-export type ResetPasswordMutationVariables = {
+export interface ResetPasswordMutationVariables {
   data: ResetPasswordInput
 }
 

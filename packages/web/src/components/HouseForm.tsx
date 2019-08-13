@@ -1,20 +1,22 @@
 import React, { memo, useState } from "react"
-import { useCreateHouse } from "@split/connector"
 
 import { styled, Button, Input } from "@noquarter/ui"
+import { useCreateHouse } from "../lib/graphql/house/hooks"
 
 function HouseForm() {
   const [name, setName] = useState<string>("")
+  const [currency] = useState<string>("Euro")
+
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 
-  const createHouse = useCreateHouse()
+  const [createHouse] = useCreateHouse()
 
   const handleCreateHouse = (e: any) => {
     e.preventDefault()
     setLoading(true)
     createHouse({
-      variables: { data: { name } },
+      variables: { data: { name, currency } },
     }).catch(() => {
       setLoading(false)
       setError("error creating house")
@@ -28,7 +30,7 @@ function HouseForm() {
 
       <Input
         value={name}
-        onChange={e => setName(e.target.value)}
+        onChange={setName}
         placeholder="House name"
         required={true}
       />

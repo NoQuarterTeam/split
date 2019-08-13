@@ -1,7 +1,6 @@
 import React, { memo } from "react"
 import dayjs from "dayjs"
 import { Link } from "@reach/router"
-import { CostFragment, PayerFragment } from "@split/connector"
 
 import { styled } from "@noquarter/ui"
 import { round, capitalize } from "@noquarter/utils"
@@ -15,6 +14,7 @@ import Column from "./styled/Column"
 import Avatar from "./Avatar"
 import Center from "./styled/Center"
 import ToolTip from "./ToolTip"
+import { CostFragment, PayerFragment } from "../lib/graphql/types"
 
 interface CostProps {
   cost: CostFragment & PayerFragment

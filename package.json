@@ -10,8 +10,7 @@
   },
   "scripts": {
     "build:api": "cd packages/api && yarn build",
-    "build:connector": "cd packages/connector && yarn build",
-    "build:web": "lerna run build --scope={@split/connector,@split/web}",
+    "build:web": "cd packages/web && yarn build",
     "test": "lerna run test",
     "typecheck": "lerna run typecheck",
     "lint": "lerna run lint",

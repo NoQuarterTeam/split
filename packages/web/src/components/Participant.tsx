@@ -1,5 +1,4 @@
 import React, { memo } from "react"
-import { ShareInput, UserFragment } from "@split/connector"
 import { styled, Input, Switch, Radio } from "@noquarter/ui"
 import { decimalCount } from "@noquarter/utils"
 
@@ -8,6 +7,7 @@ import { media } from "../application/theme"
 import Avatar from "./Avatar"
 import Column from "./styled/Column"
 import Center from "./styled/Center"
+import { UserFragment, ShareInput } from "../lib/graphql/types"
 
 interface ParticipantProps {
   user: UserFragment

@@ -1,13 +1,14 @@
 import React, { FC, memo } from "react"
-import { useDestroyInvite, InviteFragment } from "@split/connector"
 import { Button, styled } from "@noquarter/ui"
+import { useDestroyInvite } from "../lib/graphql/invite/hooks"
+import { InviteFragment } from "../lib/graphql/types"
 
 interface Props {
   invite: InviteFragment
 }
 
 const InviteItem: FC<Props> = ({ invite }) => {
-  const destroyInvite = useDestroyInvite(invite.id)
+  const [destroyInvite] = useDestroyInvite(invite.id)
 
   const handleDestroyInvite = () => {
     destroyInvite({

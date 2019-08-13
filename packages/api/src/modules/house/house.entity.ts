@@ -13,6 +13,10 @@ export class House extends BaseEntity {
   @Column()
   name: string
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  currency?: string
+
   @Field(() => [User])
   @OneToMany(() => User, user => user.house)
   users: User[]

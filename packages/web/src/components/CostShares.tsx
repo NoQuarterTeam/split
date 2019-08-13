@@ -1,5 +1,4 @@
 import React, { memo } from "react"
-import { CostInput, UserFragment } from "@split/connector"
 
 import { styled } from "@noquarter/ui"
 import { Button } from "@noquarter/ui"
@@ -9,6 +8,7 @@ import { media } from "../application/theme"
 import Column from "./styled/Column"
 import Alert from "./Alert"
 import Participant from "./Participant"
+import { UserFragment, CostInput } from "../lib/graphql/types"
 
 interface CostSharesProps {
   users: UserFragment[]

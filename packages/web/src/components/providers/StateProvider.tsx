@@ -1,11 +1,12 @@
 import React, { FC } from "react"
 import LogRocket from "logrocket"
-import { useMe, useGetHouse } from "@split/connector"
 
 import { production } from "../../lib/config"
 import { StateProvider as StateContextProvider } from "../../application/context"
 
 import Loading from "../Loading"
+import { useMe } from "../../lib/graphql/user/hooks"
+import { useGetHouse } from "../../lib/graphql/house/hooks"
 
 const StateProvider: FC = ({ children }) => {
   const { user, userLoading } = useMe()

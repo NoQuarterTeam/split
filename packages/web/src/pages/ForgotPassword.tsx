@@ -2,9 +2,9 @@ import React, { useState, Fragment, FC } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
 import { styled, Button, Input } from "@noquarter/ui"
-import { useForgotPassword } from "@split/connector"
 
 import AuthForm from "../components/AuthForm"
+import { useForgotPassword } from "../lib/graphql/user/hooks"
 
 const ForgotPassword: FC<RouteComponentProps> = () => {
   const [email, setEmail] = useState<string>("")
@@ -12,7 +12,7 @@ const ForgotPassword: FC<RouteComponentProps> = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
 
-  const forgotPassword = useForgotPassword()
+  const [forgotPassword] = useForgotPassword()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -44,7 +44,7 @@ const ForgotPassword: FC<RouteComponentProps> = () => {
           <Input
             label="Email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={setEmail}
             type="email"
             required={true}
             placeholder="jim@gmail.com"

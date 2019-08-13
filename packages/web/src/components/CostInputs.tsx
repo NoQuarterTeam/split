@@ -1,9 +1,10 @@
 import React, { memo } from "react"
-import { CostInput } from "@split/connector"
+
 import { styled, Input, Select } from "@noquarter/ui"
 import { decimalCount } from "@noquarter/utils"
 
 import { media } from "../application/theme"
+import { CostInput } from "../lib/graphql/types"
 
 interface CostInputsProps {
   formState: CostInput
@@ -22,7 +23,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
           required={true}
           type="text"
           value={formState.name}
-          onChange={e => setFormState({ name: e.target.value })}
+          onChange={name => setFormState({ name })}
         />
       </StyledInputWrapper>
       <StyledInputWrapper>
@@ -36,8 +37,8 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
           type="number"
           step="0.01"
           value={formState.amount === 0 ? "" : formState.amount}
-          onChange={e => {
-            const amount = +e.target.value
+          onChange={val => {
+            const amount = +val
             if (amount < 0) return
             if (decimalCount(amount) > 2) return
             setFormState({ amount })
@@ -49,7 +50,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
           id="category"
           label="Category"
           value={formState.category}
-          onChange={e => setFormState({ category: e.target.value })}
+          onChange={category => setFormState({ category })}
           options={[
             { value: "food", label: "Food" },
             { value: "drinks", label: "Drinks" },
@@ -69,7 +70,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
           required={true}
           type="date"
           value={formState.date}
-          onChange={e => setFormState({ date: e.target.value })}
+          onChange={date => setFormState({ date })}
         />
       </StyledInputWrapper>
       <StyledInputWrapper>
@@ -78,7 +79,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
           label="Recurring"
           disabled={isEditing}
           value={formState.recurring}
-          onChange={e => setFormState({ recurring: e.target.value })}
+          onChange={recurring => setFormState({ recurring })}
           options={[
             { value: "one-off", label: "One off" },
             { value: "month", label: "Monthly" },

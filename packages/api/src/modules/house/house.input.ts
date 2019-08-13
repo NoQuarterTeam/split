@@ -5,4 +5,7 @@ import { House } from "./house.entity"
 export class HouseInput implements Partial<House> {
   @Field()
   name: string
+
+  @Field()
+  currency: string
 }

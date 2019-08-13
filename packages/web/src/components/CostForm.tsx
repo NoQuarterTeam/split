@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useState } from "react"
 import dayjs from "dayjs"
 import { Button, styled } from "@noquarter/ui"
-import { CostInput, GetCostQuery } from "@split/connector"
 import { round, sleep } from "@noquarter/utils"
 import { splitTheBill } from "../lib/helpers"
 import { media } from "../application/theme"
@@ -10,6 +9,7 @@ import useFormState from "../lib/hooks/useFormState"
 import CostInputs from "./CostInputs"
 import CostShares from "./CostShares"
 import ErrorBanner from "./ErrorBanner"
+import { GetCostQuery, CostInput } from "../lib/graphql/types"
 
 interface CostFormProps {
   cost?: GetCostQuery["getCost"]

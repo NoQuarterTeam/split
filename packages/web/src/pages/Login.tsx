@@ -1,10 +1,10 @@
 import React, { memo, useState, FC } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
-import { useLogin } from "@split/connector"
-
 import { styled, Button, Input } from "@noquarter/ui"
+
 import AuthForm from "../components/AuthForm"
+import { useLogin } from "../lib/graphql/user/hooks"
 
 const Login: FC<RouteComponentProps> = () => {
   const [email, setEmail] = useState<string>("")
@@ -12,7 +12,7 @@ const Login: FC<RouteComponentProps> = () => {
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
-  const login = useLogin()
+  const [login] = useLogin()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -32,7 +32,7 @@ const Login: FC<RouteComponentProps> = () => {
       <Input
         label="Email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={setEmail}
         type="email"
         required={true}
         placeholder="jim@gmail.com"
@@ -41,7 +41,7 @@ const Login: FC<RouteComponentProps> = () => {
       <Input
         label="Password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={setPassword}
         type="password"
         required={true}
         placeholder="********"

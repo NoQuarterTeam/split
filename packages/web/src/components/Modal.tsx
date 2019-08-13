@@ -5,6 +5,7 @@ import { styled } from "@noquarter/ui"
 import IconCancel from "../assets/images/icon-cancel.svg"
 import { Button } from "@noquarter/ui"
 import Alert from "./Alert"
+import FlexGrid from "./styled/FlexGrid"
 
 interface ModalProps {
   onCancel: () => void
@@ -48,7 +49,7 @@ const Modal: FC<ModalProps> = ({
 
       <StyledModalBottombar>
         <div />
-        <div>
+        <FlexGrid>
           <Button
             type="button"
             color="secondary"
@@ -66,7 +67,7 @@ const Modal: FC<ModalProps> = ({
           >
             {submitText || "submit"}
           </Button>
-        </div>
+        </FlexGrid>
       </StyledModalBottombar>
     </StyledModal>
   )

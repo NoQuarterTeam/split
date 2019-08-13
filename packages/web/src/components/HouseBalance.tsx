@@ -1,11 +1,11 @@
 import React, { memo } from "react"
-import { UserFragment } from "@split/connector"
 import { styled, darken } from "@noquarter/ui"
 import { round } from "@noquarter/utils"
 
 import { media } from "../application/theme"
 import Avatar from "./Avatar"
 import useAppContext from "../lib/hooks/useAppState"
+import { UserFragment } from "../lib/graphql/types"
 
 interface HouseBalanceProps {
   users: UserFragment[]

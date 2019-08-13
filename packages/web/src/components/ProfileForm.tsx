@@ -1,12 +1,13 @@
 import React, { memo, useState } from "react"
 import { navigate } from "@reach/router"
-import { useUpdateUser, UserFragment } from "@split/connector"
 
 import { styled, Button, Input } from "@noquarter/ui"
 
 import useFormState from "../lib/hooks/useFormState"
 
 import ProfileAvatarUpload from "./ProfileAvatarUpload"
+import { UserFragment } from "../lib/graphql/types"
+import { useUpdateUser } from "../lib/graphql/user/hooks"
 
 interface ProfileFormProps {
   user: UserFragment
@@ -28,7 +29,7 @@ function ProfileForm({ user }: ProfileFormProps) {
   })
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
-  const updateUser = useUpdateUser()
+  const [updateUser] = useUpdateUser()
 
   const handleUpdateUser = (e: any) => {
     e.preventDefault()
@@ -53,21 +54,21 @@ function ProfileForm({ user }: ProfileFormProps) {
       <ProfileAvatarUpload user={user} />
       <Input
         value={formState.email}
-        onChange={e => setFormState({ email: e.target.value })}
+        onChange={email => setFormState({ email })}
         placeholder="jim@noquarter.co"
         required={true}
         label="Email"
       />
       <Input
         value={formState.firstName}
-        onChange={e => setFormState({ firstName: e.target.value })}
+        onChange={firstName => setFormState({ firstName })}
         placeholder="jim"
         required={true}
         label="First name"
       />
       <Input
         value={formState.lastName}
-        onChange={e => setFormState({ lastName: e.target.value })}
+        onChange={lastName => setFormState({ lastName })}
         placeholder="sebe"
         required={true}
         label="Last name"
@@ -75,7 +76,7 @@ function ProfileForm({ user }: ProfileFormProps) {
       <Input
         type="password"
         value={formState.password}
-        onChange={e => setFormState({ password: e.target.value })}
+        onChange={password => setFormState({ password })}
         placeholder="********"
         label="New password"
       />

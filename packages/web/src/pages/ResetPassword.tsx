@@ -2,9 +2,9 @@ import React, { useState, Fragment, FC } from "react"
 import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
 import { styled, Button, Input } from "@noquarter/ui"
-import { useResetPassword } from "@split/connector"
 
 import AuthForm from "../components/AuthForm"
+import { useResetPassword } from "../lib/graphql/user/hooks"
 
 interface ResetPasswordProps extends RouteComponentProps {
   token?: string
@@ -16,7 +16,7 @@ const ResetPassword: FC<ResetPasswordProps> = props => {
   const [loading, setLoading] = useState<boolean>(false)
   const [success, setSuccess] = useState<boolean>(false)
 
-  const resetPassword = useResetPassword()
+  const [resetPassword] = useResetPassword()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -47,7 +47,7 @@ const ResetPassword: FC<ResetPasswordProps> = props => {
           <Input
             label="New password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={setPassword}
             type="password"
             required={true}
             placeholder="********"

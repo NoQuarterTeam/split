@@ -3,9 +3,10 @@ import { RouteComponentProps, Link } from "@reach/router"
 import { GraphQLError } from "graphql"
 
 import { styled, Button, Input } from "@noquarter/ui"
-import { useRegister, useCheckInvite } from "@split/connector"
 
 import AuthForm from "../components/AuthForm"
+import { useCheckInvite } from "../lib/graphql/invite/hooks"
+import { useRegister } from "../lib/graphql/user/hooks"
 
 const Register: FC<RouteComponentProps<{ token?: string }>> = ({
   token = "",
@@ -19,7 +20,7 @@ const Register: FC<RouteComponentProps<{ token?: string }>> = ({
   const [loading, setLoading] = useState<boolean>(false)
 
   const { house, checkInviteError } = useCheckInvite(token)
-  const register = useRegister()
+  const [register] = useRegister()
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
@@ -49,7 +50,7 @@ const Register: FC<RouteComponentProps<{ token?: string }>> = ({
       <Input
         label="Email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={setEmail}
         type="email"
         required={true}
         placeholder="jim@gmail.com"
@@ -58,7 +59,7 @@ const Register: FC<RouteComponentProps<{ token?: string }>> = ({
       <Input
         label="Password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={setPassword}
         type="password"
         required={true}
         placeholder="********"
@@ -66,7 +67,7 @@ const Register: FC<RouteComponentProps<{ token?: string }>> = ({
       <Input
         label="First name"
         value={firstName}
-        onChange={e => setFirstName(e.target.value)}
+        onChange={setFirstName}
         type="text"
         required={true}
         placeholder="Jim"
@@ -76,7 +77,7 @@ const Register: FC<RouteComponentProps<{ token?: string }>> = ({
       <Input
         label="Last name"
         value={lastName}
-        onChange={e => setLastName(e.target.value)}
+        onChange={setLastName}
         type="text"
         required={true}
         placeholder="Sebe"

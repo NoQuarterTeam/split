@@ -1,9 +1,9 @@
 import React, { memo } from "react"
-import { InviteFragment } from "@split/connector"
 
 import { styled } from "@noquarter/ui"
 import HouseInviteForm from "./HouseInviteForm"
 import InviteItem from "./InviteItem"
+import { InviteFragment } from "../lib/graphql/types"
 
 interface HouseInvitesProps {
   house: { id: string; invites: InviteFragment[] }
@@ -24,6 +24,8 @@ function HouseInvites({ house }: HouseInvitesProps) {
 export default memo(HouseInvites)
 
 const StyledInviteWrapper = styled.div`
+  width: 100%;
+  padding: 0 ${p => p.theme.paddingXL};
   ${p => p.theme.flexCenter};
   flex-direction: column;
 `

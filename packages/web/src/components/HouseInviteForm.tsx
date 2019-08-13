@@ -1,9 +1,9 @@
 import React, { memo, useState, useRef } from "react"
-import { useCreateInvite } from "@split/connector"
 import { sleep } from "@noquarter/utils"
 import { styled, Button, Input } from "@noquarter/ui"
 
 import Alert from "./Alert"
+import { useCreateInvite } from "../lib/graphql/invite/hooks"
 
 interface HouseInviteFormProps {
   house: { id: string }
@@ -22,7 +22,7 @@ function HouseInviteForm({ house }: HouseInviteFormProps) {
     }
   }
 
-  const createInvite = useCreateInvite()
+  const [createInvite] = useCreateInvite()
 
   const handleInviteSend = (e: any) => {
     e.preventDefault()
@@ -44,7 +44,7 @@ function HouseInviteForm({ house }: HouseInviteFormProps) {
       {error && <Alert text={error} />}
       <Input
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={setEmail}
         placeholder="jimsebe@gmail.com"
         ref={inputRef}
       />
@@ -63,7 +63,7 @@ function HouseInviteForm({ house }: HouseInviteFormProps) {
       </div>
     </StyledInviteForm>
   ) : (
-    <Button variant="text" full={true} onClick={handleOpenForm}>
+    <Button variant="text" onClick={handleOpenForm}>
       Invite another house mate
     </Button>
   )

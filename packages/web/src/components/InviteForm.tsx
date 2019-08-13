@@ -1,7 +1,8 @@
 import React, { memo, useState } from "react"
-import { useCreateInvite, HouseFragment } from "@split/connector"
 
 import { styled, Button, Input } from "@noquarter/ui"
+import { HouseFragment } from "../lib/graphql/types"
+import { useCreateInvite } from "../lib/graphql/invite/hooks"
 
 interface InviteFormProps {
   house: HouseFragment
@@ -11,7 +12,7 @@ function InviteForm({ house }: InviteFormProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 
-  const createInvite = useCreateInvite()
+  const [createInvite] = useCreateInvite()
 
   const handleCreateInvite = (e: any) => {
     e.preventDefault()
@@ -30,7 +31,7 @@ function InviteForm({ house }: InviteFormProps) {
       <br />
       <Input
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={setEmail}
         placeholder="housemate@gmail.com"
         required={true}
       />

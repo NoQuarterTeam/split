@@ -1,8 +1,0 @@
-node_modules
-build
-tsconfig.tsbuildinfo
-.cache
-dist
-.env
-
-coverage

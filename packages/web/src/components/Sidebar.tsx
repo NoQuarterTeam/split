@@ -1,6 +1,5 @@
 import React, { memo, FC } from "react"
 import { Link, Match } from "@reach/router"
-import { useLogout } from "@split/connector"
 import { styled, lighten } from "@noquarter/ui"
 
 import { media } from "../application/theme"
@@ -9,10 +8,11 @@ import useAppState from "../lib/hooks/useAppState"
 import IconPlus from "../assets/images/icon-plus.svg"
 
 import Logo from "./Logo"
+import { useLogout } from "../lib/graphql/user/hooks"
 
 function Sidebar({ open }: { open: boolean }) {
   const { house } = useAppState()
-  const logout = useLogout()
+  const [logout] = useLogout()
   const handleLogout = () => logout()
 
   return (

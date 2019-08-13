@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from "react"
 import ApolloClient from "apollo-boost"
-import { ApolloProvider as ReactApolloProvider } from "react-apollo-hooks"
+import { ApolloProvider as ReactApolloProvider } from "@apollo/react-hooks"
 import { apiUrl } from "../../lib/config"
 
 const client = new ApolloClient({

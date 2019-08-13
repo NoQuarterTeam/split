@@ -56,7 +56,6 @@ export function useCheckInvite(inviteId: string | null) {
   if (!inviteId) return { house: null, checkInviteError: null }
   const { data, error } = useCheckInviteQuery({
     variables: { inviteId },
-    suspend: true,
   })
   const house = data && data.checkInvite
   return { house, checkInviteError: error }

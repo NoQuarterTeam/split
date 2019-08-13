@@ -4,5 +4,6 @@ export const House = gql`
   fragment House on House {
     id
     name
+    currency
   }
 `

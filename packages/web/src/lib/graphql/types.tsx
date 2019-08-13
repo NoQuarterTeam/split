@@ -1,6 +1,6 @@
 import gql from "graphql-tag"
-import * as ReactApolloHooks from "react-apollo-hooks"
-import * as ReactApollo from "react-apollo"
+import * as ApolloReactCommon from "@apollo/react-common"
+import * as ApolloReactHooks from "@apollo/react-hooks"
 export type Maybe<T> = T | null
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -62,6 +62,7 @@ export type House = {
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
   name: Scalars["String"]
+  currency?: Maybe<Scalars["String"]>
   users: Array<User>
   costs: Array<Cost>
   invites: Array<Invite>
@@ -69,6 +70,7 @@ export type House = {
 
 export type HouseInput = {
   name: Scalars["String"]
+  currency: Scalars["String"]
 }
 
 export type Invite = {
@@ -172,7 +174,7 @@ export type Query = {
 }
 
 export type QueryAllCostsArgs = {
-  skip: Scalars["Int"]
+  skip?: Maybe<Scalars["Int"]>
   houseId: Scalars["String"]
   search?: Maybe<Scalars["String"]>
 }
@@ -328,7 +330,7 @@ export type DestroyCostMutation = { __typename?: "Mutation" } & Pick<
 
 export type HouseFragment = { __typename?: "House" } & Pick<
   House,
-  "id" | "name"
+  "id" | "name" | "currency"
 >
 
 export type GetHouseQueryVariables = {}
@@ -504,6 +506,7 @@ export const HouseFragmentDoc = gql`
   fragment House on House {
     id
     name
+    currency
   }
 `
 export const InviteFragmentDoc = gql`
@@ -538,13 +541,21 @@ export const AllCostsDocument = gql`
 `
 
 export function useAllCostsQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<AllCostsQueryVariables>,
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    AllCostsQuery,
+    AllCostsQueryVariables
+  >,
 ) {
-  return ReactApolloHooks.useQuery<AllCostsQuery, AllCostsQueryVariables>(
+  return ApolloReactHooks.useQuery<AllCostsQuery, AllCostsQueryVariables>(
     AllCostsDocument,
     baseOptions,
   )
 }
+export type AllCostsQueryHookResult = ReturnType<typeof useAllCostsQuery>
+export type AllCostsQueryResult = ApolloReactCommon.QueryResult<
+  AllCostsQuery,
+  AllCostsQueryVariables
+>
 export const GetCostDocument = gql`
   query GetCost($costId: String!) {
     getCost(costId: $costId) {
@@ -557,13 +568,21 @@ export const GetCostDocument = gql`
 `
 
 export function useGetCostQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<GetCostQueryVariables>,
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetCostQuery,
+    GetCostQueryVariables
+  >,
 ) {
-  return ReactApolloHooks.useQuery<GetCostQuery, GetCostQueryVariables>(
+  return ApolloReactHooks.useQuery<GetCostQuery, GetCostQueryVariables>(
     GetCostDocument,
     baseOptions,
   )
 }
+export type GetCostQueryHookResult = ReturnType<typeof useGetCostQuery>
+export type GetCostQueryResult = ApolloReactCommon.QueryResult<
+  GetCostQuery,
+  GetCostQueryVariables
+>
 export const CreateCostDocument = gql`
   mutation CreateCost($data: CostInput!) {
     createCost(data: $data) {
@@ -574,22 +593,28 @@ export const CreateCostDocument = gql`
   ${CostFragmentDoc}
   ${PayerFragmentDoc}
 `
-export type CreateCostMutationFn = ReactApollo.MutationFn<
-  CreateCostMutation,
-  CreateCostMutationVariables
->
 
 export function useCreateCostMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     CreateCostMutation,
     CreateCostMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     CreateCostMutation,
     CreateCostMutationVariables
   >(CreateCostDocument, baseOptions)
 }
+export type CreateCostMutationHookResult = ReturnType<
+  typeof useCreateCostMutation
+>
+export type CreateCostMutationResult = ApolloReactCommon.MutationResult<
+  CreateCostMutation
+>
+export type CreateCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateCostMutation,
+  CreateCostMutationVariables
+>
 export const EditCostDocument = gql`
   mutation EditCost($costId: String!, $data: CostInput!) {
     editCost(costId: $costId, data: $data) {
@@ -600,43 +625,53 @@ export const EditCostDocument = gql`
   ${CostFragmentDoc}
   ${SharesFragmentDoc}
 `
-export type EditCostMutationFn = ReactApollo.MutationFn<
-  EditCostMutation,
-  EditCostMutationVariables
->
 
 export function useEditCostMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     EditCostMutation,
     EditCostMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     EditCostMutation,
     EditCostMutationVariables
   >(EditCostDocument, baseOptions)
 }
+export type EditCostMutationHookResult = ReturnType<typeof useEditCostMutation>
+export type EditCostMutationResult = ApolloReactCommon.MutationResult<
+  EditCostMutation
+>
+export type EditCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  EditCostMutation,
+  EditCostMutationVariables
+>
 export const DestroyCostDocument = gql`
   mutation DestroyCost($costId: String!) {
     destroyCost(costId: $costId)
   }
 `
-export type DestroyCostMutationFn = ReactApollo.MutationFn<
-  DestroyCostMutation,
-  DestroyCostMutationVariables
->
 
 export function useDestroyCostMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     DestroyCostMutation,
     DestroyCostMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     DestroyCostMutation,
     DestroyCostMutationVariables
   >(DestroyCostDocument, baseOptions)
 }
+export type DestroyCostMutationHookResult = ReturnType<
+  typeof useDestroyCostMutation
+>
+export type DestroyCostMutationResult = ApolloReactCommon.MutationResult<
+  DestroyCostMutation
+>
+export type DestroyCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DestroyCostMutation,
+  DestroyCostMutationVariables
+>
 export const GetHouseDocument = gql`
   query GetHouse {
     house {
@@ -655,13 +690,21 @@ export const GetHouseDocument = gql`
 `
 
 export function useGetHouseQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<GetHouseQueryVariables>,
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetHouseQuery,
+    GetHouseQueryVariables
+  >,
 ) {
-  return ReactApolloHooks.useQuery<GetHouseQuery, GetHouseQueryVariables>(
+  return ApolloReactHooks.useQuery<GetHouseQuery, GetHouseQueryVariables>(
     GetHouseDocument,
     baseOptions,
   )
 }
+export type GetHouseQueryHookResult = ReturnType<typeof useGetHouseQuery>
+export type GetHouseQueryResult = ApolloReactCommon.QueryResult<
+  GetHouseQuery,
+  GetHouseQueryVariables
+>
 export const CreateHouseDocument = gql`
   mutation CreateHouse($data: HouseInput!) {
     createHouse(data: $data) {
@@ -678,22 +721,28 @@ export const CreateHouseDocument = gql`
   ${UserFragmentDoc}
   ${InviteFragmentDoc}
 `
-export type CreateHouseMutationFn = ReactApollo.MutationFn<
-  CreateHouseMutation,
-  CreateHouseMutationVariables
->
 
 export function useCreateHouseMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     CreateHouseMutation,
     CreateHouseMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     CreateHouseMutation,
     CreateHouseMutationVariables
   >(CreateHouseDocument, baseOptions)
 }
+export type CreateHouseMutationHookResult = ReturnType<
+  typeof useCreateHouseMutation
+>
+export type CreateHouseMutationResult = ApolloReactCommon.MutationResult<
+  CreateHouseMutation
+>
+export type CreateHouseMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateHouseMutation,
+  CreateHouseMutationVariables
+>
 export const EditHouseDocument = gql`
   mutation EditHouse($houseId: String!, $data: HouseInput!) {
     editHouse(houseId: $houseId, data: $data) {
@@ -702,22 +751,28 @@ export const EditHouseDocument = gql`
   }
   ${HouseFragmentDoc}
 `
-export type EditHouseMutationFn = ReactApollo.MutationFn<
-  EditHouseMutation,
-  EditHouseMutationVariables
->
 
 export function useEditHouseMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     EditHouseMutation,
     EditHouseMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     EditHouseMutation,
     EditHouseMutationVariables
   >(EditHouseDocument, baseOptions)
 }
+export type EditHouseMutationHookResult = ReturnType<
+  typeof useEditHouseMutation
+>
+export type EditHouseMutationResult = ApolloReactCommon.MutationResult<
+  EditHouseMutation
+>
+export type EditHouseMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  EditHouseMutation,
+  EditHouseMutationVariables
+>
 export const CreateInviteDocument = gql`
   mutation CreateInvite($data: InviteInput!) {
     createInvite(data: $data) {
@@ -726,43 +781,55 @@ export const CreateInviteDocument = gql`
   }
   ${InviteFragmentDoc}
 `
-export type CreateInviteMutationFn = ReactApollo.MutationFn<
-  CreateInviteMutation,
-  CreateInviteMutationVariables
->
 
 export function useCreateInviteMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     CreateInviteMutation,
     CreateInviteMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     CreateInviteMutation,
     CreateInviteMutationVariables
   >(CreateInviteDocument, baseOptions)
 }
+export type CreateInviteMutationHookResult = ReturnType<
+  typeof useCreateInviteMutation
+>
+export type CreateInviteMutationResult = ApolloReactCommon.MutationResult<
+  CreateInviteMutation
+>
+export type CreateInviteMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateInviteMutation,
+  CreateInviteMutationVariables
+>
 export const DestroyInviteDocument = gql`
   mutation DestroyInvite($inviteId: String!) {
     destroyInvite(inviteId: $inviteId)
   }
 `
-export type DestroyInviteMutationFn = ReactApollo.MutationFn<
-  DestroyInviteMutation,
-  DestroyInviteMutationVariables
->
 
 export function useDestroyInviteMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     DestroyInviteMutation,
     DestroyInviteMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     DestroyInviteMutation,
     DestroyInviteMutationVariables
   >(DestroyInviteDocument, baseOptions)
 }
+export type DestroyInviteMutationHookResult = ReturnType<
+  typeof useDestroyInviteMutation
+>
+export type DestroyInviteMutationResult = ApolloReactCommon.MutationResult<
+  DestroyInviteMutation
+>
+export type DestroyInviteMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DestroyInviteMutation,
+  DestroyInviteMutationVariables
+>
 export const CheckInviteDocument = gql`
   query CheckInvite($inviteId: String) {
     checkInvite(inviteId: $inviteId) {
@@ -773,13 +840,21 @@ export const CheckInviteDocument = gql`
 `
 
 export function useCheckInviteQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<CheckInviteQueryVariables>,
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    CheckInviteQuery,
+    CheckInviteQueryVariables
+  >,
 ) {
-  return ReactApolloHooks.useQuery<CheckInviteQuery, CheckInviteQueryVariables>(
+  return ApolloReactHooks.useQuery<CheckInviteQuery, CheckInviteQueryVariables>(
     CheckInviteDocument,
     baseOptions,
   )
 }
+export type CheckInviteQueryHookResult = ReturnType<typeof useCheckInviteQuery>
+export type CheckInviteQueryResult = ApolloReactCommon.QueryResult<
+  CheckInviteQuery,
+  CheckInviteQueryVariables
+>
 export const GetSignedS3UrlDocument = gql`
   mutation GetSignedS3Url($data: S3SignedUrlInput!) {
     getSignedS3Url(data: $data) {
@@ -788,22 +863,28 @@ export const GetSignedS3UrlDocument = gql`
     }
   }
 `
-export type GetSignedS3UrlMutationFn = ReactApollo.MutationFn<
-  GetSignedS3UrlMutation,
-  GetSignedS3UrlMutationVariables
->
 
 export function useGetSignedS3UrlMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     GetSignedS3UrlMutation,
     GetSignedS3UrlMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     GetSignedS3UrlMutation,
     GetSignedS3UrlMutationVariables
   >(GetSignedS3UrlDocument, baseOptions)
 }
+export type GetSignedS3UrlMutationHookResult = ReturnType<
+  typeof useGetSignedS3UrlMutation
+>
+export type GetSignedS3UrlMutationResult = ApolloReactCommon.MutationResult<
+  GetSignedS3UrlMutation
+>
+export type GetSignedS3UrlMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  GetSignedS3UrlMutation,
+  GetSignedS3UrlMutationVariables
+>
 export const MeDocument = gql`
   query Me {
     me {
@@ -814,13 +895,18 @@ export const MeDocument = gql`
 `
 
 export function useMeQuery(
-  baseOptions?: ReactApolloHooks.QueryHookOptions<MeQueryVariables>,
+  baseOptions?: ApolloReactHooks.QueryHookOptions<MeQuery, MeQueryVariables>,
 ) {
-  return ReactApolloHooks.useQuery<MeQuery, MeQueryVariables>(
+  return ApolloReactHooks.useQuery<MeQuery, MeQueryVariables>(
     MeDocument,
     baseOptions,
   )
 }
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>
+export type MeQueryResult = ApolloReactCommon.QueryResult<
+  MeQuery,
+  MeQueryVariables
+>
 export const LoginDocument = gql`
   mutation Login($data: LoginInput!) {
     login(data: $data) {
@@ -829,22 +915,26 @@ export const LoginDocument = gql`
   }
   ${UserFragmentDoc}
 `
-export type LoginMutationFn = ReactApollo.MutationFn<
-  LoginMutation,
-  LoginMutationVariables
->
 
 export function useLoginMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     LoginMutation,
     LoginMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<LoginMutation, LoginMutationVariables>(
+  return ApolloReactHooks.useMutation<LoginMutation, LoginMutationVariables>(
     LoginDocument,
     baseOptions,
   )
 }
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>
+export type LoginMutationResult = ApolloReactCommon.MutationResult<
+  LoginMutation
+>
+export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  LoginMutation,
+  LoginMutationVariables
+>
 export const RegisterDocument = gql`
   mutation Register($data: RegisterInput!) {
     register(data: $data) {
@@ -853,22 +943,26 @@ export const RegisterDocument = gql`
   }
   ${UserFragmentDoc}
 `
-export type RegisterMutationFn = ReactApollo.MutationFn<
-  RegisterMutation,
-  RegisterMutationVariables
->
 
 export function useRegisterMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     RegisterMutation,
     RegisterMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     RegisterMutation,
     RegisterMutationVariables
   >(RegisterDocument, baseOptions)
 }
+export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>
+export type RegisterMutationResult = ApolloReactCommon.MutationResult<
+  RegisterMutation
+>
+export type RegisterMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  RegisterMutation,
+  RegisterMutationVariables
+>
 export const UpdateUserDocument = gql`
   mutation UpdateUser($data: UpdateInput!) {
     updateUser(data: $data) {
@@ -877,82 +971,104 @@ export const UpdateUserDocument = gql`
   }
   ${UserFragmentDoc}
 `
-export type UpdateUserMutationFn = ReactApollo.MutationFn<
-  UpdateUserMutation,
-  UpdateUserMutationVariables
->
 
 export function useUpdateUserMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     UpdateUserMutation,
     UpdateUserMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     UpdateUserMutation,
     UpdateUserMutationVariables
   >(UpdateUserDocument, baseOptions)
 }
+export type UpdateUserMutationHookResult = ReturnType<
+  typeof useUpdateUserMutation
+>
+export type UpdateUserMutationResult = ApolloReactCommon.MutationResult<
+  UpdateUserMutation
+>
+export type UpdateUserMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateUserMutation,
+  UpdateUserMutationVariables
+>
 export const LogoutDocument = gql`
   mutation Logout {
     logout
   }
 `
-export type LogoutMutationFn = ReactApollo.MutationFn<
-  LogoutMutation,
-  LogoutMutationVariables
->
 
 export function useLogoutMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     LogoutMutation,
     LogoutMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<LogoutMutation, LogoutMutationVariables>(
+  return ApolloReactHooks.useMutation<LogoutMutation, LogoutMutationVariables>(
     LogoutDocument,
     baseOptions,
   )
 }
+export type LogoutMutationHookResult = ReturnType<typeof useLogoutMutation>
+export type LogoutMutationResult = ApolloReactCommon.MutationResult<
+  LogoutMutation
+>
+export type LogoutMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  LogoutMutation,
+  LogoutMutationVariables
+>
 export const ForgotPasswordDocument = gql`
   mutation ForgotPassword($email: String!) {
     forgotPassword(email: $email)
   }
 `
-export type ForgotPasswordMutationFn = ReactApollo.MutationFn<
-  ForgotPasswordMutation,
-  ForgotPasswordMutationVariables
->
 
 export function useForgotPasswordMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     ForgotPasswordMutation,
     ForgotPasswordMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     ForgotPasswordMutation,
     ForgotPasswordMutationVariables
   >(ForgotPasswordDocument, baseOptions)
 }
+export type ForgotPasswordMutationHookResult = ReturnType<
+  typeof useForgotPasswordMutation
+>
+export type ForgotPasswordMutationResult = ApolloReactCommon.MutationResult<
+  ForgotPasswordMutation
+>
+export type ForgotPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ForgotPasswordMutation,
+  ForgotPasswordMutationVariables
+>
 export const ResetPasswordDocument = gql`
   mutation ResetPassword($data: ResetPasswordInput!) {
     resetPassword(data: $data)
   }
 `
-export type ResetPasswordMutationFn = ReactApollo.MutationFn<
-  ResetPasswordMutation,
-  ResetPasswordMutationVariables
->
 
 export function useResetPasswordMutation(
-  baseOptions?: ReactApolloHooks.MutationHookOptions<
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
     ResetPasswordMutation,
     ResetPasswordMutationVariables
   >,
 ) {
-  return ReactApolloHooks.useMutation<
+  return ApolloReactHooks.useMutation<
     ResetPasswordMutation,
     ResetPasswordMutationVariables
   >(ResetPasswordDocument, baseOptions)
 }
+export type ResetPasswordMutationHookResult = ReturnType<
+  typeof useResetPasswordMutation
+>
+export type ResetPasswordMutationResult = ApolloReactCommon.MutationResult<
+  ResetPasswordMutation
+>
+export type ResetPasswordMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  ResetPasswordMutation,
+  ResetPasswordMutationVariables
+>

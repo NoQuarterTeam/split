@@ -1,17 +1,18 @@
 import React, { FC } from "react"
 import { RouteComponentProps, Redirect, navigate } from "@reach/router"
-import { CostInput, useCreateCost } from "@split/connector"
 
 import useAppContext from "../lib/hooks/useAppState"
 
 import CostForm from "../components/CostForm"
 import QuickPage from "../components/QuickPage"
+import { useCreateCost } from "../lib/graphql/cost/hooks"
+import { CostInput } from "../lib/graphql/types"
 
 const NewCost: FC<RouteComponentProps> = () => {
   const { user } = useAppContext()
   if (!user.houseId) return <Redirect to="/" noThrow={true} />
 
-  const createCost = useCreateCost(user.houseId)
+  const [createCost] = useCreateCost(user.houseId)
 
   const handleCreateCost = async (costData: CostInput) => {
     await createCost({

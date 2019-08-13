@@ -4,7 +4,6 @@ import throttle from "lodash.throttle"
 import { useEventListener, useLocalStorage } from "@noquarter/hooks"
 
 import { styled } from "@noquarter/ui"
-import { useAllCosts } from "@split/connector"
 
 import { media } from "../application/theme"
 
@@ -14,6 +13,7 @@ import CostItem from "../components/CostItem"
 import Column from "./styled/Column"
 import CostsSearch from "./CostsSearch"
 import Divider from "./styled/Divider"
+import { useAllCosts } from "../lib/graphql/cost/hooks"
 
 function CostList() {
   const { house } = useAppContext()

@@ -1,11 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react"
 import Dropzone from "react-dropzone"
 import axios from "axios"
-import {
-  useUpdateUser,
-  useGetSignedS3Url,
-  UserFragment,
-} from "@split/connector"
 
 import { styled } from "@noquarter/ui"
 
@@ -13,6 +8,9 @@ import IconCamera from "../assets/images/icon-camera.svg"
 
 import Avatar from "./Avatar"
 import Modal from "./Modal"
+import { UserFragment } from "../lib/graphql/types"
+import { useUpdateUser } from "../lib/graphql/user/hooks"
+import { useGetSignedS3Url } from "../lib/graphql/shared/hooks"
 
 interface ProfileAvatarUploadProps {
   user: UserFragment
@@ -21,8 +19,8 @@ interface ProfileAvatarUploadProps {
 function ProfileAvatarUpload({ user }: ProfileAvatarUploadProps) {
   const [avatar, setAvatar] = useState<any>()
 
-  const updateUser = useUpdateUser()
-  const getSignedS3Url = useGetSignedS3Url()
+  const [updateUser] = useUpdateUser()
+  const [getSignedS3Url] = useGetSignedS3Url()
 
   const handleFileDrop = (droppedFile: any) => {
     setAvatar({
@@ -38,7 +36,7 @@ function ProfileAvatarUpload({ user }: ProfileAvatarUploadProps) {
   }
 
   const handleSubmitAvatar = async () => {
-    const { data } = await getSignedS3Url({
+    const res = await getSignedS3Url({
       variables: {
         data: {
           filename: formatFilename(avatar.file.name),
@@ -46,6 +44,7 @@ function ProfileAvatarUpload({ user }: ProfileAvatarUploadProps) {
         },
       },
     })
+    const data = res && res.data
     if (data && data.getSignedS3Url && data.getSignedS3Url.signedRequest) {
       const { signedRequest, url } = data.getSignedS3Url
       const options = {

@@ -1,5 +1,5 @@
 import React from "react"
-import { MeQuery, GetHouseQuery } from "@split/connector"
+import { MeQuery, GetHouseQuery } from "../lib/graphql/types"
 
 export interface StateContext {
   user: MeQuery["me"]

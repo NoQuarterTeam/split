@@ -1,7 +1,8 @@
 import React, { useState, memo, useRef } from "react"
-import { useEditHouse, HouseFragment } from "@split/connector"
 
 import { styled } from "@noquarter/ui"
+import { useEditHouse } from "../lib/graphql/house/hooks"
+import { HouseFragment } from "../lib/graphql/types"
 
 interface HouseNameProps {
   house: HouseFragment
@@ -10,7 +11,9 @@ interface HouseNameProps {
 function HouseName({ house }: HouseNameProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [houseName, setHouseName] = useState<string>(house.name)
-  const updateHouse = useEditHouse()
+  const [currency] = useState(house.currency || "Euro")
+
+  const [updateHouse] = useEditHouse()
 
   const handleHouseUpdate = (e: any) => {
     e.preventDefault()
@@ -19,6 +22,7 @@ function HouseName({ house }: HouseNameProps) {
       variables: {
         houseId: house.id,
         data: {
+          currency,
           name: houseName,
         },
       },

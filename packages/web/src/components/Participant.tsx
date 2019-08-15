@@ -44,8 +44,8 @@ function Participant({
     }
   }
 
-  const handleCostShareUpdate = (e: any) => {
-    const amount = +e.target.value
+  const handleCostShareUpdate = (val: string) => {
+    const amount = +val
     if (amount < 0) return
     if (decimalCount(amount) > 2) return
     setFormState({

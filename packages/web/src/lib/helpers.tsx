@@ -1,3 +1,5 @@
+import currencies from "./data/currencies"
+
 const distribute = (divider: number, numerator: number, precision = 2) => {
   const arr = []
   while (divider > 0) {
@@ -13,3 +15,6 @@ const distribute = (divider: number, numerator: number, precision = 2) => {
 
 export const splitTheBill = (people: number, amount: number) =>
   distribute(people, amount)
+
+export const getCurrency = (currency?: string | null) =>
+  currencies[currency || "Euro"]

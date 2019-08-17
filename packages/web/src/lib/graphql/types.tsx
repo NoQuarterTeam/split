@@ -267,8 +267,8 @@ export type CostFragment = { __typename?: "Cost" } & Pick<
 
 export type SharesFragment = { __typename?: "Cost" } & {
   shares: ({ __typename?: "Share" } & Pick<Share, "amount"> & {
-      user: { __typename?: "User" } & Pick<User, "id">
-    })[]
+        user: { __typename?: "User" } & Pick<User, "id">
+      })[]
 }
 
 export type PayerFragment = { __typename?: "Cost" } & {

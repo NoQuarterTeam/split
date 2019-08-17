@@ -1,5 +1,14 @@
-export default [
-  { symbol: "€", name: "Euro" },
-  { symbol: "$", name: "Dollar" },
-  { symbol: "£", name: "British Pound" },
-]
+export interface Currency {
+  Euro: string
+  Dollar: string
+  "British Pound": string
+  [key: string]: string
+}
+
+const currencies: Currency = {
+  Euro: "€",
+  Dollar: "$",
+  "British Pound": "£",
+}
+
+export default currencies

@@ -25,7 +25,6 @@ export default memo(HouseInvites)
 
 const StyledInviteWrapper = styled.div`
   width: 100%;
-  padding: 0 ${p => p.theme.paddingXL};
   ${p => p.theme.flexCenter};
   flex-direction: column;
 `

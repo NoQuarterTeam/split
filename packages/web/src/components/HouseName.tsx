@@ -11,7 +11,6 @@ interface HouseNameProps {
 function HouseName({ house }: HouseNameProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [houseName, setHouseName] = useState<string>(house.name)
-  const [currency] = useState(house.currency || "Euro")
 
   const [updateHouse] = useEditHouse()
 
@@ -22,7 +21,7 @@ function HouseName({ house }: HouseNameProps) {
       variables: {
         houseId: house.id,
         data: {
-          currency,
+          currency: house.currency || "Euro",
           name: houseName,
         },
       },

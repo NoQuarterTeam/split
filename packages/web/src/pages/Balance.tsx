@@ -11,15 +11,20 @@ import HouseBalance from "../components/HouseBalance"
 import HouseName from "../components/HouseName"
 import InviteForm from "../components/InviteForm"
 import Display from "../components/styled/Display"
+import { getCurrency } from "../lib/helpers"
 
 const Balance: FC<RouteComponentProps> = () => {
   const { user, house } = useAppContext()
   if (!house) return null
   const getBalanceHeader = () => {
     if (user.balance > 0) {
-      return `You are owed €${round(user.balance * 0.01)}`
+      return `You are owed ${getCurrency(house && house.currency)}${round(
+        user.balance * 0.01,
+      )}`
     } else {
-      return `You owe €${Math.abs(round(user.balance * 0.01))}`
+      return `You owe ${getCurrency(house && house.currency)}${Math.abs(
+        round(user.balance * 0.01),
+      )}`
     }
   }
   return (

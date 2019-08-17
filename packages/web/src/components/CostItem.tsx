@@ -15,12 +15,15 @@ import Avatar from "./Avatar"
 import Center from "./styled/Center"
 import ToolTip from "./ToolTip"
 import { CostFragment, PayerFragment } from "../lib/graphql/types"
+import { getCurrency } from "../lib/helpers"
+import useAppContext from "../lib/hooks/useAppState"
 
 interface CostProps {
   cost: CostFragment & PayerFragment
 }
 
 function CostItem({ cost }: CostProps) {
+  const { house } = useAppContext()
   return (
     <Link to={`/costs/${cost.id}`}>
       <StyledCost>
@@ -45,7 +48,9 @@ function CostItem({ cost }: CostProps) {
           </StyledValue>
         </Column>
         <Column flex={5}>
-          <StyledValue>€ {round(cost.amount * 0.01)}</StyledValue>
+          <StyledValue>
+            {getCurrency(house && house.currency)} {round(cost.amount * 0.01)}
+          </StyledValue>
         </Column>
         <Column flex={5}>
           <Avatar user={cost.payer} size={40} />

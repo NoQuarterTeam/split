@@ -6,6 +6,7 @@ import { media } from "../application/theme"
 import Avatar from "./Avatar"
 import useAppContext from "../lib/hooks/useAppState"
 import { UserFragment } from "../lib/graphql/types"
+import { getCurrency } from "../lib/helpers"
 
 interface HouseBalanceProps {
   users: UserFragment[]
@@ -27,7 +28,8 @@ function HouseBalance({ users }: HouseBalanceProps) {
             <StyledSpacer />
             <Avatar user={user} />
             <StyledUserBalance>
-              {user.balance < 0 && "-"} € {round(Math.abs(user.balance * 0.01))}
+              {user.balance < 0 && "-"} {getCurrency(house && house.currency)}{" "}
+              {round(Math.abs(user.balance * 0.01))}
             </StyledUserBalance>
           </StyledUserGraph>
         )

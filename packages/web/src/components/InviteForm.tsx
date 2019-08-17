@@ -3,6 +3,7 @@ import React, { memo, useState } from "react"
 import { styled, Button, Input } from "@noquarter/ui"
 import { HouseFragment } from "../lib/graphql/types"
 import { useCreateInvite } from "../lib/graphql/invite/hooks"
+import Tile from "./styled/Tile"
 
 interface InviteFormProps {
   house: HouseFragment
@@ -26,26 +27,32 @@ function InviteForm({ house }: InviteFormProps) {
   }
 
   return (
-    <StyledForm onSubmit={handleCreateInvite}>
-      <StyledHeader>Now invite someone to join</StyledHeader>
-      <br />
-      <Input
-        value={email}
-        onChange={setEmail}
-        placeholder="housemate@gmail.com"
-        required={true}
-      />
-      <br />
-      <Button loading={loading}>Send invite</Button>
-      {error && <StyledError>{error}</StyledError>}
-    </StyledForm>
+    <StyledWrapper>
+      <StyledForm as="form" onSubmit={handleCreateInvite}>
+        <StyledHeader>Now invite someone to join</StyledHeader>
+        <br />
+        <Input
+          label="House mate"
+          value={email}
+          onChange={setEmail}
+          required={true}
+        />
+        <br />
+        <Button loading={loading}>Send invite</Button>
+        {error && <StyledError>{error}</StyledError>}
+      </StyledForm>
+    </StyledWrapper>
   )
 }
 
 export default memo(InviteForm)
 
-const StyledForm = styled.form`
+const StyledWrapper = styled.div`
   height: 100%;
+  ${p => p.theme.flexCenter};
+`
+
+const StyledForm = styled(Tile)`
   max-width: 450px;
   width: 100%;
   margin: 0 auto;
@@ -53,7 +60,7 @@ const StyledForm = styled.form`
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  padding: ${p => p.theme.paddingM};
+  padding: ${p => p.theme.paddingL};
 `
 
 const StyledHeader = styled.h1``

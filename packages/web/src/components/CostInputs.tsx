@@ -1,10 +1,14 @@
 import React, { memo } from "react"
 
-import { styled, Input, Select } from "@noquarter/ui"
+import { styled, Select } from "@noquarter/ui"
 import { decimalCount } from "@noquarter/utils"
+
+import useAppContext from "../lib/hooks/useAppState"
 
 import { media } from "../application/theme"
 import { CostInput } from "../lib/graphql/types"
+import { getCurrency } from "../lib/helpers"
+import { Input } from "./Input"
 
 interface CostInputsProps {
   formState: CostInput
@@ -13,6 +17,8 @@ interface CostInputsProps {
 }
 
 function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
+  const { house } = useAppContext()
+  const currency = getCurrency(house && house.currency)
   return (
     <StyledInputs>
       <StyledInputWrapper>
@@ -20,7 +26,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
           id="name"
           label="Name"
           placeholder="Beers"
-          required={true}
+          // required={true}
           type="text"
           value={formState.name}
           onChange={name => setFormState({ name })}
@@ -29,7 +35,7 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
       <StyledInputWrapper>
         <Input
           id="amount"
-          prefix="€"
+          prefix={currency}
           label="Amount"
           required={true}
           placeholder="0.00"
@@ -38,6 +44,8 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
           step="0.01"
           value={formState.amount === 0 ? "" : formState.amount}
           onChange={val => {
+            console.log(val)
+
             const amount = +val
             if (amount < 0) return
             if (decimalCount(amount) > 2) return

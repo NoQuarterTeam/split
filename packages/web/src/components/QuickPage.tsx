@@ -46,7 +46,7 @@ const QuickPage: FC<QuickPageProps> = ({ children, title }) => {
 export default QuickPage
 
 const StyledQuickPage = styled.div`
-  min-height: ${window.innerHeight}px;
+  height: 100vh;
   width: 100vw;
   background-color: white;
 `

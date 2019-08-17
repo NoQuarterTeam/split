@@ -20,7 +20,7 @@ function Sidebar({ open }: { open: boolean }) {
       <Logo />
       <div>
         <NavLink to="/">Balance</NavLink>
-        {house && house.users.length > 1 && (
+        {house && (
           <NavLink to="/new-cost">
             New cost <StyledIcon src={IconPlus} />
           </NavLink>

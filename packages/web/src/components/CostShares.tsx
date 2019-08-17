@@ -9,6 +9,8 @@ import Column from "./styled/Column"
 import Alert from "./Alert"
 import Participant from "./Participant"
 import { UserFragment, CostInput } from "../lib/graphql/types"
+import { getCurrency } from "../lib/helpers"
+import useAppContext from "../lib/hooks/useAppState"
 
 interface CostSharesProps {
   users: UserFragment[]
@@ -24,6 +26,7 @@ function CostShares({
   setFormState,
   applyEqualSplit,
 }: CostSharesProps) {
+  const { house } = useAppContext()
   const totalCostShares = formState.costShares.sumBy("amount")
   const amountRemaining = round(formState.amount - totalCostShares, 2)
   return (
@@ -32,7 +35,9 @@ function CostShares({
       !formState.equalSplit && ( // Requires equal split to stop flashing
           <StyledAlertWrapper>
             <Alert
-              text={`Split must equal amount ( € ${amountRemaining} remaining )`}
+              text={`Split must equal amount ( ${getCurrency(
+                house && house.currency,
+              )} ${amountRemaining} remaining )`}
             />
           </StyledAlertWrapper>
         )}
@@ -61,7 +66,7 @@ function CostShares({
 
       {(isDifferent || !formState.equalSplit) && (
         <StyledButtonWrapper>
-          <Button type="button" variant="outline" onClick={applyEqualSplit}>
+          <Button type="button" color="secondary" onClick={applyEqualSplit}>
             Split equally
           </Button>
         </StyledButtonWrapper>

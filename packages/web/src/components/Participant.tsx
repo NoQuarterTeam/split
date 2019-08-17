@@ -1,5 +1,5 @@
 import React, { memo } from "react"
-import { styled, Input, Switch, Radio } from "@noquarter/ui"
+import { styled, Switch, Radio } from "@noquarter/ui"
 import { decimalCount } from "@noquarter/utils"
 
 import { media } from "../application/theme"
@@ -8,6 +8,9 @@ import Avatar from "./Avatar"
 import Column from "./styled/Column"
 import Center from "./styled/Center"
 import { UserFragment, ShareInput } from "../lib/graphql/types"
+import { getCurrency } from "../lib/helpers"
+import useAppContext from "../lib/hooks/useAppState"
+import { Input } from "./Input"
 
 interface ParticipantProps {
   user: UserFragment
@@ -22,6 +25,7 @@ function Participant({
   shares,
   setFormState,
 }: ParticipantProps) {
+  const { house } = useAppContext()
   const userShare = shares.find(s => s.userId === user.id)
 
   const toggleParticipant = (userId: string) => {
@@ -81,7 +85,7 @@ function Participant({
         <Input
           data-testid="participant-amount"
           type="number"
-          prefix="€"
+          prefix={getCurrency(house && house.currency)}
           required={true}
           placeholder="0.00"
           min="0"
@@ -90,7 +94,7 @@ function Participant({
           onChange={handleCostShareUpdate}
           value={!userShare || userShare.amount === 0 ? "" : userShare.amount}
           style={{
-            border: 0,
+            borderColor: "transparent",
             backgroundColor: "transparent",
             opacity: userShare ? 1 : 0.4,
           }}

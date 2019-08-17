@@ -23,9 +23,9 @@ export default Page
 
 const StyledPage = styled.div`
   width: 100vw;
+  height: 100vh;
   padding-left: 0;
   display: flex;
-  height: ${window.innerHeight}px;
 
   ${media.greaterThan("sm")`
     padding-left: 220px;
@@ -63,8 +63,9 @@ const StyledOverlay = styled.div`
 
 const StyledPageContent = styled.div`
   width: 100%;
-  min-height: ${window.innerHeight}px;
+  height: 100vh;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  padding: ${p => p.theme.paddingM};
   background-color: ${p => p.theme.colorBackground};
 `

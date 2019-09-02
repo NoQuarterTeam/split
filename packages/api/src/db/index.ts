@@ -9,7 +9,6 @@ export const createDbConnection = async (migrate = false) => {
   const connection = await createConnection({
     ...options,
     name: "default",
-    // @ts-ignore
     url: DATABASE_URL,
   })
 

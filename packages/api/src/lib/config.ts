@@ -2,7 +2,6 @@
 export const {
   NODE_ENV = "development",
   APP_SECRET = "APP_SECRET",
-  APOLLO_ENGINE_API_KEY = "service:split:sBXPit6oyOgt84W0RsrGGA",
   PORT = 5000,
   S3_BUCKET_NAME = "S3_BUCKET",
   SENDGRID_API_KEY = "SENDGRID_API_KEY",

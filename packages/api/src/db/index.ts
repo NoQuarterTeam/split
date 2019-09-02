@@ -5,6 +5,7 @@ export const createDbConnection = async (migrate = false) => {
   // Create DB connection
   const options = await getConnectionOptions(NODE_ENV)
 
+  // @ts-ignore
   const connection = await createConnection({
     ...options,
     name: "default",

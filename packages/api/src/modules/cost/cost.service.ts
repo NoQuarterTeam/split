@@ -1,4 +1,4 @@
-import { Service } from "typedi"
+import { Service, Inject } from "typedi"
 import dayjs from "dayjs"
 import { CostInput } from "./inputs/cost.input"
 import { Cost } from "./cost.entity"
@@ -9,8 +9,10 @@ import { CostRepository } from "./cost.repository"
 
 @Service()
 export class CostService {
+  @Inject(() => CostJob)
+  costJob: CostJob
+
   constructor(
-    private readonly costJob: CostJob,
     private readonly costRepository: CostRepository,
     private readonly shareService: ShareService,
   ) {}

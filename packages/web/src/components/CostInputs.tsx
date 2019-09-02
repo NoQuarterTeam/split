@@ -44,8 +44,6 @@ function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
           step="0.01"
           value={formState.amount === 0 ? "" : formState.amount}
           onChange={val => {
-            console.log(val)
-
             const amount = +val
             if (amount < 0) return
             if (decimalCount(amount) > 2) return

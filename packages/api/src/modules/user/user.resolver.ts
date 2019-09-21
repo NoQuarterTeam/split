@@ -13,6 +13,7 @@ import { UpdateInput } from "./inputs/update.input"
 import { ResetPasswordInput } from "./inputs/resetPassword.input"
 import { UserRepository } from "./user.repository"
 import { CurrentUser } from "../shared/middleware/currentUser"
+import { SlackService } from "../shared/slack.service"
 
 @Resolver(() => User)
 export class UserResolver {
@@ -20,6 +21,7 @@ export class UserResolver {
     private readonly userService: UserService,
     private readonly userRepository: UserRepository,
     private readonly userMailer: UserMailer,
+    private readonly slackService: SlackService,
   ) {}
 
   // ME
@@ -38,6 +40,9 @@ export class UserResolver {
     const user = await this.userService.create(data)
     if (req.session) req.session.user = user
     this.userMailer.sendWelcomeEmail(user)
+    this.slackService.sendChatMessage(
+      `${user.firstName} ${user.lastName} signed up!`,
+    )
     return user
   }
 

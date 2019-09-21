@@ -7,6 +7,7 @@ export const {
   SENDGRID_API_KEY = "SENDGRID_API_KEY",
   DATABASE_URL = "",
   REDIS_URL = "",
+  SLACK_TOKEN = "SLACK_TOKEN",
 } = process.env
 
 // IS PRODUCTION
@@ -58,3 +59,6 @@ export const sessionConfig = {
     maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years
   },
 }
+
+// SLACK
+export const splitChannel = "CGZKQ471N"

@@ -2,7 +2,7 @@ import { Resolver, Authorized, Arg, Mutation } from "type-graphql"
 import { S3_BUCKET_NAME } from "../../lib/config"
 import { s3 } from "../../lib/s3"
 
-import { S3SignedUrlResponse } from "./shared.response"
+import { S3SignedUrlResponse } from "./responses/s3SignedUrl.response"
 import { S3SignedUrlInput } from "./inputs/s3SignedUrl.input"
 
 @Resolver()
@@ -21,7 +21,7 @@ export class SharedResolver {
       ContentType: data.filetype,
       ACL: "public-read",
     }
-    const signedRequest = await s3.getSignedUrl("putObject", s3Params)
+    const signedRequest = s3.getSignedUrl("putObject", s3Params)
     const url = `https://${S3_BUCKET_NAME}.s3.amazonaws.com/${data.filename}`
     return {
       url,

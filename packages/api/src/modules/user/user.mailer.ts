@@ -26,10 +26,5 @@ export class UserMailer {
         buttonUrl: `${webUrl}/new-cost`,
       },
     })
-    this.mailer.send({
-      templateId: "d-7590a51ac67f48fd9d3ff8a05147f4a4",
-      to: ["jack@noquarter.co", "dan@noquarter.co", "george@noquarter.co"],
-      variables: { name: user.firstName + " " + user.lastName },
-    })
   }
 }

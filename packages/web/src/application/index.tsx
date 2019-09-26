@@ -5,7 +5,7 @@ import ErrorBoundary from "react-error-boundary"
 import AppProvider from "../components/providers/AppProvider"
 
 import CheckUser from "../components/CheckUser"
-import CheckHouse from "../components/CheckHouse"
+import CheckGroup from "../components/CheckGroup"
 import ErrorFallback from "../components/ErrorFallback"
 
 import Settings from "../pages/Settings"
@@ -23,7 +23,7 @@ function Application() {
       <ErrorBoundary onError={errorHandler} FallbackComponent={ErrorFallback}>
         <Suspense fallback={<Loading loading={true} />}>
           <CheckUser>
-            <CheckHouse>
+            <CheckGroup>
               <Router>
                 <Balance path="/" />
                 <NewCost path="/new-cost" />
@@ -32,7 +32,7 @@ function Application() {
                 <Settings path="/settings" />
                 <NotFound default={true} />
               </Router>
-            </CheckHouse>
+            </CheckGroup>
           </CheckUser>
         </Suspense>
       </ErrorBoundary>

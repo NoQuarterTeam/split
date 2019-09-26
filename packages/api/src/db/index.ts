@@ -1,11 +1,13 @@
 import { getConnectionOptions, createConnection } from "typeorm"
-import { NODE_ENV, DATABASE_URL, isProduction } from "../lib/config"
+import { NODE_ENV, DATABASE_URL } from "../lib/config"
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions"
 
-export const createDbConnection = async (migrate = false) => {
+export const createDbConnection = async (shouldMigrate = false) => {
   // Create DB connection
-  const options = await getConnectionOptions(NODE_ENV)
+  const options = (await getConnectionOptions(
+    NODE_ENV,
+  )) as PostgresConnectionOptions
 
-  // @ts-ignore
   const connection = await createConnection({
     ...options,
     name: "default",
@@ -13,5 +15,5 @@ export const createDbConnection = async (migrate = false) => {
   })
 
   // Run migrations in production
-  if (migrate && isProduction) await connection.runMigrations()
+  if (shouldMigrate) await connection.runMigrations()
 }

@@ -4,7 +4,7 @@ import { Invite } from "./invite.entity"
 @InputType()
 export class InviteInput implements Partial<Invite> {
   @Field()
-  houseId: string
+  groupId: string
 
   @Field()
   email: string

@@ -17,8 +17,8 @@ interface CostInputsProps {
 }
 
 function CostInputs({ formState, isEditing, setFormState }: CostInputsProps) {
-  const { house } = useAppContext()
-  const currency = getCurrency(house && house.currency)
+  const { group } = useAppContext()
+  const currency = getCurrency(group && group.currency)
   return (
     <StyledInputs>
       <StyledInputWrapper>

@@ -1,6 +1,6 @@
 import gql from "graphql-tag"
 import { Invite } from "./fragments"
-import { House } from "../house/fragments"
+import { Group } from "../group/fragments"
 
 export const CREATE_INVITE = gql`
   mutation CreateInvite($data: InviteInput!) {
@@ -20,8 +20,8 @@ export const DESTROY_INVITE = gql`
 export const CHECK_INVITE = gql`
   query CheckInvite($inviteId: String) {
     checkInvite(inviteId: $inviteId) {
-      ...House
+      ...Group
     }
   }
-  ${House}
+  ${Group}
 `

@@ -1,13 +1,13 @@
 import { Service } from "typedi"
 
 import { User } from "./user.entity"
-import { House } from "../house/house.entity"
+import { Group } from "../group/group.entity"
 
 @Service()
 export class UserRepository {
-  findAll(house: House): Promise<User[]> {
+  findAll(group: Group): Promise<User[]> {
     return User.find({
-      where: { house },
+      where: { group },
       order: { firstName: "DESC" },
     })
   }

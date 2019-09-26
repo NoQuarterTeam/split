@@ -3,7 +3,7 @@ import { ObjectType, Field } from "type-graphql"
 import bcrypt from "bcryptjs"
 
 import { BaseEntity } from "../shared/base.entity"
-import { House } from "../house/house.entity"
+import { Group } from "../group/group.entity"
 import { Share } from "../share/share.entity"
 import { Cost } from "../cost/cost.entity"
 
@@ -35,11 +35,11 @@ export class User extends BaseEntity {
 
   @Field({ nullable: true })
   @Column({ nullable: true })
-  houseId: string
+  groupId: string
 
-  @Field(() => House, { nullable: true })
-  @ManyToOne(() => House, house => house.users)
-  house: House
+  @Field(() => Group, { nullable: true })
+  @ManyToOne(() => Group, group => group.users)
+  group: Group
 
   @Field(() => [Share])
   @OneToMany(() => Share, share => share.user)

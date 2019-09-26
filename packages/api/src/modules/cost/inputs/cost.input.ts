@@ -25,7 +25,7 @@ export class CostInput implements Partial<Cost> {
   date: string
 
   @Field()
-  houseId: string
+  groupId: string
 
   @Field()
   payerId: string

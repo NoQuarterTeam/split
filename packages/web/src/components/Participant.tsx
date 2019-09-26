@@ -25,7 +25,7 @@ function Participant({
   shares,
   setFormState,
 }: ParticipantProps) {
-  const { house } = useAppContext()
+  const { group } = useAppContext()
   const userShare = shares.find(s => s.userId === user.id)
 
   const toggleParticipant = (userId: string) => {
@@ -85,7 +85,7 @@ function Participant({
         <Input
           data-testid="participant-amount"
           type="number"
-          prefix={getCurrency(house && house.currency)}
+          prefix={getCurrency(group && group.currency)}
           required={true}
           placeholder="0.00"
           min="0"

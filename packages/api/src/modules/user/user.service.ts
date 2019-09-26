@@ -32,7 +32,7 @@ export class UserService {
     let invite
     if (data.inviteId) {
       invite = await this.inviteService.findById(data.inviteId)
-      userData.houseId = invite.houseId
+      userData.groupId = invite.groupId
     }
 
     const user = await User.create(userData).save()

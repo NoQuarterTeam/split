@@ -1,14 +1,14 @@
 import React from "react"
-import { MeQuery, GetHouseQuery } from "../lib/graphql/types"
+import { MeQuery, GetGroupQuery } from "../lib/graphql/types"
 
 export interface StateContext {
   user: MeQuery["me"]
-  house: GetHouseQuery["house"]
+  group: GetGroupQuery["group"]
 }
 
 export const StateContext = React.createContext<StateContext>({
   user: null,
-  house: null,
+  group: null,
 })
 
 export const StateProvider = StateContext.Provider

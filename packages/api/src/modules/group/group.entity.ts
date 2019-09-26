@@ -8,7 +8,7 @@ import { Invite } from "../invite/invite.entity"
 
 @ObjectType()
 @Entity()
-export class House extends BaseEntity {
+export class Group extends BaseEntity {
   @Field()
   @Column()
   name: string
@@ -18,14 +18,14 @@ export class House extends BaseEntity {
   currency?: string
 
   @Field(() => [User])
-  @OneToMany(() => User, user => user.house)
+  @OneToMany(() => User, user => user.group)
   users: User[]
 
   @Field(() => [Cost])
-  @OneToMany(() => Cost, cost => cost.house)
+  @OneToMany(() => Cost, cost => cost.group)
   costs: Cost[]
 
   @Field(() => [Invite])
-  @OneToMany(() => Invite, invite => invite.house)
+  @OneToMany(() => Invite, invite => invite.group)
   invites: Invite[]
 }

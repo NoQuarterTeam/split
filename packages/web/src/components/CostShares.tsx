@@ -26,7 +26,7 @@ function CostShares({
   setFormState,
   applyEqualSplit,
 }: CostSharesProps) {
-  const { house } = useAppContext()
+  const { group } = useAppContext()
   const totalCostShares = formState.costShares.sumBy("amount")
   const amountRemaining = round(formState.amount - totalCostShares, 2)
   return (
@@ -36,7 +36,7 @@ function CostShares({
           <StyledAlertWrapper>
             <Alert
               text={`Split must equal amount ( ${getCurrency(
-                house && house.currency,
+                group && group.currency,
               )} ${amountRemaining} remaining )`}
             />
           </StyledAlertWrapper>

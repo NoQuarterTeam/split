@@ -8,11 +8,11 @@ import { media } from "../application/theme"
 import ProfileForm from "../components/ProfileForm"
 import QuickPage from "../components/QuickPage"
 import FlexGrid from "../components/styled/FlexGrid"
-import HouseInvites from "../components/HouseInvites"
-import HouseSettings from "../components/HouseSettings"
+import GroupInvites from "../components/GroupInvites"
+import GroupSettings from "../components/GroupSettings"
 
 const Settings: FC<RouteComponentProps> = () => {
-  const { user, house } = useAppContext()
+  const { user, group } = useAppContext()
 
   return (
     <QuickPage title="Settings">
@@ -20,12 +20,12 @@ const Settings: FC<RouteComponentProps> = () => {
         <StyledSettingColumn>
           <ProfileForm user={user} />
         </StyledSettingColumn>
-        {house && (
+        {group && (
           <StyledSettingColumn>
             <div style={{ maxWidth: 450, width: "100%", padding: "0 20px" }}>
-              <HouseSettings house={house} />
+              <GroupSettings group={group} />
               <div style={{ marginBottom: 60 }} />
-              <HouseInvites house={house} />
+              <GroupInvites group={group} />
             </div>
           </StyledSettingColumn>
         )}

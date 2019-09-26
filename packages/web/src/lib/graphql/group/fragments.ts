@@ -1,7 +1,7 @@
 import gql from "graphql-tag"
 
-export const House = gql`
-  fragment House on House {
+export const Group = gql`
+  fragment Group on Group {
     id
     name
     currency

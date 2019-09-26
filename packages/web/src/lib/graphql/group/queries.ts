@@ -1,12 +1,12 @@
 import gql from "graphql-tag"
 import { User } from "../user/fragments"
-import { House } from "./fragments"
+import { Group } from "./fragments"
 import { Invite } from "../invite/fragments"
 
 export const GET_HOUSE = gql`
-  query GetHouse {
-    house {
-      ...House
+  query GetGroup {
+    group {
+      ...Group
       users {
         ...User
       }
@@ -15,15 +15,15 @@ export const GET_HOUSE = gql`
       }
     }
   }
-  ${House}
+  ${Group}
   ${User}
   ${Invite}
 `
 
 export const CREATE_HOUSE = gql`
-  mutation CreateHouse($data: HouseInput!) {
-    createHouse(data: $data) {
-      ...House
+  mutation CreateGroup($data: GroupInput!) {
+    createGroup(data: $data) {
+      ...Group
       users {
         ...User
       }
@@ -32,15 +32,15 @@ export const CREATE_HOUSE = gql`
       }
     }
   }
-  ${House}
+  ${Group}
   ${User}
 `
 
 export const EDIT_HOUSE = gql`
-  mutation EditHouse($houseId: String!, $data: HouseInput!) {
-    editHouse(houseId: $houseId, data: $data) {
-      ...House
+  mutation EditGroup($groupId: String!, $data: GroupInput!) {
+    editGroup(groupId: $groupId, data: $data) {
+      ...Group
     }
   }
-  ${House}
+  ${Group}
 `

@@ -11,7 +11,7 @@ import CostList from "../components/CostList"
 
 const Costs: FC<RouteComponentProps> = () => {
   const { user } = useAppContext()
-  if (!user.houseId) return <Redirect to="/" noThrow={true} />
+  if (!user.groupId) return <Redirect to="/" noThrow={true} />
 
   return (
     <Page>

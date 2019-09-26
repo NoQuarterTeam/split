@@ -10,9 +10,9 @@ import { CostInput } from "../lib/graphql/types"
 
 const NewCost: FC<RouteComponentProps> = () => {
   const { user } = useAppContext()
-  if (!user.houseId) return <Redirect to="/" noThrow={true} />
+  if (!user.groupId) return <Redirect to="/" noThrow={true} />
 
-  const [createCost] = useCreateCost(user.houseId)
+  const [createCost] = useCreateCost(user.groupId)
 
   const handleCreateCost = async (costData: CostInput) => {
     await createCost({

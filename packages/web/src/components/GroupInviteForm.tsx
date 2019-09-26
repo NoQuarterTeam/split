@@ -5,11 +5,11 @@ import { styled, Button, Input } from "@noquarter/ui"
 import Alert from "./Alert"
 import { useCreateInvite } from "../lib/graphql/invite/hooks"
 
-interface HouseInviteFormProps {
-  house: { id: string }
+interface GroupInviteFormProps {
+  group: { id: string }
 }
 
-function HouseInviteForm({ house }: HouseInviteFormProps) {
+function GroupInviteForm({ group }: GroupInviteFormProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [formOpen, setFormOpen] = useState<boolean>(false)
   const [email, setEmail] = useState<string>("")
@@ -28,7 +28,7 @@ function HouseInviteForm({ house }: HouseInviteFormProps) {
     e.preventDefault()
     if (!email) return
 
-    createInvite({ variables: { data: { houseId: house.id, email } } })
+    createInvite({ variables: { data: { groupId: group.id, email } } })
       .then(() => {
         setEmail("")
         setError("")
@@ -64,12 +64,12 @@ function HouseInviteForm({ house }: HouseInviteFormProps) {
     </StyledInviteForm>
   ) : (
     <Button variant="text" onClick={handleOpenForm}>
-      Invite another house mate
+      Invite another group member
     </Button>
   )
 }
 
-export default memo(HouseInviteForm)
+export default memo(GroupInviteForm)
 
 const StyledInviteForm = styled.form`
   width: 100%;

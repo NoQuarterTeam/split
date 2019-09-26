@@ -9,9 +9,9 @@ import {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   MeDocument,
-  GetHouseQuery,
-  GetHouseQueryVariables,
-  GetHouseDocument,
+  GetGroupQuery,
+  GetGroupQueryVariables,
+  GetGroupDocument,
 } from "../types"
 
 export function useMe() {
@@ -25,18 +25,18 @@ export function useLogin() {
   return useLoginMutation({
     update: async (cache, { data }) => {
       if (data) {
-        const houseRes = await client.query<
-          GetHouseQuery,
-          GetHouseQueryVariables
-        >({ query: GetHouseDocument, fetchPolicy: "network-only" })
-        if (houseRes.data) {
+        const groupRes = await client.query<
+          GetGroupQuery,
+          GetGroupQueryVariables
+        >({ query: GetGroupDocument, fetchPolicy: "network-only" })
+        if (groupRes.data) {
           cache.writeQuery({
             query: MeDocument,
             data: { me: data.login },
           })
           cache.writeQuery({
-            query: GetHouseDocument,
-            data: { house: houseRes.data.house },
+            query: GetGroupDocument,
+            data: { group: groupRes.data.group },
           })
         }
       }
@@ -53,18 +53,18 @@ export function useRegister() {
   return useRegisterMutation({
     update: async (cache, { data }) => {
       if (data) {
-        const houseRes = await client.query<
-          GetHouseQuery,
-          GetHouseQueryVariables
-        >({ query: GetHouseDocument, fetchPolicy: "network-only" })
-        if (houseRes.data) {
+        const groupRes = await client.query<
+          GetGroupQuery,
+          GetGroupQueryVariables
+        >({ query: GetGroupDocument, fetchPolicy: "network-only" })
+        if (groupRes.data) {
           cache.writeQuery({
             query: MeDocument,
             data: { me: data.register },
           })
           cache.writeQuery({
-            query: GetHouseDocument,
-            data: { house: houseRes.data.house },
+            query: GetGroupDocument,
+            data: { group: groupRes.data.group },
           })
         }
       }

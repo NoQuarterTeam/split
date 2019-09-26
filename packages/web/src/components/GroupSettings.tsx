@@ -1,28 +1,28 @@
 import React, { FC, useState } from "react"
 import { styled, Input, Select, Button } from "@noquarter/ui"
-import { HouseFragment } from "../lib/graphql/types"
-import { useEditHouse } from "../lib/graphql/house/hooks"
+import { GroupFragment } from "../lib/graphql/types"
+import { useEditGroup } from "../lib/graphql/group/hooks"
 import currencies from "../lib/data/currencies"
 
 interface Props {
-  house: HouseFragment
+  group: GroupFragment
 }
-const HouseSettings: FC<Props> = ({ house }) => {
-  const [name, setName] = useState<string>(house.name)
-  const [currency, setCurrency] = useState<string>(house.currency || "Euro")
+const GroupSettings: FC<Props> = ({ group }) => {
+  const [name, setName] = useState<string>(group.name)
+  const [currency, setCurrency] = useState<string>(group.currency || "Euro")
 
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 
-  const [updateHouse] = useEditHouse()
+  const [updateGroup] = useEditGroup()
 
-  const handleHouseUpdate = (e: any) => {
+  const handleGroupUpdate = (e: any) => {
     e.preventDefault()
-    if (!name) return setName(house.name)
+    if (!name) return setName(group.name)
     setLoading(true)
-    updateHouse({
+    updateGroup({
       variables: {
-        houseId: house.id,
+        groupId: group.id,
         data: {
           currency: currency,
           name: name,
@@ -30,8 +30,8 @@ const HouseSettings: FC<Props> = ({ house }) => {
       },
       optimisticResponse: {
         __typename: "Mutation",
-        editHouse: {
-          ...house,
+        editGroup: {
+          ...group,
           currency,
           name,
         },
@@ -40,7 +40,7 @@ const HouseSettings: FC<Props> = ({ house }) => {
       .then(() => setLoading(false))
       .catch(() => {
         setLoading(false)
-        setError("Error updating house")
+        setError("Error updating group")
       })
   }
   const currencyOptions = Object.entries(currencies).map(([name, symbol]) => ({
@@ -49,10 +49,10 @@ const HouseSettings: FC<Props> = ({ house }) => {
   }))
   return (
     <StyledWrapper>
-      <StyledHeader>House</StyledHeader>
-      <form onSubmit={handleHouseUpdate} style={{ width: "100%" }}>
+      <StyledHeader>Group</StyledHeader>
+      <form onSubmit={handleGroupUpdate} style={{ width: "100%" }}>
         <Input
-          label="House name"
+          label="Group name"
           value={name}
           onChange={setName}
           placeholder="201 Columbusplein"
@@ -68,14 +68,14 @@ const HouseSettings: FC<Props> = ({ house }) => {
         />
         <br />
 
-        <Button loading={loading}>Update house</Button>
+        <Button loading={loading}>Update group</Button>
         {error && <StyledError>{error}</StyledError>}
       </form>
     </StyledWrapper>
   )
 }
 
-export default HouseSettings
+export default GroupSettings
 
 const StyledWrapper = styled.div`
   width: 100%;

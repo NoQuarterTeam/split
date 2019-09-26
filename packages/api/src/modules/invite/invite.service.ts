@@ -1,7 +1,7 @@
 import { Service } from "typedi"
 import { InviteInput } from "./invite.input"
 import { Invite } from "./invite.entity"
-import { House } from "../house/house.entity"
+import { Group } from "../group/group.entity"
 
 @Service()
 export class InviteService {
@@ -9,18 +9,18 @@ export class InviteService {
     return Invite.findOneOrFail(id)
   }
 
-  findAll(house: House): Promise<Invite[]> {
-    return Invite.find({ where: { house } })
+  findAll(group: Group): Promise<Invite[]> {
+    return Invite.find({ where: { group } })
   }
 
   findByEmail(email: string): Promise<Invite | undefined> {
     return Invite.findOne({ where: { email } })
   }
 
-  async create(data: InviteInput, house: House): Promise<Invite> {
+  async create(data: InviteInput, group: Group): Promise<Invite> {
     const inviteExists = await this.findByEmail(data.email)
     if (inviteExists) throw new Error("invite already sent to this email")
-    const invite = await Invite.create({ email: data.email, house }).save()
+    const invite = await Invite.create({ email: data.email, group }).save()
     return invite
   }
 

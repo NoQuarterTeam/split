@@ -4,7 +4,7 @@ import { media } from "../application/theme"
 
 import { TEST_HOUSE, TEST_COSTS } from "../lib/tests/data"
 
-import HouseBalance from "../components/HouseBalance"
+import GroupBalance from "../components/GroupBalance"
 import CostItem from "../components/CostItem"
 import Display from "../components/styled/Display"
 import Center from "../components/styled/Center"
@@ -38,7 +38,7 @@ const Home: FC<RouteComponentProps> = () => {
       </StyledHero>
       <StyledDemo>
         <StyledBalance>
-          <HouseBalance users={TEST_HOUSE.users} />
+          <GroupBalance users={TEST_HOUSE.users} />
         </StyledBalance>
         <StyledCosts>
           {TEST_COSTS.map(cost => (

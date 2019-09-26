@@ -11,7 +11,7 @@ import Logo from "./Logo"
 import { useLogout } from "../lib/graphql/user/hooks"
 
 function Sidebar({ open }: { open: boolean }) {
-  const { house } = useAppState()
+  const { group } = useAppState()
   const [logout] = useLogout()
   const handleLogout = () => logout()
 
@@ -20,7 +20,7 @@ function Sidebar({ open }: { open: boolean }) {
       <Logo />
       <div>
         <NavLink to="/">Balance</NavLink>
-        {house && (
+        {group && (
           <NavLink to="/new-cost">
             New cost <StyledIcon src={IconPlus} />
           </NavLink>

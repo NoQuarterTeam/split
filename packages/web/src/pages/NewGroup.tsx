@@ -3,14 +3,14 @@ import { RouteComponentProps } from "@reach/router"
 
 import Page from "../components/Page"
 
-import HouseForm from "../components/HouseForm"
+import GroupForm from "../components/GroupForm"
 
-const NewHouse: FC<RouteComponentProps> = () => {
+const NewGroup: FC<RouteComponentProps> = () => {
   return (
     <Page>
-      <HouseForm />
+      <GroupForm />
     </Page>
   )
 }
 
-export default NewHouse
+export default NewGroup

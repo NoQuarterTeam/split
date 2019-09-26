@@ -12,7 +12,7 @@ import "../prototypes"
 const AllTheProviders: FC = ({ children }) => {
   return (
     <ThemeProvider theme={{ ...defaultTheme, ...theme(false, false) }}>
-      <StateProvider value={{ house: TEST_HOUSE, user: TEST_USER }}>
+      <StateProvider value={{ group: TEST_HOUSE, user: TEST_USER }}>
         <Fragment>{children}</Fragment>
       </StateProvider>
     </ThemeProvider>

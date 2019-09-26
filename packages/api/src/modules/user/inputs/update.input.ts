@@ -19,5 +19,5 @@ export class UpdateInput implements Partial<User> {
   avatar?: string
 
   @Field({ nullable: true })
-  houseId?: string
+  groupId?: string
 }

@@ -35,10 +35,10 @@ export interface Cost {
   category: Scalars["String"]
   amount: Scalars["Float"]
   date: Scalars["String"]
-  houseId: Scalars["String"]
+  groupId: Scalars["String"]
   payerId: Scalars["String"]
   creatorId: Scalars["String"]
-  house: House
+  group: Group
   payer: User
   creator: User
   shares: Share[]
@@ -51,13 +51,13 @@ export interface CostInput {
   equalSplit: Scalars["Boolean"]
   category: Scalars["String"]
   date: Scalars["String"]
-  houseId: Scalars["String"]
+  groupId: Scalars["String"]
   payerId: Scalars["String"]
   costShares: ShareInput[]
 }
 
-export interface House {
-  __typename?: "House"
+export interface Group {
+  __typename?: "Group"
   id: Scalars["ID"]
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
@@ -68,7 +68,7 @@ export interface House {
   invites: Invite[]
 }
 
-export interface HouseInput {
+export interface GroupInput {
   name: Scalars["String"]
   currency: Scalars["String"]
 }
@@ -79,11 +79,11 @@ export interface Invite {
   createdAt: Scalars["String"]
   updatedAt: Scalars["String"]
   email: Scalars["String"]
-  houseId: Scalars["String"]
+  groupId: Scalars["String"]
 }
 
 export interface InviteInput {
-  houseId: Scalars["String"]
+  groupId: Scalars["String"]
   email: Scalars["String"]
 }
 
@@ -97,8 +97,8 @@ export interface Mutation {
   createCost?: Maybe<Cost>
   destroyCost?: Maybe<Scalars["Boolean"]>
   editCost?: Maybe<Cost>
-  createHouse?: Maybe<House>
-  editHouse?: Maybe<House>
+  createGroup?: Maybe<Group>
+  editGroup?: Maybe<Group>
   createInvite?: Maybe<Invite>
   destroyInvite?: Maybe<Scalars["Boolean"]>
   getSignedS3Url?: Maybe<S3SignedUrlResponse>
@@ -123,13 +123,13 @@ export interface MutationEditCostArgs {
   costId: Scalars["String"]
 }
 
-export interface MutationCreateHouseArgs {
-  data: HouseInput
+export interface MutationCreateGroupArgs {
+  data: GroupInput
 }
 
-export interface MutationEditHouseArgs {
-  data: HouseInput
-  houseId: Scalars["String"]
+export interface MutationEditGroupArgs {
+  data: GroupInput
+  groupId: Scalars["String"]
 }
 
 export interface MutationCreateInviteArgs {
@@ -168,14 +168,14 @@ export interface Query {
   __typename?: "Query"
   allCosts?: Maybe<AllCostsResponse>
   getCost?: Maybe<Cost>
-  house?: Maybe<House>
-  checkInvite?: Maybe<House>
+  group?: Maybe<Group>
+  checkInvite?: Maybe<Group>
   me?: Maybe<User>
 }
 
 export interface QueryAllCostsArgs {
   skip?: Maybe<Scalars["Int"]>
-  houseId: Scalars["String"]
+  groupId: Scalars["String"]
   search?: Maybe<Scalars["String"]>
 }
 
@@ -232,7 +232,7 @@ export interface UpdateInput {
   email?: Maybe<Scalars["String"]>
   password?: Maybe<Scalars["String"]>
   avatar?: Maybe<Scalars["String"]>
-  houseId?: Maybe<Scalars["String"]>
+  groupId?: Maybe<Scalars["String"]>
 }
 
 export interface User {
@@ -245,8 +245,8 @@ export interface User {
   lastName: Scalars["String"]
   avatar?: Maybe<Scalars["String"]>
   balance: Scalars["Float"]
-  houseId?: Maybe<Scalars["String"]>
-  house?: Maybe<House>
+  groupId?: Maybe<Scalars["String"]>
+  group?: Maybe<Group>
   shares: Share[]
   costsCreated: Cost[]
   costsPaid: Cost[]
@@ -261,7 +261,7 @@ export type CostFragment = { __typename?: "Cost" } & Pick<
   | "equalSplit"
   | "category"
   | "createdAt"
-  | "houseId"
+  | "groupId"
   | "payerId"
 >
 
@@ -279,7 +279,7 @@ export type PayerFragment = { __typename?: "Cost" } & {
 }
 
 export interface AllCostsQueryVariables {
-  houseId: Scalars["String"]
+  groupId: Scalars["String"]
   search?: Maybe<Scalars["String"]>
   skip?: Maybe<Scalars["Int"]>
 }
@@ -287,7 +287,7 @@ export interface AllCostsQueryVariables {
 export type AllCostsQuery = { __typename?: "Query" } & {
   allCosts: Maybe<
     { __typename?: "AllCostsResponse" } & Pick<AllCostsResponse, "count"> & {
-        costs: ({ __typename?: "Cost" } & (CostFragment & PayerFragment))[]
+        costs: ({ __typename?: "Cost" } & CostFragment & PayerFragment)[]
       }
   >
 }
@@ -297,7 +297,7 @@ export interface GetCostQueryVariables {
 }
 
 export type GetCostQuery = { __typename?: "Query" } & {
-  getCost: Maybe<{ __typename?: "Cost" } & (CostFragment & SharesFragment)>
+  getCost: Maybe<{ __typename?: "Cost" } & CostFragment & SharesFragment>
 }
 
 export interface CreateCostMutationVariables {
@@ -305,7 +305,7 @@ export interface CreateCostMutationVariables {
 }
 
 export type CreateCostMutation = { __typename?: "Mutation" } & {
-  createCost: Maybe<{ __typename?: "Cost" } & (CostFragment & PayerFragment)>
+  createCost: Maybe<{ __typename?: "Cost" } & CostFragment & PayerFragment>
 }
 
 export interface EditCostMutationVariables {
@@ -314,7 +314,7 @@ export interface EditCostMutationVariables {
 }
 
 export type EditCostMutation = { __typename?: "Mutation" } & {
-  editCost: Maybe<{ __typename?: "Cost" } & (CostFragment & SharesFragment)>
+  editCost: Maybe<{ __typename?: "Cost" } & CostFragment & SharesFragment>
 }
 
 export interface DestroyCostMutationVariables {
@@ -326,42 +326,44 @@ export type DestroyCostMutation = { __typename?: "Mutation" } & Pick<
   "destroyCost"
 >
 
-export type HouseFragment = { __typename?: "House" } & Pick<
-  House,
+export type GroupFragment = { __typename?: "Group" } & Pick<
+  Group,
   "id" | "name" | "currency"
 >
 
-export interface GetHouseQueryVariables {}
+export interface GetGroupQueryVariables {}
 
-export type GetHouseQuery = { __typename?: "Query" } & {
-  house: Maybe<
-    { __typename?: "House" } & {
+export type GetGroupQuery = { __typename?: "Query" } & {
+  group: Maybe<
+    ({ __typename?: "Group" } & {
       users: ({ __typename?: "User" } & UserFragment)[]
       invites: ({ __typename?: "Invite" } & InviteFragment)[]
-    } & HouseFragment
+    }) &
+      GroupFragment
   >
 }
 
-export interface CreateHouseMutationVariables {
-  data: HouseInput
+export interface CreateGroupMutationVariables {
+  data: GroupInput
 }
 
-export type CreateHouseMutation = { __typename?: "Mutation" } & {
-  createHouse: Maybe<
-    { __typename?: "House" } & {
+export type CreateGroupMutation = { __typename?: "Mutation" } & {
+  createGroup: Maybe<
+    ({ __typename?: "Group" } & {
       users: ({ __typename?: "User" } & UserFragment)[]
       invites: ({ __typename?: "Invite" } & InviteFragment)[]
-    } & HouseFragment
+    }) &
+      GroupFragment
   >
 }
 
-export interface EditHouseMutationVariables {
-  houseId: Scalars["String"]
-  data: HouseInput
+export interface EditGroupMutationVariables {
+  groupId: Scalars["String"]
+  data: GroupInput
 }
 
-export type EditHouseMutation = { __typename?: "Mutation" } & {
-  editHouse: Maybe<{ __typename?: "House" } & HouseFragment>
+export type EditGroupMutation = { __typename?: "Mutation" } & {
+  editGroup: Maybe<{ __typename?: "Group" } & GroupFragment>
 }
 
 export type InviteFragment = { __typename?: "Invite" } & Pick<
@@ -391,7 +393,7 @@ export interface CheckInviteQueryVariables {
 }
 
 export type CheckInviteQuery = { __typename?: "Query" } & {
-  checkInvite: Maybe<{ __typename?: "House" } & HouseFragment>
+  checkInvite: Maybe<{ __typename?: "Group" } & GroupFragment>
 }
 
 export interface GetSignedS3UrlMutationVariables {
@@ -409,7 +411,7 @@ export type GetSignedS3UrlMutation = { __typename?: "Mutation" } & {
 
 export type UserFragment = { __typename?: "User" } & Pick<
   User,
-  "id" | "firstName" | "lastName" | "houseId" | "email" | "balance" | "avatar"
+  "id" | "firstName" | "lastName" | "groupId" | "email" | "balance" | "avatar"
 >
 
 export interface MeQueryVariables {}
@@ -476,7 +478,7 @@ export const CostFragmentDoc = gql`
     equalSplit
     category
     createdAt
-    houseId
+    groupId
     payerId
   }
 `
@@ -500,8 +502,8 @@ export const PayerFragmentDoc = gql`
     }
   }
 `
-export const HouseFragmentDoc = gql`
-  fragment House on House {
+export const GroupFragmentDoc = gql`
+  fragment Group on Group {
     id
     name
     currency
@@ -518,15 +520,15 @@ export const UserFragmentDoc = gql`
     id
     firstName
     lastName
-    houseId
+    groupId
     email
     balance
     avatar
   }
 `
 export const AllCostsDocument = gql`
-  query AllCosts($houseId: String!, $search: String, $skip: Int) {
-    allCosts(houseId: $houseId, search: $search, skip: $skip) {
+  query AllCosts($groupId: String!, $search: String, $skip: Int) {
+    allCosts(groupId: $groupId, search: $search, skip: $skip) {
       costs {
         ...Cost
         ...Payer
@@ -549,6 +551,18 @@ export function useAllCostsQuery(
     baseOptions,
   )
 }
+export function useAllCostsLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    AllCostsQuery,
+    AllCostsQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<AllCostsQuery, AllCostsQueryVariables>(
+    AllCostsDocument,
+    baseOptions,
+  )
+}
+
 export type AllCostsQueryHookResult = ReturnType<typeof useAllCostsQuery>
 export type AllCostsQueryResult = ApolloReactCommon.QueryResult<
   AllCostsQuery,
@@ -576,6 +590,18 @@ export function useGetCostQuery(
     baseOptions,
   )
 }
+export function useGetCostLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetCostQuery,
+    GetCostQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<GetCostQuery, GetCostQueryVariables>(
+    GetCostDocument,
+    baseOptions,
+  )
+}
+
 export type GetCostQueryHookResult = ReturnType<typeof useGetCostQuery>
 export type GetCostQueryResult = ApolloReactCommon.QueryResult<
   GetCostQuery,
@@ -670,10 +696,10 @@ export type DestroyCostMutationOptions = ApolloReactCommon.BaseMutationOptions<
   DestroyCostMutation,
   DestroyCostMutationVariables
 >
-export const GetHouseDocument = gql`
-  query GetHouse {
-    house {
-      ...House
+export const GetGroupDocument = gql`
+  query GetGroup {
+    group {
+      ...Group
       users {
         ...User
       }
@@ -682,31 +708,43 @@ export const GetHouseDocument = gql`
       }
     }
   }
-  ${HouseFragmentDoc}
+  ${GroupFragmentDoc}
   ${UserFragmentDoc}
   ${InviteFragmentDoc}
 `
 
-export function useGetHouseQuery(
+export function useGetGroupQuery(
   baseOptions?: ApolloReactHooks.QueryHookOptions<
-    GetHouseQuery,
-    GetHouseQueryVariables
+    GetGroupQuery,
+    GetGroupQueryVariables
   >,
 ) {
-  return ApolloReactHooks.useQuery<GetHouseQuery, GetHouseQueryVariables>(
-    GetHouseDocument,
+  return ApolloReactHooks.useQuery<GetGroupQuery, GetGroupQueryVariables>(
+    GetGroupDocument,
     baseOptions,
   )
 }
-export type GetHouseQueryHookResult = ReturnType<typeof useGetHouseQuery>
-export type GetHouseQueryResult = ApolloReactCommon.QueryResult<
-  GetHouseQuery,
-  GetHouseQueryVariables
+export function useGetGroupLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetGroupQuery,
+    GetGroupQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<GetGroupQuery, GetGroupQueryVariables>(
+    GetGroupDocument,
+    baseOptions,
+  )
+}
+
+export type GetGroupQueryHookResult = ReturnType<typeof useGetGroupQuery>
+export type GetGroupQueryResult = ApolloReactCommon.QueryResult<
+  GetGroupQuery,
+  GetGroupQueryVariables
 >
-export const CreateHouseDocument = gql`
-  mutation CreateHouse($data: HouseInput!) {
-    createHouse(data: $data) {
-      ...House
+export const CreateGroupDocument = gql`
+  mutation CreateGroup($data: GroupInput!) {
+    createGroup(data: $data) {
+      ...Group
       users {
         ...User
       }
@@ -715,61 +753,61 @@ export const CreateHouseDocument = gql`
       }
     }
   }
-  ${HouseFragmentDoc}
+  ${GroupFragmentDoc}
   ${UserFragmentDoc}
   ${InviteFragmentDoc}
 `
 
-export function useCreateHouseMutation(
+export function useCreateGroupMutation(
   baseOptions?: ApolloReactHooks.MutationHookOptions<
-    CreateHouseMutation,
-    CreateHouseMutationVariables
+    CreateGroupMutation,
+    CreateGroupMutationVariables
   >,
 ) {
   return ApolloReactHooks.useMutation<
-    CreateHouseMutation,
-    CreateHouseMutationVariables
-  >(CreateHouseDocument, baseOptions)
+    CreateGroupMutation,
+    CreateGroupMutationVariables
+  >(CreateGroupDocument, baseOptions)
 }
-export type CreateHouseMutationHookResult = ReturnType<
-  typeof useCreateHouseMutation
+export type CreateGroupMutationHookResult = ReturnType<
+  typeof useCreateGroupMutation
 >
-export type CreateHouseMutationResult = ApolloReactCommon.MutationResult<
-  CreateHouseMutation
+export type CreateGroupMutationResult = ApolloReactCommon.MutationResult<
+  CreateGroupMutation
 >
-export type CreateHouseMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  CreateHouseMutation,
-  CreateHouseMutationVariables
+export type CreateGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateGroupMutation,
+  CreateGroupMutationVariables
 >
-export const EditHouseDocument = gql`
-  mutation EditHouse($houseId: String!, $data: HouseInput!) {
-    editHouse(houseId: $houseId, data: $data) {
-      ...House
+export const EditGroupDocument = gql`
+  mutation EditGroup($groupId: String!, $data: GroupInput!) {
+    editGroup(groupId: $groupId, data: $data) {
+      ...Group
     }
   }
-  ${HouseFragmentDoc}
+  ${GroupFragmentDoc}
 `
 
-export function useEditHouseMutation(
+export function useEditGroupMutation(
   baseOptions?: ApolloReactHooks.MutationHookOptions<
-    EditHouseMutation,
-    EditHouseMutationVariables
+    EditGroupMutation,
+    EditGroupMutationVariables
   >,
 ) {
   return ApolloReactHooks.useMutation<
-    EditHouseMutation,
-    EditHouseMutationVariables
-  >(EditHouseDocument, baseOptions)
+    EditGroupMutation,
+    EditGroupMutationVariables
+  >(EditGroupDocument, baseOptions)
 }
-export type EditHouseMutationHookResult = ReturnType<
-  typeof useEditHouseMutation
+export type EditGroupMutationHookResult = ReturnType<
+  typeof useEditGroupMutation
 >
-export type EditHouseMutationResult = ApolloReactCommon.MutationResult<
-  EditHouseMutation
+export type EditGroupMutationResult = ApolloReactCommon.MutationResult<
+  EditGroupMutation
 >
-export type EditHouseMutationOptions = ApolloReactCommon.BaseMutationOptions<
-  EditHouseMutation,
-  EditHouseMutationVariables
+export type EditGroupMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  EditGroupMutation,
+  EditGroupMutationVariables
 >
 export const CreateInviteDocument = gql`
   mutation CreateInvite($data: InviteInput!) {
@@ -831,10 +869,10 @@ export type DestroyInviteMutationOptions = ApolloReactCommon.BaseMutationOptions
 export const CheckInviteDocument = gql`
   query CheckInvite($inviteId: String) {
     checkInvite(inviteId: $inviteId) {
-      ...House
+      ...Group
     }
   }
-  ${HouseFragmentDoc}
+  ${GroupFragmentDoc}
 `
 
 export function useCheckInviteQuery(
@@ -848,6 +886,18 @@ export function useCheckInviteQuery(
     baseOptions,
   )
 }
+export function useCheckInviteLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    CheckInviteQuery,
+    CheckInviteQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<
+    CheckInviteQuery,
+    CheckInviteQueryVariables
+  >(CheckInviteDocument, baseOptions)
+}
+
 export type CheckInviteQueryHookResult = ReturnType<typeof useCheckInviteQuery>
 export type CheckInviteQueryResult = ApolloReactCommon.QueryResult<
   CheckInviteQuery,
@@ -900,6 +950,18 @@ export function useMeQuery(
     baseOptions,
   )
 }
+export function useMeLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    MeQuery,
+    MeQueryVariables
+  >,
+) {
+  return ApolloReactHooks.useLazyQuery<MeQuery, MeQueryVariables>(
+    MeDocument,
+    baseOptions,
+  )
+}
+
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>
 export type MeQueryResult = ApolloReactCommon.QueryResult<
   MeQuery,

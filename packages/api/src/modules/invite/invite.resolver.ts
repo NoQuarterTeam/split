@@ -4,25 +4,25 @@ import { Invite } from "./invite.entity"
 import { InviteInput } from "./invite.input"
 import { InviteService } from "./invite.service"
 import { InviteMailer } from "./invite.mailer"
-import { House } from "../house/house.entity"
-import { HouseRepository } from "../house/house.repository"
+import { Group } from "../group/group.entity"
+import { GroupRepository } from "../group/group.repository"
 
 @Resolver(() => Invite)
 export class InviteResolver {
   constructor(
     private readonly inviteService: InviteService,
     private readonly inviteMailer: InviteMailer,
-    private readonly houseRepository: HouseRepository,
+    private readonly groupRepository: GroupRepository,
   ) {}
 
   // CREATE INVITE
   @Authorized()
   @Mutation(() => Invite, { nullable: true })
   async createInvite(@Arg("data") data: InviteInput): Promise<Invite | null> {
-    if (!data.houseId) return null
-    const house = await this.houseRepository.findById(data.houseId)
-    const invite = await this.inviteService.create(data, house)
-    this.inviteMailer.sendInvitationLink(data.email, invite, house)
+    if (!data.groupId) return null
+    const group = await this.groupRepository.findById(data.groupId)
+    const invite = await this.inviteService.create(data, group)
+    this.inviteMailer.sendInvitationLink(data.email, invite, group)
     return invite
   }
 
@@ -34,13 +34,13 @@ export class InviteResolver {
   }
 
   // CHECK INVITE
-  @Query(() => House, { nullable: true })
+  @Query(() => Group, { nullable: true })
   async checkInvite(
     @Arg("inviteId", { nullable: true }) inviteId?: string,
-  ): Promise<House | null> {
+  ): Promise<Group | null> {
     if (!inviteId) return null
     const invite = await this.inviteService.findById(inviteId)
-    const house = await this.houseRepository.findById(invite.houseId)
-    return house
+    const group = await this.groupRepository.findById(invite.groupId)
+    return group
   }
 }

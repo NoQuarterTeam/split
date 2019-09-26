@@ -7,35 +7,35 @@ import useAppContext from "../lib/hooks/useAppState"
 import IconPlus from "../assets/images/icon-plus.svg"
 
 import Page from "../components/Page"
-import HouseBalance from "../components/HouseBalance"
-import HouseName from "../components/HouseName"
+import GroupBalance from "../components/GroupBalance"
+import GroupName from "../components/GroupName"
 import InviteForm from "../components/InviteForm"
 import Display from "../components/styled/Display"
 import { getCurrency } from "../lib/helpers"
 
 const Balance: FC<RouteComponentProps> = () => {
-  const { user, house } = useAppContext()
-  if (!house) return null
+  const { user, group } = useAppContext()
+  if (!group) return null
   const getBalanceHeader = () => {
     if (user.balance > 0) {
-      return `You are owed ${getCurrency(house && house.currency)}${round(
+      return `You are owed ${getCurrency(group && group.currency)}${round(
         user.balance * 0.01,
       )}`
     } else {
-      return `You owe ${getCurrency(house && house.currency)}${Math.abs(
+      return `You owe ${getCurrency(group && group.currency)}${Math.abs(
         round(user.balance * 0.01),
       )}`
     }
   }
   return (
     <Page>
-      {house.invites.length === 0 && house.users.length === 1 ? (
-        <InviteForm house={house} />
+      {group.invites.length === 0 && group.users.length === 1 ? (
+        <InviteForm group={group} />
       ) : (
         <StyledWrapper>
           <StyledHeader>
             <StyledName>
-              <HouseName house={house} />
+              <GroupName group={group} />
               <p>{getBalanceHeader()}</p>
             </StyledName>
             <Display size="md">
@@ -44,7 +44,7 @@ const Balance: FC<RouteComponentProps> = () => {
               </Link>
             </Display>
           </StyledHeader>
-          <HouseBalance users={house.users} />
+          <GroupBalance users={group.users} />
           <Display size="md" hide={true}>
             <StyledButtonWrapper>
               <Link to="/new-cost">

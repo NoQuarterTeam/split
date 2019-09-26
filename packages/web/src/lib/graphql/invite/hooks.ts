@@ -1,8 +1,8 @@
 import {
   useCreateInviteMutation,
-  GetHouseDocument,
-  GetHouseQueryVariables,
-  GetHouseQuery,
+  GetGroupDocument,
+  GetGroupQueryVariables,
+  GetGroupQuery,
   useCheckInviteQuery,
   useDestroyInviteMutation,
 } from "../types"
@@ -10,17 +10,17 @@ import {
 export function useCreateInvite() {
   return useCreateInviteMutation({
     update: (cache, { data }) => {
-      const res = cache.readQuery<GetHouseQuery, GetHouseQueryVariables>({
-        query: GetHouseDocument,
+      const res = cache.readQuery<GetGroupQuery, GetGroupQueryVariables>({
+        query: GetGroupDocument,
       })
-      if (data && res && res.house) {
+      if (data && res && res.group) {
         cache.writeQuery({
-          query: GetHouseDocument,
+          query: GetGroupDocument,
           data: {
             ...res,
-            house: {
-              ...res.house,
-              invites: [...res.house.invites, data.createInvite],
+            group: {
+              ...res.group,
+              invites: [...res.group.invites, data.createInvite],
             },
           },
         })
@@ -32,17 +32,17 @@ export function useCreateInvite() {
 export function useDestroyInvite(inviteId: string) {
   return useDestroyInviteMutation({
     update: (cache, { data }) => {
-      const res = cache.readQuery<GetHouseQuery, GetHouseQueryVariables>({
-        query: GetHouseDocument,
+      const res = cache.readQuery<GetGroupQuery, GetGroupQueryVariables>({
+        query: GetGroupDocument,
       })
-      if (data && res && res.house && data.destroyInvite) {
-        const invites = res.house.invites.filter(i => i.id !== inviteId)
+      if (data && res && res.group && data.destroyInvite) {
+        const invites = res.group.invites.filter(i => i.id !== inviteId)
         cache.writeQuery({
-          query: GetHouseDocument,
+          query: GetGroupDocument,
           data: {
             ...res,
-            house: {
-              ...res.house,
+            group: {
+              ...res.group,
               invites,
             },
           },
@@ -53,10 +53,10 @@ export function useDestroyInvite(inviteId: string) {
 }
 
 export function useCheckInvite(inviteId: string | null) {
-  if (!inviteId) return { house: null, checkInviteError: null }
+  if (!inviteId) return { group: null, checkInviteError: null }
   const { data, error } = useCheckInviteQuery({
     variables: { inviteId },
   })
-  const house = data && data.checkInvite
-  return { house, checkInviteError: error }
+  const group = data && data.checkInvite
+  return { group, checkInviteError: error }
 }

@@ -1,7 +1,7 @@
 import "reflect-metadata"
 import { createDbConnection } from "./db"
 import { User } from "./modules/user/user.entity"
-import { House } from "./modules/house/house.entity"
+import { Group } from "./modules/group/group.entity"
 
 import Container, { Service } from "typedi"
 import { CostService } from "./modules/cost/cost.service"
@@ -13,29 +13,30 @@ class Seeds {
   async create() {
     console.log("Creating seeds 🌱")
     await createDbConnection()
-    const house = await House.create({
+    const group = await Group.create({
       name: "Marco Polostraat",
+      currency: "Euro",
     }).save()
     const user1 = await User.create({
       firstName: "Jack",
       lastName: "Clackett",
       email: "jack@noquarter.co",
       password: "password",
-      houseId: house.id,
+      groupId: group.id,
     }).save()
     const user2 = await User.create({
       firstName: "Dan",
       lastName: "Le Comu",
       email: "dan@noquarter.co",
       password: "password",
-      houseId: house.id,
+      groupId: group.id,
     }).save()
     const user3 = await User.create({
       firstName: "George",
       lastName: "Borg",
       email: "george@noquarter.co",
       password: "password",
-      houseId: house.id,
+      groupId: group.id,
     }).save()
 
     const data: CostInput = {
@@ -51,7 +52,7 @@ class Seeds {
         { userId: user2.id, amount: 200 },
         { userId: user3.id, amount: 200 },
       ],
-      houseId: house.id,
+      groupId: group.id,
     }
 
     let i = 1

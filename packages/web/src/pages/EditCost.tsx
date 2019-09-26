@@ -18,11 +18,11 @@ interface EditCostProps extends RouteComponentProps {
 
 const EditCostPage: FC<EditCostProps> = props => {
   const { user } = useAppContext()
-  if (!user.houseId || !props.id) return <Redirect to="/" noThrow={true} />
+  if (!user.groupId || !props.id) return <Redirect to="/" noThrow={true} />
 
   const { cost } = useGetCost(props.id)
 
-  const [editCost] = useEditCost(cost && cost.houseId)
+  const [editCost] = useEditCost(cost && cost.groupId)
   const [destroyCost] = useDestroyCost(cost)
 
   const handleEditCost = async (costData: CostInput) => {

@@ -1,27 +1,27 @@
 import React, { memo, useState } from "react"
 
 import { styled, Button, Input, Select } from "@noquarter/ui"
-import { useCreateHouse } from "../lib/graphql/house/hooks"
+import { useCreateGroup } from "../lib/graphql/group/hooks"
 import currencies from "../lib/data/currencies"
 import Tile from "./styled/Tile"
 
-function HouseForm() {
+function GroupForm() {
   const [name, setName] = useState<string>("")
   const [currency, setCurrency] = useState<string>("Euro")
 
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
 
-  const [createHouse] = useCreateHouse()
+  const [createGroup] = useCreateGroup()
 
-  const handleCreateHouse = (e: any) => {
+  const handleCreateGroup = (e: any) => {
     e.preventDefault()
     setLoading(true)
-    createHouse({
+    createGroup({
       variables: { data: { name, currency } },
     }).catch(() => {
       setLoading(false)
-      setError("error creating house")
+      setError("error creating group")
     })
   }
   const currencyOptions = Object.entries(currencies).map(([name, symbol]) => ({
@@ -31,12 +31,12 @@ function HouseForm() {
 
   return (
     <StyledWrapper>
-      <StyledForm as="form" onSubmit={handleCreateHouse}>
-        <StyledHeader>Start by creating a house</StyledHeader>
+      <StyledForm as="form" onSubmit={handleCreateGroup}>
+        <StyledHeader>Start by creating a group</StyledHeader>
         <br />
 
         <Input
-          label="House name"
+          label="Group name"
           value={name}
           onChange={setName}
           placeholder="201 Columbusplein"
@@ -52,14 +52,14 @@ function HouseForm() {
         />
         <br />
 
-        <Button loading={loading}>Create house</Button>
+        <Button loading={loading}>Create group</Button>
         {error && <StyledError>{error}</StyledError>}
       </StyledForm>
     </StyledWrapper>
   )
 }
 
-export default memo(HouseForm)
+export default memo(GroupForm)
 
 const StyledWrapper = styled.div`
   height: 100%;

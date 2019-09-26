@@ -4,7 +4,7 @@ import { ObjectType, Field } from "type-graphql"
 import { BaseEntity } from "../shared/base.entity"
 import { Share } from "../share/share.entity"
 import { User } from "../user/user.entity"
-import { House } from "../house/house.entity"
+import { Group } from "../group/group.entity"
 
 @ObjectType()
 @Entity()
@@ -35,7 +35,7 @@ export class Cost extends BaseEntity {
 
   @Field()
   @Column()
-  houseId: string
+  groupId: string
 
   @Field()
   @Column()
@@ -48,9 +48,9 @@ export class Cost extends BaseEntity {
   @OneToMany(() => Share, share => share.cost)
   shares: Share[]
 
-  @Field(() => House)
-  @ManyToOne(() => House, house => house.costs)
-  house: House
+  @Field(() => Group)
+  @ManyToOne(() => Group, group => group.costs)
+  group: Group
 
   @Field(() => User)
   @ManyToOne(() => User, user => user.costsPaid)

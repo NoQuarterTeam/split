@@ -16,10 +16,10 @@ import Divider from "./styled/Divider"
 import { useAllCosts } from "../lib/graphql/cost/hooks"
 
 function CostList() {
-  const { house } = useAppContext()
+  const { group } = useAppContext()
   const [search, setSearch] = useLocalStorage("costs:search", "")
   const { costs, costsCount, fetchMore, costsLoading } = useAllCosts(
-    house.id,
+    group.id,
     search,
   )
   const costListRef = useRef<HTMLDivElement>(null)
@@ -30,7 +30,7 @@ function CostList() {
       costListRef.current.getBoundingClientRect().bottom - 800 <=
       window.innerHeight
     if (bottom && !costsLoading && costs.length < costsCount) {
-      fetchMore({ houseId: house.id, skip: costs.length, search })
+      fetchMore({ groupId: group.id, skip: costs.length, search })
     }
   }
 

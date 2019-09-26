@@ -10,14 +10,14 @@ import { createDbConnection } from "./db"
 import { authChecker } from "./lib/authChecker"
 import { session } from "./lib/session"
 
-import { cors, PORT, resolverPaths } from "./lib/config"
+import { cors, PORT, resolverPaths, isProduction } from "./lib/config"
 
 import { userLoader } from "./modules/user/user.loader"
 import { shareLoader } from "./modules/share/share.loader"
 
 async function main() {
   try {
-    await createDbConnection(true)
+    await createDbConnection(isProduction)
 
     const app = express()
       .enable("trust proxy")

@@ -5,7 +5,7 @@
     "host": "localhost",
     "port": 5432,
     "database": "split",
-    "synchronize": true,
+    "synchronize": false,
     "logging": false,
     "entities": ["src/modules/**/*.entity.ts"],
     "migrations": ["src/db/migrations/*.ts"],

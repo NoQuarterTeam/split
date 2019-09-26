@@ -19,7 +19,7 @@ const Register: FC<RouteComponentProps<{ token?: string }>> = ({
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
-  const { house, checkInviteError } = useCheckInvite(token)
+  const { group, checkInviteError } = useCheckInvite(token)
   const [register] = useRegister()
 
   const handleSubmit = (e: any) => {
@@ -37,10 +37,10 @@ const Register: FC<RouteComponentProps<{ token?: string }>> = ({
 
   return (
     <AuthForm handleSubmit={handleSubmit}>
-      {house ? (
+      {group ? (
         <StyledInviteHeader>
           You are being invited to join <br />
-          <span>{house.name}</span>
+          <span>{group.name}</span>
         </StyledInviteHeader>
       ) : (
         checkInviteError && (

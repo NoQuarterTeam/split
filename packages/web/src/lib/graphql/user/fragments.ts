@@ -5,7 +5,7 @@ export const User = gql`
     id
     firstName
     lastName
-    houseId
+    groupId
     email
     balance
     avatar

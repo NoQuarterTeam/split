@@ -4,7 +4,7 @@ import { PaginationArgs } from "../../shared/args/pagination.args"
 @ArgsType()
 export class AllCostArgs extends PaginationArgs {
   @Field()
-  houseId: string
+  groupId: string
 
   @Field({ nullable: true })
   search?: string

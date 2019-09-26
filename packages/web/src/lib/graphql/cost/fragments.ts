@@ -10,7 +10,7 @@ export const Cost = gql`
     equalSplit
     category
     createdAt
-    houseId
+    groupId
     payerId
   }
 `

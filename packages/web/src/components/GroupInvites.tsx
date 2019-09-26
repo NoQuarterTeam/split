@@ -1,27 +1,27 @@
 import React, { memo } from "react"
 
 import { styled } from "@noquarter/ui"
-import HouseInviteForm from "./HouseInviteForm"
+import GroupInviteForm from "./GroupInviteForm"
 import InviteItem from "./InviteItem"
 import { InviteFragment } from "../lib/graphql/types"
 
-interface HouseInvitesProps {
-  house: { id: string; invites: InviteFragment[] }
+interface GroupInvitesProps {
+  group: { id: string; invites: InviteFragment[] }
 }
 
-function HouseInvites({ house }: HouseInvitesProps) {
+function GroupInvites({ group }: GroupInvitesProps) {
   return (
     <StyledInviteWrapper>
       <StyledHeader>Invitations</StyledHeader>
-      {house.invites.map(invite => (
+      {group.invites.map(invite => (
         <InviteItem key={invite.id} invite={invite} />
       ))}
-      <HouseInviteForm house={house} />
+      <GroupInviteForm group={group} />
     </StyledInviteWrapper>
   )
 }
 
-export default memo(HouseInvites)
+export default memo(GroupInvites)
 
 const StyledInviteWrapper = styled.div`
   width: 100%;

@@ -8,16 +8,16 @@ import useAppContext from "../lib/hooks/useAppState"
 import { UserFragment } from "../lib/graphql/types"
 import { getCurrency } from "../lib/helpers"
 
-interface HouseBalanceProps {
+interface GroupBalanceProps {
   users: UserFragment[]
 }
 
-function HouseBalance({ users }: HouseBalanceProps) {
-  const { house } = useAppContext()
+function GroupBalance({ users }: GroupBalanceProps) {
+  const { group } = useAppContext()
   const total = users.sumBy("balance", true)
 
   return (
-    <StyledHouseBalance>
+    <StyledGroupBalance>
       {users.map(user => {
         return (
           <StyledUserGraph key={user.id}>
@@ -28,26 +28,26 @@ function HouseBalance({ users }: HouseBalanceProps) {
             <StyledSpacer />
             <Avatar user={user} />
             <StyledUserBalance>
-              {user.balance < 0 && "-"} {getCurrency(house && house.currency)}{" "}
+              {user.balance < 0 && "-"} {getCurrency(group && group.currency)}{" "}
               {round(Math.abs(user.balance * 0.01))}
             </StyledUserBalance>
           </StyledUserGraph>
         )
       })}
-      {house && house.invites.length > 0 && (
+      {group && group.invites.length > 0 && (
         <StyledUserGraph>
           <StyledSpacer />
           <StyledPending>Pending invites</StyledPending>
           <StyledSpacer />
         </StyledUserGraph>
       )}
-    </StyledHouseBalance>
+    </StyledGroupBalance>
   )
 }
 
-export default memo(HouseBalance)
+export default memo(GroupBalance)
 
-const StyledHouseBalance = styled.div`
+const StyledGroupBalance = styled.div`
   max-width: 500px;
   width: 100%;
   height: 400px;

@@ -1,14 +1,14 @@
 import React, { memo, useState } from "react"
 
 import { styled, Button, Input } from "@noquarter/ui"
-import { HouseFragment } from "../lib/graphql/types"
+import { GroupFragment } from "../lib/graphql/types"
 import { useCreateInvite } from "../lib/graphql/invite/hooks"
 import Tile from "./styled/Tile"
 
 interface InviteFormProps {
-  house: HouseFragment
+  group: GroupFragment
 }
-function InviteForm({ house }: InviteFormProps) {
+function InviteForm({ group }: InviteFormProps) {
   const [email, setEmail] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>("")
@@ -19,7 +19,7 @@ function InviteForm({ house }: InviteFormProps) {
     e.preventDefault()
     setLoading(true)
     createInvite({
-      variables: { data: { email, houseId: house.id } },
+      variables: { data: { email, groupId: group.id } },
     }).catch(() => {
       setLoading(false)
       setError("error sending invite")
@@ -32,7 +32,7 @@ function InviteForm({ house }: InviteFormProps) {
         <StyledHeader>Now invite someone to join</StyledHeader>
         <br />
         <Input
-          label="House mate"
+          label="Group member"
           value={email}
           onChange={setEmail}
           required={true}

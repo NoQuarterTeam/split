@@ -1,8 +1,8 @@
 import { InputType, Field } from "type-graphql"
-import { House } from "./house.entity"
+import { Group } from "./group.entity"
 
 @InputType()
-export class HouseInput implements Partial<House> {
+export class GroupInput implements Partial<Group> {
   @Field()
   name: string
 

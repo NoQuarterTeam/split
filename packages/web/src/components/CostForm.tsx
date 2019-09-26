@@ -18,7 +18,7 @@ interface CostFormProps {
 }
 
 function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
-  const { user, house } = useAppContext()
+  const { user, group } = useAppContext()
   const { formState, setFormState } = useFormState<CostInput>({
     name: cost ? cost.name : "",
     amount: cost ? round(cost.amount * 0.01) : 0,
@@ -28,7 +28,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
       ? dayjs(cost.date).format("YYYY-MM-DD")
       : dayjs().format("YYYY-MM-DD"),
     recurring: cost ? cost.recurring : "one-off",
-    houseId: house.id,
+    groupId: group.id,
     payerId: cost ? cost.payerId : user.id,
     costShares: cost
       ? cost.shares
@@ -37,7 +37,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
             userId: s.user.id,
             amount: round(s.amount * 0.01),
           }))
-      : house.users.map(u => ({ userId: u.id, amount: 0 })),
+      : group.users.map(u => ({ userId: u.id, amount: 0 })),
   })
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
@@ -63,7 +63,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
     if (isDifferent) return
     setLoading(true)
 
-    const costShares = house.users.map(u => {
+    const costShares = group.users.map(u => {
       const userShare = formState.costShares.find(s => s.userId === u.id)
       if (userShare) {
         return {
@@ -98,7 +98,7 @@ function CostForm({ cost, onFormSubmit, onCostDelete }: CostFormProps) {
           isEditing={!!cost && dayjs(cost.date).isBefore(dayjs())}
         />
         <CostShares
-          users={house.users}
+          users={group.users}
           formState={formState}
           isDifferent={isDifferent}
           setFormState={setFormState}

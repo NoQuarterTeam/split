@@ -6,11 +6,11 @@ import { StateProvider as StateContextProvider } from "../../application/context
 
 import Loading from "../Loading"
 import { useMe } from "../../lib/graphql/user/hooks"
-import { useGetHouse } from "../../lib/graphql/house/hooks"
+import { useGetGroup } from "../../lib/graphql/group/hooks"
 
 const StateProvider: FC = ({ children }) => {
   const { user, userLoading } = useMe()
-  const { house, getHouseLoading } = useGetHouse()
+  const { group, getGroupLoading } = useGetGroup()
 
   if (user && production) {
     LogRocket.identify(user.id, {
@@ -19,8 +19,8 @@ const StateProvider: FC = ({ children }) => {
     })
   }
   return (
-    <StateContextProvider value={{ user, house }}>
-      <Loading loading={userLoading || getHouseLoading}>{children}</Loading>
+    <StateContextProvider value={{ user, group }}>
+      <Loading loading={userLoading || getGroupLoading}>{children}</Loading>
     </StateContextProvider>
   )
 }

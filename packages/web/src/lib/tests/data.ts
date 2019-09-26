@@ -10,7 +10,7 @@ export const TEST_USER = {
 
 export const TEST_HOUSE = {
   id: "1a2b3c4d-5e6f-7g8h-9i1j-2k3l4m5n6o7p",
-  name: "Test house",
+  name: "Test group",
   users: [
     {
       id: "25e1809c-33ae-424b-8f98-4678e29e6899",
@@ -52,7 +52,7 @@ export const TEST_COSTS = [
     equalSplit: false,
     category: "food",
     createdAt: "1552570789627",
-    houseId: "37ac0827-a5c3-4fbd-a66a-d133277fc6f6",
+    groupId: "37ac0827-a5c3-4fbd-a66a-d133277fc6f6",
     payerId: "25e1809c-33ae-424b-8f98-4678e29e6899",
     payer: {
       id: "25e1809c-33ae-424b-8f98-4678e29e6899",
@@ -71,7 +71,7 @@ export const TEST_COSTS = [
     equalSplit: false,
     category: "food",
     createdAt: "1552512377373",
-    houseId: "37ac0827-a5c3-4fbd-a66a-d133277fc6f6",
+    groupId: "37ac0827-a5c3-4fbd-a66a-d133277fc6f6",
     payerId: "25e1809c-33ae-424b-8f98-4678e29e6899",
     payer: {
       id: "25e1809c-33ae-424b-8f98-4678e29e6899",
@@ -90,7 +90,7 @@ export const TEST_COSTS = [
     equalSplit: true,
     category: "food",
     createdAt: "1552417858573",
-    houseId: "37ac0827-a5c3-4fbd-a66a-d133277fc6f6",
+    groupId: "37ac0827-a5c3-4fbd-a66a-d133277fc6f6",
     payerId: "e279f8c8-0a4a-465d-a038-f06a98d78595",
     payer: {
       id: "e279f8c8-0a4a-465d-a038-f06a98d78595",
@@ -109,7 +109,7 @@ export const TEST_COSTS = [
     equalSplit: true,
     category: "food",
     createdAt: "1552400365503",
-    houseId: "37ac0827-a5c3-4fbd-a66a-d133277fc6f6",
+    groupId: "37ac0827-a5c3-4fbd-a66a-d133277fc6f6",
     payerId: "25e1809c-33ae-424b-8f98-4678e29e6899",
     payer: {
       id: "25e1809c-33ae-424b-8f98-4678e29e6899",
@@ -128,7 +128,7 @@ export const TEST_COSTS = [
     equalSplit: false,
     category: "food",
     createdAt: "1552337157151",
-    houseId: "37ac0827-a5c3-4fbd-a66a-d133277fc6f6",
+    groupId: "37ac0827-a5c3-4fbd-a66a-d133277fc6f6",
     payerId: "b2e2b2c4-6fbe-4257-9f98-f24116123361",
     payer: {
       id: "b2e2b2c4-6fbe-4257-9f98-f24116123361",

@@ -5,19 +5,19 @@ import useAppContext from "../lib/hooks/useAppState"
 import { Router } from "@reach/router"
 import Settings from "../pages/Settings"
 import NotFound from "../pages/NotFound"
-import NewHouse from "../pages/NewHouse"
+import NewGroup from "../pages/NewGroup"
 
-const CheckHouse: FC = ({ children }) => {
+const CheckGroup: FC = ({ children }) => {
   const { user } = useAppContext()
-  return user.houseId ? (
+  return user.groupId ? (
     <Fragment>{children}</Fragment>
   ) : (
     <Router>
-      <NewHouse path="/" />
+      <NewGroup path="/" />
       <Settings path="/settings" />
       <NotFound default={true} />
     </Router>
   )
 }
 
-export default CheckHouse
+export default CheckGroup

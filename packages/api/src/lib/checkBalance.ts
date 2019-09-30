@@ -5,7 +5,7 @@ import { createDbConnection } from "../db"
 import { Cost } from "../modules/cost/cost.entity"
 import { User } from "../modules/user/user.entity"
 
-let userList: { [key: string]: { name: string; balance: number } } = {}
+const userList: { [key: string]: { name: string; balance: number } } = {}
 
 @Service()
 class CheckBalance {

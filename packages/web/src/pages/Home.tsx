@@ -1,7 +1,8 @@
 import React, { FC } from "react"
 import { RouteComponentProps, navigate } from "@reach/router"
 import { media } from "../application/theme"
-
+import GooglePlay from "../assets/images/google-play-badge.png"
+import AppStore from "../assets/images/app-store-badge.png"
 import { TEST_HOUSE, TEST_COSTS } from "../lib/tests/data"
 
 import GroupBalance from "../components/GroupBalance"
@@ -17,11 +18,7 @@ const Home: FC<RouteComponentProps> = () => {
       <StyledTopbar>
         <Logo />
         <Center>
-          <Button
-            variant="text"
-            color="tertiary"
-            onClick={() => navigate("/login")}
-          >
+          <Button variant="text" onClick={() => navigate("/login")}>
             Login
           </Button>
           <Display size="md">
@@ -30,10 +27,30 @@ const Home: FC<RouteComponentProps> = () => {
         </Center>
       </StyledTopbar>
       <StyledHero>
-        <StyledHeroTitle>Keep track of your costs</StyledHeroTitle>
-        <StyledHeroSubTitle>We’ll handle the maths</StyledHeroSubTitle>
+        <div>
+          <StyledHeroTitle>Keep track of your costs</StyledHeroTitle>
+          <StyledHeroSubTitle>We’ll handle the maths</StyledHeroSubTitle>
+          <StyledLinks>
+            <a
+              href="https://apps.apple.com/us/app/split-cost-tracker/id1469049942?ls=1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <StyledBadge src={AppStore} />
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=co.noquarter.splitapp"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <StyledBadge src={GooglePlay} />
+            </a>
+          </StyledLinks>
+        </div>
         <Display size="md" hide={true}>
-          <Button onClick={() => navigate("/register")}>Sign up free</Button>
+          <StyledSignUp>
+            <Button onClick={() => navigate("/register")}>Sign up free</Button>
+          </StyledSignUp>
         </Display>
       </StyledHero>
       <StyledDemo>
@@ -92,6 +109,10 @@ const StyledDemo = styled.div`
   padding: ${p => p.theme.paddingM};
 `
 
+const StyledSignUp = styled.div`
+  margin-top: ${p => p.theme.paddingL};
+`
+
 const StyledBalance = styled.div`
   width: 100%;
 
@@ -120,4 +141,13 @@ const StyledCosts = styled.div`
   ${media.greaterThan("md")`
     width: 60%;
   `}
+`
+
+const StyledLinks = styled.div`
+  display: flex;
+`
+
+const StyledBadge = styled.img`
+  width: 130px;
+  margin-right: ${p => p.theme.paddingL};
 `

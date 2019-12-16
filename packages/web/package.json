@@ -30,7 +30,7 @@
     "@graphql-codegen/typescript-operations": "1.9.1",
     "@graphql-codegen/typescript-react-apollo": "1.9.1",
     "@noquarter/hooks": "^1.1.6",
-    "@noquarter/ui": "^2.0.8",
+    "@noquarter/ui": "^3.0.1",
     "@noquarter/utils": "^1.0.5",
     "@reach/router": "^1.2.1",
     "apollo-boost": "^0.4.4",

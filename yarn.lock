@@ -2208,12 +2208,11 @@
   resolved "https://registry.yarnpkg.com/@noquarter/hooks/-/hooks-1.1.6.tgz#583ac61076c9d335032db5518a2b0eb2b2f19b0e"
   integrity sha512-FXFFH8JMhVFIHqy4tfWghJmn11z90qVFjk2uz6DCLeBnEbt6nAKHf5jixSkwLXJqlhTg2y6hB1cY1wM5EYxOtg==
 
-"@noquarter/ui@^2.0.8":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@noquarter/ui/-/ui-2.0.8.tgz#cecb1b6eedfeb8a638ca5590e9226d31e31e6e26"
-  integrity sha512-yMEQAIVrrjGmf+IA7662esyYFvMQ77M9yCUA/52ugTOxsf3eVRJc1SBvVSr0tmetOrr/gPiVovxntx0bk0YSnw==
+"@noquarter/ui@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@noquarter/ui/-/ui-3.0.1.tgz#e82c9d07c055082ed51a0677f5fe9f6bf21bbd90"
+  integrity sha512-aYM7/xEnKnf/BeNDvYnhl2t5Xi52PIvW3WV3STSgqsIn8oaL5YTFWgXqk95WFkJP/kbbVrbRVH9JWD9DpPhj1w==
   dependencies:
-    "@noquarter/hooks" "^1.1.6"
     polished "^3.3.2"
     styled-components "^5.0.0-beta.2"
 

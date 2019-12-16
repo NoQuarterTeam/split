@@ -51,7 +51,7 @@
     "reflect-metadata": "0.1.13",
     "type-graphql": "0.17.5",
     "typedi": "0.8.0",
-    "typeorm": "0.2.20"
+    "typeorm": "0.2.21"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",

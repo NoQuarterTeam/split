@@ -62,7 +62,7 @@
     "@types/express-session": "1.15.16",
     "@types/faker": "4.1.9",
     "@types/ioredis": "4.14.3",
-    "@types/jest": "24.0.25",
+    "@types/jest": "24.9.0",
     "@types/jsonwebtoken": "8.3.6",
     "@types/morgan": "1.7.37",
     "@types/node": "11.15.4",

@@ -53,7 +53,7 @@
   "devDependencies": {
     "@testing-library/react": "9.4.0",
     "@types/graphql": "14.2.3",
-    "@types/jest": "24.9.0",
+    "@types/jest": "24.9.1",
     "@types/lodash.throttle": "4.1.6",
     "@types/node": "11.15.4",
     "@types/reach__router": "1.2.6",

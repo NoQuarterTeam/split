@@ -2596,7 +2596,16 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@sendgrid/client@6.5.1", "@sendgrid/client@^6.5.1":
+"@sendgrid/client@6.5.2":
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/@sendgrid/client/-/client-6.5.2.tgz#38db6182e030fcd2984683157069108065cc5db7"
+  integrity sha512-P3NLYffFoJXaOzKcc2Ag0KGFxyuJliLKx8W3JQbv94ATu2gfmcePWGz8qPR+qbA7zyl2AIocU4y+Kbdl8sUs3g==
+  dependencies:
+    "@sendgrid/helpers" "^6.5.1"
+    "@types/request" "^2.48.4"
+    request "^2.88.0"
+
+"@sendgrid/client@^6.5.1":
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/@sendgrid/client/-/client-6.5.1.tgz#2f777519a5355f70538bf29917bfc4306ef043a2"
   integrity sha512-OooZXSy8wWcUI5ppz7ugddfNdZC66baTHYF1Yz57O64cTjpfhw60+mNmPB0ISKxBchqnHcMiVNZ1SL70eAItlg==
@@ -2742,6 +2751,11 @@
   integrity sha512-oKj9X8bxBF7OyAsCPGg2hu9msQPM/WwIRJfUHd0xzmKDMYOBepzbWdIuQDoX1xyvDskdjbW2Io7chbxqARae7A==
   dependencies:
     "@types/ioredis" "*"
+
+"@types/caseless@*":
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/@types/caseless/-/caseless-0.12.2.tgz#f65d3d6389e01eeb458bd54dc8f52b95a9463bc8"
+  integrity sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
@@ -3149,6 +3163,16 @@
   dependencies:
     "@types/node" "*"
 
+"@types/request@^2.48.4":
+  version "2.48.4"
+  resolved "https://registry.yarnpkg.com/@types/request/-/request-2.48.4.tgz#df3d43d7b9ed3550feaa1286c6eabf0738e6cf7e"
+  integrity sha512-W1t1MTKYR8PxICH+A4HgEIPuAC3sbljoEVfyZbeFJJDbr30guDspJri2XOaM2E+Un7ZjrihaDi7cf6fPa2tbgw==
+  dependencies:
+    "@types/caseless" "*"
+    "@types/node" "*"
+    "@types/tough-cookie" "*"
+    form-data "^2.5.0"
+
 "@types/retry@^0.12.0":
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/@types/retry/-/retry-0.12.0.tgz#2b35eccfcee7d38cd72ad99232fbd58bffb3c84d"
@@ -3206,6 +3230,11 @@
   dependencies:
     "@types/react-dom" "*"
     "@types/testing-library__dom" "*"
+
+"@types/tough-cookie@*":
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-2.3.6.tgz#c880579e087d7a0db13777ff8af689f4ffc7b0d5"
+  integrity sha512-wHNBMnkoEBiRAd3s8KTKwIuO9biFtTf0LehITzBhSco+HQI0xkXZbLOD55SW3Aqw3oUkHstkm5SPv58yaAdFPQ==
 
 "@types/valid-url@1.0.2":
   version "1.0.2"

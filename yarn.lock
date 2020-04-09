@@ -2736,10 +2736,10 @@
     "@types/connect" "*"
     "@types/node" "*"
 
-"@types/bull@3.12.1":
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.12.1.tgz#dcf1ac40c4314a3dfa1a4a12662ce7201b2e4efa"
-  integrity sha512-mn1xmqKBNxllUGuOSBDOvsRpLHPDTSOsGQiHTv6t1gvGtIc/L1IFsN3YTmwf3AZenKzUcBQDGFLrCKt+abhrvQ==
+"@types/bull@3.12.2":
+  version "3.12.2"
+  resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.12.2.tgz#544a9c345531eabb8a961615297746cfea95b18b"
+  integrity sha512-OmAW/G0Fj+ySE/2xo1nJOzpR2XUKIym0Tzuh4rQGL/Jf6xiwafdkDe3lop6RmpKTZ+GrGi1Cz6zLtX2L8xmsOA==
   dependencies:
     "@types/ioredis" "*"
 
@@ -3145,10 +3145,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@16.9.33":
-  version "16.9.33"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.33.tgz#a5274520f0d28cbbb73c8652ddd48646fd4bcae5"
-  integrity sha512-ovgoy7p9999HDzwv8Sewhl8GJjn/r0GRsFrM9UMwp1uodh0kQ0pwIHLQ6LNfqGSyjNzJ8II/HIg0BL7Yn/B9yA==
+"@types/react@16.9.34":
+  version "16.9.34"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.34.tgz#f7d5e331c468f53affed17a8a4d488cd44ea9349"
+  integrity sha512-8AJlYMOfPe1KGLKyHpflCg5z46n0b5DbRfqDksxBLBTUpB75ypDBAO9eCUcjNwE6LCUslwTz00yyG/X9gaVtow==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"

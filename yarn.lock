@@ -12032,10 +12032,12 @@ react-dropzone@^10.0.5:
     file-selector "^0.1.12"
     prop-types "^15.7.2"
 
-react-error-boundary@^1.2.3:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-1.2.5.tgz#a362cb799d2e58ff8f114f7c4bc25677ce4e4149"
-  integrity sha512-5CPSeLJA2igJNppAgFRwnTL9aK3ojenk65enNzhVyoxYNbHpIJXnChUO7+4vPhkncRA9wvQMXq6Azp2XeXd+iQ==
+react-error-boundary@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-2.0.0.tgz#d3b0746dec6eded0b1a013e4ba4ac43fd635c58e"
+  integrity sha512-2TVZuBOmKVFpIwdD1eeNp5i3Ogb0vVz9dF1TyTzrRdNrQOjwQgYtiilHpdjhuCvgMzfcmsmissoPG1htzanugQ==
+  dependencies:
+    "@babel/runtime" "^7.8.4"
 
 react-is@^16.12.0:
   version "16.13.0"

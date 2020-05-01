@@ -34,7 +34,7 @@
     "@sendgrid/mail": "6.5.5",
     "@slack/web-api": "5.8.1",
     "apollo-server-express": "2.12.0",
-    "aws-sdk": "2.650.0",
+    "aws-sdk": "2.667.0",
     "bcryptjs": "2.4.3",
     "bull": "3.13.0",
     "connect-redis": "4.0.4",

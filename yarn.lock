@@ -2780,10 +2780,10 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/connect-redis@0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@types/connect-redis/-/connect-redis-0.0.13.tgz#9237f7f57b79d9f6418993fd6f3b6ea923859079"
-  integrity sha512-bHo/UWrUPbWkn05D1YAMs31wG+0dMt6GYXjv8Vfu8kAxO6CfD4N6lmHv/sAkjzYVdXFhc5jck/kEYLBDPJ90iQ==
+"@types/connect-redis@0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@types/connect-redis/-/connect-redis-0.0.14.tgz#b4bc8e5510bdd9dfcc7b22bda527151f94cf52e5"
+  integrity sha512-snjiYYc1TUk4iJvwO41omcrZKBB0mdwMvl718m7zZj5Tz7qBqjTNS23KQdHF2QmJX/x40m1IH16R6GNLh2Et4Q==
   dependencies:
     "@types/express" "*"
     "@types/express-session" "*"
@@ -2892,10 +2892,10 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/faker@4.1.11":
-  version "4.1.11"
-  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-4.1.11.tgz#07911f1a39aeeaeec71d8efa0f93ef0eeafd3462"
-  integrity sha512-iL7khABWgMH53FDfQNYtbFDJXjM3G97KswtyVMUP9XBSt9c+33L1TsXI+mx+EgnoOcuSp12qZae6hLCxGcq7yg==
+"@types/faker@4.1.12":
+  version "4.1.12"
+  resolved "https://registry.yarnpkg.com/@types/faker/-/faker-4.1.12.tgz#065d37343677df1aa757c622650bd14666c42602"
+  integrity sha512-0MEyzJrLLs1WaOCx9ULK6FzdCSj2EuxdSP9kvuxxdBEGujZYUOZ4vkPXdgu3dhyg/pOdn7VCatelYX7k0YShlA==
 
 "@types/glob@^7.1.1":
   version "7.1.1"

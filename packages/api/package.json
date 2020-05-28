@@ -39,7 +39,7 @@
     "bull": "3.14.0",
     "connect-redis": "4.0.4",
     "dataloader": "1.4.0",
-    "dayjs": "1.8.27",
+    "dayjs": "1.8.28",
     "dotenv": "8.2.0",
     "express": "4.17.1",
     "express-session": "1.17.1",

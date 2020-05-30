@@ -61,7 +61,7 @@
     "@types/express-jwt": "0.0.42",
     "@types/express-session": "1.17.0",
     "@types/faker": "4.1.12",
-    "@types/ioredis": "4.16.2",
+    "@types/ioredis": "4.16.3",
     "@types/jest": "24.9.1",
     "@types/jsonwebtoken": "8.5.0",
     "@types/morgan": "1.9.0",

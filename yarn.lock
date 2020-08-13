@@ -4838,10 +4838,10 @@ builtins@^1.0.3:
   resolved "https://registry.yarnpkg.com/builtins/-/builtins-1.0.3.tgz#cb94faeb61c8696451db36534e1422f94f0aee88"
   integrity sha1-y5T662HIaWRR2zZTThQi+U8K7og=
 
-bull@3.17.0:
-  version "3.17.0"
-  resolved "https://registry.yarnpkg.com/bull/-/bull-3.17.0.tgz#fc9da5d1cf1c7f4b37591b70bd88209f52bc521c"
-  integrity sha512-7wzJoN0LjzgIwcv9SDiq+AT9R49xJAziSsrRkbEedunkgPklaug/PUOzo/qyytMlKNnHx6E597uxUuV0QgiPbw==
+bull@3.18.0:
+  version "3.18.0"
+  resolved "https://registry.yarnpkg.com/bull/-/bull-3.18.0.tgz#7d7730c8ab0975ea9ee4e74f6f85bd731c3526cb"
+  integrity sha512-nE/BKlg1dnJ/AcOy5D1nzthcmpAKqpUVXzQ43mJfnVC8ZM7mi4ZzP3spN7745UuikzmGGsbTe9px2TbEKhR+DQ==
   dependencies:
     cron-parser "^2.13.0"
     debuglog "^1.0.0"

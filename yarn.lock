@@ -2937,10 +2937,10 @@
     "@types/connect" "*"
     "@types/node" "*"
 
-"@types/bull@3.14.1":
-  version "3.14.1"
-  resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.14.1.tgz#043ce8569d9e9d2b9c7ed1534179507ad6dbeb99"
-  integrity sha512-p0qLVWGWvvAq5mqTw+5m4bWz56ydl7bQQsQgFG4lgPiKx2h6OeSDWsWUw8CGan+ISXwExCSLnlu796Lq0hgNQg==
+"@types/bull@3.14.2":
+  version "3.14.2"
+  resolved "https://registry.yarnpkg.com/@types/bull/-/bull-3.14.2.tgz#18c1d9a9dd079ca63971b4d0fac16fc9f5777491"
+  integrity sha512-+g3Qha7ObdadnM4v/Sz9WDx8eKEaRL4usQmkeUEC25uAltFLioDbAaLnUggfWHONVzW2AxOgzS19ekMmx6zLzA==
   dependencies:
     "@types/ioredis" "*"
 
@@ -3050,6 +3050,16 @@
   version "4.17.7"
   resolved "https://registry.yarnpkg.com/@types/express/-/express-4.17.7.tgz#42045be6475636d9801369cd4418ef65cdb0dd59"
   integrity sha512-dCOT5lcmV/uC2J9k0rPafATeeyz+99xTt54ReX11/LObZgfzJqZNcW27zGhYyX+9iSEGXGt5qLPwRSvBZcLvtQ==
+  dependencies:
+    "@types/body-parser" "*"
+    "@types/express-serve-static-core" "*"
+    "@types/qs" "*"
+    "@types/serve-static" "*"
+
+"@types/express@4.17.8":
+  version "4.17.8"
+  resolved "https://registry.yarnpkg.com/@types/express/-/express-4.17.8.tgz#3df4293293317e61c60137d273a2e96cd8d5f27a"
+  integrity sha512-wLhcKh3PMlyA2cNAB9sjM1BntnhPMiM0JOBwPBqttjHev2428MLEB4AYVN+d8s2iyCVZac+o41Pflm/ZH5vLXQ==
   dependencies:
     "@types/body-parser" "*"
     "@types/express-serve-static-core" "*"
@@ -3262,10 +3272,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.7.5.tgz#e19436e7f8e9b4601005d73673b6dc4784ffcc2f"
   integrity sha512-9fq4jZVhPNW8r+UYKnxF1e2HkDWOWKM5bC2/7c9wPV835I0aOrVbS/Hw/pWPk2uKrNXQqg9Z959Kz+IYDd5p3w==
 
-"@types/node@11.15.20":
-  version "11.15.20"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.15.20.tgz#dacd63b282c1a0d40fa0ad216b7ca128afded614"
-  integrity sha512-DY2QwdrBqNlsxdMehwzUtSsWHgYYPLVCAuXvOcu3wkzYmchbRunQ7OEZFOrmFoBLfA1ysz2Ypr6vtNP9WQkUaQ==
+"@types/node@11.15.21":
+  version "11.15.21"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.15.21.tgz#6cdf7656b4b0686b303572d3b37e84bab921de11"
+  integrity sha512-pYC/tp6UctD/laukjIoO48Owmf4OacwEKaDErnlarkatott0j3B5wp9q2M0zn/XgZUpebuFeKMX4UFf578/+Vw==
 
 "@types/node@^10.1.0":
   version "10.14.6"
@@ -3359,10 +3369,10 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@16.9.46":
-  version "16.9.46"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.46.tgz#f0326cd7adceda74148baa9bff6e918632f5069e"
-  integrity sha512-dbHzO3aAq1lB3jRQuNpuZ/mnu+CdD3H0WVaaBQA8LTT3S33xhVBUj232T8M3tAhSWJs/D/UqORYUlJNl/8VQZg==
+"@types/react@16.9.49":
+  version "16.9.49"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.49.tgz#09db021cf8089aba0cdb12a49f8021a69cce4872"
+  integrity sha512-DtLFjSj0OYAdVLBbyjhuV9CdGVHCkHn2R+xr3XkBvK2rS1Y1tkc14XSGjYgm5Fjjr90AxH9tiSzc1pCFMGO06g==
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"

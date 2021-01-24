@@ -24,7 +24,7 @@
     }
   },
   "devDependencies": {
-    "husky": "3.1.0",
+    "husky": "4.3.8",
     "lerna": "3.22.1",
     "lint-staged": "9.5.0"
   }

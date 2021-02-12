@@ -43,7 +43,7 @@
     "polished": "^3.0.4",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "react-dropzone": "^10.0.5",
+    "react-dropzone": "^11.0.0",
     "react-error-boundary": "^1.2.3",
     "react-media": "^1.9.2",
     "styled-media-query": "^2.1.2",

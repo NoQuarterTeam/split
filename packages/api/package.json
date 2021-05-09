@@ -37,7 +37,7 @@
     "aws-sdk": "2.725.0",
     "bcryptjs": "2.4.3",
     "bull": "3.20.1",
-    "connect-redis": "4.0.4",
+    "connect-redis": "5.2.0",
     "dataloader": "1.4.0",
     "dayjs": "1.10.4",
     "dotenv": "8.2.0",

@@ -10383,10 +10383,10 @@ loglevel@^1.6.7:
   resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.6.7.tgz#b3e034233188c68b889f5b862415306f565e2c56"
   integrity sha512-cY2eLFrQSAfVPhCgH1s7JI73tMbg9YC3v3+ZHVW67sBS7UxWzNEk/ZBbSfLykBWHp33dqqtOv82gjhKEi81T/A==
 
-logrocket-react@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/logrocket-react/-/logrocket-react-3.0.0.tgz#b0e1bfa4de25ae89c5da890fbb1c18276a1ac82f"
-  integrity sha512-vjx2MkFfvKDVilGuHBUuBPyr2en3tvd7bd9rozwEeYELk/DNL5z7Aqoqaz7DLlIhJndOG7/wIv873OdupySiRQ==
+logrocket-react@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/logrocket-react/-/logrocket-react-4.0.1.tgz#e8e5405ee5f47f2c25b511931e360713a623f927"
+  integrity sha512-TbQELEaDQspKHH0XylAeVZpsHoAcz+sIEG/enUQiH+LoYLW7cMK000XIS6W3Zz14zS0V2Db+KyKi8ivBpGYkzg==
 
 logrocket@^1.0.0:
   version "1.0.0"

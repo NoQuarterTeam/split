@@ -32,7 +32,7 @@
   "dependencies": {
     "@sendgrid/client": "6.5.5",
     "@sendgrid/mail": "6.5.5",
-    "@slack/web-api": "5.15.0",
+    "@slack/web-api": "6.2.4",
     "apollo-server-express": "2.25.2",
     "aws-sdk": "2.725.0",
     "bcryptjs": "2.4.3",

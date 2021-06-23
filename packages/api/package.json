@@ -30,7 +30,7 @@
     ]
   },
   "dependencies": {
-    "@sendgrid/client": "6.5.5",
+    "@sendgrid/client": "7.4.3",
     "@sendgrid/mail": "6.5.5",
     "@slack/web-api": "5.15.0",
     "apollo-server-express": "2.25.2",

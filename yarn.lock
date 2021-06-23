@@ -4925,15 +4925,15 @@ builtins@^1.0.3:
   resolved "https://registry.yarnpkg.com/builtins/-/builtins-1.0.3.tgz#cb94faeb61c8696451db36534e1422f94f0aee88"
   integrity sha1-y5T662HIaWRR2zZTThQi+U8K7og=
 
-bull@3.22.7:
-  version "3.22.7"
-  resolved "https://registry.yarnpkg.com/bull/-/bull-3.22.7.tgz#be17398edad4e17e54db9b9c7388d92381f6ea1d"
-  integrity sha512-hrpfs1InzliuevKUOxAfGVctViic8uKP5zOkFAeNI4yVhlR5Ai3pSXFBiC78p2dl/t2AlC504pOqYJw3W9eSSA==
+bull@3.22.9:
+  version "3.22.9"
+  resolved "https://registry.yarnpkg.com/bull/-/bull-3.22.9.tgz#9d86493e1bb4afeb7e6e259c45141185bd78111d"
+  integrity sha512-waVaXkjS1+aPxZpmqcKKQX1KeWx7uZXcg9bhe+y5xx/3k8Xu0vqUL1FxMUfp0f3O4KSAHk1EDlD5DGXxBlFDFQ==
   dependencies:
     cron-parser "^2.13.0"
     debuglog "^1.0.0"
     get-port "^5.1.1"
-    ioredis "^4.22.0"
+    ioredis "^4.27.0"
     lodash "^4.17.21"
     p-timeout "^3.2.0"
     promise.prototype.finally "^3.1.2"
@@ -8791,13 +8791,13 @@ ioredis@4.27.5:
     redis-parser "^3.0.0"
     standard-as-callback "^2.1.0"
 
-ioredis@^4.22.0:
-  version "4.22.0"
-  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.22.0.tgz#a2e18a29300ffb759670d7ed7023fcf6592031a2"
-  integrity sha512-mtC+jNFMPRxReWx0HodDbcwj34Gj5pK/P4+aE6Nh0pdqgtZKvxUh4z2lVtLjqnRIvMhKaBnIgMYFR8qH/xtttA==
+ioredis@^4.27.0:
+  version "4.27.6"
+  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.27.6.tgz#a53d427d3fe75fbd10ed7ad150ce00559df8dcf8"
+  integrity sha512-6W3ZHMbpCa8ByMyC1LJGOi7P2WiOKP9B3resoZOVLDhi+6dDBOW+KNsRq3yI36Hmnb2sifCxHX+YSarTeXh48A==
   dependencies:
     cluster-key-slot "^1.1.0"
-    debug "^4.1.1"
+    debug "^4.3.1"
     denque "^1.1.0"
     lodash.defaults "^4.2.0"
     lodash.flatten "^4.4.0"
@@ -8805,7 +8805,7 @@ ioredis@^4.22.0:
     redis-commands "1.7.0"
     redis-errors "^1.2.0"
     redis-parser "^3.0.0"
-    standard-as-callback "^2.0.1"
+    standard-as-callback "^2.1.0"
 
 ip@^1.1.5:
   version "1.1.5"
@@ -14073,11 +14073,6 @@ stack-utils@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/stack-utils/-/stack-utils-1.0.2.tgz#33eba3897788558bebfc2db059dc158ec36cebb8"
   integrity sha512-MTX+MeG5U994cazkjd/9KNAapsHnibjMLnfXodlkXw76JEea0UiNzrqidzo1emMwk7w5Qhc9jd4Bn9TBb1MFwA==
-
-standard-as-callback@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.0.1.tgz#ed8bb25648e15831759b6023bdb87e6b60b38126"
-  integrity sha512-NQOxSeB8gOI5WjSaxjBgog2QFw55FV8TkS6Y07BiB3VJ8xNTvUYm0wl0s8ObgQ5NhdpnNfigMIKjgPESzgr4tg==
 
 standard-as-callback@^2.1.0:
   version "2.1.0"

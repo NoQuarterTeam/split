@@ -2861,7 +2861,7 @@
   dependencies:
     any-observable "^0.3.0"
 
-"@sendgrid/client@6.5.5", "@sendgrid/client@^6.5.5":
+"@sendgrid/client@6.5.5":
   version "6.5.5"
   resolved "https://registry.yarnpkg.com/@sendgrid/client/-/client-6.5.5.tgz#66cf569445d98a795998a894bb432a9939ead7c3"
   integrity sha512-Nbfgo94gbWSL8PIgJfuHoifyOJJepvV8NQkkglctAEfb1hyozKhrzE6v1kPG/z4j0RodaTtXD5LJj/t0q/VhLA==
@@ -2869,6 +2869,14 @@
     "@sendgrid/helpers" "^6.5.5"
     "@types/request" "^2.48.4"
     request "^2.88.0"
+
+"@sendgrid/client@^7.4.3":
+  version "7.4.3"
+  resolved "https://registry.yarnpkg.com/@sendgrid/client/-/client-7.4.3.tgz#bc71aae05de2cd9aa607f4eb1d886711d09f9595"
+  integrity sha512-tTaHx893w5iqG0sVtUnMyRchuwYF95k4UOkmov1MouMIeMUbNvbalITo7cG7YSXUTY9rT2t4eBY6HcEBCVeqfg==
+  dependencies:
+    "@sendgrid/helpers" "^7.4.3"
+    axios "^0.21.1"
 
 "@sendgrid/helpers@^6.5.5":
   version "6.5.5"
@@ -2878,13 +2886,20 @@
     chalk "^2.0.1"
     deepmerge "^4.2.2"
 
-"@sendgrid/mail@6.5.5":
-  version "6.5.5"
-  resolved "https://registry.yarnpkg.com/@sendgrid/mail/-/mail-6.5.5.tgz#45bef4e4878144304b6688867baa13179deecc4b"
-  integrity sha512-DSu8oTPI0BJFH60jMOG9gM+oeNMoRALFmdAYg2PIXpL+Zbxd7L2GzQZtmf1jLy/8UBImkbB3D74TjiOBiLRK1w==
+"@sendgrid/helpers@^7.4.3":
+  version "7.4.3"
+  resolved "https://registry.yarnpkg.com/@sendgrid/helpers/-/helpers-7.4.3.tgz#231a4405266cfa291054df8b668fe3a4dc9387aa"
+  integrity sha512-Wt+68g1sVEM5UspJh34O/cxtv6BBbtAIk7U9B3PB2ySOtPs9e6hI1QkgYVwpNmkt7k2p86muUNyma/Aig25agg==
   dependencies:
-    "@sendgrid/client" "^6.5.5"
-    "@sendgrid/helpers" "^6.5.5"
+    deepmerge "^4.2.2"
+
+"@sendgrid/mail@7.4.5":
+  version "7.4.5"
+  resolved "https://registry.yarnpkg.com/@sendgrid/mail/-/mail-7.4.5.tgz#22cef36e793134833b36aff5d3f4f53e8f81dd52"
+  integrity sha512-adXMvrTUOlYr7+UTigZRGSYR9vheBv1y4fF2mugn29NBdQMfcQPGLQ5vIHgSAfcboBFCagZdamZqM5FeSGU0Hw==
+  dependencies:
+    "@sendgrid/client" "^7.4.3"
+    "@sendgrid/helpers" "^7.4.3"
 
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.2"

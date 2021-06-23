@@ -63,7 +63,7 @@
     "@types/faker": "4.1.12",
     "@types/ioredis": "4.26.4",
     "@types/jest": "24.9.1",
-    "@types/jsonwebtoken": "8.5.1",
+    "@types/jsonwebtoken": "8.5.2",
     "@types/morgan": "1.9.2",
     "@types/node": "11.15.44",
     "@types/nodemailer": "6.4.2",
